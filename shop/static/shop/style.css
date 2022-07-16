@@ -1,0 +1,30 @@
+*{
+    font-family: 'Inter', sans-serif;
+}
+
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.logo{
+    width: 150px
+}
+
+.icon{
+
+}
+
+.link-nav{
+    color: black;
+    text-decoration: None;
+    font-size: 18;
+    font-weight: 200;
+}
+
+.icon-nav{
+    width: 25px;
+    height: 25px;
+}

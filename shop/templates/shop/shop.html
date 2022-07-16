@@ -1,0 +1,37 @@
+{% extends "shop/base.html" %}
+
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'shop/shop_style.css' %}">
+
+{% for item in items %}
+    <div class="item">
+        <p>{{ item.title }}</p>
+        <button id="button{{forloop.counter}}" onclick="removeFromCart('{{forloop.counter}}')">Add to Cart</button>
+    </div>
+{% endfor %}
+
+
+<script>
+    function addToCart(index){
+        buttonId = 'button' + index;
+        button = document.getElementById(buttonId);
+        button.innerHTML = "Add to cart";
+        str = "javascript: removeFromCart(" + index + ");";
+        button.setAttribute( "onClick", str );
+    }
+
+    function removeFromCart(index){
+        buttonId = 'button' + index;
+        button = document.getElementById(buttonId);
+        button.innerHTML = "Remove from Cart";
+        str = "javascript: addToCart(" + index + ");";
+        button.setAttribute( "onClick", str );
+    }
+
+
+</script>
+
+
+{% endblock %}

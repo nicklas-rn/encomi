@@ -1,0 +1,9 @@
+.item{
+    border: 1px green solid;
+    color: blue;
+
+}
+
+.item p{
+    font-family: 'Inria Serif', serif;
+}

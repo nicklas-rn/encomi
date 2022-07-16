@@ -1,0 +1,33 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'shop/style.css' %}">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>Title</title>
+</head>
+
+<body>
+
+
+<nav>
+    <a class="link-nav" href="#">Become a seller</a>
+    <img class="logo" src="/media/logos/logo.png">
+    <img class="icon icon-nav" src="/media/icons/cart.svg">
+</nav>
+
+
+{% block content %}
+
+{% endblock %}
+
+</body>
+
+
+
+
+</html>
