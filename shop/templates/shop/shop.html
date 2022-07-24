@@ -7,6 +7,7 @@
 
 {% for item in items %}
     <div class="item">
+        <p>Test</p>
         <p>{{ item.title }}</p>
         <button id="button{{forloop.counter}}" onclick="removeFromCart('{{forloop.counter}}')">Add to Cart</button>
     </div>
