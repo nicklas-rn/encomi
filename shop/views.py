@@ -19,6 +19,13 @@ def shop(request):
 
     items = Item.objects.all()
 
+    """for item in items:
+        for style_group in item.style_groups.all():
+            print(style_group.type)
+            for style in style_group.styles.all():
+                print(style.title)
+    """
+
     context = {
         'items': items,
     }
