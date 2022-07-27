@@ -15,9 +15,9 @@
     function addCookieItem(){
         console.log('Adding cookies')
 
-		var cart = JSON.parse(getCookie('cart'))
         var itemId = {{item.id}}
         var cartIndex =  Object.keys(cart).length + 1
+        console.log(cartIndex)
 
         // Create Dict for new item
         itemDict = {
@@ -33,25 +33,23 @@
         console.log(itemDict)
 
         // Check if item already exists in cart and either increase quantity of that item or set quantity = 1
-        if(Object.keys(cart).length == 0){
-            itemDict['quantity'] = 1
-        }
         for(let k in cart){
+            console.log('checking item')
             if(cart[k]['itemId'] == itemId){
                 currentItemDict = cart[k]
                 currentItemQuantity = cart[k]['quantity']
                 itemDict['quantity'] = currentItemQuantity
                 if(JSON.stringify(currentItemDict) === JSON.stringify(itemDict)){
-                    delete cart[k]
+                    console.log('fit found')
+                    cartIndex = k
+                    /*delete cart[k]*/
                     itemDict['quantity'] = currentItemQuantity + 1
                 }
-                else{
-                    itemDict['quantity'] = 1
-                }
             }
-            else{
-                itemDict['quantity'] = 1
-            }
+        }
+
+        if(!itemDict.hasOwnProperty('quantity')){
+            itemDict['quantity'] = 1
         }
 
         cart[cartIndex] = itemDict

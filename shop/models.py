@@ -12,6 +12,7 @@ class Image(models.Model):
 class Item(models.Model):
     title = models.CharField(max_length=30)
     keywords = models.CharField(blank=True, null=True, max_length=120)
+    price = models.FloatField(blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -27,7 +28,7 @@ class StyleGroup(models.Model):
 
 class Style(models.Model):
     title = models.CharField(max_length=30)
-    price = models.FloatField()
+    price = models.FloatField(null=True, blank=True)
     style_group = models.ForeignKey('StyleGroup', null=True, on_delete=models.CASCADE)
 
     def __str__(self):
