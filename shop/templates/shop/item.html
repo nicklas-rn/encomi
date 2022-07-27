@@ -17,36 +17,44 @@
 
 		var cart = JSON.parse(getCookie('cart'))
         var itemId = {{item.id}}
+        var cartIndex =  Object.keys(cart).length + 1
 
         // Create Dict for new item
-        itemDict = {}
+        itemDict = {
+            itemId: itemId,
+            style_groups: {},
+        }
         itemDict['style_groups'] = {}
 
-        {% for style_group in item.style_groups.all %}
-        itemDict['style_groups']['{{style_group.type}}'] = '{{style_group.styles.first}}'
+        {% for style_group in item.stylegroup_set.all %}
+        itemDict['style_groups']['{{style_group.type}}'] = '{{style_group.style_set.first}}'
         {% endfor %}
 
         console.log(itemDict)
 
-        // Check if item already exists in cart
-        if(cart.hasOwnProperty(itemId)){
-            currentItemDict = cart[itemId]
-            currentItemQuantity = cart[itemId]['quantity']
-            delete cart[itemId]['quantity']
-            if(JSON.stringify(currentItemDict) === JSON.stringify(itemDict)){
-                delete cart[itemId]
-                itemDict['quantity'] = currentItemQuantity + 1
+        // Check if item already exists in cart and either increase quantity of that item or set quantity = 1
+        if(Object.keys(cart).length == 0){
+            itemDict['quantity'] = 1
+        }
+        for(let k in cart){
+            if(cart[k]['itemId'] == itemId){
+                currentItemDict = cart[k]
+                currentItemQuantity = cart[k]['quantity']
+                itemDict['quantity'] = currentItemQuantity
+                if(JSON.stringify(currentItemDict) === JSON.stringify(itemDict)){
+                    delete cart[k]
+                    itemDict['quantity'] = currentItemQuantity + 1
+                }
+                else{
+                    itemDict['quantity'] = 1
+                }
             }
             else{
                 itemDict['quantity'] = 1
             }
         }
 
-        else{
-            itemDict['quantity'] = 1
-        }
-
-        cart[itemId] = itemDict
+        cart[cartIndex] = itemDict
 
         console.log('CART:', cart)
         document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
