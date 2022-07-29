@@ -10,8 +10,8 @@ class Image(models.Model):
 
 
 class Item(models.Model):
-    title = models.CharField(max_length=30)
-    keywords = models.CharField(blank=True, null=True, max_length=120)
+    title = models.CharField(max_length=1200)
+    keywords = models.CharField(blank=True, null=True, max_length=1200)
     price = models.FloatField(blank=True, null=True)
 
     def __str__(self):

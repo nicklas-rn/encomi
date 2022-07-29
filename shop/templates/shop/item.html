@@ -12,7 +12,7 @@
     </div>
 
 <script>
-    function addCookieItem(){
+    async function addCookieItem(){
         console.log('Adding cookies')
 
         var itemId = {{item.id}}
@@ -57,7 +57,12 @@
         console.log('CART:', cart)
         document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
 
-        /*location.reload()*/
+        getCartCount()
+
+        openCartPreview()
+        let delayres = await delay(2000)
+        closeCartPreview()
+
     }
 
 </script>

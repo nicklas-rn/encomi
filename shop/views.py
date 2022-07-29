@@ -1,22 +1,29 @@
 import json
 from django.shortcuts import render
 from .models import Item
+from .utils import cookieCart
 
 # Create your views here.
 
 
 def home(request):
 
+    cart = cookieCart(request)
+
     items = Item.objects.all()
 
     context = {
         'items': items,
+        'cartItems': cart['items'],
+        'cartTotal': cart['total'],
     }
 
     return render(request, 'shop/home.html', context)
 
 
 def shop(request):
+
+    cart = cookieCart(request)
 
     items = Item.objects.all()
 
@@ -29,6 +36,8 @@ def shop(request):
 
     context = {
         'items': items,
+        'cartItems': cart['items'],
+        'cartTotal': cart['total'],
     }
 
     return render(request, 'shop/shop.html', context)
@@ -36,10 +45,14 @@ def shop(request):
 
 def item(request, id):
 
+    cart = cookieCart(request)
+
     item = Item.objects.get(id=id)
 
     context = {
         'item': item,
+        'cartItems': cart['items'],
+        'cartTotal': cart['total'],
     }
 
     return render(request, 'shop/item.html', context)
@@ -59,41 +72,3 @@ def cart(request):
 
 
 
-def cookieCart(request):
-    # Create empty cart for now for non-logged in user
-    try:
-        cart = json.loads(request.COOKIES['cart'])
-
-    except:
-        cart = {}
-        print('CART:', cart)
-
-    items = []
-
-    print(cart)
-
-    total = 0
-
-    for k in cart:
-        item_object = Item.objects.get(id=cart[k]['itemId'])
-        price = item_object.price
-        for l in cart[k]['style_groups']:
-            if item_object.stylegroup_set.get(type=l).style_set.get(title=cart[k]['style_groups'][l]).price:
-                price = item_object.stylegroup_set.get(type=l).style_set.get(title=cart[k]['style_groups'][l]).price
-
-        print(price)
-
-        item_dict = {
-            'object': item_object,
-            'style_groups': cart[k]['style_groups'],
-            'quantity': cart[k]['quantity'],
-            'price': price,
-        }
-        items.append(item_dict)
-
-        total += item_dict['quantity'] * price
-
-
-    print(items, total)
-
-    return {'items': items}
