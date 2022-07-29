@@ -1,33 +1,48 @@
-.item p{
-    font-family: 'Inria Serif', serif;
-}
-
 .navigation{
     width: 230px;
     position: fixed;
-    margin-top: 80px;
 }
 
-.navigation-links {
+.category-links {
     padding-left: 0px;
-    overflow: scroll;
+
     max-height: calc(100vh - 200px);
+    border-right: 2px solid lightgrey;
+    z-index: 1;
 }
 
-.navigation-link{
+.category-link{
     list-style-type: none;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    width: 228px;
+    z-index: 3;
+    border-radius: 4px 0px 0px 4px;
+
 }
 
 .navigation a{
+    font-family: 'Inria Serif', serif;
     text-decoration: none;
     color: black;
+    font-size: 16;
+    width: 213px;
+    padding-left: 15px;
+}
+
+.category-link-selected a{
+    border-right: 2px solid black;
+    font-weight: 600;
+}
+
+.category-link:hover{
+    background-color: #F5F5F5;
 }
 
 #form{
     background-color: #f5f5f5;
     border: 1px #f5f5f5 solid;
-    width: 210px;
+    width: 230px;
     height: 40px;
     border-radius: 4px;
     display: flex;
@@ -42,7 +57,7 @@
     font: 16px;
     height: 100%;
     width: 100%;
-    padding: 6px 10px;
+    padding: 0px 10px 0px 0px;;
 }
 
 : :placeholder {
@@ -97,28 +112,45 @@
 
 .items {
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: 33.3% 33.3% 33.3%;
+    grid-column-gap: 25px;
     justify-content: left;
     align-content: space-between;
-    width: 95%;
-    margin-right: 5%
+    width: calc(100% - 60px);
+    margin-right: 0px;
 }
 
 .item {
-    padding: 0px 12px 35px 12px;
+    width: 100%;
+    padding: 0px 10px 35px 10px;
+    position: relative;
+    cursor: pointer;
 }
 
-.navigation-links a {
+.item-image{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.item-title{
+    font-family: 'Inria Serif', serif;
+    width: 100%;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.item-price{
+    font-family: 'Inter', sans-serif;
+    width: 100%;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.category-links a {
   display: block;
   height: 100%;
 }
 
-/*Pointer navigation bar*/
-li a:hover {
-    background-color: #f5f5f5;
-    border-radius: 4px;
-    align-items: center;
-}
 
 /* width */
 ::-webkit-scrollbar {
@@ -127,11 +159,11 @@ li a:hover {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: white;
+  background: transparent;
 }
 
 /* Handle */
-.navigation ::-webkit-scrollbar-thumb {
+.category ::-webkit-scrollbar-thumb {
   background: #f5f5f5;
   border-radius: 4px;
 }
@@ -157,16 +189,15 @@ li a:hover {
 .dropdown-wrapper {
     display: flex;
     justify-content: flex-end;
-    height: 55px;
-    margin-top: 80px;
+    position: relative;
 }
 
 /* The dropdown container */
-.dropdown {
+/*.dropdown {
     width: 21%;
     float: right;
     overflow: hidden;
-}
+}*/
 
 /* Dropdown button */
 .dropdown .dropbtn {
@@ -183,6 +214,7 @@ li a:hover {
     display: flex;
     flex-direction: row;
     align-items: center;
+    whitespace: no-wrap;
 }
 
 /* Add a red background color to navbar links on hover */
@@ -219,4 +251,47 @@ li a:hover {
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
   display: block;
+}
+
+
+.button-dropdown{
+    width: 200px;
+    border: solid 1px black;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 16;
+    border-radius: 4px;
+}
+
+.image-dropdown{
+    width: 25px;
+    height: 25px;
+}
+
+.content-dropdown{
+    border: solid 1px black;
+    border-top: solid 1px white;
+    width: 198px;
+    padding: 0px 0px 5px 0px;
+    position: absolute;
+    z-index: 3;
+    background-color: white;
+    top: 37px;
+    display: None;
+    border-radius: 0px 0px 4px 4px;
+}
+
+.option-dropdown{
+    display: block;
+    border-top: 1px solid lightgrey;
+    padding: 7px 10px;
+}
+
+.option-dropdown:hover{
+    background-color: #f5f5f5;
 }

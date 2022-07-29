@@ -51,6 +51,19 @@
 			document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
 		}
 		console.log('Cart:', cart)
+
+
+        var search = JSON.parse(getCookie('search'))
+
+        if (search == undefined){
+            search = {}
+            search['category'] = 0
+            search['sort'] = 'Best'
+            search['keyword'] = ''
+            console.log('Search Created!', search)
+            document.cookie ='search=' + JSON.stringify(search) + ";domain=;path=/"
+        }
+
     </script>
 
 </head>
@@ -70,37 +83,15 @@
 </nav>
 
 <div id="cart-preview" onmouseleave="closeCartPreview()">
-    <a href="/cart"><div id="icon-edge-cart"></div></a>
-    <p id="title-cart-preview">Your Cart</p>
-    <div id="cartItems">
-        {% for cartItem in cartItems %}
-        <div class="cartItem">
-            <img class="image-cartItem" src="{{cartItem.object.image_set.first.image.url}}" alt="">
-            <div class="properties-cartItem">
-                <a class="text-cartItem title-cartItem text-link" href="/item/{{cartItem.object.id}}">{{cartItem.object.title|truncatechars:40}}</a>
-                <p class="text-cartItem description-cartItem">{% for style_group, style in cartItem.style_groups.items %}{{style}}{% endfor %}</p>
-                <p class="text-cartItem price-cartItem">{{cartItem.price|floatformat:2}}€</p>
-                <p class="text-cartItem quantity-cartItem">Quantity: {{cartItem.quantity}}</p>
-                <button></button>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-    <div id="infos-cart-preview">
-        <p id="subtotal-cart-preview">Subtotal</p>
-        <p id="subtotal-value-cart-preview">{{cartTotal|floatformat:2}}€</p>
-        <br>
-        <p id="delivery-cart-preview">Delivery Fee</p>
-        <p id="delivery-fee-cart-preview">4,80€</p>
-        <br>
-        <a id="button-cart-preview" href="/cart">Go to Bag</a>
-    </div>
+    {% include "shop/cart_preview.html" %}
 </div>
 
 
+<div id="main">
 {% block content %}
 
 {% endblock %}
+</div>
 
 </body>
 
@@ -113,8 +104,9 @@
         width: 300px;
         padding: 20px 20px 20px 20px;
         border: 1px solid black;
-        z-index: 5;
+        z-index: 15;
         display: None;
+        border-radius: 4px 0px 4px 4px;
     }
 
     #icon-edge-cart{
@@ -125,6 +117,7 @@
         border-bottom: 1px solid white;
         width: 45px;
         height: 45px;
+        border-radius: 4px 4px 0px 0px;
     }
 
     #title-cart-preview{
@@ -146,6 +139,7 @@
 
     .properties-cartItem{
         display: inline-block;
+        width: 200px;
     }
 
     .title-cartItem{
@@ -228,6 +222,21 @@
     getCartCount()
 
     function openCartPreview() {
+        let request = new XMLHttpRequest();
+        let method = 'GET';
+
+        let url = '/cart_preview';
+        request.open(method, url);
+        request.onload = function () {
+            // the response is the rendered HTML
+            // which django sends as return render(response, "your_template.html", context)
+            let myHTML = request.response;
+            // This is the important part
+            // Set that HTML to the new, templated HTML returned by the server
+        document.getElementById('cart-preview').innerHTML = myHTML;
+        };
+        request.send();
+
         document.getElementById('cart-preview').style.display = 'block';
     }
 

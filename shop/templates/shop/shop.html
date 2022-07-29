@@ -7,41 +7,25 @@
 
 
 <div class="navigation">
-    <form id="form" role="search">
-    <img class="icon"
-            src="media/icons/search.png" alt="">
-    <input type="search" id="query" name="q"
-           placeholder="Search..."
-           aria-label="Search through site content">
+    <form id="form" role="search" onsubmit="(e)=>{e.preventDefault(); updateKeyword()}">
+        <img class="icon"
+                src="/media/icons/search.png" alt="">
+        <input type="search" id="query"
+               placeholder="Search..."
+               aria-label="Search through site content">
     </form>
-    <ul class="navigation-links">
-        <li class="navigation-link"><a href="">All</a></li>
-        <li class="navigation-link"><a href="">On Sale</a></li>
-        <li class="navigation-link"><a href="">Necklaces</a></li>
-        <li class="navigation-link"><a href="">Crystal Necklaces</a></li>
-        <li class="navigation-link"><a href="">Bracelets</a></li>
-        <li class="navigation-link"><a href="">Layered Necklace SET</a></li>
-        <li class="navigation-link"><a href="">Rings</a></li>
-        <li class="navigation-link"><a href="">Earrings & Ear Climbers</a></li>
-        <li class="navigation-link"><a href="">Pearls Jewellery</a></li>
-        <li class="navigation-link"><a href="">Healing Necklaces</a></li>
-        <li class="navigation-link"><a href="">All</a></li>
-        <li class="navigation-link"><a href="">On Sale</a></li>
-        <li class="navigation-link"><a href="">Necklaces</a></li>
-        <li class="navigation-link"><a href="">Crystal Necklaces</a></li>
-        <li class="navigation-link"><a href="">Bracelets</a></li>
-        <li class="navigation-link"><a href="">Layered Necklace SET</a></li>
-        <li class="navigation-link"><a href="">Rings</a></li>
-        <li class="navigation-link"><a href="">Earrings & Ear Climbers</a></li>
-        <li class="navigation-link"><a href="">Pearls Jewellery</a></li>
-        <li class="navigation-link"><a href="">Healing Necklaces</a></li>
+    <ul class="category-links">
+        <li class="category-link" id="category-link-0"><a onclick="updateCategory(0)">All</a></li>
+        {% for category in categories %}
+            <li class="category-link" id="category-link-{{category.id}}"><a onclick="updateCategory({{category.id}})">{{category.title}}</a></li>
+        {% endfor %}
     </ul>
 </div>
 
 <div class="products">
 
     <div class="dropdown-wrapper">
-        <div class="dropdown">
+        <!--<div class="dropdown">
                 <button class="dropbtn">Sort: Best
                 <i class="fa fa-caret-down"></i>
                     <img class="arrow-down"
@@ -52,34 +36,52 @@
                 <a href="">Sort: Ascending</a>
                 <a href="">Sort: Descending</a>
             </div>
+        </div>-->
+        <div onmouseleave="closeSortDropdown()">
+        <div class="dropdown" id="dropdown-sort" onmouseenter="showSortDropdown()">
+            <button class="button-dropdown" onclick="showSortDropdown()">
+                <span class="text-button-dropdown" id="text-button-dropdown-sort">Sort: Best</span>
+                <i class="icon-dropdown">
+                    <img class="image-dropdown"
+                    src="/media/icons/arrow-down.png" alt="">
+                </i>
+            </button>
+        </div>
+        <div class="content-dropdown" id="content-dropdown-sort" onmouseleave="closeSortDropdown()">
+            <a class="option-dropdown" id="option-dropdown-sort-Best" onclick="updateSort('Best')">Best</a>
+            <a class="option-dropdown" id="option-dropdown-sort-Ascending" onclick="updateSort('Ascending')">Price ascending</a>
+            <a class="option-dropdown" id="option-dropdown-sort-Descending" onclick="updateSort('Descending')">Price descending</a>
+        </div>
         </div>
     </div>
 
     <br/>
 
-    <div class="items">
-    {% for item in items %}
-        <div class="item">
-            <img src="{{item.image_set.first.image.url}}" width="250px" alt="">
-            <p>{{ item.title }}</p>
-            <p> {{ item.price }}€<p/>
-        </div>
-    {% endfor %}
+    <div class="items" id="items">
+        {% include "shop/shop_items.html" %}
     </div>
 </div>
 
 
-<!--{% for item in items %}
-    <div class="item">
-        <img src="{{item.images.first.image.url}}" alt="">
-        <p>{{ item.title }}</p>
-        <button id="button{{forloop.counter}}" onclick="removeFromCart('{{forloop.counter}}')">Add to Cart</button>
-    </div>
-{% endfor %}
--->
-
 
 <script>
+    document.getElementById('form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        updateKeyword()
+    }, false);
+
+    if(search['keyword'] != 'all'){
+        document.getElementById('query').value = search['keyword']
+    }
+    document.getElementById('text-button-dropdown-sort').innerHTML = "Sort: " + search['sort']
+    category_items = document.getElementsByClassName('category-link')
+    for(let i=0; i<category_items.length; i++){
+        console.log(category_items[i].id.replace('category-link-'))
+        if(category_items[i].id.replace('category-link-', '') == search['category']){
+            category_items[i].classList.add('category-link-selected')
+        }
+    }
+
     function addToCart(index){
         buttonId = 'button' + index;
         button = document.getElementById(buttonId);
@@ -96,6 +98,65 @@
         button.setAttribute( "onClick", str );
     }
 
+    function showSortDropdown(){
+        document.getElementById('content-dropdown-sort').style.display = 'block';
+    }
+
+    function closeSortDropdown(){
+        document.getElementById('content-dropdown-sort').style.display = 'None';
+    }
+
+    function updateCategory(category_id){
+        search['category'] = category_id
+
+        category_items = document.getElementsByClassName('category-link')
+        for(let i=0; i<category_items.length; i++){
+            category_items[i].classList.remove('category-link-selected')
+        }
+
+        category_item_str = 'category-link-'+ category_id
+        document.getElementById(category_item_str).classList.add('category-link-selected')
+
+        document.cookie ='search=' + JSON.stringify(search) + ";domain=;path=/"
+        updateShopItems()
+    }
+
+    function updateSort(sort){
+        document.getElementById('text-button-dropdown-sort').innerHTML = "Sort: " + sort
+        search['sort'] = sort
+        document.cookie ='search=' + JSON.stringify(search) + ";domain=;path=/"
+        updateShopItems()
+    }
+
+    function updateKeyword(){
+        console.log( document.getElementById('query').value)
+        search['keyword'] = document.getElementById('query').value
+        if (search['keyword'] == ''){
+            search['keyword'] = 'all'
+        }
+        document.cookie ='search=' + JSON.stringify(search) + ";domain=;path=/"
+        updateShopItems()
+    }
+
+    function updateShopItems(){
+        let request = new XMLHttpRequest();
+        let method = 'GET';
+        let category = search['category']
+        let sort = search['sort']
+        let keyword = search['keyword']
+
+        let url = '/shop_items/';
+        request.open(method, url);
+        request.onload = function () {
+            // the response is the rendered HTML
+            // which django sends as return render(response, "your_template.html", context)
+            let myHTML = request.response;
+            // This is the important part
+            // Set that HTML to the new, templated HTML returned by the server
+        document.getElementById('items').innerHTML = myHTML;
+        };
+        request.send();
+    }
 
 </script>
 

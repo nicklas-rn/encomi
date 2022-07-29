@@ -1,6 +1,6 @@
 import json
 from django.shortcuts import render
-from .models import Item
+from .models import Item, Category
 from .utils import cookieCart
 
 # Create your views here.
@@ -22,10 +22,32 @@ def home(request):
 
 
 def shop(request):
+    search = json.loads(request.COOKIES['search'])
+    category_id = search['category']
+    sort = search['sort']
+    keyword = search['keyword']
 
     cart = cookieCart(request)
 
-    items = Item.objects.all()
+    if category_id != 0:
+        category = Category.objects.get(id=category_id)
+        items = Item.objects.filter(categories=category)
+    else:
+        items = Item.objects.all()
+
+    if sort == 'Best':
+        items = items.order_by('id')
+    elif sort == 'Ascending':
+        items = items.order_by('price')
+    elif sort == 'Descending':
+        items = items.order_by('-price')
+
+    if not keyword == 'all':
+        items = items.filter(title__contains=keyword)
+
+    print(items.order_by('-price'))
+
+    categories = Category.objects.all()
 
     """for item in items:
         for style_group in item.style_groups.all():
@@ -36,6 +58,7 @@ def shop(request):
 
     context = {
         'items': items,
+        'categories': categories,
         'cartItems': cart['items'],
         'cartTotal': cart['total'],
     }
@@ -71,4 +94,43 @@ def cart(request):
     return render(request, 'shop/cart.html', context)
 
 
+def cart_preview(request):
+    cart = cookieCart(request)
 
+    context = {
+        'cartItems': cart['items'],
+        'cartTotal': cart['total'],
+    }
+
+    return render(request, 'shop/cart_preview.html', context)
+
+
+def shop_items(request):
+    search = json.loads(request.COOKIES['search'])
+    category_id = search['category']
+    sort = search['sort']
+    keyword = search['keyword']
+
+    if category_id != 0:
+        category = Category.objects.get(id=category_id)
+        items = Item.objects.filter(categories=category)
+    else:
+        items = Item.objects.all()
+
+    if sort == 'Best':
+        items = items.order_by('id')
+    elif sort == 'Ascending':
+        items = items.order_by('price')
+    elif sort == 'Descending':
+        items = items.order_by('-price')
+
+    if not keyword == 'all':
+        items = items.filter(title__contains=keyword)
+
+    print(items.order_by('-price'))
+
+    context = {
+        'items': items,
+    }
+
+    return render(request, 'shop/shop_items.html', context)
