@@ -3,13 +3,49 @@
 {% block content %}
 
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'shop/shop_style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'shop/item_style.css' %}">
 
-    <div class="item">
-        <img src="{{item.images.first.image.url}}" alt="">
-        <p>{{ item.title }}</p>
-        <button id="button{{forloop.counter}}" onclick="addCookieItem()">Add to Cart</button>
+<div class= "navigation" >
+    <ul class="navigation-links">
+        <li class="navigation-link"><a href="">All</a></li>
+        <li class="navigation-link"><a href="">On Sale</a></li>
+        <li class="navigation-link"><a href="">Necklaces</a></li>
+        <li class="navigation-link"><a href="">Crystal Necklaces</a></li>
+        <li class="navigation-link"><a href="">Bracelets</a></li>
+        <li class="navigation-link"><a href="">Layered Necklace SET</a></li>
+        <li class="navigation-link"><a href="">Rings</a></li>
+        <li class="navigation-link"><a href="">Earrings & Ear Climbers</a></li>
+        <li class="navigation-link"><a href="">Pearls Jewellery</a></li>
+        <li class="navigation-link"><a href="">Healing Necklaces</a></li>
+    </ul>
+</div>
+
+
+<div class="main">
+    <div class="nav-images" >
+        {% for image in item.image_set.all %}
+        <li class="small-images"> <img src="{{image.image.url}}" width="70px" alt=""> </li>
+        {% endfor %}
     </div>
+
+    <div class="image" >
+        <img src="{{item.image_set.first.image.url}}" height="515px" alt="">
+    </div>
+
+    <div class="description">
+        <p class="item-title">{{ item.title }}</p>
+        <p class="item-price"> {{ item.price }}€<p/>
+        <p class="item-price-old"><s> from 30.00€</s></p>
+        <button id="button" onclick="addCookieItem()">Add to Cart</button>
+    </div>
+</div>
+
+
+
+
+
+
+
 
 <script>
     async function addCookieItem(){
