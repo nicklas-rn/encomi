@@ -1,7 +1,24 @@
 {% for item in items %}
     <div class="item" onclick="window.location.href='/item/{{item.id}}'">
-        <img class="item-image" src="{{item.image_set.first.image.url}}" width="250px" alt="">
+        <img class="item-image item-first-image" id="item-first-image-{{item.id}}" src="{{item.image_set.first.image.url}}" onmouseenter="showSecondImage({{item.id}})" onmouseleave="showFirstImage({{item.id}})" width="250px" alt="">
+        <img class="item-image item-second-image" id="item-second-image-{{item.id}}" src="{{item.image_set.last.image.url}}" onmouseenter="showSecondImage({{item.id}})" onmouseleave="showFirstImage({{item.id}})" width="250px" alt="">
         <p class="item-title">{{ item.title|truncatechars:35 }}</p>
         <p class="item-price"> {{ item.price|floatformat:2 }}€<p/>
     </div>
 {% endfor %}
+
+<script>
+    function showSecondImage(item_id){
+        item_first_image_id = 'item-first-image-' + item_id
+        item_second_image_id = 'item-second-image-' + item_id
+        document.getElementById(item_first_image_id).style.display = 'None';
+        document.getElementById(item_second_image_id).style.display = 'block';
+    }
+
+    function showFirstImage(item_id){
+        item_first_image_id = 'item-first-image-' + item_id
+        item_second_image_id = 'item-second-image-' + item_id
+        document.getElementById(item_first_image_id).style.display = 'block';
+        document.getElementById(item_second_image_id).style.display = 'None';
+    }
+</script>
