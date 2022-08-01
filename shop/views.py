@@ -1,5 +1,5 @@
 import json
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Item, Category
 from .utils import cookieCart
 from .scraper import *
@@ -163,3 +163,8 @@ def shop_items(request):
     return render(request, 'shop/shop_items.html', context)
 
 
+def scrape(request):
+
+    scrapeEtsy()
+
+    return redirect(home)
