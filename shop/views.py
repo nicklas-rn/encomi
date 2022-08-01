@@ -2,6 +2,7 @@ import json
 from django.shortcuts import render
 from .models import Item, Category
 from .utils import cookieCart
+from .scraper import *
 
 # Create your views here.
 
@@ -86,7 +87,6 @@ def item(request, id):
 
 def cart(request):
     cart = cookieCart(request)
-    cookieCart(request)
 
     context = {
         'cartItems': cart['items'],
@@ -96,6 +96,29 @@ def cart(request):
     print(context)
 
     return render(request, 'shop/cart.html', context)
+
+
+def checkout(request):
+    cart = cookieCart(request)
+
+    context = {
+        'cartItems': cart['items'],
+        'cartTotal': cart['total'],
+    }
+
+    return render(request, 'shop/checkout.html', checkout)
+
+
+def cart_total(request):
+    cart = cookieCart(request)
+
+    context = {
+        'cartTotal': cart['total'],
+    }
+
+    print(context)
+
+    return render(request, 'shop/cart_total.html', context)
 
 
 def cart_preview(request):
@@ -138,3 +161,5 @@ def shop_items(request):
     }
 
     return render(request, 'shop/shop_items.html', context)
+
+

@@ -27,6 +27,7 @@ def cookieCart(request):
         print(price)
 
         item_dict = {
+            'cart_id': k,
             'object': item_object,
             'style_groups': cart[k]['style_groups'],
             'quantity': cart[k]['quantity'],
