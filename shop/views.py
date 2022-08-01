@@ -106,7 +106,7 @@ def checkout(request):
         'cartTotal': cart['total'],
     }
 
-    return render(request, 'shop/checkout.html', checkout)
+    return render(request, 'shop/checkout.html', context)
 
 
 def cart_total(request):
