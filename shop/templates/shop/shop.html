@@ -15,9 +15,9 @@
                aria-label="Search through site content">
     </form>
     <ul class="category-links">
-        <li class="category-link" id="category-link-0"><a onclick="updateCategory(0)">All</a></li>
+        <li class="category-link" id="category-link-0" onclick="updateCategory(0)"><a>All</a></li>
         {% for category in categories %}
-            <li class="category-link" id="category-link-{{category.id}}"><a onclick="updateCategory({{category.id}})">{{category.title}}</a></li>
+            <li class="category-link" id="category-link-{{category.id}}" onclick="updateCategory({{category.id}})"><a>{{category.title}}</a></li>
         {% endfor %}
     </ul>
 </div>
