@@ -1,10 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "shop/base.html" %}
 
-</body>
-</html>
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'shop/cart_style.css' %}"
+      xmlns:width="http://www.w3.org/1999/xhtml">
+
+<div class= "navigation" >
+    <ul class="navigation-links">
+        <li class="navigation-link"><a href="">All</a></li>
+        <li class="navigation-link"><a href="">On Sale</a></li>
+        <li class="navigation-link"><a href="">Necklaces</a></li>
+        <li class="navigation-link"><a href="">Crystal Necklaces</a></li>
+        <li class="navigation-link"><a href="">Bracelets</a></li>
+        <li class="navigation-link"><a href="">Layered Necklace SET</a></li>
+        <li class="navigation-link"><a href="">Rings</a></li>
+        <li class="navigation-link"><a href="">Earrings & Ear Climbers</a></li>
+        <li class="navigation-link"><a href="">Pearls Jewellery</a></li>
+        <li class="navigation-link"><a href="">Healing Necklaces</a></li>
+    </ul>
+</div>
+
+
+<div class="main">
+    <ul class="left">
+        <p class="your-bag-heading">Your bag</p>
+        {% for cartItem in cartItems %}
+        <li class="items-in-cart-list">
+
+            <img class="cartItem-image" src="{{cartItem.object.image_set.first.image.url}}" width= 100px alt="">
+            <div class="cartItem-properties">
+                <a class="cartItem-link" href="/item/{{cartItem.object.id}}">{{cartItem.object.title|truncatechars:40}}</a>
+                <p class="cartItem-description">{% for style_group, style in cartItem.style_groups.items %}{{style}}{% endfor %}</p>
+                <p class="cartItem-price">{{cartItem.price|floatformat:2}}€</p>
+                <p class="cartItem-quantity">Quantity: {{cartItem.quantity}}</p>
+
+                <div class="remove-whole">
+                    <img class="icon"
+                    src="/media/icons/trashcan.png" alt="">
+                    <button class="removeButton" onclick="addCookieItem()">Remove</button>
+                </div>
+            </div>
+
+        </li>
+
+        {% endfor %}
+    </ul>
+
+    <div class="right">
+        <p class="total-heading">Total</p>
+        <div class="subtotal">
+            <p class="subtotal-text">Subtotal</p>
+            <p class="subtotal-number">{{cartTotal}}€</p>
+        </div>
+
+        <div class="delivery-fee">
+            <p class="delivery-fee-text">Delivery</p>
+            <p class="delivery-fee-number">4.80€</p>
+        </div>
+        <div class="total-price">
+            <p class="total-price-text">Total</p>
+            <p class="total-price-number">{{cartTotal}}€</p>
+        </div>
+
+        <a id="button-proceed-to-checkout" href="/checkout">Proceed to Checkout</a>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<script>
+
+</script>
+
+
+{% endblock %}

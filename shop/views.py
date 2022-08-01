@@ -30,8 +30,11 @@ def shop(request):
     cart = cookieCart(request)
 
     if category_id != 0:
-        category = Category.objects.get(id=category_id)
-        items = Item.objects.filter(categories=category)
+        try:
+            category = Category.objects.get(id=category_id)
+            items = Item.objects.filter(categories=category)
+        except:
+            items = Item.objects.all()
     else:
         items = Item.objects.all()
 
@@ -82,14 +85,15 @@ def item(request, id):
 
 
 def cart(request):
-
-    cart_items = Item.objects.filter()  # filter for in cart
-
+    cart = cookieCart(request)
     cookieCart(request)
 
     context = {
-        'cart_items': cart_items,
+        'cartItems': cart['items'],
+        'cartTotal': cart['total'],
     }
+
+    print(context)
 
     return render(request, 'shop/cart.html', context)
 
