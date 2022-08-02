@@ -1,0 +1,132 @@
+.main {
+    margin: 30px 150px;
+    display: flex;
+    justify-content: left;
+    align-items: top;
+}
+
+.left {
+    padding-right: 50px;
+    width: 50%;
+}
+
+.left-content {
+    border: 1px #E4E4E4 solid;
+    border-radius: 4px;
+
+}
+
+.order-summary-heading {
+    font-size: 30;
+    font-family: 'Inria Serif', serif;
+    padding-bottom: 30px;
+}
+
+.items-in-cart-list {
+    list-style-type: None;
+    padding: 20px 0px 15px 0px;
+    margin: 0px 20px;
+}
+
+.cartItem-image{
+    width: 80px;
+    margin-right: 20px;
+}
+
+.cartItem-properties{
+    display: inline-block;
+    width: calc(100% - 105px);
+    vertical-align: top;
+}
+
+.cartItem-link{
+    font-family: 'Inria-Serif';
+    font-size: 17;
+    margin-bottom: 7px;
+    text-align: left;
+}
+
+.cartItem-description{
+    font-size: 12;
+    margin-bottom: 10px;S
+}
+
+.cartItem-price{
+    display: inline-block;
+    padding-bottom: 15px;
+}
+
+.cartItem-quantity{
+    display: inline-block;
+    float: right;
+    font-size: 12;
+    line-height: 20px;
+    vertical-align: bottom;
+}
+
+
+.subtotal {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 30px;
+    padding-top: 37px;
+    padding: 15px 20px;
+    border-top: 1px #E4E4E4 solid;
+}
+
+.delivery-fee {
+    padding-bottom: 15px;
+    border-bottom: 1px #E4E4E4 solid;
+    border-width: 80%;
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 20px;
+}
+
+.total-price{
+    padding: 20px 0px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 20px;
+    font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+.right {
+    padding-left: 50px;
+    width: 50%;
+}
+
+.shipping-information-heading {
+    font-size: 30;
+    padding-bottom: 30px;
+    font-family: 'Inria Serif', serif;
+}
+
+input::placeholder {
+    color: lightgrey;
+    opacity: 1;
+}
+
+#firstname, #lastname, #streetname, #number, #postalcode, #city {
+    padding: 10px;
+    border: 1px solid #E4E4E4;
+    border-radius: 4px;
+    margin-right: 6px;
+    margin-bottom: 8px;
+}
+
+.payment-options-heading {
+    font-size: 30;
+    padding-bottom: 30px;
+    font-family: 'Inria Serif', serif;
+    padding-top: 40px;
+}
