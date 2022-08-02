@@ -21,6 +21,7 @@ def cookieCart(request):
         item_object = Item.objects.get(id=cart[k]['itemId'])
         price = item_object.price
         for l in cart[k]['style_groups']:
+            print(item_object.stylegroup_set.all())
             if item_object.stylegroup_set.get(type=l).style_set.get(title=cart[k]['style_groups'][l]).price:
                 price = item_object.stylegroup_set.get(type=l).style_set.get(title=cart[k]['style_groups'][l]).price
 

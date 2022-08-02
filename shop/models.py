@@ -20,6 +20,7 @@ class Item(models.Model):
     title = models.CharField(max_length=1200)
     keywords = models.CharField(blank=True, null=True, max_length=1200, default='All')
     price = models.FloatField(blank=True, null=True)
+    old_price = models.FloatField(blank=True, null=True)
     categories = models.ManyToManyField(Category)
 
     def __str__(self):

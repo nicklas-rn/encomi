@@ -168,3 +168,17 @@ def scrape(request):
     scrapeEtsy()
 
     return redirect(home)
+
+
+def become_seller(request):
+
+    context = {}
+
+    return render(request, 'shop/become_seller.html', context)
+
+
+def dashboard(request):
+
+    context = {}
+
+    return render(request, 'shop/dashboard.html', context)
