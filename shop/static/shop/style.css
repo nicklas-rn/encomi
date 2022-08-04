@@ -51,9 +51,11 @@ nav{
 }
 
 #icon-nav{
-    width: 25px;
-    height: 25px;
+    height: 20px;
+    width: 20px;
+    padding-right: 10px;
 }
+
 
 #badge-icon-cart-nav{
     background-color: #DDBC9B;
