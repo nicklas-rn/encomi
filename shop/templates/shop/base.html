@@ -89,9 +89,17 @@
 
 
 <div id="main">
-{% block content %}
 
-{% endblock %}
+    <div class="category-links-horizontal" >
+        <li class="category-link-horizontal" id="category-link-horizontal-0" onclick="updateCategoryCookie(0)"><a>All</a></li>
+        {% for category in categories %}
+            <li class="category-link-horizontal" id="category-link-horizontal-{{category.id}}" onclick="updateCategoryCookie({{category.id}})"><a>{{category.title}}</a></li>
+        {% endfor %}
+    </div>
+
+    {% block content %}
+
+    {% endblock %}
 </div>
 
 </body>
@@ -243,6 +251,13 @@
 
     function closeCartPreview() {
         document.getElementById('cart-preview').style.display = 'None';
+    }
+
+    function updateCategoryCookie(category_id) {
+        search['category'] = category_id
+        document.cookie ='search=' + JSON.stringify(search) + ";domain=;path=/"
+
+        window.location.href = '/shop'
     }
 
 </script>

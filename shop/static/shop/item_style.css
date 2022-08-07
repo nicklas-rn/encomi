@@ -2,32 +2,6 @@
     font-family: 'Inria Serif', serif;
 }
 
-.navigation-links {
-  list-style-type: none;
-  margin: 30px 30px 0px 60px;
-  padding: 0;
-  overflow: hidden;
-  background-color: white;
-  display: flex;
-  justify-content: space-between;
-}
-
-.navigation-link {
-  float: left;
-}
-
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 7px 32px 7px 0px;
-  text-decoration: none;
-  font-family: 'Inria Serif', serif;
-}
-
-.navigation-link a:hover {
-  text-decoration: underline;
-}
 
 /*
 .active {
@@ -39,8 +13,7 @@ li a {
 
 
 
-.main {
-    margin: 30px 60px;
+#item {
     display: flex;
     justify-content: center;
     align-items: top;
@@ -49,37 +22,48 @@ li a {
 .nav-images {
     display: inline-block;
     vertical-align: top;
-    height: 200px;
+    height: calc(100vh - 300px);
+    overflow: hidden;
+    width: 100px;
 }
 
-.small-images img:hover {
+.nav-image:hover {
     border: 2px solid black;
 }
 
-.small-images {
+.nav-image {
     display: block;
     width: 100%;
-    padding-bottom: 10px;
-}
-
-.small-images img{
+    height: 130px;
+    margin-bottom: 10px;
+    object-fit: cover;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
     border: 2px solid white;
+    cursor: pointer;
 }
 
-.image{
-    width: 230px;
+
+#item-image{
+    height: calc(100vh - 300px);
+    width: 40%;
+    margin-right: 100px;
     margin-left: 25px;
     display: inline-block;
     vertical-align: top;
+    object-fit: cover;
 }
 
 
 .description {
-    margin-left: 250px;
-    width: calc(100% - 270px);
-    float: left;
+    width: calc(60% - 100px);
     display: inline-block;
     vertical-align: top;
+}
+
+.description-values{
+    height: calc(55vh - 300px);
 }
 
 .item-title {
@@ -89,8 +73,8 @@ li a {
 }
 
 .item-price {
-    font-size: 22px;
-    font-weight: bold;
+    font-size: 27px;
+    font-weight: 500;
     padding-bottom: 4px;
 }
 
@@ -99,14 +83,50 @@ li a {
     padding-bottom: 20px;
 }
 
+.dropdown-wrapper{
+    position: relative;
+}
+
+.button-dropdown{
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 18;
+    font-weight: 400;
+    padding: 4px 16px 4px 16px;
+    height: 49px;
+}
+
+.content-dropdown{
+    width: calc(100% - 2px);
+    font-size: 18;
+    font-weight: 400;
+    top: 46px;
+}
+
+.option-dropdown{
+   padding: 12px 20px 12px 20px;
+}
+
+
+
 #button {
-    background-color: black;
+    background-color: var(--buttonBackgroundColor);
     color: white;
     border-radius: 4px;
-    padding: 10px 40px 10px 10px;
-    width: 70%;
+    padding: 14px 16px 14px 16px;
+    width: 100%;
+    font-size: 18;
     text-align: left;
+    font-weight: 300;
     display: inline-block;
     margin: auto;
     cursor: pointer;
+    border: None;
 }
+
+#customization-error{
+    display: None;
+}
+
+
+

@@ -76,3 +76,65 @@ nav{
 #main{
     padding: 120px 20px 0px 20px;
 }
+
+
+
+.category-links-horizontal {
+  list-style-type: none;
+  margin-bottom: 20px;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  z-index: 100;
+}
+
+.category-link-horizontal {
+  float: left;
+  color: black;
+}
+
+
+
+
+
+.button-dropdown{
+    width: 200px;
+    border: solid 1px black;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 16;
+    border-radius: 4px;
+}
+
+.image-dropdown{
+    width: 25px;
+    height: 25px;
+}
+
+.content-dropdown{
+    border: solid 1px black;
+    border-top: solid 1px white;
+    width: 198px;
+    padding: 0px 0px 5px 0px;
+    position: absolute;
+    z-index: 3;
+    background-color: white;
+    top: 37px;
+    display: None;
+    border-radius: 0px 0px 4px 4px;
+}
+
+.option-dropdown{
+    display: block;
+    border-top: 1px solid lightgrey;
+    padding: 7px 10px;
+}
+
+.option-dropdown:hover{
+    background-color: #f5f5f5;
+}

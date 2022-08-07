@@ -101,7 +101,7 @@ def scrapeEtsy():
                             style = Style.objects.create(title=item_style['title'])
                             style.style_group = style_group
                         else:
-                            style = style_group.style_set.get(title=item['title'])
+                            style = style_group.style_set.get(title=item_style['title'])
                         try:
                             item_style['price'] = float(re.sub('[^\d\.]', '', style.find(text=True).split('(')[1]))
                             style.price = item_style['price']

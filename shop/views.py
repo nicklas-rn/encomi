@@ -12,11 +12,13 @@ def home(request):
     cart = cookieCart(request)
 
     items = Item.objects.all()
+    categories = Category.objects.all()
 
     context = {
         'items': items,
         'cartItems': cart['items'],
         'cartTotal': cart['total'],
+        'categories': categories,
     }
 
     return render(request, 'shop/home.html', context)
@@ -75,11 +77,13 @@ def item(request, id):
     cart = cookieCart(request)
 
     item = Item.objects.get(id=id)
+    categories = Category.objects.all()
 
     context = {
         'item': item,
         'cartItems': cart['items'],
         'cartTotal': cart['total'],
+        'categories': categories,
     }
 
     return render(request, 'shop/item.html', context)

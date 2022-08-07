@@ -5,38 +5,42 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'shop/item_style.css' %}">
 
-<div class= "navigation" >
-    <ul class="navigation-links">
-        <li class="navigation-link"><a href="">All</a></li>
-        <li class="navigation-link"><a href="">On Sale</a></li>
-        <li class="navigation-link"><a href="">Necklaces</a></li>
-        <li class="navigation-link"><a href="">Crystal Necklaces</a></li>
-        <li class="navigation-link"><a href="">Bracelets</a></li>
-        <li class="navigation-link"><a href="">Layered Necklace SET</a></li>
-        <li class="navigation-link"><a href="">Rings</a></li>
-        <li class="navigation-link"><a href="">Earrings & Ear Climbers</a></li>
-        <li class="navigation-link"><a href="">Pearls Jewellery</a></li>
-        <li class="navigation-link"><a href="">Healing Necklaces</a></li>
-    </ul>
-</div>
-
-
-<div class="main">
+<div id="item">
     <div class="nav-images" >
         {% for image in item.image_set.all %}
-        <li class="small-images"> <img src="{{image.image.url}}" width="70px" alt=""> </li>
+        <img class="nav-image" src="{{image.image.url}}" width="70px" alt="">
         {% endfor %}
     </div>
 
-    <div class="image" >
-        <img src="{{item.image_set.first.image.url}}" height="515px" alt="">
-    </div>
+    <img id="item-image" src="{{item.image_set.first.image.url}}" height="515px" alt="">
 
     <div class="description">
-        <p class="item-title">{{ item.title }}</p>
-        <p class="item-price"> {{ item.price }}€<p/>
-        <p class="item-price-old"><s> from 30.00€</s></p>
+        <div class="description-values">
+            <p class="item-title">{{ item.title }}</p>
+            <p class="item-price">{{ item.price|floatformat:2 }}€<p/>
+            <p class="item-price-old"><s>from {{ item.old_price|floatformat:2 }}€</s></p>
+        </div>
+
+        {% for style_group in item.stylegroup_set.all %}
+        <div class="dropdown-wrapper" onmouseleave="closeDropdown('{{style_group}}')">
+            <div class="dropdown" id="dropdown-{{style_group}}" onmouseenter="showDropdown('{{style_group}}')">
+                <button class="button-dropdown" onclick="showDropdown()">
+                    <span class="text-button-dropdown" id="text-button-dropdown-{{style_group.type}}">Select {{style_group}}</span>
+                    <i class="icon-dropdown">
+                        <img class="image-dropdown"
+                        src="/media/icons/arrow-down.png" alt="">
+                    </i>
+                </button>
+            </div>
+            <div class="content-dropdown" id="content-dropdown-{{style_group.type}}">
+                {% for style in style_group.style_set.all %}
+                    <a class="option-dropdown" id="option-dropdown-{{style_group.type}}-{{style}}" onclick="updateDropdown('{{style_group.type}}', '{{style}}')">{{style}}</a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
         <button id="button" onclick="addCookieItem()">Add to Cart</button>
+        <p id="customization-error">Please select all customization options</p>
     </div>
 </div>
 
@@ -63,7 +67,13 @@
         itemDict['style_groups'] = {}
 
         {% for style_group in item.stylegroup_set.all %}
-        itemDict['style_groups']['{{style_group.type}}'] = '{{style_group.style_set.first}}'
+        let str = 'text-button-dropdown-{{style_group}}'
+        let style = document.getElementById(str).innerHTML;
+        if (style.includes('Select')){
+            document.getElementById('customization-error').style.display = 'block'
+            return None
+        }
+        itemDict['style_groups']['{{style_group.type}}'] = style
         {% endfor %}
 
         console.log(itemDict)
@@ -98,6 +108,27 @@
         openCartPreview()
         let delayres = await delay(2000)
         closeCartPreview()
+
+    }
+
+
+    function showDropdown(style_group){
+        let str = 'content-dropdown-' + style_group
+        console.log(str)
+        document.getElementById(str).style.display = 'block';
+    }
+
+    function closeDropdown(style_group){
+        let str = 'content-dropdown-' + style_group
+        console.log(str)
+        document.getElementById(str).style.display = 'None';
+    }
+
+    function updateDropdown(style_group, style){
+        let str = 'text-button-dropdown-' + style_group
+        document.getElementById(str).innerHTML = style;
+        closeDropdown(style_group)
+        document.getElementById('customization-error').style.display = 'None'
 
     }
 
