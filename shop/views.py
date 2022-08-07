@@ -186,3 +186,27 @@ def dashboard(request):
     context = {}
 
     return render(request, 'shop/dashboard.html', context)
+
+def listings(request):
+
+    context = {}
+
+    return render(request, 'shop/listings_dashboard.html', context)
+
+def categories(request):
+
+    context = {}
+
+    return render(request, 'shop/categories_dashboard.html', context)
+
+def deliveries(request):
+
+    context = {}
+
+    return render(request, 'shop/deliveries_dashboard.html', context)
+
+def settings(request):
+
+    context = {}
+
+    return render(request, 'shop/settings_dashboard.html', context)
