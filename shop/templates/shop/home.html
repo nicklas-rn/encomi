@@ -2,7 +2,50 @@
 
 {% block content %}
 
-<h1>Home</h1>
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'shop/home_style.css' %}">
+
+<div class="background">
+    <p class="text-big"> unique pieces <span>of</span> jewellery, han<span>dmade</span> </p>
+    <a class="link-shop" href="/shop">Shop all items<img class="arrow-right" src="/media/icons/arrow-right.png"></a>
+    <img id="image-home-1" src="/media/media/image-home-1.png">
+</div>
+
+<div class="background-second">
+    <img id="image-home-2" src="/media/media/image-home-2.png">
+    <div class="text-small">
+        <p class="text-small">“Our jewelry is designed to inspire you as a woman, to feel sophisticated and comfortable at the same time”</p>
+        <a class="link-become-seller" href="/become_seller">Become a seller<img class="arrow-right-black" src="/media/icons/arrow-right-black.png"></a>
+    </div>
+</div>
+
+
+<div class="shops-pushed">
+    <div class="shop"><img class="logo-amicajewels" src="/media/logos/logo-amicajewels.png"><a class="link-shop-amicajewels" href="/shop">Shop at AmicaJewels<img class="arrow-right-black" src="/media/icons/arrow-right-black.png"></a></div>
+    <div class="shop"><img class="logo-amicajewels" src="/media/logos/logo-amicajewels.png"><a class="link-shop" href="/shop">Shop at Shemisli<img class="arrow-right-black" src="/media/icons/arrow-right-black.png"></a></div>
+    <div class="shop"><img class="logo-amicajewels" src="/media/logos/logo-amicajewels.png"><a class="link-shop" href="/shop">Shop at Elevado<img class="arrow-right-black" src="/media/icons/arrow-right-black.png"></a></div>
+    <div class="shop"><img class="logo-amicajewels" src="/media/logos/logo-amicajewels.png"><a class="link-shop" href="/shop">Shop all Items<img class="arrow-right-black" src="/media/icons/arrow-right-black.png"></a></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
 <a href="/shop">Shop</a>
+-->
+
+
+
+
+
 
 {% endblock %}

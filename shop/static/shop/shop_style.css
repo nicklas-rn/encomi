@@ -1,3 +1,11 @@
+.main {
+    margin: 0px 20px;
+}
+
+.mainmain {
+    display: none;
+}
+
 .navigation{
     width: 230px;
     position: fixed;
@@ -192,37 +200,6 @@
   display: block;
   height: 100%;
 }
-
-
-/* width */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-/* Handle */
-.category ::-webkit-scrollbar-thumb {
-  background: #f5f5f5;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #C8C8C8;
-  border-radius: 4px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
-
-
-
 
 
 

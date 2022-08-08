@@ -74,7 +74,7 @@
 
 <nav>
     <div id="link-wrapper-nav">
-        <a class="link-nav" href="#">Become a seller</a>
+        <a class="link-nav" href="/become_seller">Become a seller</a>
     </div>
     <a href="/"><img id="logo-nav" src="/media/logos/logo.png"></a>
     <div id="icon-wrapper-nav">
@@ -89,14 +89,24 @@
 
 
 <div id="main">
+    <div class="mainmain">
+        <div class="category-links-horizontal" >
+            <div class="category-link-horizontal" id="category-link-horizontal-0" onclick="updateCategoryCookie(0)"><a>All</a></div>
+            {% for category in categories %}
+                <div class="category-link-horizontal" id="category-link-horizontal-{{category.id}}" onclick="updateCategoryCookie({{category.id}})"><a>{{category.title}}</a></div>
+            {% endfor %}
+        </div>
 
-    <div class="category-links-horizontal" >
-        <li class="category-link-horizontal" id="category-link-horizontal-0" onclick="updateCategoryCookie(0)"><a>All</a></li>
-        {% for category in categories %}
-            <li class="category-link-horizontal" id="category-link-horizontal-{{category.id}}" onclick="updateCategoryCookie({{category.id}})"><a>{{category.title}}</a></li>
-        {% endfor %}
+        <div class="search">
+            <form id="form" role="search" onsubmit="(e)=>{e.preventDefault(); updateKeyword()}">
+                <img class="icon"
+                        src="/media/icons/search.png" alt="">
+                <input type="search" id="query"
+                       placeholder="Search..."
+                       aria-label="Search through site content">
+            </form>
+        </div>
     </div>
-
     {% block content %}
 
     {% endblock %}

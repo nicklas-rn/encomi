@@ -6,60 +6,61 @@
 <link rel="stylesheet" type="text/css" href="{% static 'shop/shop_style.css' %}">
 
 
-<div class="navigation">
-    <form id="form" role="search" onsubmit="(e)=>{e.preventDefault(); updateKeyword()}">
-        <img class="icon"
-                src="/media/icons/search.png" alt="">
-        <input type="search" id="query"
-               placeholder="Search..."
-               aria-label="Search through site content">
-    </form>
-    <ul class="category-links">
-        <li class="category-link" id="category-link-0" onclick="updateCategory(0)"><a>All</a></li>
-        {% for category in categories %}
-            <li class="category-link" id="category-link-{{category.id}}" onclick="updateCategory({{category.id}})"><a>{{category.title}}</a></li>
-        {% endfor %}
-    </ul>
-</div>
+<div class="main">
+    <div class="navigation">
+        <form id="form" role="search" onsubmit="(e)=>{e.preventDefault(); updateKeyword()}">
+            <img class="icon"
+                    src="/media/icons/search.png" alt="">
+            <input type="search" id="query"
+                   placeholder="Search..."
+                   aria-label="Search through site content">
+        </form>
+        <ul class="category-links">
+            <li class="category-link" id="category-link-0" onclick="updateCategory(0)"><a>All</a></li>
+            {% for category in categories %}
+                <li class="category-link" id="category-link-{{category.id}}" onclick="updateCategory({{category.id}})"><a>{{category.title}}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
 
-<div class="products">
+    <div class="products">
 
-    <div class="dropdown-wrapper">
-        <!--<div class="dropdown">
-                <button class="dropbtn">Sort: Best
-                <i class="fa fa-caret-down"></i>
-                    <img class="arrow-down"
-                    src="media/icons/arrow-down.png" alt="">
+        <div class="dropdown-wrapper">
+            <!--<div class="dropdown">
+                    <button class="dropbtn">Sort: Best
+                    <i class="fa fa-caret-down"></i>
+                        <img class="arrow-down"
+                        src="media/icons/arrow-down.png" alt="">
+                    </button>
+                <div class="dropdown-content">
+                    <a href="">Sort: Best</a>
+                    <a href="">Sort: Ascending</a>
+                    <a href="">Sort: Descending</a>
+                </div>
+            </div>-->
+            <div onmouseleave="closeSortDropdown()">
+            <div class="dropdown" id="dropdown-sort" onmouseenter="showSortDropdown()">
+                <button class="button-dropdown" onclick="showSortDropdown()">
+                    <span class="text-button-dropdown" id="text-button-dropdown-sort">Sort: Best</span>
+                    <i class="icon-dropdown">
+                        <img class="image-dropdown"
+                        src="/media/icons/arrow-down.png" alt="">
+                    </i>
                 </button>
-            <div class="dropdown-content">
-                <a href="">Sort: Best</a>
-                <a href="">Sort: Ascending</a>
-                <a href="">Sort: Descending</a>
             </div>
-        </div>-->
-        <div onmouseleave="closeSortDropdown()">
-        <div class="dropdown" id="dropdown-sort" onmouseenter="showSortDropdown()">
-            <button class="button-dropdown" onclick="showSortDropdown()">
-                <span class="text-button-dropdown" id="text-button-dropdown-sort">Sort: Best</span>
-                <i class="icon-dropdown">
-                    <img class="image-dropdown"
-                    src="/media/icons/arrow-down.png" alt="">
-                </i>
-            </button>
+            <div class="content-dropdown" id="content-dropdown-sort" onmouseleave="closeSortDropdown()">
+                <a class="option-dropdown" id="option-dropdown-sort-Best" onclick="updateSort('Best')">Best</a>
+                <a class="option-dropdown" id="option-dropdown-sort-Ascending" onclick="updateSort('Ascending')">Price ascending</a>
+                <a class="option-dropdown" id="option-dropdown-sort-Descending" onclick="updateSort('Descending')">Price descending</a>
+            </div>
+            </div>
         </div>
-        <div class="content-dropdown" id="content-dropdown-sort" onmouseleave="closeSortDropdown()">
-            <a class="option-dropdown" id="option-dropdown-sort-Best" onclick="updateSort('Best')">Best</a>
-            <a class="option-dropdown" id="option-dropdown-sort-Ascending" onclick="updateSort('Ascending')">Price ascending</a>
-            <a class="option-dropdown" id="option-dropdown-sort-Descending" onclick="updateSort('Descending')">Price descending</a>
-        </div>
-        </div>
-    </div>
 
-    <div class="items" id="items">
-        {% include "shop/shop_items.html" %}
+        <div class="items" id="items">
+            {% include "shop/shop_items.html" %}
+        </div>
     </div>
 </div>
-
 
 
 <script>

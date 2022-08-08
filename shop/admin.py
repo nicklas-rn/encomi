@@ -7,3 +7,4 @@ admin.site.register(Image)
 admin.site.register(Style)
 admin.site.register(StyleGroup)
 admin.site.register(Category)
+

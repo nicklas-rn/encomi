@@ -1,0 +1,68 @@
+body {
+    margin: 0px;
+}
+
+nav{
+    display: flex;
+    justify-content: center;
+    padding: 10px 20px;
+    z-index: 10;
+    position: absolute;
+    width: calc(100% - 40px);
+    background-color: white;
+}
+
+#logo-nav{
+    width: 150px
+}
+
+.main {
+    padding-top: 50px;
+}
+
+.titles {
+    font-size: 30;
+}
+
+/*
+.what-we-offerg {
+    background-color: #FFF8ED;
+    width: 100%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+*/
+
+.background {
+    background-color: #FFF8ED;
+    width: 100%;
+    height: calc(50vh - 50px);
+}
+
+.icon {
+    height: 40px;
+    width: 40px;
+}
+
+.website { grid-area: website; }
+.effort { grid-area: effort; }
+.commission-fee { grid-area: commission-fee; }
+
+.what-we-offer {
+    display: grid;
+    grid-template-areas:
+    'website effort commission-fee';
+    gap: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    justify-items: center;
+}
+
+.content {
+    max-width: 240px;
+    text-align: center;
+    padding: 50px 0px;
+}

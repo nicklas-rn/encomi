@@ -1,0 +1,112 @@
+.background {
+    background-color: #FFF8ED;
+    width: 100%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.background a {
+    font-size: 15;
+    font-family: 'Inria Serif', serif;
+    color: #E19250;
+    margin: 0px 200px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.text-big {
+    font-size: 45;
+    font-family: 'Inria Serif', serif;
+    color: #DDBC9B;
+    max-width: 500px;
+    margin-left: 200px;
+    margin-bottom: 40px;
+    z-index: 1;
+}
+
+span {
+    color: white;
+    font-family: 'Inria Serif', serif;
+}
+
+.arrow-right {
+    height: 20px;
+}
+
+.arrow-right-black {
+    height: 20px;
+}
+
+#image-home-1 {
+    width: 25%;
+    height: auto;
+    position: absolute;
+    margin-left: 487px;
+    margin-top: 40px;
+}
+
+.background-second {
+    width: 100%;
+    padding: 0px;
+    display: flex;
+    justify-content: left;
+    flex-direction: row;
+    margin: 70px 200px 70px 0px;
+}
+
+#image-home-2 {
+    width: 25%;
+    height: auto;
+    margin-left: 200px;
+}
+
+.text-small {
+    max-width: 450px;
+    margin-left: 20px;
+    font-size: 18;
+    font-family: 'Inria Serif', serif;
+}
+
+.text-small a {
+    margin: 20px 0px 0px 20px;
+    font-family: 'Inria Serif', serif;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+
+
+.shops-pushed {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-content: space-between;
+    width: 100%;
+    margin: 70px 0px 70px 200px;
+    padding: 0px;
+}
+
+.shop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.shop a {
+    margin: 20px 0px 0px 20px;
+    font-family: 'Inria Serif', serif;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.logo-amicajewels {
+    max-height: 100px;
+    width: auto;
+}
