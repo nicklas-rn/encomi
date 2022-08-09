@@ -1,4 +1,4 @@
-.main {
+#main {
     margin: 0px 20px;
 }
 
@@ -180,6 +180,13 @@
 
 .item-second-image{
     display: None;
+}
+
+.item-seller{
+    font-family: 'Inria Serif', serif;
+    width: 100%;
+    margin-bottom: 0px;
+    font-size: 16px;
 }
 
 .item-title{

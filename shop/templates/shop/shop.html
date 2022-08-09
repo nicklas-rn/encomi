@@ -144,7 +144,7 @@
         let sort = search['sort']
         let keyword = search['keyword']
 
-        let url = '/shop_items/';
+        let url = '/shop_items/{{seller}}';
         request.open(method, url);
         request.onload = function () {
             // the response is the rendered HTML

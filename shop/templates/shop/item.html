@@ -67,8 +67,8 @@
         itemDict['style_groups'] = {}
 
         {% for style_group in item.stylegroup_set.all %}
-        let str = 'text-button-dropdown-{{style_group}}'
-        let style = document.getElementById(str).innerHTML;
+        str = 'text-button-dropdown-{{style_group}}'
+        style = document.getElementById(str).innerHTML;
         if (style.includes('Select')){
             document.getElementById('customization-error').style.display = 'block'
             return None
@@ -113,19 +113,19 @@
 
 
     function showDropdown(style_group){
-        let str = 'content-dropdown-' + style_group
+        str = 'content-dropdown-' + style_group
         console.log(str)
         document.getElementById(str).style.display = 'block';
     }
 
     function closeDropdown(style_group){
-        let str = 'content-dropdown-' + style_group
+        str = 'content-dropdown-' + style_group
         console.log(str)
         document.getElementById(str).style.display = 'None';
     }
 
     function updateDropdown(style_group, style){
-        let str = 'text-button-dropdown-' + style_group
+        str = 'text-button-dropdown-' + style_group
         document.getElementById(str).innerHTML = style;
         closeDropdown(style_group)
         document.getElementById('customization-error').style.display = 'None'

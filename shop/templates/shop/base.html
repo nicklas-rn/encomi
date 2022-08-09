@@ -1,6 +1,6 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'shop/style.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'shop/configuration.css' %}">
+<link rel="stylesheet" type="text/css" href="/static/shop/{{seller}}_configuration.css">
 
 <!DOCTYPE html>
 <html lang="en">
@@ -72,13 +72,13 @@
 <body>
 
 
-<nav>
+<nav id="navbar">
     <div id="link-wrapper-nav">
         <a class="link-nav" href="/become_seller">Become a seller</a>
     </div>
-    <a href="/"><img id="logo-nav" src="/media/logos/logo.png"></a>
+    <a href="/{{seller}}"><img id="logo-nav" src="{{seller.logo.url}}"></a>
     <div id="icon-wrapper-nav">
-        <a href="/cart" onmouseenter="openCartPreview()"><img class="icon icon-nav" id="icon-nav" src="/media/icons/cart.svg"></a>
+        <a href="/cart/{{seller}}" onmouseenter="openCartPreview()"><img class="icon icon-nav" id="icon-nav" src="/media/icons/cart.svg"></a>
         <p id="badge-icon-cart-nav">0</p>
     </div>
 </nav>
@@ -116,14 +116,14 @@
 
 <style>
     #cart-preview{
-        position: absolute;
+        position: fixed;
         right: 20px;
         top: 50px;
         background-color: white;
         width: 300px;
         padding: 20px 20px 20px 20px;
         border: 1px solid black;
-        z-index: 15;
+        z-index: 100;
         display: None;
         border-radius: 4px 0px 4px 4px;
     }
@@ -149,10 +149,36 @@
         display: flex;
         align-items: center;
         margin-bottom: 20px;
+        position: relative;
+    }
+
+    .cartItem-encomi{
+        //opacity: 0.2;
+    }
+
+    .warning-cartItem{
+        position: absolute;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 110px;
+        padding: 0px 10px;
+        font-size: 14;
+        background-color: rgba(255, 255, 255, 0.9);
+    }
+
+    .warningText-cartItem{
+        vertical-align: middle;
+    }
+
+    .encomiLink-cartItem{
+        text-decoration: underline;
     }
 
     .image-cartItem{
         width: 80px;
+        height: 110px;
+        object-fit: cover;
         margin-right: 20px;
     }
 
@@ -229,6 +255,19 @@
 </style>
 
 <script>
+    var prevScrollpos = window.pageYOffset;
+    window.onscroll = function() {
+    var currentScrollPos = window.pageYOffset;
+        if (prevScrollpos > currentScrollPos) {
+            document.getElementById("navbar").style.top = "0";
+        } else if (prevScrollpos < currentScrollPos && currentScrollPos > 40){
+            document.getElementById("navbar").style.top = "-60px";
+            document.getElementById("cart-preview").style.display = "None";
+        }
+        prevScrollpos = currentScrollPos;
+    }
+
+
     function getCartCount() {
         let cart = JSON.parse(getCookie('cart'))
         let cartCount =  0
@@ -244,7 +283,7 @@
         let request = new XMLHttpRequest();
         let method = 'GET';
 
-        let url = '/cart_preview';
+        let url = '/cart_preview/{{seller}}';
         request.open(method, url);
         request.onload = function () {
             // the response is the rendered HTML
@@ -267,7 +306,7 @@
         search['category'] = category_id
         document.cookie ='search=' + JSON.stringify(search) + ";domain=;path=/"
 
-        window.location.href = '/shop'
+        window.location.href = '/shop/{{seller}}'
     }
 
 </script>

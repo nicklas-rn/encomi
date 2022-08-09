@@ -1,45 +1,72 @@
 import json
 from django.shortcuts import render, redirect
-from .models import Item, Category
+from .models import *
 from .utils import cookieCart
 from .scraper import *
 
 # Create your views here.
 
+def base(request):
+    return redirect('/encomi')
 
-def home(request):
 
-    cart = cookieCart(request)
+def home(request, seller_name):
 
-    items = Item.objects.all()
-    categories = Category.objects.all()
+    cart = cookieCart(request, seller_name)
+
+    seller = Seller.objects.get(name=seller_name)
+    print(seller)
+    if seller_name != 'encomi':
+        items = seller.item_set.all()
+    else:
+        items = Item.objects.all()
+
+    categories = seller.category_set.all()
+
+    pushed_sellers = Seller.objects.all()
+
 
     context = {
+        'seller': seller,
         'items': items,
         'cartItems': cart['items'],
         'cartTotal': cart['total'],
         'categories': categories,
+        'pushed_sellers': pushed_sellers,
     }
 
     return render(request, 'shop/home.html', context)
 
 
-def shop(request):
+def shop(request, seller_name):
     search = json.loads(request.COOKIES['search'])
     category_id = search['category']
     sort = search['sort']
     keyword = search['keyword']
 
-    cart = cookieCart(request)
+    cart = cookieCart(request, seller_name)
 
-    if category_id != 0:
-        try:
-            category = Category.objects.get(id=category_id)
-            items = Item.objects.filter(categories=category)
-        except:
-            items = Item.objects.all()
+    seller = Seller.objects.get(name=seller_name)
+    if seller_name != 'encomi':
+
+        if category_id != 0:
+            try:
+                category = seller.category_set.get(id=category_id)
+                items = seller.item_set.filter(categories=category)
+            except:
+                items = seller.item_set.all()
+        else:
+            items = seller.item_set.all()
+
     else:
-        items = Item.objects.all()
+        if category_id != 0:
+            try:
+                category = seller.category_set.get(id=category_id)
+                items = Item.objects.filter(categories=category)
+            except:
+                items = Item.objects.all()
+        else:
+            items = Item.objects.all()
 
     if sort == 'Best':
         items = items.order_by('id')
@@ -51,9 +78,7 @@ def shop(request):
     if not keyword == 'all':
         items = items.filter(title__contains=keyword)
 
-    print(items.order_by('-price'))
-
-    categories = Category.objects.all()
+    categories = seller.category_set.all()
 
     """for item in items:
         for style_group in item.style_groups.all():
@@ -63,6 +88,7 @@ def shop(request):
     """
 
     context = {
+        'seller': seller,
         'items': items,
         'categories': categories,
         'cartItems': cart['items'],
@@ -72,14 +98,18 @@ def shop(request):
     return render(request, 'shop/shop.html', context)
 
 
-def item(request, id):
+def item(request, seller_name, id):
 
-    cart = cookieCart(request)
+    cart = cookieCart(request, seller_name)
 
     item = Item.objects.get(id=id)
-    categories = Category.objects.all()
+
+    seller = Seller.objects.get(name=seller_name)
+    categories = seller.category_set.all()
+
 
     context = {
+        'seller': seller,
         'item': item,
         'cartItems': cart['items'],
         'cartTotal': cart['total'],
@@ -89,10 +119,13 @@ def item(request, id):
     return render(request, 'shop/item.html', context)
 
 
-def cart(request):
-    cart = cookieCart(request)
+def cart(request, seller_name):
+    cart = cookieCart(request, seller_name)
+
+    seller = Seller.objects.get(name=seller_name)
 
     context = {
+        'seller': seller,
         'cartItems': cart['items'],
         'cartTotal': cart['total'],
     }
@@ -102,10 +135,13 @@ def cart(request):
     return render(request, 'shop/cart.html', context)
 
 
-def checkout(request):
-    cart = cookieCart(request)
+def checkout(request, seller_name):
+    cart = cookieCart(request, seller_name)
+
+    seller = Seller.objects.get(name=seller_name)
 
     context = {
+        'seller': seller_name,
         'cartItems': cart['items'],
         'cartTotal': cart['total'],
     }
@@ -113,10 +149,13 @@ def checkout(request):
     return render(request, 'shop/checkout.html', context)
 
 
-def cart_total(request):
-    cart = cookieCart(request)
+def cart_total(request, seller_name):
+    cart = cookieCart(request, seller_name)
+
+    seller = Seller.objects.get(name=seller_name)
 
     context = {
+        'seller': seller,
         'cartTotal': cart['total'],
     }
 
@@ -125,10 +164,13 @@ def cart_total(request):
     return render(request, 'shop/cart_total.html', context)
 
 
-def cart_preview(request):
-    cart = cookieCart(request)
+def cart_preview(request, seller_name):
+    cart = cookieCart(request, seller_name)
+
+    seller = Seller.objects.get(name=seller_name)
 
     context = {
+        'seller': seller,
         'cartItems': cart['items'],
         'cartTotal': cart['total'],
     }
@@ -136,17 +178,34 @@ def cart_preview(request):
     return render(request, 'shop/cart_preview.html', context)
 
 
-def shop_items(request):
+def shop_items(request, seller_name):
     search = json.loads(request.COOKIES['search'])
     category_id = search['category']
     sort = search['sort']
     keyword = search['keyword']
 
-    if category_id != 0:
-        category = Category.objects.get(id=category_id)
-        items = Item.objects.filter(categories=category)
+    seller = Seller.objects.get(name=seller_name)
+
+    if seller_name != 'encomi':
+
+        if category_id != 0:
+            try:
+                category = seller.category_set.get(id=category_id)
+                items = seller.item_set.filter(categories=category)
+            except:
+                items = seller.item_set.all()
+        else:
+            items = seller.item_set.all()
+
     else:
-        items = Item.objects.all()
+        if category_id != 0:
+            try:
+                category = Category.objects.get(id=category_id)
+                items = Item.objects.filter(categories=category)
+            except:
+                items = Item.objects.item_set.all()
+        else:
+            items = Item.objects.all()
 
     if sort == 'Best':
         items = items.order_by('id')
@@ -161,6 +220,7 @@ def shop_items(request):
     print(items.order_by('-price'))
 
     context = {
+        'seller': seller,
         'items': items,
     }
 
@@ -187,11 +247,13 @@ def dashboard(request):
 
     return render(request, 'shop/dashboard.html', context)
 
+
 def listings(request):
 
     context = {}
 
     return render(request, 'shop/listings_dashboard.html', context)
+
 
 def categories(request):
 
@@ -199,11 +261,13 @@ def categories(request):
 
     return render(request, 'shop/categories_dashboard.html', context)
 
+
 def deliveries(request):
 
     context = {}
 
     return render(request, 'shop/deliveries_dashboard.html', context)
+
 
 def settings(request):
 

@@ -87,7 +87,7 @@ span {
     flex-direction: row;
     justify-content: left;
     align-content: space-between;
-    width: 100%;
+    width: calc(100% - 270px);
     margin: 70px 0px 70px 200px;
     padding: 0px;
 }

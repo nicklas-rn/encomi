@@ -17,7 +17,7 @@
     display: flex;
     justify-content: center;
     align-items: top;
-    margin: 0px 20px;
+    margin: 20px 20px;
 }
 
 .nav-images {
@@ -64,7 +64,7 @@
 }
 
 .description-values{
-    height: calc(55vh - 300px);
+    height: 35%;
 }
 
 .item-title {

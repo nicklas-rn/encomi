@@ -6,22 +6,6 @@
 <link rel="stylesheet" type="text/css" href="{% static 'shop/cart_style.css' %}"
       xmlns:width="http://www.w3.org/1999/xhtml">
 
-<div class= "navigation" >
-    <ul class="navigation-links">
-        <li class="navigation-link"><a href="">All</a></li>
-        <li class="navigation-link"><a href="">On Sale</a></li>
-        <li class="navigation-link"><a href="">Necklaces</a></li>
-        <li class="navigation-link"><a href="">Crystal Necklaces</a></li>
-        <li class="navigation-link"><a href="">Bracelets</a></li>
-        <li class="navigation-link"><a href="">Layered Necklace SET</a></li>
-        <li class="navigation-link"><a href="">Rings</a></li>
-        <li class="navigation-link"><a href="">Earrings & Ear Climbers</a></li>
-        <li class="navigation-link"><a href="">Pearls Jewellery</a></li>
-        <li class="navigation-link"><a href="">Healing Necklaces</a></li>
-    </ul>
-</div>
-
-
 <div class="main">
     <ul class="left">
         <p class="your-bag-heading">Your bag</p>
@@ -30,7 +14,7 @@
 
             <img class="cartItem-image" src="{{cartItem.object.image_set.first.image.url}}" width= 100px alt="">
             <div class="cartItem-properties">
-                <a class="cartItem-link" href="/item/{{cartItem.object.id}}">{{cartItem.object.title|truncatechars:40}}</a>
+                <a class="cartItem-link" href="/item/{{seller}}/{{cartItem.object.id}}">{{cartItem.object.title|truncatechars:40}}</a>
                 <p class="cartItem-description">{% for style_group, style in cartItem.style_groups.items %}{{style}}{% endfor %}</p>
                 <p class="cartItem-price">{{cartItem.price|floatformat:2}}€</p>
                 <p class="cartItem-quantity">Quantity: {{cartItem.quantity}}</p>

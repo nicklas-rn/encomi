@@ -2,7 +2,7 @@ import json
 from .models import Item
 
 
-def cookieCart(request):
+def cookieCart(request, seller):
     # Create empty cart for now for non-logged in user
     try:
         cart = json.loads(request.COOKIES['cart'])
@@ -36,7 +36,8 @@ def cookieCart(request):
         }
         items.append(item_dict)
 
-        total += item_dict['quantity'] * price
+        if item_object.seller == seller or seller == 'encomi':
+            total += item_dict['quantity'] * price
 
     print(items, total)
 
