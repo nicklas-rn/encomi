@@ -7,7 +7,7 @@ from .scraper import *
 # Create your views here.
 
 def base(request):
-    return redirect('/encomi')
+    return redirect('home/encomi')
 
 
 def home(request, seller_name):
@@ -274,3 +274,27 @@ def settings(request):
     context = {}
 
     return render(request, 'shop/settings_dashboard.html', context)
+
+def seller_policy(request):
+
+    context = {}
+
+    return render(request, 'shop/seller_policy.html', context)
+
+def privacy_policy(request):
+
+    context = {}
+
+    return render(request, 'shop/privacy_policy.html', context)
+
+def TOU(request):
+
+    context = {}
+
+    return render(request, 'shop/TOU.html', context)
+
+def about(request):
+
+    context = {}
+
+    return render(request, 'shop/about.html', context)

@@ -23,7 +23,7 @@
 
 <div class="shops-pushed">
     {% for pushed_seller in pushed_sellers %}
-    <div class="shop"><img class="logo-amicajewels" src="{{pushed_seller.logo.url}}"><a class="link-shop-amicajewels" href="/{{pushed_seller.name}}">Shop at {{pushed_seller.name}}<img class="arrow-right-black" src="/media/icons/arrow-right-black.png"></a></div>
+    <div class="shop"><img class="logo-amicajewels" src="{{pushed_seller.logo.url}}"><a class="link-shop-amicajewels" href="/home/{{pushed_seller.name}}">Shop at {{pushed_seller.name}}<img class="arrow-right-black" src="/media/icons/arrow-right-black.png"></a></div>
     {% endfor %}
 </div>
 
