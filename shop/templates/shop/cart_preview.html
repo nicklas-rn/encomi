@@ -3,8 +3,8 @@
 <p id="title-cart-preview">Your Cart</p>
 <div id="cartItems">
     {% for cartItem in cartItems %}
-    <div class="cartItem {%if cartItem.object.seller != seller and seller != 'encomi'%}cartItem-encomi{%endif%}">
-        {%if cartItem.object.seller != seller and seller != 'encomi'%}
+    <div class="cartItem {%if cartItem.object.seller != seller and seller.name != 'encomi'%}cartItem-encomi{%endif%}">
+        {%if cartItem.object.seller != seller and seller.name != 'encomi'%}
         <div class="warning-cartItem"><p class="warningText-cartItem">This item is not being sold by {{seller}}. Please visit <a class="encomiLink-cartItem" href="/">encomi.co</a></p></div>
         {%endif%}
         <img class="image-cartItem" src="{{cartItem.object.image_set.first.image.url}}" alt="">
