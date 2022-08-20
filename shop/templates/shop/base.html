@@ -76,7 +76,7 @@
     <div id="link-wrapper-nav">
         <a class="link-nav" href="/become_seller">Become a seller</a>
     </div>
-    <a href="/{{seller}}"><img id="logo-nav" src="{{seller.logo.url}}"></a>
+    <a href="/home/{{seller}}"><img id="logo-nav" src="{{seller.logo.url}}"></a>
     <div id="icon-wrapper-nav">
         <a href="/cart/{{seller}}" onmouseenter="openCartPreview()"><img class="icon icon-nav" id="icon-nav" src="/media/icons/cart.svg"></a>
         <p id="badge-icon-cart-nav">0</p>
@@ -111,6 +111,26 @@
 
     {% endblock %}
 </div>
+
+<footer>
+    <div id="background-footer">
+
+        <p class="social-media">
+            <img id="instagram-logo" src="/media/icons/instagram-logo.png" alt="">
+            <a href="https://www.instagram.com/encomi.co/">Follow us on Instagram</a>
+        </p>
+
+        <p class="links-footer">
+            <a href="/seller_policy">Seller Policy</a>
+            <a href="/privacy_policy">Privacy Policy</a>
+            <a href="/TOU">Terms of Use</a>
+            <a href="/about">About us</a>
+        </p>
+    </div>
+        <a href="/{{seller}}"><img id="logo-footer" src="{{seller.logo.url}}"></a>
+
+</footer>
+
 
 </body>
 
