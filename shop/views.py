@@ -245,7 +245,7 @@ def dashboard(request):
 
     context = {}
 
-    return render(request, 'shop/dashboard.html', context)
+    return render(request, 'shop/home_dashboard.html', context)
 
 
 def listings(request):
@@ -253,13 +253,6 @@ def listings(request):
     context = {}
 
     return render(request, 'shop/listings_dashboard.html', context)
-
-
-def categories(request):
-
-    context = {}
-
-    return render(request, 'shop/categories_dashboard.html', context)
 
 
 def deliveries(request):
