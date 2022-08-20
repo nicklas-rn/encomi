@@ -64,19 +64,26 @@ span {
     margin-left: 200px;
 }
 
-.text-small {
+.background-second-content {
     max-width: 450px;
     margin-left: 20px;
-    font-size: 18;
     font-family: 'Inria Serif', serif;
 }
 
-.text-small a {
-    margin: 20px 0px 0px 20px;
+.background-second-content a {
+    margin: 20px 0px 0px 0px;
     font-family: 'Inria Serif', serif;
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.text-small {
+    font-size: 18;
+}
+
+.link-become-seller {
+    font-size: 15;
 }
 
 
