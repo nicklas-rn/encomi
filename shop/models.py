@@ -31,6 +31,8 @@ class Item(models.Model):
     keywords = models.CharField(blank=True, null=True, max_length=1200, default='All')
     price = models.FloatField(blank=True, null=True)
     old_price = models.FloatField(blank=True, null=True)
+    details = models.TextField(max_length=5000, blank=True, null=True)
+    description = models.TextField(max_length=5000, blank=True, null=True)
     categories = models.ManyToManyField(Category, null=True, blank=True)
     seller = models.ForeignKey('Seller', null=True, on_delete=models.CASCADE)
 

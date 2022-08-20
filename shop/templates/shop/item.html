@@ -8,11 +8,13 @@
 <div id="item">
     <div class="nav-images" >
         {% for image in item.image_set.all %}
-        <img class="nav-image" src="{{image.image.url}}" width="70px" alt="">
+        <img class="nav-image" src="{{image.image.url}}" width="70px" alt="" onmouseenter="updateImage('{{image.image.url}}')">
         {% endfor %}
     </div>
 
-    <img id="item-image" src="{{item.image_set.first.image.url}}" height="515px" alt="">
+    <div id="item-image-wrapper">
+        <img id="item-image" src="{{item.image_set.first.image.url}}" alt="">
+    </div>
 
     <div class="description">
         <div class="description-values">
@@ -41,6 +43,47 @@
         {% endfor %}
         <button id="button" onclick="addCookieItem()">Add to Cart</button>
         <p id="customization-error">Please select all customization options</p>
+
+        <div id="item-properties">
+            <div class="item-property">
+                <div class="button-item-property" id="button-item-property-details" onclick="showContentProperty('details')">
+                    <span class="title-item-property">Details</span>
+                    <i class="icon-dropdown">
+                        <img class="image-dropdown"
+                        src="/media/icons/arrow-down.png" alt="">
+                    </i>
+                </div>
+                <div class="content-item-property" id="content-item-property-details">
+                    <p>{{item.details}}</p>
+                </div>
+            </div>
+
+            <div class="item-property">
+                <div class="button-item-property" id="button-item-property-description" onclick="showContentProperty('description')">
+                    <span class="title-item-property">Description</span>
+                    <i class="icon-dropdown">
+                        <img class="image-dropdown"
+                        src="/media/icons/arrow-down.png" alt="">
+                    </i>
+                </div>
+                <div class="content-item-property" id="content-item-property-description">
+                    <p>{{item.description}}</p>
+                </div>
+            </div>
+
+            <div class="item-property">
+                <div class="button-item-property" id="button-item-property-delivery" onclick="showContentProperty('delivery')">
+                    <span class="title-item-property">Delivery</span>
+                    <i class="icon-dropdown">
+                        <img class="image-dropdown"
+                        src="/media/icons/arrow-down.png" alt="">
+                    </i>
+                </div>
+                <div class="content-item-property" id="content-item-property-delivery">
+                    <p>7 Tage</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -129,7 +172,26 @@
         document.getElementById(str).innerHTML = style;
         closeDropdown(style_group)
         document.getElementById('customization-error').style.display = 'None'
+    }
 
+    function updateImage(src){
+        document.getElementById('item-image').src = src;
+    }
+
+    function showContentProperty(property){
+        str = 'content-item-property-' + property
+        document.getElementById(str).style.display = 'block'
+        btnStr = "javascript: hideContentProperty('" + property + "');"
+        str = 'button-item-property-' + property
+        document.getElementById(str).setAttribute( "onClick", btnStr );
+    }
+
+    function hideContentProperty(property){
+        str = 'content-item-property-' + property
+        document.getElementById(str).style.display = 'None'
+        btnStr = "javascript: showContentProperty('" + property + "');"
+        str = 'button-item-property-' + property
+        document.getElementById(str).setAttribute( "onClick", btnStr );
     }
 
 </script>
