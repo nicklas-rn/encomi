@@ -165,6 +165,15 @@
         font-family: 'Inria-Serif';
     }
 
+    #cartItems{
+        max-height: 40vh;
+        overflow: scroll;
+    }
+
+    #cartItems::-webkit-scrollbar{
+        display: None;
+    }
+
     .cartItem{
         display: flex;
         align-items: center;
@@ -200,6 +209,7 @@
         height: 110px;
         object-fit: cover;
         margin-right: 20px;
+        z-index: 100;
     }
 
     .properties-cartItem{
@@ -232,7 +242,8 @@
 
 
     #infos-cart-preview{
-        margin-top: 25px;
+        padding-top: 15px;
+        border-top: 1px solid lightgrey;
     }
 
     #subtotal-cart-preview{
