@@ -1,8 +1,8 @@
 .listings-content {
     background-color: white;
-    border-radius: 4px;
-    padding: 10px;
-    height: calc(100% - 160px);
+    border-radius: 15px;
+    padding: 25px;
+    height: 100%;
 }
 
 .sync-data-button {
@@ -34,13 +34,13 @@
 
 .categories {
     width: 230px;
-    position: fixed;
+    position: absolute;
 }
 
 .categories p {
     font-size: 18;
     font-family: 'Inter', inter;
-    padding: 10px 0px 20px 10px;
+    padding: 0px 0px 20px 5px;
 }
 
 .category-links {
@@ -67,7 +67,7 @@
     color: black;
     font-size: 16;
     width: 213px;
-    padding-left: 15px;
+    padding-left: 5px;
 }
 
 .category-link-selected a{
@@ -89,7 +89,7 @@
     font-family: 'Inter', inter;
     height: 40px;
     margin-top: 10px;
-    margin-left: 10px;
+
 }
 
 .add-category-img {
@@ -102,7 +102,7 @@
 
 
 #form{
-    border: 1px #f5f5f5 solid;
+    border: 1px lightgrey solid;
     width: 230px;
     height: 30px;
     border-radius: 4px;
@@ -138,24 +138,76 @@
     margin-left: 270px;
     width: calc(100% - 270px);
     float: left;
+
 }
 
 
 .items {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-column-gap: 25px;
+    grid-column-gap: 0px;
     grid-auto-rows: 0.5fr;
     justify-content: left;
     align-content: space-between;
     width: calc(100% - 10px);
     margin-right: 0px;
+    height: calc(100% - 190px);
+    overflow: scroll;
+
 }
 
 .item {
-    width: 100%;
-    padding: 0px 10px 35px 10px;
-    height: 500px;
+    padding: 15px;
+    width: 250px;
     position: relative;
     cursor: pointer;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: -1px 1px 5px #ECECEC,
+                1px -1px 5px #ECECEC;
+    margin-bottom: 20px;
+}
+
+.item p {
+    margin-top: 10px;
+}
+
+.item-image {
+    margin-bottom: 10px;
+    border-radius: 15px;
+}
+
+.crop {
+    display: block;
+    height: 270px;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
+
+.item-second-image{
+    display: None;
+}
+
+.item-title, .item-price {
+    font-size: 18;
+}
+
+.item-price {
+    font-weight: bold;
+    font-family: 'Inter', inter;
+}
+
+
+.items-sold {
+    color: #A0A0A0;
+    font-size: 15;
+    font-family: 'Inter', inter;
+}
+
+.items-sold-img {
+    height: 18px;
+    padding-right: 8px;
 }
