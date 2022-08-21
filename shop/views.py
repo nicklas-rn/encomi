@@ -305,3 +305,10 @@ def about(request):
     context = {}
 
     return render(request, 'shop/about.html', context)
+
+
+def login(request):
+
+    context = {}
+
+    return render(request, 'shop/login.html', context)

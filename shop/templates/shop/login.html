@@ -1,0 +1,39 @@
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'shop/login_style.css' %}">
+
+
+<div class="main">
+    <div id="left">
+      <a href="/home/encomi"><img id="logo-nav" src="/media/logos/logo.png"></a>
+
+        <p>Welcome Back!</p>
+
+      <div class="login-form">
+          <form id="form" role="user-information" onsubmit="(e)=>{e.preventDefault(); updateKeyword()}">
+
+              <input type="text" id="username" name="username" class="input-form"
+                   placeholder="Username"><br/>
+              <input type="text" id="password" name="password" class="input-form"
+                  placeholder="Password"><br/>
+              <input type="submit" value="Login" class="login-button">
+          </form>
+
+      </div>
+
+    </div>
+
+    <div id="right">
+        <img id="picture-login" src="/media/icons/picture_login.png">
+
+        <div class="text-picture">
+            <p class="text-big">Sell jewellery like never before</p>
+            <p class="text-small">We offer the most unique shopping experience</p>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
