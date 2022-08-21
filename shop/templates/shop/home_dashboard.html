@@ -6,23 +6,36 @@
 <link rel="stylesheet" type="text/css" href="{% static 'shop/home_dashboard_style.css' %}">
 
 
+<nav class="navbar-left">
+    <a href="/"><img id="logo-nav" src="/media/logos/logo.png"></a>
+
+
+    <ul class="dashboard-links">
+        <li class="dashboard nav-home active-page" id="navigation-dashboard-link-dashboard"><a href="/dashboard/home"><img class="icon-navbar" src="/media/icons/home-dashboard-white.png" alt="">Dashboard</a></li>
+        <li class="dashboard nav-listings" id="navigation-dashboard-link-listings"><a href="/dashboard/listings"><img class="icon-navbar" src="/media/icons/listings-dashboard-white.png" alt="">Listings</a></li>
+        <li class="dashboard nav-deliveries" id="navigation-dashboard-link-deliveries"><a href="/dashboard/deliveries"><img class="icon-navbar" src="/media/icons/deliveries-dashboard-white.png" alt="">Deliveries</a></li>
+        <li class="dashboard nav-settings" id="navigation-dashboard-link-settings"><a href="/dashboard/settings"><img class="icon-navbar" src="/media/icons/settings-dashboard-white.png" alt="">Settings</a></li>
+    </ul>
+
+</nav>
+
 <nav id="header">
-    <p><img class="icon"
+    <p><img class="icon-header"
                 src="/media/icons/home-dashboard.png" alt="">Dashboard</p>
 </nav>
 
 <div class="mainmain">
 
     <div class="container">
-        <div class="item item1"><p><img class="icon"
+        <div class="item item1"><p><img class="icon-dashboard"
                     src="/media/icons/orders-dashboard.png" alt="">Orders</p></div>
-        <div class="item item2"><p><img class="icon"
+        <div class="item item2"><p><img class="icon-dashboard"
                     src="/media/icons/revenue-dashboard.png" alt="">Revenue</p></div>
-        <div class="item item3"><p><img class="icon"
+        <div class="item item3"><p><img class="icon-dashboard"
                     src="/media/icons/pagevisits-dashboard.png" alt="">Page Visits</p></div>
-        <div class="item item4"><p><img class="icon"
+        <div class="item item4"><p><img class="icon-dashboard"
                     src="/media/icons/listings-dashboard.png" alt="">Listings</p></div>
-        <div class="item item5"><p><img class="icon"
+        <div class="item item5"><p><img class="icon-dashboard"
                     src="/media/icons/deliveries-dashboard.png" alt="">Deliveries</p></div>
     </div>
 </div>

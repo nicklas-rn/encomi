@@ -241,30 +241,44 @@ def become_seller(request):
     return render(request, 'shop/become_seller.html', context)
 
 
-def dashboard(request):
+def dashboard(request, seller_name):
+    seller = Seller.objects.get(name=seller_name)
 
-    context = {}
+    context = {
+        'seller': seller,
+    }
 
     return render(request, 'shop/home_dashboard.html', context)
 
 
-def listings(request):
-
-    context = {}
+def listings(request, seller_name):
+    seller = Seller.objects.get(name=seller_name)
+    items = seller.item_set.all()
+    print(items)
+    context = {
+        'seller': seller,
+        'items': items,
+    }
 
     return render(request, 'shop/listings_dashboard.html', context)
 
 
-def deliveries(request):
+def deliveries(request, seller_name):
+    seller = Seller.objects.get(name=seller_name)
 
-    context = {}
+    context = {
+        'seller': seller,
+    }
 
     return render(request, 'shop/deliveries_dashboard.html', context)
 
 
-def settings(request):
+def settings(request, seller_name):
+    seller = Seller.objects.get(name=seller_name)
 
-    context = {}
+    context = {
+        'seller': seller,
+    }
 
     return render(request, 'shop/settings_dashboard.html', context)
 
