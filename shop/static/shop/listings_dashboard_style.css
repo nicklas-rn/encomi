@@ -1,0 +1,213 @@
+.listings-content {
+    background-color: white;
+    border-radius: 15px;
+    padding: 25px;
+    height: 100%;
+}
+
+.sync-data-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 15;
+    border: grey;
+    border-radius: 7px;
+    background-color: #F5E6D0;
+    width: 180px;
+    font-family: 'Inter', inter;
+    height: 40px;
+}
+
+.sync-data-img {
+    height: 18px;
+    margin-right: 8px;
+    margin-left: 8px;
+}
+
+
+
+
+
+
+
+
+
+.categories {
+    width: 230px;
+    position: absolute;
+}
+
+.categories p {
+    font-size: 18;
+    font-family: 'Inter', inter;
+    padding: 0px 0px 20px 5px;
+}
+
+.category-links {
+    padding-left: 0px;
+    max-height: calc(100vh - 200px);
+    border-right: 1px solid lightgrey;
+    z-index: 1;
+}
+
+.category-link{
+    list-style-type: none;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    width: 228px;
+    z-index: 3;
+    border-radius: 4px 0px 0px 4px;
+    cursor: pointer;
+
+}
+
+.categories a{
+    font-family: 'Inria Serif', serif;
+    text-decoration: none;
+    color: black;
+    font-size: 16;
+    width: 213px;
+    padding-left: 5px;
+}
+
+.category-link-selected a{
+    border-right: 2px solid black;
+    font-weight: 600;
+}
+
+.category-link:hover{
+    background-color: #F5F5F5;
+}
+
+.add-category-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 15;
+    border: 1px solid lightgrey;
+    border-radius: 7px;
+    font-family: 'Inter', inter;
+    height: 40px;
+    margin-top: 10px;
+
+}
+
+.add-category-img {
+    height: 18px;
+    margin-right: 8px;
+    margin-left: 8px;
+}
+
+
+
+
+#form{
+    border: 1px lightgrey solid;
+    width: 230px;
+    height: 30px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+#query{
+    all: unset;
+    color: black;
+    font: 16px;
+    height: 100%;
+    width: 100%;
+    padding: 0px 10px 0px 0px;;
+}
+
+: :placeholder {
+    color: #959595;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    padding: 10px;
+}
+
+
+
+
+.listings {
+    margin-left: 270px;
+    width: calc(100% - 270px);
+    float: left;
+
+}
+
+
+.items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-column-gap: 0px;
+    grid-auto-rows: 0.5fr;
+    justify-content: left;
+    align-content: space-between;
+    width: calc(100% - 10px);
+    margin-right: 0px;
+    height: calc(100% - 190px);
+    overflow: scroll;
+
+}
+
+.item {
+    padding: 15px;
+    width: 250px;
+    position: relative;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: -1px 1px 5px #ECECEC,
+                1px -1px 5px #ECECEC;
+    margin-bottom: 20px;
+}
+
+.item p {
+    margin-top: 10px;
+}
+
+.item-image {
+    margin-bottom: 10px;
+    border-radius: 15px;
+}
+
+.crop {
+    display: block;
+    height: 270px;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
+
+.item-second-image{
+    display: None;
+}
+
+.item-title, .item-price {
+    font-size: 18;
+}
+
+.item-price {
+    font-weight: bold;
+    font-family: 'Inter', inter;
+}
+
+
+.items-sold {
+    color: #A0A0A0;
+    font-size: 15;
+    font-family: 'Inter', inter;
+}
+
+.items-sold-img {
+    height: 18px;
+    padding-right: 8px;
+}

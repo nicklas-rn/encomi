@@ -3,23 +3,95 @@
 {% block content %}
 
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'shop/dashboard_style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'shop/listings_dashboard_style.css' %}">
 
-<nav class="header">
+
+
+<nav class="navbar-left">
     <a href="/"><img id="logo-nav" src="/media/logos/logo.png"></a>
 
 
     <ul class="dashboard-links">
-        <li class="dashboard home"  id="navigation-dashboard-link-dashboard"><a href="/dashboard/home"><img class="icon" src="/media/icons/home.png" alt="">Dashboard</a></li>
-        <li class="dashboard listings active-page" id="navigation-dashboard-link-listings"><a href="/dashboard/listings"><img class="icon" src="/media/icons/diamond.png" alt="">Listings</a></li>
-        <li class="dashboard categories" id="navigation-dashboard-link-categories"><a href="/dashboard/categories"><img class="icon" src="/media/icons/categories.png" alt="">Categories</a></li>
-        <li class="dashboard deliveries" id="navigation-dashboard-link-deliveries"><a href="/dashboard/deliveries"><img class="icon" src="/media/icons/delivery.png" alt="">Deliveries</a></li>
-        <li class="dashboard settings" id="navigation-dashboard-link-settings"><a href="/dashboard/settings"><img class="icon" src="/media/icons/settings.png" alt="">Settings</a></li>
+        <li class="dashboard nav-home" id="navigation-dashboard-link-dashboard"><a href="/dashboard/home"><img class="icon-navbar" src="/media/icons/home-dashboard-white.png" alt="">Dashboard</a></li>
+        <li class="dashboard nav-listings active-page" id="navigation-dashboard-link-listings"><a href="/dashboard/listings"><img class="icon-navbar" src="/media/icons/listings-dashboard-white.png" alt="">Listings</a></li>
+        <li class="dashboard nav-deliveries" id="navigation-dashboard-link-deliveries"><a href="/dashboard/deliveries"><img class="icon-navbar" src="/media/icons/deliveries-dashboard-white.png" alt="">Deliveries</a></li>
+        <li class="dashboard nav-settings" id="navigation-dashboard-link-settings"><a href="/dashboard/settings"><img class="icon-navbar" src="/media/icons/settings-dashboard-white.png" alt="">Settings</a></li>
     </ul>
 
 </nav>
 
 
+<nav id="header">
+    <p><img class="icon-header"
+                src="/media/icons/listings-dashboard.png" alt="">Listings</p>
 
+    <div class="sync-data-button"><img class="sync-data-img" src="/media/icons/sync-data.png">Sync data</div>
+
+</nav>
+
+
+<div class="mainmain">
+    <div class="listings-content">
+        <div class="categories">
+            <p>Categories</p>
+            <ul class="category-links">
+                <li class="category-link" id="category-link-0" onclick="updateCategory(0)"><a>All</a></li>
+                {% for category in categories %}
+                <li class="category-link" id="category-link-{{category.id}}" onclick="updateCategory({{category.id}})"><a>{{category.title}}</a></li>
+                {% endfor %}
+            </ul>
+
+        <div class="add-category-button"><img class="add-category-img" src="/media/icons/add-category.png">Add category</div>
+
+        </div>
+
+        <div class="listings">
+            <form id="form" role="search" onsubmit="(e)=>{e.preventDefault(); updateKeyword()}">
+                <img class="icon"
+                        src="/media/icons/search_dashboard.png" alt="">
+                <input type="search" id="query"
+                       placeholder="Search..."
+                       aria-label="Search through site content">
+            </form>
+
+            <div class="items" id="items">
+                {% for item in items %}
+                    <div class="item" onclick="window.location.href='/item/{{seller}}/{{item.id}}'">
+
+                        <div class="crop">
+                        <img class="item-image item-first-image" id="item-first-image-{{item.id}}" src="{{item.image_set.first.image.url}}" onmouseenter="showSecondImage({{item.id}})" onmouseleave="showFirstImage({{item.id}})" width="250px" alt="">
+                        <img class="item-image item-second-image" id="item-second-image-{{item.id}}" src="{{item.image_set.last.image.url}}" onmouseenter="showSecondImage({{item.id}})" onmouseleave="showFirstImage({{item.id}})" width="250px" alt="">
+                        </div>
+
+                        <p class="item-title">{{ item.title|truncatechars:35 }}</p>
+                        <p class="item-price"> {{ item.price|floatformat:2 }}€<p/>
+                        <p class="items-sold"><img class="items-sold-img" src="/media/icons/items-sold.png">14 sold</p>
+
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    function showSecondImage(item_id){
+        item_first_image_id = 'item-first-image-' + item_id
+        item_second_image_id = 'item-second-image-' + item_id
+        document.getElementById(item_first_image_id).style.display = 'None';
+        document.getElementById(item_second_image_id).style.display = 'block';
+    }
+
+    function showFirstImage(item_id){
+        item_first_image_id = 'item-first-image-' + item_id
+        item_second_image_id = 'item-second-image-' + item_id
+        document.getElementById(item_first_image_id).style.display = 'block';
+        document.getElementById(item_second_image_id).style.display = 'None';
+    }
+</script>
 
 {% endblock %}
+
+

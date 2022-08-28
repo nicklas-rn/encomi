@@ -17,11 +17,13 @@ urlpatterns = [
     path('shop_items/<seller_name>', views.shop_items, name='shop_items'),
 
     path('become_seller/', views.become_seller, name='become_seller'),
-    path('dashboard/home/', views.dashboard, name='dashboard'),
-    path('dashboard/listings/', views.listings, name='listings'),
-    path('dashboard/categories/', views.categories, name='categories'),
-    path('dashboard/deliveries/', views.deliveries, name='deliveries'),
-    path('dashboard/settings/', views.settings, name='settings'),
+    path('login/', views.login, name='login'),
+
+
+    path('dashboard/home/<seller_name>', views.dashboard, name='dashboard'),
+    path('dashboard/listings/<seller_name>', views.listings, name='listings'),
+    path('dashboard/deliveries/<seller_name>', views.deliveries, name='deliveries'),
+    path('dashboard/settings/<seller_name>', views.settings, name='settings'),
 
     path('seller_policy', views.seller_policy, name='seller_policy'),
     path('privacy_policy', views.privacy_policy, name='privacy_policy'),

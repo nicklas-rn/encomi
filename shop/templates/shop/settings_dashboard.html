@@ -5,21 +5,27 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'shop/dashboard_style.css' %}">
 
-<nav class="header">
+<nav class="navbar-left">
     <a href="/"><img id="logo-nav" src="/media/logos/logo.png"></a>
-
-
     <ul class="dashboard-links">
-        <li class="dashboard home"  id="navigation-dashboard-link-dashboard"><a href="/dashboard/home"><img class="icon" src="/media/icons/home.png" alt="">Dashboard</a></li>
-        <li class="dashboard listings"  id="navigation-dashboard-link-listings"><a href="/dashboard/listings"><img class="icon" src="/media/icons/diamond.png" alt="">Listings</a></li>
-        <li class="dashboard categories" id="navigation-dashboard-link-categories"><a href="/dashboard/categories"><img class="icon" src="/media/icons/categories.png" alt="">Categories</a></li>
-        <li class="dashboard deliveries" id="navigation-dashboard-link-deliveries"><a href="/dashboard/deliveries"><img class="icon" src="/media/icons/delivery.png" alt="">Deliveries</a></li>
-        <li class="dashboard settings active-page" id="navigation-dashboard-link-settings"><a href="/dashboard/settings"><img class="icon" src="/media/icons/settings.png" alt="">Settings</a></li>
+        <li class="dashboard nav-home" id="navigation-dashboard-link-dashboard"><a href="/dashboard/home"><img class="icon-navbar" src="/media/icons/home-dashboard-white.png" alt="">Dashboard</a></li>
+        <li class="dashboard nav-listings" id="navigation-dashboard-link-listings"><a href="/dashboard/listings"><img class="icon-navbar" src="/media/icons/listings-dashboard-white.png" alt="">Listings</a></li>
+        <li class="dashboard nav-deliveries" id="navigation-dashboard-link-deliveries"><a href="/dashboard/deliveries"><img class="icon-navbar" src="/media/icons/deliveries-dashboard-white.png" alt="">Deliveries</a></li>
+        <li class="dashboard nav-settings active-page" id="navigation-dashboard-link-settings"><a href="/dashboard/settings"><img class="icon-navbar" src="/media/icons/settings-dashboard-white.png" alt="">Settings</a></li>
     </ul>
 
 </nav>
 
+<nav id="header">
+    <p><img class="icon-header"
+                src="/media/icons/settings-dashboard.png" alt="">Settings</p>
+</nav>
 
+
+<div class="mainmain">
+
+
+</div>
 
 
 {% endblock %}
