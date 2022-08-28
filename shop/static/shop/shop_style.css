@@ -6,6 +6,10 @@
     display: none;
 }
 
+#shop{
+    display: flex;
+}
+
 .navigation{
     width: 230px;
     position: fixed;

@@ -127,13 +127,15 @@
             if(cart[k]['itemId'] == itemId){
                 currentItemDict = cart[k]
                 currentItemQuantity = cart[k]['quantity']
-                itemDict['quantity'] = currentItemQuantity
+                delete cart[k]['quantity']
                 if(JSON.stringify(currentItemDict) === JSON.stringify(itemDict)){
-                    console.log('fit found')
+                    console.log('fit found' + currentItemQuantity)
                     cartIndex = k
                     /*delete cart[k]*/
                     itemDict['quantity'] = currentItemQuantity + 1
+                    console.log(itemDict['quantity'])
                 }
+                cart[k]['quantity'] = currentItemQuantity
             }
         }
 

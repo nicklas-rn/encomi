@@ -1,7 +1,7 @@
 import json
 from django.shortcuts import render, redirect
 from .models import *
-from .utils import cookieCart
+from .utils import *
 from .scraper import *
 
 # Create your views here.
@@ -124,13 +124,14 @@ def cart(request, seller_name):
 
     seller = Seller.objects.get(name=seller_name)
 
+
     context = {
         'seller': seller,
         'cartItems': cart['items'],
+        'cartSubTotal': cart['subtotal'],
         'cartTotal': cart['total'],
-    }
 
-    print(context)
+    }
 
     return render(request, 'shop/cart.html', context)
 
@@ -138,15 +139,82 @@ def cart(request, seller_name):
 def checkout(request, seller_name):
     cart = cookieCart(request, seller_name)
 
+    print(request.COOKIES.get('cart'))
+
     seller = Seller.objects.get(name=seller_name)
 
     context = {
-        'seller': seller_name,
+        'seller': seller,
         'cartItems': cart['items'],
+        'cartSubTotal': cart['subtotal'],
         'cartTotal': cart['total'],
+        'order': str(request.COOKIES.get('cart')),
     }
 
     return render(request, 'shop/checkout.html', context)
+
+
+def create_order(request, seller_name):
+    data = json.loads(request.body)
+
+    print(f"data: {request.body}")
+
+    seller = Seller.objects.get(name=seller_name)
+
+    order_dict = decodeOrder(data['order'], seller)
+
+    print(data['order_information'])
+
+    parent_order = ParentOrder.objects.create(
+        first_name=data['order_information']['first_name'],
+        last_name=data['order_information']['last_name'],
+        street_name=data['order_information']['street_name'],
+        house_number=data['order_information']['house_number'],
+        postal_code=data['order_information']['postal_code'],
+        city=data['order_information']['city'],
+        message=request.COOKIES.get('cartMessage'),
+    )
+
+    for item_dict in order_dict['items']:
+        item_seller = item_dict['object'].seller
+        if parent_order.order_set.filter(seller=item_seller):
+            order = parent_order.order_set.get(seller=item_seller)
+        else:
+            order = Order.objects.create(
+                parent_order=parent_order,
+                seller=item_seller,
+                total=item_seller.delivery_price
+            )
+        order_item = OrderItem.objects.create(
+            item=item_dict['object'],
+            price=item_dict['price'],
+            order=order
+        )
+        order.subtotal += order_item.price
+        order.total += order_item.price
+        order.save()
+
+    for order in parent_order.order_set.all():
+        parent_order.subtotal += order.subtotal
+        parent_order.total += order.total
+        parent_order.save()
+
+    return redirect(f"/summary/{seller_name}")
+
+
+def summary(request, seller_name):
+    cart = cookieCart(request, seller_name)
+
+    seller = Seller.objects.get(name=seller_name)
+
+    context = {
+        'seller': seller,
+        'cartItems': cart['items'],
+        'cartSubTotal': cart['subtotal'],
+        'cartTotal': cart['total'],
+    }
+
+    return render(request, 'shop/summary.html', context)
 
 
 def cart_total(request, seller_name):
@@ -156,6 +224,7 @@ def cart_total(request, seller_name):
 
     context = {
         'seller': seller,
+        'cartSubTotal': cart['subtotal'],
         'cartTotal': cart['total'],
     }
 
@@ -172,6 +241,7 @@ def cart_preview(request, seller_name):
     context = {
         'seller': seller,
         'cartItems': cart['items'],
+        'cartSubTotal': cart['subtotal'],
         'cartTotal': cart['total'],
     }
 

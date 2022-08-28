@@ -62,9 +62,25 @@
             search['sort'] = 'Best'
             search['keyword'] = ''
             console.log('Search Created!', search)
-            document.cookie ='search=' + JSON.stringify(search) + ";domain=;path=/"
+            document.cookie = 'search=' + JSON.stringify(search) + ";domain=;path=/"
         }
 
+        function getCsrfCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrftoken = getCsrfCookie('csrftoken');
     </script>
 
 </head>
@@ -193,6 +209,7 @@
         height: 110px;
         padding: 0px 10px;
         font-size: 14;
+        z-index: 110;
         background-color: rgba(255, 255, 255, 0.9);
     }
 

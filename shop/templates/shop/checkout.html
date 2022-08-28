@@ -8,26 +8,28 @@
 <!-- Replace "test" with your own sandbox Business account app client ID -->
 <script src="https://www.paypal.com/sdk/js?client-id=ASktPD2Ra2TZB5j4maoVbH5VmkrN_HL5qQdZjP5wknMtVr8OywDDfp5bSxA4oehSdSPaMLKoZWAZ3y4t&currency=EUR"></script>
 
-<div class="main">
+<div id="checkout">
     <div class="left">
         <p class="order-summary-heading">Order summary</p>
-        {% for cartItem in cartItems %}
 
         <ul class="left-content">
-            <li class="items-in-cart-list" id="item-in-cart-list-{{cartItem.cart_id}}">
+            <div id="items-in-cart-list">
+                {% for cartItem in cartItems %}
+                <li class="item-in-cart-list" id="item-in-cart-list-{{cartItem.cart_id}}">
 
-                <img class="cartItem-image" src="{{cartItem.object.image_set.first.image.url}}" width= 100px alt="">
-                <div class="cartItem-properties">
-                    <a class="cartItem-link" href="/item/{{cartItem.object.id}}">{{cartItem.object.title|truncatechars:40}}</a>
-                    <p class="cartItem-description">{% for style_group, style in cartItem.style_groups.items %}{{style}}{% endfor %}</p>
-                    <p class="cartItem-price">{{cartItem.price|floatformat:2}}€</p>
-                    <p class="cartItem-quantity">Quantity: {{cartItem.quantity}}</p>
-                </div>
-            </li>
-            {% endfor %}
+                    <img class="cartItem-image" src="{{cartItem.object.image_set.first.image.url}}" width= 100px alt="">
+                    <div class="cartItem-properties">
+                        <a class="cartItem-link" href="/item/{{cartItem.object.id}}">{{cartItem.object.title|truncatechars:40}}</a>
+                        <p class="cartItem-description">{% for style_group, style in cartItem.style_groups.items %}{{style}}{% endfor %}</p>
+                        <p class="cartItem-price">{{cartItem.price|floatformat:2}}€</p>
+                        <p class="cartItem-quantity">Quantity: {{cartItem.quantity}}</p>
+                    </div>
+                </li>
+                {% endfor %}
+            </div>
             <li class="subtotal">
                 <p class="subtotal-text">Subtotal</p>
-                <p class="subtotal-number">{{cartTotal}}€</p>
+                <p class="subtotal-number">{{cartSubTotal|floatformat:2}}€</p>
             </li>
 
             <li class="delivery-fee">
@@ -36,7 +38,7 @@
             </li>
             <li class="total-price">
                 <p class="total-price-text">Total</p>
-                <p class="total-price-number">{{cartTotal}}€</p>
+                <p class="total-price-number">{{cartTotal|floatformat:2}}€</p>
             </li>
         </ul>
     </div>
@@ -45,17 +47,19 @@
         <p class="shipping-information-heading">Shipping Information</p>
 
         <div class=" shipping-information">
-            <input type="text" id="firstname" name="firstname" placeholder="First Name">
-            <input type="text" id="lastname" name="lastname" placeholder="Last Name">
-            <input type="text" id="streetname" name="streetname" placeholder="Street Name">
-            <input type="text" id="number" name="number" placeholder="Number">
-            <input type="text" id="postalcode" name="postalcode" placeholder="Postal Code">
-            <input type="text" id="city" name="city" placeholder="City">
+            <input type="text" class="shipping-input" id="firstname" name="firstname" placeholder="First Name">
+            <input type="text" class="shipping-input shipping-input-right" id="lastname" name="lastname" placeholder="Last Name">
+            <input type="text" class="shipping-input" id="streetname" name="streetname" placeholder="Street Name">
+            <input type="text" class="shipping-input shipping-input-right" id="number" name="number" placeholder="Number">
+            <input type="text" class="shipping-input" id="postalcode" name="postalcode" placeholder="Postal Code">
+            <input type="text" class="shipping-input shipping-input-right" id="city" name="city" placeholder="City">
         </div>
 
         <p class="payment-options-heading">Payment Options</p>
 
         <div id="paypal-button-container"></div>
+
+        <button onclick="testPayment()">Test Payment</button>
 
     </div>
 
@@ -70,11 +74,11 @@
         purchase_units: [
             {
                 amount: {
-                    value: '{{cartTotal}}',
+                    value: '{{cartTotal|floatformat:2}}',
                     currency_code: 'EUR',
                     breakdown: {
                         item_total: {
-                            value: '{{cartTotal}}',
+                            value: '{{cartTotal|floatformat:2}}',
                             currency_code: 'EUR'
                         }
                     }
@@ -99,17 +103,61 @@
     // Finalize the transaction after payer approval
     onApprove: (data, actions) => {
       return actions.order.capture().then(function(orderData) {
-        // Successful capture! For dev/demo purposes:
-        console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-        const transaction = orderData.purchase_units[0].payments.captures[0];
-        alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
-        // When ready to go live, remove the alert and show a success message within this page. For example:
-        // const element = document.getElementById('paypal-button-container');
-        // element.innerHTML = '<h3>Thank you for your payment!</h3>';
-        // Or go to another URL:  actions.redirect('thank_you.html');
+        fetch("/create_order/{{seller}}",{
+            method:"POST",
+            headers:{
+                "Content-type": 'application/json',
+                "X-CSRFToken": csrftoken,
+            },
+            body: JSON.stringify({
+                cart: cart,
+                order_information: {
+                    first_name: document.getElementById('firstname').value,
+                    last_name: document.getElementById('lastname').value,
+                    street_name: document.getElementById('streetname').value,
+                    house_number: document.getElementById('number').value,
+                    postal_code: document.getElementById('postalcode').value,
+                    city: document.getElementById('city').value,
+                }
+            })
+            }
+        )
       });
     }
   }).render('#paypal-button-container');
+
+
+  function testPayment(){
+    // check if all Shipping Information Fields are filled out
+    checkNumber = 0
+    const idList = ['firstname', 'lastname', 'streetname', 'number', 'postalcode', 'city']
+    for(let i=0; i< idList.length; i++){
+        if (document.getElementById(idList[i]).value){
+            checkNumber += 1;
+        }
+    }
+    if(checkNumber!=idList.length){return}
+    fetch("/create_order/{{seller}}",{
+        method:"POST",
+        headers:{
+            "Content-type": 'application/json',
+            "X-CSRFToken": csrftoken,
+        },
+        body: JSON.stringify({
+            order: {{order|safe}},
+            order_information: {
+                first_name: document.getElementById('firstname').value,
+                last_name: document.getElementById('lastname').value,
+                street_name: document.getElementById('streetname').value,
+                house_number: document.getElementById('number').value,
+                postal_code: document.getElementById('postalcode').value,
+                city: document.getElementById('city').value,
+            }
+        })
+        }
+    )
+  }
+
 </script>
 
 

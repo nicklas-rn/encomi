@@ -1,7 +1,7 @@
 <p class="total-heading">Total</p>
 <div class="subtotal">
     <p class="subtotal-text">Subtotal</p>
-    <p class="subtotal-number">{{cartTotal}}€</p>
+    <p class="subtotal-number">{{cartSubTotal|floatformat:2}}€</p>
 </div>
 
 <div class="delivery-fee">
@@ -10,7 +10,7 @@
 </div>
 <div class="total-price">
     <p class="total-price-text">Total</p>
-    <p class="total-price-number">{{cartTotal}}€</p>
+    <p class="total-price-number">{{cartTotal|floatformat:2}}€</p>
 </div>
 
-<a id="button-proceed-to-checkout" href="/checkout">Proceed to Checkout</a>
+<a id="button-proceed-to-checkout" onclick="proceedCheckout()">Proceed to Checkout</a>
