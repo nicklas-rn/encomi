@@ -12,14 +12,13 @@
 
 
     <ul class="dashboard-links">
-        <li class="dashboard nav-home" id="navigation-dashboard-link-dashboard"><a href="/dashboard/home"><img class="icon-navbar" src="/media/icons/home-dashboard-white.png" alt="">Dashboard</a></li>
-        <li class="dashboard nav-listings active-page" id="navigation-dashboard-link-listings"><a href="/dashboard/listings"><img class="icon-navbar" src="/media/icons/listings-dashboard-white.png" alt="">Listings</a></li>
-        <li class="dashboard nav-deliveries" id="navigation-dashboard-link-deliveries"><a href="/dashboard/deliveries"><img class="icon-navbar" src="/media/icons/deliveries-dashboard-white.png" alt="">Deliveries</a></li>
-        <li class="dashboard nav-settings" id="navigation-dashboard-link-settings"><a href="/dashboard/settings"><img class="icon-navbar" src="/media/icons/settings-dashboard-white.png" alt="">Settings</a></li>
+        <li class="dashboard-link nav-home" id="navigation-dashboard-link-dashboard"><a href="/dashboard/home/{{seller}}"><img class="icon-navbar" src="/media/icons/home-dashboard-white.png" alt="">Dashboard</a></li>
+        <li class="dashboard-link nav-listings active-page" id="navigation-dashboard-link-listings"><a href="/dashboard/listings/{{seller}}"><img class="icon-navbar" src="/media/icons/listings-dashboard-white.png" alt="">Listings</a></li>
+        <li class="dashboard-link nav-deliveries" id="navigation-dashboard-link-deliveries"><a href="/dashboard/deliveries/{{seller}}"><img class="icon-navbar" src="/media/icons/deliveries-dashboard-white.png" alt="">Deliveries</a></li>
+        <li class="dashboard-link nav-settings" id="navigation-dashboard-link-settings"><a href="/dashboard/settings/{{seller}}"><img class="icon-navbar" src="/media/icons/settings-dashboard-white.png" alt="">Settings</a></li>
     </ul>
 
 </nav>
-
 
 <nav id="header">
     <p><img class="icon-header"
@@ -58,10 +57,8 @@
                 {% for item in items %}
                     <div class="item" onclick="window.location.href='/item/{{seller}}/{{item.id}}'">
 
-                        <div class="crop">
                         <img class="item-image item-first-image" id="item-first-image-{{item.id}}" src="{{item.image_set.first.image.url}}" onmouseenter="showSecondImage({{item.id}})" onmouseleave="showFirstImage({{item.id}})" width="250px" alt="">
                         <img class="item-image item-second-image" id="item-second-image-{{item.id}}" src="{{item.image_set.last.image.url}}" onmouseenter="showSecondImage({{item.id}})" onmouseleave="showFirstImage({{item.id}})" width="250px" alt="">
-                        </div>
 
                         <p class="item-title">{{ item.title|truncatechars:35 }}</p>
                         <p class="item-price"> {{ item.price|floatformat:2 }}€<p/>

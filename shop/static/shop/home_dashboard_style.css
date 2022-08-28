@@ -16,14 +16,14 @@
     'revenue page-visits deliveries'
     'listings listings deliveries';
   gap: 15px;
-  height: calc(100vh - 50px);
+  height: 100%;
   margin: 0px;
 }
 
 .item {
     text-align: left;
-    padding: 10px 20px;
-    border-radius: 10px;
+    padding: 15px 20px;
+    border-radius: 20px;
     box-shadow: -2px 2px 2px #EBEBEB,
                 2px -2px 2px #EBEBEB;
     background-color: white;
@@ -32,5 +32,11 @@
 .icon-dashboard {
     width: 40px;
     height: 40px;
-    margin-right: 5px;
+    margin-right: 8px;
+}
+
+.item-title{
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 22;
 }

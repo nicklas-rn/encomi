@@ -49,6 +49,7 @@
 <style>
     *{
         margin: 0px;
+        font-family: 'Inter', sans-serif;
     }
 
     p {
@@ -56,80 +57,61 @@
         align-items: center;
     }
 
-    #header {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        margin-left: 235px;
-        padding-right: 20px;
-        height: 100px;
-        font-size: 25;
-    }
-
-    .icon-header {
-        width: 40px;
-        height: 40px;
-        margin-right: 5px;
-    }
-
     .navbar-left {
         display: flex;
         flex-direction: column;
-        justify-content: left;
-        width: 170px;
+        align-items: center;
+        width: 200px;
         height: 100%;
         position: fixed;
-        padding: 0px 20px 0px 5px;
         background-color: black;
     }
 
     #logo-nav {
         height: 30px;
-        margin: 30px 25px;
+        margin: 30px 0px;
     }
 
     .dashboard-links {
         padding-left: 0px;
         max-height: calc(100vh - 200px);
-        z-index: 1;
-        margin-left: 10px;
+        width: calc(100% - 20px);
+        padding-left: 20px;
 
     }
 
-    .dashboard {
+    .dashboard-link {
         list-style-type: none;
-        margin: 30px 0px;
-        z-index: 3;
+        margin: 20px 0px;
         border-radius: 4px 0px 0px 4px;
+        padding: 10px 2px 10px 10px;
 
     }
 
-    .dashboard-links a{
+    .dashboard-link a{
         text-decoration: none;
         color: black;
-        font-size: 18;
+        font-weight: 400;
+        font-size: 16;
         width: 100%;
-        margin: 5px 0px;
         cursor: pointer;
         color: white;
         display: flex;
         align-items: center;
     }
 
-    .dashboard-links a:hover{
-        width: 100%;
+    .active-page{
+        background-color: #262626;
+
     }
 
-    .active-page {
-        font-weight: bold;
-        z-index: 5;
+    .active-page a{
+         border-right: 2px solid white;
     }
 
     .icon-navbar {
-        width: 20px;
-        height: 20px;
-        padding: 10px;
+        width: 24px;
+        height: 24px;
         padding-right: 10px;
         vertical-align: middle;
         position: relative;
@@ -140,7 +122,28 @@
         margin-left: 197px;
         padding: 20px 20px;
         background-color: #F5F5F5;
-        height: 100%;
+        height: calc(100% - 140px);
+    }
+
+    #header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-left: 225px;
+        padding-right: 20px;
+        height: 100px;
+        font-size: 25;
+    }
+
+    .icon-header {
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+    }
+
+    #header-title{
+
     }
 
 

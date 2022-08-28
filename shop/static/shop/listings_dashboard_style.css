@@ -1,8 +1,10 @@
 .listings-content {
     background-color: white;
-    border-radius: 15px;
+    border-radius: 20px;
     padding: 25px;
-    height: 100%;
+    box-shadow: -2px 2px 2px #EBEBEB,
+            2px -2px 2px #EBEBEB;
+    height: calc(100% - 50px);
 }
 
 .sync-data-button {
@@ -144,70 +146,60 @@
 
 .items {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-column-gap: 0px;
-    grid-auto-rows: 0.5fr;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
     justify-content: left;
-    align-content: space-between;
     width: calc(100% - 10px);
     margin-right: 0px;
-    height: calc(100% - 190px);
+    max-height: calc(100% - 50px);
     overflow: scroll;
+    position: relative;
 
 }
 
 .item {
-    padding: 15px;
-    width: 250px;
+    padding: 15px 15px 20px 15px;
     position: relative;
     cursor: pointer;
     background-color: white;
     border-radius: 15px;
     box-shadow: -1px 1px 5px #ECECEC,
                 1px -1px 5px #ECECEC;
-    margin-bottom: 20px;
-}
-
-.item p {
-    margin-top: 10px;
 }
 
 .item-image {
     margin-bottom: 10px;
     border-radius: 15px;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
 }
 
-.crop {
-    display: block;
-    height: 270px;
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    border-radius: 15px;
-    margin-bottom: 10px;
-}
 
 .item-second-image{
     display: None;
 }
 
 .item-title, .item-price {
-    font-size: 18;
+    font-size: 14;
+    margin-bottom: 10px;
 }
 
 .item-price {
     font-weight: bold;
     font-family: 'Inter', inter;
+    margin-bottom: 10px;
 }
 
 
 .items-sold {
     color: #A0A0A0;
-    font-size: 15;
+    font-size: 12;
     font-family: 'Inter', inter;
 }
 
 .items-sold-img {
-    height: 18px;
-    padding-right: 8px;
+    height: 16px;
+    padding-right: 5px;
 }
