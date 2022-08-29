@@ -62,15 +62,29 @@ nav{
 }
 
 #link-wrapper-nav{
-    width: 150px;
+    width: 250px;
+    display: flex;
+    justify-content: center;
 }
 
 .link-nav{
     color: black;
     text-decoration: None;
-    font-size: 18;
-    font-weight: 200;
+    font-size: 17;
+    font-weight: normal;
+    padding-right: 30px;
 }
+
+.link-login {
+    display: flex;
+    align-items: center;
+}
+
+#login-img {
+    height: 17px;
+    padding-right: 5px;
+}
+
 
 #logo-nav{
     height: 35px;
