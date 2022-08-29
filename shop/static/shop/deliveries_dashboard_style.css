@@ -1,0 +1,283 @@
+.mainmain-content {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: -2px 2px 2px #EBEBEB,
+            2px -2px 2px #EBEBEB;
+    height: 100%;
+}
+
+.sync-data-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 15;
+    border: grey;
+    border-radius: 7px;
+    background-color: #DAD5EC;
+    width: 180px;
+    font-family: 'Inter', inter;
+    height: 40px;
+}
+
+.sync-data-img {
+    height: 18px;
+    margin-right: 8px;
+    margin-left: 8px;
+}
+
+#left {
+    line-height:30px;
+    height: calc(100% - 50px);
+    width: 30%;
+    float: left;
+    border-right: 2px solid lightgrey;
+    padding: 25px 0px;
+}
+
+
+
+#form{
+    border: 1px lightgrey solid;
+    width: 230px;
+    height: 30px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 30px;
+    margin-left: 25px;
+}
+
+#query{
+    all: unset;
+    color: black;
+    font: 16px;
+    height: 100%;
+    width: 100%;
+    padding: 0px 10px 0px 0px;;
+}
+
+: :placeholder {
+    color: #959595;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    padding: 10px;
+}
+
+
+
+
+.header-orderlist {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(100% - 25px);
+    border-bottom: 2px solid lightgrey;
+    padding-left: 25px;
+}
+
+.box {
+    height: 20px;
+    margin-right: 10px;
+}
+
+.header-orderlist p {
+    color: grey;
+    font-size: 13;
+}
+
+.orderId{
+    width: 70px;
+}
+
+.orderDate{
+    width: 70px;
+}
+
+.orderStatus {
+    width: 70px;
+    padding-right: 20px;
+}
+
+.orderlist {
+    list-style: none;
+    padding-left: 0px;
+    line-height: 65px;
+
+}
+
+
+.orderlist-object {
+    border-bottom: 1px solid lightgrey;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(100% - 25px);
+    padding-left: 25px;
+}
+
+.orderlist-object p{
+    display: inline-block;
+}
+
+
+
+a:link {
+  color: black;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+/*
+a:visited {
+  color: pink;
+  background-color: transparent;
+  text-decoration: none;
+}
+*/
+
+a:hover {
+  color: lightgrey;
+  background-color: transparent;
+}
+
+a:active {
+  color: black;
+  font-weight: bold;
+  background-color: #F8F8F8;
+}
+
+
+
+
+
+
+
+
+
+#right {
+    padding: 25px 0px;
+    margin-left: 30%;
+
+}
+
+#heading-right {
+    padding: 0px 25px;
+    font-size: 18;
+}
+
+.status-img {
+    height: 23px;
+    padding-left: 30px;
+}
+
+
+.order-details {
+  display: grid;
+  grid-template-columns: 110px 260px 90px 260px;
+  padding: 35px 25px 10px 25px;
+  border-bottom: 1px solid lightgrey;
+}
+
+.grid-item {
+  font-size: 13px;
+  text-align: left;
+  padding-bottom: 10px;
+}
+
+.grid-item-transparent {
+    color: #959595;
+}
+.message {
+    display: flex;
+    justify-content: left;
+    align-items: flex-start;
+    border-bottom: 1px solid lightgrey;
+}
+
+.message-title {
+    padding: 20px 25px;
+    font-size: 13px;
+    color: #959595;
+}
+
+.message-text {
+    font-size: 13px;
+    padding: 20px 25px;
+    max-width: 570px;
+    word-wrap: break-word;
+    display: block;
+}
+
+.ordered-products-title {
+    padding: 20px 25px;
+    font-size: 13px;
+    color: #959595;
+}
+
+
+
+#items-in-cart-list{
+    max-height: 500px;
+    overflow: scroll;
+}
+
+.item-in-cart-list {
+    list-style-type: none;
+    padding: 20px 0px 15px 0px;
+    border-bottom: 1px #E4E4E4 solid;
+    display: flex;
+    align-items: top;
+}
+
+
+#message{
+    width: 100%;
+    border: 1px solid #E4E4E4;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+
+
+.cartItem-image{
+    width: 90px;
+    height: 120px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.cartItem-properties{
+    display: inline-block;
+    width: calc(100% - 125px);
+    height: 120px;
+    position: relative;
+}
+
+.cartItem-link{
+    font-family: 'Inria-Serif';
+    font-size: 17;
+    margin-bottom: 7px;
+    text-align: left;
+}
+
+.cartItem-description{
+    font-size: 12;
+    margin-bottom: 10px;
+}
+
+.cartItem-price{
+    display: inline-block;
+    padding-bottom: 15px;
+}
+
+.cartItem-quantity{
+    display: inline-block;
+    float: right;
+    font-size: 12;
+    line-height: 20px;
+    vertical-align: bottom;
+}
