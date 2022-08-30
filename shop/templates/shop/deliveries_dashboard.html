@@ -3,27 +3,108 @@
 {% block content %}
 
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'shop/dashboard_style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'shop/deliveries_dashboard_style.css' %}">
 
 <nav class="navbar-left">
     <a href="/"><img id="logo-nav" src="/media/logos/logo.png"></a>
     <ul class="dashboard-links">
-        <li class="dashboard nav-home" id="navigation-dashboard-link-dashboard"><a href="/dashboard/home"><img class="icon-navbar" src="/media/icons/home-dashboard-white.png" alt="">Dashboard</a></li>
-        <li class="dashboard nav-listings" id="navigation-dashboard-link-listings"><a href="/dashboard/listings"><img class="icon-navbar" src="/media/icons/listings-dashboard-white.png" alt="">Listings</a></li>
-        <li class="dashboard nav-deliveries active-page" id="navigation-dashboard-link-deliveries"><a href="/dashboard/deliveries"><img class="icon-navbar" src="/media/icons/deliveries-dashboard-white.png" alt="">Deliveries</a></li>
-        <li class="dashboard nav-settings" id="navigation-dashboard-link-settings"><a href="/dashboard/settings"><img class="icon-navbar" src="/media/icons/settings-dashboard-white.png" alt="">Settings</a></li>
+        <li class="dashboard-link nav-home" id="navigation-dashboard-link-dashboard"><a href="/dashboard/home/{{seller}}"><img class="icon-navbar" src="/media/icons/home-dashboard-white.png" alt="">Dashboard</a></li>
+        <li class="dashboard-link nav-listings" id="navigation-dashboard-link-listings"><a href="/dashboard/listings/{{seller}}"><img class="icon-navbar" src="/media/icons/listings-dashboard-white.png" alt="">Listings</a></li>
+        <li class="dashboard-link nav-deliveries active-page" id="navigation-dashboard-link-deliveries"><a href="/dashboard/deliveries/{{seller}}"><img class="icon-navbar" src="/media/icons/deliveries-dashboard-white.png" alt="">Deliveries</a></li>
+        <li class="dashboard-link nav-settings" id="navigation-dashboard-link-settings"><a href="/dashboard/settings/{{seller}}"><img class="icon-navbar" src="/media/icons/settings-dashboard-white.png" alt="">Settings</a></li>
     </ul>
 </nav>
 
 <nav id="header">
     <p><img class="icon-header"
                 src="/media/icons/deliveries-dashboard.png" alt="">Deliveries</p>
+
+    <div class="sync-data-button"><img class="sync-data-img" src="/media/icons/sync-data.png">Reload</div>
 </nav>
 
 
 <div class="mainmain">
 
+    <div class="mainmain-content">
+        <div id="left">
+            <form id="form" role="search" onsubmit="(e)=>{e.preventDefault(); updateKeyword()}">
+                <img class="icon"
+                        src="/media/icons/search_dashboard.png" alt="">
+                <input type="search" id="query"
+                       placeholder="Search..."
+                       aria-label="Search through site content">
+            </form>
 
+            <div class="header-orderlist">
+                 <img class="box"
+                        src="/media/icons/box-to-tick.png" alt="">
+                <p class="orderId">Order ID</p>
+                <p class="orderDate">Date</p>
+                <p class="status orderStatus">Status</p>
+            </div>
+
+            <div class="orderlist">
+                <a href="#order-one">
+                    <div class="orderlist-object">
+                        <img class="box"
+                            src="/media/icons/box-to-tick.png" alt="">
+                            <p class="orderId">Order ID</p>
+                            <p class="orderDate">Date</p>
+                            <p class="status orderStatus">Status</p>
+                    </div>
+                </a>
+                <a href="#order-two">
+                    <div class="orderlist-object">
+                        <img class="box"
+                            src="/media/icons/box-to-tick.png" alt="">
+                            <p class="orderId">Order ID</p>
+                            <p class="orderDate">Date</p>
+                            <p class="status orderStatus">Status</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div id="right">
+            <p id="heading-right">Order AJ-1Wncskd<img class="status-img"
+                            src="/media/icons/ontheway.png" alt=""></p>
+
+            <div class="order-details">
+                <div class="grid-item grid-item-transparent">Orderer</div>
+                <div class="grid-item">Max Mustermann</div>
+                <div class="grid-item grid-item-transparent">Date</div>
+                <div class="grid-item">28/07/2022</div>
+                <div class="grid-item grid-item-transparent">Address</div>
+                <div class="grid-item">Klosterweg 28</br>76131 Karlsruhe</br>Germany</div>
+                <div class="grid-item grid-item-transparent">Total</div>
+                <div class="grid-item">64€</div>
+            </div>
+
+            <div class="message">
+                <p class="message-title">Message</p><p class="message-text">Wrap as a present</p>
+            </div>
+
+            <div>
+                <p class="ordered-products-title">Ordered Products</p>
+
+                <div id="items-in-cart-list">
+                    {% for cartItem in cartItems %}
+                    <li class="item-in-cart-list" id="item-in-cart-list-{{cartItem.cart_id}}">
+                        <img class="cartItem-image" src="{{cartItem.object.image_set.first.image.url}}" width= 100px alt="">
+                        <div class="cartItem-properties">
+                            <a class="cartItem-link" href="/item/{{seller}}/{{cartItem.object.id}}">{{cartItem.object.title|truncatechars:40}}</a>
+                            <p class="cartItem-description">{% for style_group, style in cartItem.style_groups.items %}{{style}}{% endfor %}</p>
+                            <p class="cartItem-price">{{cartItem.price|floatformat:2}}€</p>
+                            <p class="cartItem-quantity">Quantity: {{cartItem.quantity}}</p>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+        </div>
+    </div>
 </div>
 
 
