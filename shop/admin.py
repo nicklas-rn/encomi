@@ -11,4 +11,5 @@ admin.site.register(Seller)
 admin.site.register(ParentOrder)
 admin.site.register(Order)
 admin.site.register(OrderItem)
+admin.site.register(User)
 

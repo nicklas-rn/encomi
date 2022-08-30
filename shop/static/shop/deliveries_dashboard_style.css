@@ -144,11 +144,11 @@ a:hover {
   background-color: transparent;
 }
 
-a:active {
-  color: black;
-  font-weight: bold;
-  background-color: #F8F8F8;
+a:visited {
+  color: grey;
+  background-color: transparent;
 }
+
 
 
 
