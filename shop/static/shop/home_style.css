@@ -4,18 +4,25 @@
     height: 300px;
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-direction: column;
     margin-top: 20px;
+    margin-bottom: 200px;
 }
 
 .background a {
     font-size: 15;
     font-family: 'Inria Serif', serif;
     color: #DDBC9B;
-    margin: 0px 200px;
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.section{
+    width: calc(100% - 60px);
+    position: relative;
+    padding: 0px 30px;
 }
 
 .text-big {
@@ -23,18 +30,24 @@
     font-family: 'Inria Serif', serif;
     color: #DDBC9B;
     max-width: 500px;
-    margin-left: 200px;
     margin-bottom: 40px;
-    z-index: 1;
+    z-index: 2;
+    display: inline-block;
+    position: relative;
 }
 
-span {
+.text-big-line{
+    font-size: 47;
+    font-family: 'Inria Serif', serif;
+}
+
+.text-big-white{
     color: white;
     font-family: 'Inria Serif', serif;
 }
 
 .arrow-right {
-    height: 20px;
+    height: 22px;
 }
 
 .arrow-right-black {
@@ -42,48 +55,45 @@ span {
 }
 
 #image-home-1 {
-    width: 25%;
+    width: 50%;
+    max-width: 500px;
     height: auto;
     position: absolute;
-    margin-left: 487px;
-    margin-top: 40px;
-}
-
-.background-second {
-    width: 100%;
-    padding: 0px;
-    display: flex;
-    justify-content: left;
-    flex-direction: row;
-    margin: 70px 200px 70px 0px;
+    margin-left: 290px;
+    top: -20px;
+    z-index: 1
 }
 
 #image-home-2 {
-    width: 25%;
+    width: 50%;
+    max-width: 500px;
     height: auto;
-    margin-left: 200px;
+    display: inline-block;
+    margin-right: 20px;
 }
 
-.background-second-content {
-    max-width: 450px;
-    margin-left: 20px;
-    font-family: 'Inria Serif', serif;
-}
-
-.background-second-content a {
-    margin: 20px 0px 0px 0px;
-    font-family: 'Inria Serif', serif;
+.section2{
     display: flex;
-    flex-direction: row;
     align-items: center;
 }
 
+.section2-content{
+    display: inline-block;
+    max-width: calc(50% - 30px);
+}
+
+
 .text-small {
     font-size: 18;
+    font-weight: 300;
+    margin-bottom: 20px;
 }
 
 .link-become-seller {
-    font-size: 15;
+    font-size: 16;
+    display: flex;
+    align-items: center;
+    font-weight: 300;
 }
 
 
@@ -95,25 +105,30 @@ span {
     justify-content: left;
     align-content: space-between;
     width: calc(100% - 270px);
-    margin: 70px 0px 70px 200px;
-    padding: 0px;
+    padding: 0px 30px;
+    margin: 100px 0px;
 }
 
 .shop {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
+    width: 180px;
+    margin: 0px 20px 0px 0px;
 }
 
 .shop a {
-    margin: 20px 0px 0px 20px;
     font-family: 'Inria Serif', serif;
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.logo-amicajewels {
-    max-height: 100px;
-    width: auto;
+.logo-shop {
+    height: 120px;
+    width: 120px;
+    padding: 20px;
+    margin-bottom: 15px;
+    object-fit: contain;
+    box-shadow: 0px 1px 10px 0px rgba(0,0,0,0.1);
 }

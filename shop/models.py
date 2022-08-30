@@ -75,6 +75,7 @@ class ParentOrder(models.Model):
     message = models.TextField(max_length=1000, null=True, blank=True)
     subtotal = models.FloatField(default=0)
     total = models.FloatField(default=0)
+    datetime = models.DateTimeField(null=True)
 
 
 class Order(models.Model):

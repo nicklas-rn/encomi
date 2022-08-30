@@ -130,6 +130,7 @@ def cart(request, seller_name):
         'cartItems': cart['items'],
         'cartSubTotal': cart['subtotal'],
         'cartTotal': cart['total'],
+        'shipping': cart['shipping'],
 
     }
 
@@ -148,6 +149,7 @@ def checkout(request, seller_name):
         'cartItems': cart['items'],
         'cartSubTotal': cart['subtotal'],
         'cartTotal': cart['total'],
+        'shipping': cart['shipping'],
         'order': str(request.COOKIES.get('cart')),
     }
 
@@ -212,6 +214,7 @@ def summary(request, seller_name):
         'cartItems': cart['items'],
         'cartSubTotal': cart['subtotal'],
         'cartTotal': cart['total'],
+        'shipping': cart['shipping'],
     }
 
     return render(request, 'shop/summary.html', context)
@@ -226,6 +229,7 @@ def cart_total(request, seller_name):
         'seller': seller,
         'cartSubTotal': cart['subtotal'],
         'cartTotal': cart['total'],
+        'shipping': cart['shipping'],
     }
 
     print(context)
@@ -243,6 +247,7 @@ def cart_preview(request, seller_name):
         'cartItems': cart['items'],
         'cartSubTotal': cart['subtotal'],
         'cartTotal': cart['total'],
+        'shipping': cart['shipping'],
     }
 
     return render(request, 'shop/cart_preview.html', context)
@@ -314,8 +319,12 @@ def become_seller(request):
 def dashboard(request, seller_name):
     seller = Seller.objects.get(name=seller_name)
 
+    sales_chart = salesStatistics(seller, 7)
+
     context = {
         'seller': seller,
+        'weekday_list': sales_chart['weekday_list'],
+        'sales_list': sales_chart['sales_list']
     }
 
     return render(request, 'shop/home_dashboard.html', context)

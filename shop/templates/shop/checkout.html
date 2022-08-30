@@ -34,7 +34,7 @@
 
             <li class="delivery-fee">
                 <p class="delivery-fee-text">Delivery</p>
-                <p class="delivery-fee-number">4.80€</p>
+                <p class="delivery-fee-number">{{shipping|floatformat:2}}€</p>
             </li>
             <li class="total-price">
                 <p class="total-price-text">Total</p>
@@ -78,7 +78,11 @@
                     currency_code: 'EUR',
                     breakdown: {
                         item_total: {
-                            value: '{{cartTotal|floatformat:2}}',
+                            value: '{{cartSubTotal|floatformat:2}}',
+                            currency_code: 'EUR'
+                        },
+                        shipping: {
+                            value: '{{shipping|floatformat:2}}',
                             currency_code: 'EUR'
                         }
                     }
