@@ -11,14 +11,11 @@
         <p class="welcome-back">Welcome Back!</p>
 
       <div class="login-form">
-          <form id="form" method="post" action="">
+          <form id="form" method="post">
 
-            {% csrf_token %}
-
-            {{form.email}}
-
-            {{form.password}}
-            <input type="submit" value="Login" class="login-button">
+              {% csrf_token %}
+              {{ form.as_p }}
+              <button type="submit" class="login-button">Login</button>
           </form>
           <a href="/become_seller" class="new-here"> <p>New here? Become a seller</p></a>
 

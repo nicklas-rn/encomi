@@ -1,5 +1,6 @@
 import json
-from .models import Item
+from .models import *
+from datetime import datetime, timedelta
 
 
 def cookieCart(request, seller):
@@ -37,7 +38,8 @@ def cookieCart(request, seller):
         }
         items.append(item_dict)
 
-        if item_object.seller == seller or seller == 'encomi':
+        print(item_object.seller, seller)
+        if item_object.seller.name == seller or seller == 'encomi':
             subtotal += item_dict['quantity'] * price
             total += item_dict['quantity'] * price
 
@@ -45,9 +47,11 @@ def cookieCart(request, seller):
             total += item_object.seller.delivery_price
             seller_list.append(item_object.seller)
 
+    shipping = total - subtotal
+
     print(items, subtotal, total)
 
-    return {'items': items, 'subtotal': subtotal, 'total': total}
+    return {'items': items, 'subtotal': subtotal, 'total': total, 'shipping': shipping}
 
 
 def decodeOrder(data, seller):
@@ -80,3 +84,32 @@ def decodeOrder(data, seller):
     print(items, total)
 
     return {'items': items, 'total': total}
+
+
+def salesStatistics(seller, days):
+    today = datetime.today()
+
+    weekday_list = []
+
+    sales_list = []
+
+    for i in range(days):
+        sales = 0
+        day = today - timedelta(days=i)
+        orders = Order.objects.filter(seller=seller)
+        for order in orders:
+            print(order.parent_order.datetime.day, day.day)
+            if order.parent_order.datetime.day == day.day:
+                sales += 1
+                print(day)
+
+        sales_list.append(sales)
+
+        weekday = day.strftime("%A")
+        print(weekday)
+        weekday_list.append(weekday)
+
+    weekday_list.reverse()
+    sales_list.reverse()
+
+    return {'weekday_list': weekday_list, 'sales_list': sales_list}

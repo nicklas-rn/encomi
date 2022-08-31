@@ -3,8 +3,10 @@ from django.shortcuts import render, redirect
 from .models import *
 from .utils import *
 from .scraper import *
+from .forms import *
 
-# Create your views here.
+from django.contrib.auth import authenticate, login, logout
+
 
 def base(request):
     return redirect('home/encomi')
@@ -130,6 +132,7 @@ def cart(request, seller_name):
         'cartItems': cart['items'],
         'cartSubTotal': cart['subtotal'],
         'cartTotal': cart['total'],
+        'shipping': cart['shipping'],
 
     }
 
@@ -148,6 +151,7 @@ def checkout(request, seller_name):
         'cartItems': cart['items'],
         'cartSubTotal': cart['subtotal'],
         'cartTotal': cart['total'],
+        'shipping': cart['shipping'],
         'order': str(request.COOKIES.get('cart')),
     }
 
@@ -212,6 +216,7 @@ def summary(request, seller_name):
         'cartItems': cart['items'],
         'cartSubTotal': cart['subtotal'],
         'cartTotal': cart['total'],
+        'shipping': cart['shipping'],
     }
 
     return render(request, 'shop/summary.html', context)
@@ -226,6 +231,7 @@ def cart_total(request, seller_name):
         'seller': seller,
         'cartSubTotal': cart['subtotal'],
         'cartTotal': cart['total'],
+        'shipping': cart['shipping'],
     }
 
     print(context)
@@ -243,6 +249,7 @@ def cart_preview(request, seller_name):
         'cartItems': cart['items'],
         'cartSubTotal': cart['subtotal'],
         'cartTotal': cart['total'],
+        'shipping': cart['shipping'],
     }
 
     return render(request, 'shop/cart_preview.html', context)
@@ -314,20 +321,62 @@ def become_seller(request):
 def dashboard(request, seller_name):
     seller = Seller.objects.get(name=seller_name)
 
+    sales_chart = salesStatistics(seller, 7)
+
     context = {
         'seller': seller,
+        'weekday_list': sales_chart['weekday_list'],
+        'sales_list': sales_chart['sales_list']
     }
 
     return render(request, 'shop/home_dashboard.html', context)
 
 
 def listings(request, seller_name):
+
+    search = json.loads(request.COOKIES['search'])
+    category_id = search['category']
+    sort = search['sort']
+    keyword = search['keyword']
+
     seller = Seller.objects.get(name=seller_name)
-    items = seller.item_set.all()
-    print(items)
+    if seller_name != 'encomi':
+
+        if category_id != 0:
+            try:
+                category = seller.category_set.get(id=category_id)
+                items = seller.item_set.filter(categories=category)
+            except:
+                items = seller.item_set.all()
+        else:
+            items = seller.item_set.all()
+
+    else:
+        if category_id != 0:
+            try:
+                category = seller.category_set.get(id=category_id)
+                items = Item.objects.filter(categories=category)
+            except:
+                items = Item.objects.all()
+        else:
+            items = Item.objects.all()
+
+    if sort == 'Best':
+        items = items.order_by('id')
+    elif sort == 'Ascending':
+        items = items.order_by('price')
+    elif sort == 'Descending':
+        items = items.order_by('-price')
+
+    if not keyword == 'all':
+        items = items.filter(title__contains=keyword)
+
+    categories = seller.category_set.all()
+
     context = {
         'seller': seller,
         'items': items,
+        'categories': categories,
     }
 
     return render(request, 'shop/listings_dashboard.html', context)
@@ -377,8 +426,25 @@ def about(request):
     return render(request, 'shop/about.html', context)
 
 
-def login(request):
+def login_user(request):
+    if request.user.is_authenticated:
+        return redirect('/')
+    else:
+        form = AuthenticateUserForm()
+        if request.method == 'POST':
+            form = AuthenticateUserForm(request.POST)
+            if form.is_valid():
+                try:
+                    new_user = authenticate(email=form.cleaned_data['email'],
+                                            password=form.cleaned_data['password'],
+                                            )
+                    login(request, new_user)
 
-    context = {}
+                    return redirect('/')
 
-    return render(request, 'shop/login.html', context)
+                except:
+                    return redirect('/login/')
+
+        context = {'form': form}
+
+        return render(request, 'shop/login.html', context)

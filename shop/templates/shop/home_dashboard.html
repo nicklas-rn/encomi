@@ -32,8 +32,11 @@
         <div class="item item1">
             <p class="item-title">
                 <img class="icon-dashboard" src="/media/icons/orders-dashboard.png" alt="">
-                Orders
+                Sales
             </p>
+            <div id="sales-chart-wrapper">
+                <canvas id="sales-chart"></canvas>
+            </div>
         </div>
         <div class="item item2">
             <p class="item-title">
@@ -61,6 +64,41 @@
     </div>
 </div>
 
+<script>
+  const labels = {{weekday_list|safe}};
 
+  const data = {
+    labels: labels,
+    datasets: [{
+      label: 'My First dataset',
+      backgroundColor: '#C6D9D2',
+      borderColor: '#C6D9D2',
+      data: {{sales_list}},
+    }]
+  };
+
+  const config = {
+    type: 'line',
+    data: data,
+    options: {
+        plugins: {
+            legend: {
+              display: false
+            }
+        },
+        scale: {
+            ticks: {
+                precision: 0
+            }
+        }
+    }
+  };
+
+   const salesChart = new Chart(
+        document.getElementById('sales-chart'),
+        config
+    );
+
+</script>
 
 {% endblock %}
