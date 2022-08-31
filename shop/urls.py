@@ -18,6 +18,7 @@ urlpatterns = [
 
     path('become_seller/', views.become_seller, name='become_seller'),
     path('login/', views.login_user, name='login'),
+    path('help/<seller_name>', views.help, name='help'),
 
 
     path('dashboard/home/<seller_name>', views.dashboard, name='dashboard'),

@@ -448,3 +448,13 @@ def login_user(request):
         context = {'form': form}
 
         return render(request, 'shop/login.html', context)
+
+
+def help(request, seller_name):
+    seller = Seller.objects.get(name=seller_name)
+
+    context = {
+        'seller': seller,
+    }
+
+    return render(request, 'shop/help.html', context)
