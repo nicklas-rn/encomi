@@ -1,0 +1,104 @@
+{% extends "shop/base_dashboard.html" %}
+
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'shop/deliveries_dashboard_style.css' %}">
+
+<nav class="navbar-left">
+    <a href="/"><img id="logo-nav" src="/media/logos/logo.png"></a>
+    <ul class="dashboard-links">
+        <li class="dashboard-link nav-home" id="navigation-dashboard-link-dashboard"><a href="/dashboard/home/{{seller}}"><img class="icon-navbar" src="/media/icons/home-dashboard-white.png" alt="">Dashboard</a></li>
+        <li class="dashboard-link nav-listings" id="navigation-dashboard-link-listings"><a href="/dashboard/listings/{{seller}}"><img class="icon-navbar" src="/media/icons/listings-dashboard-white.png" alt="">Listings</a></li>
+        <li class="dashboard-link nav-deliveries active-page" id="navigation-dashboard-link-deliveries"><a href="/dashboard/deliveries/{{seller}}"><img class="icon-navbar" src="/media/icons/deliveries-dashboard-white.png" alt="">Deliveries</a></li>
+        <li class="dashboard-link nav-settings" id="navigation-dashboard-link-settings"><a href="/dashboard/settings/{{seller}}"><img class="icon-navbar" src="/media/icons/settings-dashboard-white.png" alt="">Settings</a></li>
+    </ul>
+</nav>
+
+<nav id="header">
+    <p id="header-title"><img class="icon-header"
+                src="/media/icons/deliveries-dashboard.png" alt="">Deliveries</p>
+
+    <div class="sync-data-button"><img class="sync-data-img" src="/media/icons/sync-data.png">Reload</div>
+</nav>
+
+
+<div class="mainmain">
+
+    <div class="mainmain-content">
+        <div id="left">
+            <form id="form" role="search" onsubmit="(e)=>{e.preventDefault(); updateKeyword()}">
+                <img class="icon"
+                        src="/media/icons/search_dashboard.png" alt="">
+                <input type="search" id="query"
+                       placeholder="Search..."
+                       aria-label="Search through site content">
+            </form>
+
+            <div class="header-orderlist">
+                 <img class="box"
+                        src="/media/icons/box-to-tick.png" alt="">
+                <p class="header-orderId">Order ID</p>
+                <p class="header-orderDate">Date</p>
+                <p class="header-orderStatus">Status</p>
+            </div>
+
+            <div class="orderlist">
+                {% for order in orders %}
+                <a onclick="updateSelectedOrder('{{order.id}}')">
+                    <div class="orderlist-object" id="orderlist-object-{{order.id}}">
+                        <img class="box"
+                            src="/media/icons/box-to-tick.png" alt="">
+                            <p class="orderId">{{order.id}}</p>
+                            <p class="orderDate">{{order.parent_order.datetime|date:"d.m.y"}}</p>
+                            <div class="orderStatus">
+                                <img class="orderStatus-icon" src="/media/icons/shipping-black.png" alt="">
+                                <p class="orderStatus-text">{{order.status}}</p>
+                            </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div id="right">
+            {% include "shop/selected_order.html" %}
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.getElementsByClassName('orderList-object')[0].style.backgroundColor = '#f8f8f8';
+
+    function updateSelectedOrder(order_id){
+        orders = document.getElementsByClassName('orderList-object')
+        for(let i=0; i<orders.length; i++){
+            orders[i].style.backgroundColor = 'transparent';
+        }
+        str = 'orderlist-object-' + order_id;
+        console.log(str)
+        document.getElementById(str).style.backgroundColor = '#f8f8f8';
+
+        let request = new XMLHttpRequest();
+        let method = 'GET';
+        let category = search['category']
+        let sort = search['sort']
+        let keyword = search['keyword']
+
+        let url = '/dashboard/deliveries_selected/{{seller}}/' + order_id;
+        request.open(method, url);
+        request.onload = function () {
+            // the response is the rendered HTML
+            // which django sends as return render(response, "your_template.html", context)
+            let myHTML = request.response;
+            // This is the important part
+            // Set that HTML to the new, templated HTML returned by the server
+        document.getElementById('right').innerHTML = myHTML;
+        };
+        request.send();
+    }
+</script>
+
+
+{% endblock %}

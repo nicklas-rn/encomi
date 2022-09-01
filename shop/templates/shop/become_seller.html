@@ -1,0 +1,153 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'shop/become_seller_style.css' %}">
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>Title</title>
+</head>
+
+
+<div class="logo-encomi">
+    <a href="/"><img id="logo-nav" src="/media/logos/logo_blue.png"></a>
+</div>
+
+<div class="main">
+
+    <div class="background1">
+
+        <div class="block1">
+            <div class="block1-left">
+                <p class="heading1">You sell on Etsy, Amazon or Ebay?</p>
+                <p class="heading2">Get your own, custom made shop</p>
+                <p class="heading3">without any effort or cost</p>
+
+                <div class="login-form">
+                    {% if not submitted %}
+                    <form id="form" method="post" action="">
+                        {% csrf_token %}
+
+                        {{form.email}}
+                        {{form.shop_name}}
+
+                      <input type="submit" value="Get your own free shop website" class="get-shop-button">
+                    </form>
+                    {% endif %}
+                    {% if submitted %}
+                    <div class="thankYou-wrapper">
+                        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                          <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                          <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                        </svg>
+                        <p class="thankYou">Thank you for your submission!<br>We will contact you as soon as possible.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="block1-right">
+                <img class="shop-example-img" src="/media/home/example1.png">
+            </div>
+
+        </div>
+    </div>
+
+    <div class="block2">
+        <div class="content website">
+            <img class="icon website-icon" src="/media/icons/custom-made-website.png">
+            <p class="heading-block2">Custom made website</p>
+            <p class="text">We’ll build your own, independent website to offer you a unique selling experience. Additionaly, your items will be displayed on encomi.co.</p>
+        </div>
+
+        <div class="content effort">
+            <img class="icon effort-icon" src="/media/icons/no-extra-effort.png">
+            <p class="heading-block2">No extra effort for you</p>
+            <p class="text">All your listings will automatically be synced with to other platforms. To gain the best insights into your sales, we offer you a simple seller dashboard.</p>
+        </div>
+
+        <div class="content commission-fee">
+            <img class="icon commission-fee-icon" src="/media/icons/low-commission-fee.png">
+            <p class="heading-block2">Low commission fee</p>
+            <p class="text">You won’t have to pay anything for your custom made website. Instead, we charge a commission fee of only 3.9%, lower than any other marketplace.</p>
+        </div>
+    </div>
+
+    <div class="block3">
+        <p class="heading-block3">We make selling effortless</p>
+        <p class="text text-block3">Your focus should lie fully on your goods. By making everything else as simple as possible, we enable you to do so.</p>
+    </div>
+
+    <div class="block4">
+        <div class="block4-left">
+            <img class="block-img" src="/media/home/example2.png">
+        </div>
+        <div class="block4-right">
+            <p class="heading-block2">A professional website, designed and tailored to your needs</p>
+            <p class="text">Making a website, even with builders like Webflow and Shopify takes time and requires good knowledge of design. We handle everything for you: From design to coding, there’s nothing you have to worry about.</p>
+
+        </div>
+    </div>
+
+    <div class="block5">
+        <div class="block5-left">
+            <p class="heading-block2">Manage everything from one place</p>
+            <p class="text">Maintaining an overview over all orders can be hard. We created a simple seller dashboard, to make that as easy as possible.</p>
+        </div>
+        <div class="block5-right">
+            <img class="block-img" src="/media/home/example3.png">
+        </div>
+    </div>
+
+    <div class="background2">
+        <div class="block6">
+            <div class="block6-left">
+                    <p class="heading-block2">No risk, more revenue</p>
+                    <p class="text">We want to give you the opportunity to get your own selling solution without any risks:</br> No fixed costs, no extra effort and no hidden fees.</p>
+            </div>
+            <div class="block6-right">
+                <div class="login-form">
+                    {% if not submitted %}
+                    <form id="form2" method="post" action="">
+                        {% csrf_token %}
+
+                        {{form.email}}
+                        {{form.shop_name}}
+
+                      <input type="submit" value="Get your own free shop website" class="get-shop-button">
+                    </form>
+                    {% endif %}
+                    {% if submitted %}
+                    <div class="thankYou-wrapper">
+                        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                          <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                          <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                        </svg>
+                        <p class="thankYou">Thank you for your submission!<br>We will contact you as soon as possible.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div id="background-footer">
+        <a class="social-media" href="https://www.instagram.com/encomi.co/"><img id="instagram-logo" src="/media/icons/instagram-logo.png" alt="">Follow us on Instagram</a>
+
+        <p class="links-footer">
+            <a href="/seller_policy">Seller Policy</a>
+            <a href="/privacy_policy">Privacy Policy</a>
+            <a href="/TOU">Terms of Use</a>
+            <a href="/about">About us</a>
+        </p>
+
+        <a href="/home/encomi"><img id="logo-footer" src="/media/logos/logo.png"></a>
+    </div>
+</footer>

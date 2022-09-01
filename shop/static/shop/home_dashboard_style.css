@@ -1,0 +1,52 @@
+.item {
+    font-size: 25;
+}
+
+
+.item1 { grid-area: orders; }
+.item2 { grid-area: revenue; }
+.item3 { grid-area: page-visits; }
+.item4 { grid-area: listings; }
+.item5 { grid-area: deliveries; }
+
+.container {
+  display: grid;
+  grid-template-areas:
+    'orders orders deliveries'
+    'revenue page-visits deliveries'
+    'listings listings deliveries';
+  gap: 15px;
+  height: 100%;
+  margin: 0px;
+}
+
+.item {
+    text-align: left;
+    padding: 15px 20px;
+    border-radius: 20px;
+    box-shadow: -2px 2px 2px #EBEBEB,
+                2px -2px 2px #EBEBEB;
+    background-color: white;
+    position: relative;
+}
+
+.icon-dashboard {
+    width: 40px;
+    height: 40px;
+    margin-right: 8px;
+}
+
+.item-title{
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 22;
+    margin-bottom: 20px;
+}
+
+#sales-chart-wrapper{
+    max-width: 800px;
+}
+
+#sales-chart{
+    width: 100%;
+}

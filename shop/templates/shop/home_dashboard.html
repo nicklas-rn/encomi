@@ -1,0 +1,104 @@
+{% extends "shop/base_dashboard.html" %}
+
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'shop/home_dashboard_style.css' %}">
+
+
+<nav class="navbar-left">
+    <a href="/"><img id="logo-nav" src="/media/logos/logo.png"></a>
+
+
+    <ul class="dashboard-links">
+        <li class="dashboard-link nav-home active-page" id="navigation-dashboard-link-dashboard"><a href="/dashboard/home/{{seller}}"><img class="icon-navbar" src="/media/icons/home-dashboard-white.png" alt="">Dashboard</a></li>
+        <li class="dashboard-link nav-listings" id="navigation-dashboard-link-listings"><a href="/dashboard/listings/{{seller}}"><img class="icon-navbar" src="/media/icons/listings-dashboard-white.png" alt="">Listings</a></li>
+        <li class="dashboard-link nav-deliveries" id="navigation-dashboard-link-deliveries"><a href="/dashboard/deliveries/{{seller}}"><img class="icon-navbar" src="/media/icons/deliveries-dashboard-white.png" alt="">Deliveries</a></li>
+        <li class="dashboard-link nav-settings" id="navigation-dashboard-link-settings"><a href="/dashboard/settings/{{seller}}"><img class="icon-navbar" src="/media/icons/settings-dashboard-white.png" alt="">Settings</a></li>
+    </ul>
+
+</nav>
+
+<nav id="header">
+    <p id="header-title">
+        <img class="icon-header" src="/media/icons/home-dashboard.png" alt="">
+        Dashboard
+    </p>
+</nav>
+
+<div class="mainmain">
+
+    <div class="container">
+        <div class="item item1">
+            <p class="item-title">
+                <img class="icon-dashboard" src="/media/icons/orders-dashboard.png" alt="">
+                Sales
+            </p>
+            <div id="sales-chart-wrapper">
+                <canvas id="sales-chart"></canvas>
+            </div>
+        </div>
+        <div class="item item2">
+            <p class="item-title">
+                <img class="icon-dashboard" src="/media/icons/revenue-dashboard.png" alt="">
+                Revenue</p>
+        </div>
+        <div class="item item3">
+            <p class="item-title">
+                <img class="icon-dashboard" src="/media/icons/pagevisits-dashboard.png" alt="">
+                Page Visits
+            </p>
+        </div>
+        <div class="item item4">
+            <p class="item-title">
+                <img class="icon-dashboard" src="/media/icons/listings-dashboard.png" alt="">
+                Listings
+            </p>
+        </div>
+        <div class="item item5">
+            <p class="item-title">
+                <img class="icon-dashboard" src="/media/icons/deliveries-dashboard.png" alt="">
+                Deliveries
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+  const labels = {{weekday_list|safe}};
+
+  const data = {
+    labels: labels,
+    datasets: [{
+      label: 'My First dataset',
+      backgroundColor: '#C6D9D2',
+      borderColor: '#C6D9D2',
+      data: {{sales_list}},
+    }]
+  };
+
+  const config = {
+    type: 'line',
+    data: data,
+    options: {
+        plugins: {
+            legend: {
+              display: false
+            }
+        },
+        scale: {
+            ticks: {
+                precision: 0
+            }
+        }
+    }
+  };
+
+   const salesChart = new Chart(
+        document.getElementById('sales-chart'),
+        config
+    );
+
+</script>
+
+{% endblock %}

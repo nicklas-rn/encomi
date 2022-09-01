@@ -1,0 +1,16 @@
+<p class="total-heading">Total</p>
+<div class="subtotal">
+    <p class="subtotal-text">Subtotal</p>
+    <p class="subtotal-number">{{cartSubTotal|floatformat:2}}€</p>
+</div>
+
+<div class="delivery-fee">
+    <p class="delivery-fee-text">Delivery</p>
+    <p class="delivery-fee-number">{{shipping|floatformat:2}}€</p>
+</div>
+<div class="total-price">
+    <p class="total-price-text">Total</p>
+    <p class="total-price-number">{{cartTotal|floatformat:2}}€</p>
+</div>
+
+<a id="button-proceed-to-checkout" onclick="proceedCheckout()">Proceed to Checkout</a>

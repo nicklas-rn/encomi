@@ -1,0 +1,29 @@
+
+<a href="/cart/{{seller}}"><div id="icon-edge-cart"></div></a>
+<p id="title-cart-preview">Your Cart</p>
+<div id="cartItems">
+    {% for cartItem in cartItems %}
+    <div class="cartItem {%if cartItem.object.seller != seller and seller.name != 'encomi'%}cartItem-encomi{%endif%}">
+        {%if cartItem.object.seller != seller and seller.name != 'encomi'%}
+        <div class="warning-cartItem"><p class="warningText-cartItem">This item is not being sold by {{seller}}. Please visit <a class="encomiLink-cartItem" href="/">encomi.co</a></p></div>
+        {%endif%}
+        <img class="image-cartItem" src="{{cartItem.object.image_set.first.image.url}}" alt="">
+        <div class="properties-cartItem">
+            <a class="text-cartItem title-cartItem text-link" href="/item/{{seller}}/{{cartItem.object.id}}">{{cartItem.object.title|truncatechars:40}}</a>
+            <p class="text-cartItem description-cartItem">{% for style_group, style in cartItem.style_groups.items %}{{style}}{% endfor %}</p>
+            <p class="text-cartItem price-cartItem">{{cartItem.price|floatformat:2}}€</p>
+            <p class="text-cartItem quantity-cartItem">Quantity: {{cartItem.quantity}}</p>
+            <button></button>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<div id="infos-cart-preview">
+    <p id="subtotal-cart-preview">Subtotal</p>
+    <p id="subtotal-value-cart-preview">{{cartSubTotal|floatformat:2}}€</p>
+    <br>
+    <p id="delivery-cart-preview">Delivery Fee</p>
+    <p id="delivery-fee-cart-preview">{{shipping|floatformat:2}}€</p>
+    <br>
+    <a id="button-cart-preview" href="/cart/{{seller}}">Go to Bag</a>
+</div>

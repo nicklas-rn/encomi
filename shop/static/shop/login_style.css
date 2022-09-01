@@ -1,0 +1,162 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.main {
+    display: flex;
+    flex-direction: row;
+
+}
+
+#left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+}
+
+#logo-nav {
+    height: 35px;
+    padding-top: 15px;
+}
+
+.welcome-back {
+    font-size: 40;
+    margin: 170px 0px 60px 0px;
+    font-weight: 300;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: auto;
+    height: 100px;
+    position: absolute;
+    top: calc(50vh - 50px);
+}
+
+
+#id_email, #id_password {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 14;
+    border: 0;
+    font-weight: 200;
+    border-bottom: 1px solid lightgrey;
+    font-family: 'Inter', sans-serif;
+    height: 30px;
+    width: 350px;
+    outline: None;
+    margin-bottom: 10px;
+}
+
+#id_username::-webkit-input-placeholder::before{
+    color: lightgrey;
+    content: "Username";
+}
+
+#id_password{
+    margin-bottom: 30px;
+}
+#id_password::-webkit-input-placeholder::before{
+    color: lightgrey;
+    content: "Password";
+}
+
+
+p label{
+    display: None;
+}
+
+.login-button {
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    width: 350px;
+    padding: 7px 0px;
+    border-radius: 4px;
+    font-size: 16;
+    font-weight: 300;
+    outline: None;
+    border: None;
+    cursor: pointer;
+}
+
+.new-here {
+    font-size: 15;
+    border: 0;
+    font-family: 'Inter', sans-serif;
+    height: 40px;
+    width: 300px;
+    text-decoration: none;
+    padding-top: 15px;
+    color: black;
+}
+
+a:link {
+  color: black;
+  text-decoration: none;
+}
+
+a:hover {
+  color: grey;
+}
+
+a:active {
+  color: black;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#right {
+    width: 50%;
+    position: relative;
+    height: 100vh;
+}
+
+#picture-login {
+    height: 100vh;
+    width: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+
+
+.text-picture {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    bottom: 150px;
+    width: 500px;
+    color: white;
+}
+
+.text-big {
+    font-family: 'Inria serif', serif;
+    font-size: 50;
+    margin-bottom: 10px;
+    font-weight: 100;
+}
+
+.text-small {
+    font-family: 'Inter', sans-serif;
+    font-weight: 100;
+    font-size: 20;
+}

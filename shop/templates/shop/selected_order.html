@@ -1,0 +1,53 @@
+<div id="heading-wrapper">
+    <p id="heading-right">Order {{selected_order.id}}</p>
+    <div id="selectedOrderStatus-wrapper">
+        <div class="orderStatus selectedOrderStatus">
+            <img class="orderStatus-icon" src="/media/icons/shipping-black.png" alt="">
+            <p class="orderStatus-text">{{selected_order.status}}</p>
+            <img class="orderStatus-icon-down" src="/media/icons/arrow-down.png" alt="">
+        </div>
+        <div id="selectedOrderStatus-content">
+            <a>not handled</a>
+            <a>on the way</a>
+            <a>delivered</a>
+        </div>
+    </div>
+</div>
+
+<div class="order-details">
+    <div class="grid-item grid-item-transparent">Orderer</div>
+    <div class="grid-item">{{selected_order.parent_order.first_name}} {{selected_order.parent_order.last_name}}</div>
+    <div class="grid-item grid-item-transparent">Date</div>
+    <div class="grid-item">{{selected_order.parent_order.datetime|date:"d.m.y"}}</div>
+    <div class="grid-item grid-item-transparent">Address</div>
+    <div class="grid-item">
+        {{selected_order.parent_order.street_name}} {{selected_order.parent_order.house_number}}</br>
+        {{selected_order.parent_order.postal_code}} {{selected_order.parent_order.city}}</br>
+        Germany
+    </div>
+    <div class="grid-item grid-item-transparent">Total</div>
+    <div class="grid-item">{{selected_order.total}}</div>
+</div>
+
+<div class="message">
+    <p class="message-title">Message</p><p class="message-text">{{selected_order.parent_order.message}}</p>
+</div>
+
+<div>
+    <p class="ordered-products-title">Ordered Products</p>
+
+    <div id="items-in-order-list">
+        {% for order_item in selected_order.orderitem_set.all %}
+        <li class="item-in-order-list" id="item-in-cart-list-">
+            <img class="orderItem-image" src="{{order_item.item.image_set.first.image.url}}" width= 100px alt="">
+            <div class="orderItem-properties">
+                <a class="orderItem-link" href="/item/{{seller}}/{{cartItem.object.id}}">{{order_item.item.title|truncatechars:60}}</a>
+                <p class="orderItem-description">{% for style_group in order_item.orderitemstylegroup_set.all %}{{style_group.style_group.type}}: {{style_group.selected_style.title}}<br>{% endfor %}</p>
+                <p class="orderItem-price">{{order_item.price|floatformat:2}}€</p>
+                <p class="orderItem-quantity">Quantity: {{order_item.quantity}}</p>
+            </div>
+        </li>
+        {% endfor %}
+    </div>
+
+</div>

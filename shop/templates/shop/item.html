@@ -1,0 +1,202 @@
+{% extends "shop/base.html" %}
+
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'shop/item_style.css' %}">
+
+<div id="item">
+    <div class="nav-images" >
+        {% for image in item.image_set.all %}
+        <img class="nav-image" src="{{image.image.url}}" width="70px" alt="" onmouseenter="updateImage('{{image.image.url}}')">
+        {% endfor %}
+    </div>
+
+    <div id="item-image-wrapper">
+        <img id="item-image" src="{{item.image_set.first.image.url}}" alt="">
+    </div>
+
+    <div class="description">
+        <div class="description-values">
+            <p class="item-title">{{ item.title }}</p>
+            <p class="item-price">{{ item.price|floatformat:2 }}€<p/>
+            <p class="item-price-old"><s>from {{ item.old_price|floatformat:2 }}€</s></p>
+        </div>
+
+        {% for style_group in item.stylegroup_set.all %}
+        <div class="dropdown-wrapper" onmouseleave="closeDropdown('{{style_group}}')">
+            <div class="dropdown" id="dropdown-{{style_group}}" onmouseenter="showDropdown('{{style_group}}')">
+                <button class="button-dropdown" onclick="showDropdown()">
+                    <span class="text-button-dropdown" id="text-button-dropdown-{{style_group.type}}">Select {{style_group}}</span>
+                    <i class="icon-dropdown">
+                        <img class="image-dropdown"
+                        src="/media/icons/arrow-down.png" alt="">
+                    </i>
+                </button>
+            </div>
+            <div class="content-dropdown" id="content-dropdown-{{style_group.type}}">
+                {% for style in style_group.style_set.all %}
+                    <a class="option-dropdown" id="option-dropdown-{{style_group.type}}-{{style}}" onclick="updateDropdown('{{style_group.type}}', '{{style}}')">{{style}}</a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+        <button id="button" onclick="addCookieItem()">Add to Cart</button>
+        <p id="customization-error">Please select all customization options</p>
+
+        <div id="item-properties">
+            <div class="item-property">
+                <div class="button-item-property" id="button-item-property-details" onclick="showContentProperty('details')">
+                    <span class="title-item-property">Details</span>
+                    <i class="icon-dropdown">
+                        <img class="image-dropdown"
+                        src="/media/icons/arrow-down.png" alt="">
+                    </i>
+                </div>
+                <div class="content-item-property" id="content-item-property-details">
+                    <p>{{item.details}}</p>
+                </div>
+            </div>
+
+            <div class="item-property">
+                <div class="button-item-property" id="button-item-property-description" onclick="showContentProperty('description')">
+                    <span class="title-item-property">Description</span>
+                    <i class="icon-dropdown">
+                        <img class="image-dropdown"
+                        src="/media/icons/arrow-down.png" alt="">
+                    </i>
+                </div>
+                <div class="content-item-property" id="content-item-property-description">
+                    <p>{{item.description}}</p>
+                </div>
+            </div>
+
+            <div class="item-property">
+                <div class="button-item-property" id="button-item-property-delivery" onclick="showContentProperty('delivery')">
+                    <span class="title-item-property">Delivery</span>
+                    <i class="icon-dropdown">
+                        <img class="image-dropdown"
+                        src="/media/icons/arrow-down.png" alt="">
+                    </i>
+                </div>
+                <div class="content-item-property" id="content-item-property-delivery">
+                    <p>7 Tage</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<script>
+    async function addCookieItem(){
+        console.log('Adding cookies')
+
+        var itemId = {{item.id}}
+        var cartIndex =  Object.keys(cart).length + 1
+        console.log(cartIndex)
+
+        // Create Dict for new item
+        itemDict = {
+            itemId: itemId,
+            style_groups: {},
+        }
+        itemDict['style_groups'] = {}
+
+        {% for style_group in item.stylegroup_set.all %}
+        str = 'text-button-dropdown-{{style_group}}'
+        style = document.getElementById(str).innerHTML;
+        if (style.includes('Select')){
+            document.getElementById('customization-error').style.display = 'block'
+            return None
+        }
+        itemDict['style_groups']['{{style_group.type}}'] = style
+        {% endfor %}
+
+        console.log(itemDict)
+
+        // Check if item already exists in cart and either increase quantity of that item or set quantity = 1
+        for(let k in cart){
+            console.log('checking item')
+            if(cart[k]['itemId'] == itemId){
+                currentItemDict = cart[k]
+                currentItemQuantity = cart[k]['quantity']
+                delete cart[k]['quantity']
+                if(JSON.stringify(currentItemDict) === JSON.stringify(itemDict)){
+                    console.log('fit found' + currentItemQuantity)
+                    cartIndex = k
+                    /*delete cart[k]*/
+                    itemDict['quantity'] = currentItemQuantity + 1
+                    console.log(itemDict['quantity'])
+                }
+                cart[k]['quantity'] = currentItemQuantity
+            }
+        }
+
+        if(!itemDict.hasOwnProperty('quantity')){
+            itemDict['quantity'] = 1
+        }
+
+        cart[cartIndex] = itemDict
+
+        console.log('CART:', cart)
+        document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+
+        getCartCount()
+
+        openCartPreview()
+        let delayres = await delay(2000)
+        closeCartPreview()
+
+    }
+
+
+    function showDropdown(style_group){
+        str = 'content-dropdown-' + style_group
+        console.log(str)
+        document.getElementById(str).style.display = 'block';
+    }
+
+    function closeDropdown(style_group){
+        str = 'content-dropdown-' + style_group
+        console.log(str)
+        document.getElementById(str).style.display = 'None';
+    }
+
+    function updateDropdown(style_group, style){
+        str = 'text-button-dropdown-' + style_group
+        document.getElementById(str).innerHTML = style;
+        closeDropdown(style_group)
+        document.getElementById('customization-error').style.display = 'None'
+    }
+
+    function updateImage(src){
+        document.getElementById('item-image').src = src;
+    }
+
+    function showContentProperty(property){
+        str = 'content-item-property-' + property
+        document.getElementById(str).style.display = 'block'
+        btnStr = "javascript: hideContentProperty('" + property + "');"
+        str = 'button-item-property-' + property
+        document.getElementById(str).setAttribute( "onClick", btnStr );
+    }
+
+    function hideContentProperty(property){
+        str = 'content-item-property-' + property
+        document.getElementById(str).style.display = 'None'
+        btnStr = "javascript: showContentProperty('" + property + "');"
+        str = 'button-item-property-' + property
+        document.getElementById(str).setAttribute( "onClick", btnStr );
+    }
+
+</script>
+
+
+{% endblock %}

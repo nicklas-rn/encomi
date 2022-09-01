@@ -1,0 +1,189 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'shop/dashboard.css' %}">
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Title</title>
+
+    <script src="{% static 'shop/base_animations.js' %}"></script>
+
+</head>
+
+<body>
+
+<!--
+<nav class="navbar-left">
+    <a href="/"><img id="logo-nav" src="/media/logos/logo.png"></a>
+
+
+    <ul class="dashboard-links">
+        <li class="dashboard home active-page" id="navigation-dashboard-link-dashboard"><a href="/dashboard/home"><img class="icon-navbar" src="/media/icons/home-dashboard-white.png" alt="">Dashboard</a></li>
+        <li class="dashboard listings" id="navigation-dashboard-link-listings"><a href="/dashboard/listings"><img class="icon-navbar" src="/media/icons/listings-dashboard-white.png" alt="">Listings</a></li>
+        <li class="dashboard deliveries" id="navigation-dashboard-link-deliveries"><a href="/dashboard/deliveries"><img class="icon-navbar" src="/media/icons/deliveries-dashboard-white.png" alt="">Deliveries</a></li>
+        <li class="dashboard settings" id="navigation-dashboard-link-settings"><a href="/dashboard/settings"><img class="icon-navbar" src="/media/icons/settings-dashboard-white.png" alt="">Settings</a></li>
+    </ul>
+
+</nav>
+-->
+
+
+<div id="main">
+
+{% block content %}
+
+{% endblock %}
+</div>
+
+
+
+</body>
+
+
+
+
+
+<style>
+    *{
+        margin: 0px;
+        font-family: 'Inter', sans-serif;
+        padding: 0px;
+    }
+
+    /* width */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    /* Handle */
+    .category ::-webkit-scrollbar-thumb {
+      background: #f5f5f5;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #C8C8C8;
+      border-radius: 4px;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
+
+    #header-title, .item-title {
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar-left {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 200px;
+        height: 100%;
+        position: fixed;
+        background-color: black;
+    }
+
+    #logo-nav {
+        height: 30px;
+        margin: 30px 0px;
+    }
+
+    .dashboard-links {
+        padding-left: 0px;
+        max-height: calc(100vh - 200px);
+        width: calc(100% - 20px);
+        padding-left: 20px;
+
+    }
+
+    .dashboard-link {
+        list-style-type: none;
+        margin: 20px 0px;
+        border-radius: 4px 0px 0px 4px;
+        padding: 10px 2px 10px 10px;
+    }
+
+    .dashboard-link:hover {
+        background-color: #262626;
+    }
+
+    .dashboard-link a{
+        text-decoration: none;
+        color: black;
+        font-weight: 400;
+        font-size: 16;
+        width: 100%;
+        cursor: pointer;
+        color: white;
+        display: flex;
+        align-items: center;
+    }
+
+    .active-page{
+        background-color: #262626;
+    }
+
+    .active-page a{
+         border-right: 2px solid white;
+    }
+
+    .icon-navbar {
+        width: 24px;
+        height: 24px;
+        padding-right: 10px;
+        vertical-align: middle;
+        position: relative;
+        top: -2px;
+    }
+
+    .mainmain {
+        margin-left: 197px;
+        padding: 20px 20px;
+        background-color: #F5F5F5;
+        height: calc(100% - 140px);
+    }
+
+    #header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-left: 225px;
+        padding-right: 20px;
+        height: 100px;
+        font-size: 25;
+    }
+
+    .icon-header {
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+    }
+
+    #header-title{
+
+    }
+
+
+
+
+</style>
+
+
+
+</html>

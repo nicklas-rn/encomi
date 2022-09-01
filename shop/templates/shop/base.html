@@ -1,32 +1,368 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'shop/style.css' %}">
+<link rel="stylesheet" type="text/css" href="/static/shop/{{seller}}_configuration.css">
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <title>Title</title>
+   <title>Title</title>
+
+    <script src="{% static 'shop/base_animations.js' %}"></script>
+    <!--<script>
+        function delay(delayInms) {
+          return new Promise(resolve => {
+            setTimeout(() => {
+              resolve(2);
+            }, delayInms);
+          });
+        }
+
+
+        // Functions for adding and removing items from card via cookies
+
+        function getCookie(name) {
+		    // Split cookie string and get all individual name=value pairs in an array
+		    var cookieArr = document.cookie.split(";");
+
+		    // Loop through the array elements
+		    for(var i = 0; i < cookieArr.length; i++) {
+		        var cookiePair = cookieArr[i].split("=");
+
+		        /* Removing whitespace at the beginning of the cookie name
+		        and compare it with the given string */
+		        if(name == cookiePair[0].trim()) {
+		            // Decode the cookie value and return
+		            return decodeURIComponent(cookiePair[1]);
+		        }
+		    }
+
+		    // Return null if not found
+		    return null;
+		}
+
+		var cart = JSON.parse(getCookie('cart'))
+
+		if (cart == undefined){
+			cart = {}
+			console.log('Cart Created!', cart)
+			document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+		}
+		console.log('Cart:', cart)
+
+
+        var search = JSON.parse(getCookie('search'))
+
+        if (search == undefined){
+            search = {}
+            search['category'] = 0
+            search['sort'] = 'Best'
+            search['keyword'] = ''
+            console.log('Search Created!', search)
+            document.cookie = 'search=' + JSON.stringify(search) + ";domain=;path=/"
+        }
+
+        function getCsrfCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrftoken = getCsrfCookie('csrftoken');
+    </script>-->
+
 </head>
 
 <body>
 
 
-<nav>
-    <a class="link-nav" href="#">Become a seller</a>
-    <img class="logo" src="/media/logos/logo.png">
-    <img class="icon icon-nav" src="/media/icons/cart.svg">
+<nav id="navbar">
+    <div id="link-wrapper-nav">
+        <a class="link-nav" href="/become_seller">Become a seller</a>
+        <a class="link-login" href="/login"><img id="login-img" src="/media/icons/login.png">Login</a>
+    </div>
+
+    <a href="/home/{{seller}}"><img id="logo-nav" src="{{seller.logo.url}}"></a>
+
+    <div id="icon-wrapper-nav">
+        <a href="/help/{{seller}}"><img id="help-img" src="/media/icons/help.png"></a>
+        <a href="/cart/{{seller}}" onmouseenter="openCartPreview()"><img class="icon icon-nav" id="icon-nav" src="/media/icons/cart.svg"></a>
+        <p id="badge-icon-cart-nav">0</p>
+    </div>
 </nav>
 
+<div id="cart-preview" onmouseleave="closeCartPreview()">
+    {% include "shop/cart_preview.html" %}
+</div>
 
-{% block content %}
 
-{% endblock %}
+<div id="main">
+    <div class="mainmain">
+        <div class="category-links-horizontal" >
+            <div class="category-link-horizontal" id="category-link-horizontal-0" onclick="updateCategoryCookie(0)"><a>All</a></div>
+            {% for category in categories %}
+                <div class="category-link-horizontal" id="category-link-horizontal-{{category.id}}" onclick="updateCategoryCookie({{category.id}})"><a>{{category.title}}</a></div>
+            {% endfor %}
+        </div>
+
+        <div class="search">
+            <form id="form" role="search" onsubmit="(e)=>{e.preventDefault(); updateKeyword()}">
+                <img class="icon"
+                        src="/media/icons/search.png" alt="">
+                <input type="search" id="query"
+                       placeholder="Search..."
+                       aria-label="Search through site content">
+            </form>
+        </div>
+    </div>
+    {% block content %}
+
+    {% endblock %}
+</div>
+
+<footer>
+    <div id="background-footer">
+
+        <p class="social-media">
+            <img id="instagram-logo" src="/media/icons/instagram-logo.png" alt="">
+            <a href="https://www.instagram.com/encomi.co/">Follow us on Instagram</a>
+        </p>
+
+        <p class="links-footer">
+            <a href="/seller_policy">Seller Policy</a>
+            <a href="/privacy_policy">Privacy Policy</a>
+            <a href="/TOU">Terms of Use</a>
+            <a href="/about">About us</a>
+        </p>
+    </div>
+        <a href="/{{seller}}"><img id="logo-footer" src="{{seller.logo.url}}"></a>
+
+</footer>
+
 
 </body>
 
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+</style>
+
+<style>
+    #cart-preview{
+        position: fixed;
+        right: 20px;
+        top: 50px;
+        background-color: white;
+        width: 300px;
+        padding: 20px 20px 20px 20px;
+        border: 1px solid black;
+        z-index: 100;
+        display: None;
+        border-radius: 4px 0px 4px 4px;
+    }
+
+    #icon-edge-cart{
+        position: absolute;
+        top: -47px;
+        right: -1px;
+        border: 1px solid black;
+        border-bottom: 1px solid white;
+        width: 45px;
+        height: 45px;
+        border-radius: 4px 4px 0px 0px;
+    }
+
+    #title-cart-preview{
+        margin-bottom: 20px;
+        font-size: 25;
+        font-family: 'Inria-Serif';
+    }
+
+    #cartItems{
+        max-height: 40vh;
+        overflow: scroll;
+    }
+
+    #cartItems::-webkit-scrollbar{
+        display: None;
+    }
+
+    .cartItem{
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+    .cartItem-encomi{
+        //opacity: 0.2;
+    }
+
+    .warning-cartItem{
+        position: absolute;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 110px;
+        padding: 0px 10px;
+        font-size: 14;
+        z-index: 110;
+        background-color: rgba(255, 255, 255, 0.9);
+    }
+
+    .warningText-cartItem{
+        vertical-align: middle;
+    }
+
+    .encomiLink-cartItem{
+        text-decoration: underline;
+    }
+
+    .image-cartItem{
+        width: 80px;
+        height: 110px;
+        object-fit: cover;
+        margin-right: 20px;
+        z-index: 100;
+    }
+
+    .properties-cartItem{
+        display: inline-block;
+        width: 200px;
+    }
+
+    .title-cartItem{
+        font-family: 'Inria-Serif';
+        font-size: 17;
+        margin-bottom: 7px;
+    }
+
+    .description-cartItem{
+        font-size: 12;
+        margin-bottom: 10px;
+    }
+
+    .price-cartItem{
+        display: inline-block;
+    }
+
+    .quantity-cartItem{
+        display: inline-block;
+        float: right;
+        font-size: 12;
+        line-height: 20px;
+        vertical-align: bottom;
+    }
+
+
+    #infos-cart-preview{
+        padding-top: 15px;
+        border-top: 1px solid lightgrey;
+    }
+
+    #subtotal-cart-preview{
+        display: inline-block;
+        font-size: 17;
+        margin-bottom: 10px;
+    }
+
+    #subtotal-value-cart-preview{
+        display: inline-block;
+        font-size: 17;
+        margin-bottom: 10px;
+        float: right;
+    }
+
+    #delivery-cart-preview{
+        display: inline-block;
+        font-size: 14;
+        margin-bottom: 15px;
+    }
+
+    #delivery-fee-cart-preview{
+        display: inline-block;
+        font-size: 14;
+        margin-bottom: 15px;
+        float: right;
+    }
+
+    #button-cart-preview{
+        background-color: black;
+        color: white;
+        font-size: 17;
+        border-radius: 0;
+        text-align: center;
+        padding: 10px;
+        display: block;
+        outline: None;
+        border: None;
+    }
+</style>
+
+<script>
+    var prevScrollpos = window.pageYOffset;
+    window.onscroll = function() {
+    var currentScrollPos = window.pageYOffset;
+        if (prevScrollpos > currentScrollPos) {
+            document.getElementById("navbar").style.top = "0";
+        } else if (prevScrollpos < currentScrollPos && currentScrollPos > 40){
+            document.getElementById("navbar").style.top = "-60px";
+            document.getElementById("cart-preview").style.display = "None";
+        }
+        prevScrollpos = currentScrollPos;
+    }
+
+
+    function getCartCount() {
+        let cart = JSON.parse(getCookie('cart'))
+        let cartCount =  0
+        for(let k in cart){
+            cartCount += cart[k]['quantity']
+        }
+        document.getElementById('badge-icon-cart-nav').innerHTML = cartCount
+    }
+
+    getCartCount()
+
+    function openCartPreview() {
+        let request = new XMLHttpRequest();
+        let method = 'GET';
+
+        let url = '/cart_preview/{{seller}}';
+        request.open(method, url);
+        request.onload = function () {
+            // the response is the rendered HTML
+            // which django sends as return render(response, "your_template.html", context)
+            let myHTML = request.response;
+            // This is the important part
+            // Set that HTML to the new, templated HTML returned by the server
+        document.getElementById('cart-preview').innerHTML = myHTML;
+        };
+        request.send();
+
+        document.getElementById('cart-preview').style.display = 'block';
+    }
+
+    function closeCartPreview() {
+        document.getElementById('cart-preview').style.display = 'None';
+    }
+
+    function updateCategoryCookie(category_id) {
+        search['category'] = category_id
+        document.cookie ='search=' + JSON.stringify(search) + ";domain=;path=/"
+
+        window.location.href = '/shop/{{seller}}'
+    }
+
+</script>
 
 
 
