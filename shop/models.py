@@ -91,11 +91,13 @@ class OrderItem(models.Model):
     item = models.ForeignKey(Item, on_delete=models.SET_NULL, null=True)
     order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
     price = models.FloatField()
+    quantity = models.IntegerField(default=1)
 
 
 class OrderItemStyleGroup(models.Model):
     style_group = models.ForeignKey(StyleGroup, on_delete=models.SET_NULL, null=True)
     order_item = models.ForeignKey(OrderItem, on_delete=models.CASCADE)
+    selected_style = models.ForeignKey(Style, on_delete=models.SET_NULL, null=True)
 
 
 class OrderItemStyle(models.Model):

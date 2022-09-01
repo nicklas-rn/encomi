@@ -17,7 +17,6 @@
 
 .category-links {
     padding-left: 0px;
-
     max-height: calc(100vh - 200px);
     border-right: 2px solid lightgrey;
     z-index: 1;
@@ -51,6 +50,8 @@
 .category-link:hover{
     background-color: #F5F5F5;
 }
+
+
 
 #form{
     background-color: #f5f5f5;

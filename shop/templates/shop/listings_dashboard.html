@@ -21,7 +21,7 @@
 </nav>
 
 <nav id="header">
-    <p><img class="icon-header"
+    <p id="header-title"><img class="icon-header"
                 src="/media/icons/listings-dashboard.png" alt="">Listings</p>
 
     <div class="sync-data-button"><img class="sync-data-img" src="/media/icons/sync-data.png">Sync data</div>
@@ -54,18 +54,7 @@
             </form>
 
             <div class="items" id="items">
-                {% for item in items %}
-                    <div class="item" onclick="window.location.href='/item/{{seller}}/{{item.id}}'">
-
-                        <img class="item-image item-first-image" id="item-first-image-{{item.id}}" src="{{item.image_set.first.image.url}}" onmouseenter="showSecondImage({{item.id}})" onmouseleave="showFirstImage({{item.id}})" width="250px" alt="">
-                        <img class="item-image item-second-image" id="item-second-image-{{item.id}}" src="{{item.image_set.last.image.url}}" onmouseenter="showSecondImage({{item.id}})" onmouseleave="showFirstImage({{item.id}})" width="250px" alt="">
-
-                        <p class="item-title">{{ item.title|truncatechars:35 }}</p>
-                        <p class="item-price"> {{ item.price|floatformat:2 }}€<p/>
-                        <p class="items-sold"><img class="items-sold-img" src="/media/icons/items-sold.png">14 sold</p>
-
-                    </div>
-                {% endfor %}
+                {% include "shop/listings_dashboard_items.html" %}
             </div>
         </div>
     </div>
@@ -74,6 +63,24 @@
 
 
 <script>
+    document.getElementById('form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        updateKeyword()
+    }, false);
+
+    if(search['keyword'] != 'all'){
+        document.getElementById('query').value = search['keyword']
+    }
+
+    category_items = document.getElementsByClassName('category-link')
+    for(let i=0; i<category_items.length; i++){
+        console.log(category_items[i].id.replace('category-link-'))
+        if(category_items[i].id.replace('category-link-', '') == search['category']){
+            category_items[i].classList.add('category-link-selected')
+        }
+    }
+
+
     function showSecondImage(item_id){
         item_first_image_id = 'item-first-image-' + item_id
         item_second_image_id = 'item-second-image-' + item_id
@@ -86,6 +93,51 @@
         item_second_image_id = 'item-second-image-' + item_id
         document.getElementById(item_first_image_id).style.display = 'block';
         document.getElementById(item_second_image_id).style.display = 'None';
+    }
+
+    function updateCategory(category_id){
+        search['category'] = category_id
+
+        category_items = document.getElementsByClassName('category-link')
+        for(let i=0; i<category_items.length; i++){
+            category_items[i].classList.remove('category-link-selected')
+        }
+
+        category_item_str = 'category-link-'+ category_id
+        document.getElementById(category_item_str).classList.add('category-link-selected')
+
+        document.cookie ='search=' + JSON.stringify(search) + ";domain=;path=/"
+        updateListingsItems()
+    }
+
+    function updateKeyword(){
+        console.log( document.getElementById('query').value)
+        search['keyword'] = document.getElementById('query').value
+        if (search['keyword'] == ''){
+            search['keyword'] = 'all'
+        }
+        document.cookie ='search=' + JSON.stringify(search) + ";domain=;path=/"
+        updateListingsItems()
+    }
+
+    function updateListingsItems(){
+        let request = new XMLHttpRequest();
+        let method = 'GET';
+        let category = search['category']
+        let sort = search['sort']
+        let keyword = search['keyword']
+
+        let url = '/dashboard/listings_items/{{seller}}';
+        request.open(method, url);
+        request.onload = function () {
+            // the response is the rendered HTML
+            // which django sends as return render(response, "your_template.html", context)
+            let myHTML = request.response;
+            // This is the important part
+            // Set that HTML to the new, templated HTML returned by the server
+        document.getElementById('items').innerHTML = myHTML;
+        };
+        request.send();
     }
 </script>
 

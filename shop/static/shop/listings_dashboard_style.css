@@ -40,9 +40,11 @@
 }
 
 .categories p {
-    font-size: 18;
+    font-size: 20;
     font-family: 'Inter', inter;
-    padding: 0px 0px 20px 5px;
+    padding: 10px 0px 10px 5px;
+    margin-bottom: 22px;
+    font-weight: 400;
 }
 
 .category-links {
@@ -63,16 +65,16 @@
 
 }
 
-.categories a{
+.category-link a{
     font-family: 'Inria Serif', serif;
     text-decoration: none;
     color: black;
     font-size: 16;
-    width: 213px;
+    width: 223px;
     padding-left: 5px;
 }
 
-.category-link-selected a{
+.category-link-selected{
     border-right: 2px solid black;
     font-weight: 600;
 }
@@ -107,11 +109,12 @@
     border: 1px lightgrey solid;
     width: 230px;
     height: 30px;
-    border-radius: 4px;
+    border-radius: 7px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    height: 40px;
 }
 
 #query{
@@ -155,11 +158,14 @@
     max-height: calc(100% - 50px);
     overflow: scroll;
     position: relative;
+    padding: 10px;
+    top: -10px;
+    left: -10px;
 
 }
 
 .item {
-    padding: 15px 15px 20px 15px;
+    padding: 10px 10px 20px 10px;
     position: relative;
     cursor: pointer;
     background-color: white;

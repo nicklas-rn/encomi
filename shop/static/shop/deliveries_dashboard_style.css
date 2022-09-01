@@ -30,7 +30,7 @@
     height: calc(100% - 50px);
     width: 30%;
     float: left;
-    border-right: 2px solid lightgrey;
+    border-right: 1px solid #9A9A9A;
     padding: 25px 0px;
 }
 
@@ -75,13 +75,14 @@
     justify-content: space-between;
     align-items: center;
     width: calc(100% - 25px);
-    border-bottom: 2px solid lightgrey;
+    border-bottom: 1px solid #9A9A9A;
     padding-left: 25px;
 }
 
 .box {
     height: 20px;
     margin-right: 10px;
+    display: None;
 }
 
 .header-orderlist p {
@@ -89,23 +90,23 @@
     font-size: 13;
 }
 
-.orderId{
+.header-orderId, .orderId{
+    width: 60px;
+}
+
+.header-orderDate, .orderDate{
     width: 70px;
 }
 
-.orderDate{
-    width: 70px;
-}
-
-.orderStatus {
-    width: 70px;
+.header-orderStatus, .orderStatus {
+    width: 120px;
     padding-right: 20px;
 }
 
 .orderlist {
     list-style: none;
     padding-left: 0px;
-    line-height: 65px;
+    line-height: 14px;
 
 }
 
@@ -117,11 +118,43 @@
     align-items: center;
     width: calc(100% - 25px);
     padding-left: 25px;
+    height: 65px;
+    cursor: pointer;
+}
+
+.orderList-object:hover{
+    background-color: #F8F8F8;
 }
 
 .orderlist-object p{
     display: inline-block;
+    font-size: 14;
+    color: black;
 }
+
+.orderStatus{
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+    border: 1px solid lightgrey;
+    height: 20px;
+    padding-right: 2px;
+    margin-right: 18px;
+}
+
+.orderStatus-icon{
+    height: 12px;
+    width: 12px;
+    padding: 4px;
+    display: inline-block;
+    margin-right: 7;
+    background-color: #FFB800;
+    border-radius: 20px;
+    position: relative;
+    left: -1px;
+    border: 1px solid lightgrey;
+}
+
 
 
 
@@ -139,10 +172,6 @@ a:visited {
 }
 */
 
-a:hover {
-  color: lightgrey;
-  background-color: transparent;
-}
 
 a:visited {
   color: grey;
@@ -164,16 +193,55 @@ a:visited {
 
 }
 
+#heading-wrapper{
+    display: flex;
+    align-items: center;
+}
+
 #heading-right {
     padding: 0px 25px;
     font-size: 18;
 }
 
-.status-img {
-    height: 23px;
-    padding-left: 30px;
+.selectedOrderStatus{
+    font-size: 14;
+    width: auto;
+    cursor: pointer;
+    position: relative;
+    top: -1px;
+    left: -1px;
 }
 
+#selectedOrderStatus-wrapper{
+    border-radius: 10px;
+    border: 1px solid lightgrey;
+    border-collapse: collapse;
+}
+
+#selectedOrderStatus-content{
+    display: flex;
+    flex-direction: column;
+    border-collapse: collapse;
+    position: absolute;
+    background-color: white;
+    display: None;
+}
+
+#selectedOrderStatus-content a{
+    border-bottom: 1px solid lightgrey;
+    font-size: 14;
+    padding: 2px 0px 2px 30px;
+    cursor: pointer;
+    width: 150px;
+    width: calc(100% - 30px);
+}
+
+.orderStatus-icon-down{
+    height: 14px;
+    width: 14px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
 
 .order-details {
   display: grid;
@@ -220,15 +288,17 @@ a:visited {
 
 
 
-#items-in-cart-list{
+#items-in-order-list{
     max-height: 500px;
     overflow: scroll;
+    padding: 0px 25px 15px 25px;
 }
 
-.item-in-cart-list {
+.item-in-order-list {
     list-style-type: none;
-    padding: 20px 0px 15px 0px;
-    border-bottom: 1px #E4E4E4 solid;
+    padding: 15px 0px 15px 0px;
+    border-bottom: 1px lightgrey solid;
+    border-top: 1px lightgrey solid;
     display: flex;
     align-items: top;
 }
@@ -243,38 +313,38 @@ a:visited {
 
 
 
-.cartItem-image{
+.orderItem-image{
     width: 90px;
     height: 120px;
     object-fit: cover;
     margin-right: 20px;
+    border-radius: 7px;
 }
 
-.cartItem-properties{
-    display: inline-block;
+.orderItem-properties{
+    display: flex;
     width: calc(100% - 125px);
     height: 120px;
     position: relative;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.cartItem-link{
+.orderItem-link{
     font-family: 'Inria-Serif';
     font-size: 17;
-    margin-bottom: 7px;
     text-align: left;
 }
 
-.cartItem-description{
+.orderItem-description{
     font-size: 12;
-    margin-bottom: 10px;
 }
 
-.cartItem-price{
+.orderItem-price{
     display: inline-block;
-    padding-bottom: 15px;
 }
 
-.cartItem-quantity{
+.orderItem-quantity{
     display: inline-block;
     float: right;
     font-size: 12;

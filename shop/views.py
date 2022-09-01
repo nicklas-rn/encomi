@@ -177,6 +177,7 @@ def create_order(request, seller_name):
         postal_code=data['order_information']['postal_code'],
         city=data['order_information']['city'],
         message=request.COOKIES.get('cartMessage'),
+        datetime=datetime.now(),
     )
 
     for item_dict in order_dict['items']:
@@ -194,6 +195,17 @@ def create_order(request, seller_name):
             price=item_dict['price'],
             order=order
         )
+        print(item_dict['style_groups'].items())
+        for style_group, style in item_dict['style_groups'].items():
+            style_group_object = order_item.item.stylegroup_set.get(type=style_group)
+            style_object = style_group_object.style_set.get(title=style)
+            order_item_style_group = OrderItemStyleGroup.objects.create(
+                order_item=order_item,
+                style_group=style_group_object,
+                selected_style=style_object,
+            )
+            order_item_style_group.save()
+
         order.subtotal += order_item.price
         order.total += order_item.price
         order.save()
@@ -373,6 +385,8 @@ def listings(request, seller_name):
 
     categories = seller.category_set.all()
 
+    print(categories)
+
     context = {
         'seller': seller,
         'items': items,
@@ -382,14 +396,80 @@ def listings(request, seller_name):
     return render(request, 'shop/listings_dashboard.html', context)
 
 
-def deliveries(request, seller_name):
+def listings_items(request, seller_name):
+    search = json.loads(request.COOKIES['search'])
+    category_id = search['category']
+    sort = search['sort']
+    keyword = search['keyword']
+
     seller = Seller.objects.get(name=seller_name)
+    if seller_name != 'encomi':
+
+        if category_id != 0:
+            try:
+                category = seller.category_set.get(id=category_id)
+                items = seller.item_set.filter(categories=category)
+            except:
+                items = seller.item_set.all()
+        else:
+            items = seller.item_set.all()
+
+    else:
+        if category_id != 0:
+            try:
+                category = seller.category_set.get(id=category_id)
+                items = Item.objects.filter(categories=category)
+            except:
+                items = Item.objects.all()
+        else:
+            items = Item.objects.all()
+
+    if sort == 'Best':
+        items = items.order_by('id')
+    elif sort == 'Ascending':
+        items = items.order_by('price')
+    elif sort == 'Descending':
+        items = items.order_by('-price')
+
+    if not keyword == 'all':
+        items = items.filter(title__contains=keyword)
+
 
     context = {
         'seller': seller,
+        'items': items,
+    }
+
+    return render(request, 'shop/listings_dashboard_items.html', context)
+
+
+def deliveries(request, seller_name):
+    seller = Seller.objects.get(name=seller_name)
+
+    orders = Order.objects.filter(seller=seller).order_by('-id')
+
+    selected_order = Order.objects.filter(seller=seller).last()
+
+    context = {
+        'seller': seller,
+        'orders': orders,
+        'selected_order': selected_order,
     }
 
     return render(request, 'shop/deliveries_dashboard.html', context)
+
+
+def deliveries_selected(request, seller_name, order_id):
+    seller = Seller.objects.get(name=seller_name)
+
+    selected_order = Order.objects.get(id=order_id)
+
+    context = {
+        'selected_order': selected_order,
+        'seller': seller,
+    }
+
+    return render(request, 'shop/selected_order.html', context)
 
 
 def settings(request, seller_name):

@@ -8,15 +8,15 @@
     <meta charset="UTF-8">
    <title>Title</title>
 
-
-    <script>
-            function delay(delayInms) {
-              return new Promise(resolve => {
-                setTimeout(() => {
-                  resolve(2);
-                }, delayInms);
-              });
-            }
+    <script src="{% static 'shop/base_animations.js' %}"></script>
+    <!--<script>
+        function delay(delayInms) {
+          return new Promise(resolve => {
+            setTimeout(() => {
+              resolve(2);
+            }, delayInms);
+          });
+        }
 
 
         // Functions for adding and removing items from card via cookies
@@ -78,7 +78,7 @@
             return cookieValue;
         }
         const csrftoken = getCsrfCookie('csrftoken');
-    </script>
+    </script>-->
 
 </head>
 
