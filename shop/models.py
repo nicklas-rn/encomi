@@ -159,3 +159,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = 'User'
         verbose_name_plural = 'Users'
+
+
+class SellerApplication(models.Model):
+    email = models.EmailField(max_length=100)
+    shop_name = models.CharField(max_length=400)
+
+    def __str__(self):
+        return self.shop_name

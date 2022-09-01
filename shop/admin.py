@@ -13,4 +13,5 @@ admin.site.register(Order)
 admin.site.register(OrderItem)
 admin.site.register(OrderItemStyleGroup)
 admin.site.register(User)
+admin.site.register(SellerApplication)
 

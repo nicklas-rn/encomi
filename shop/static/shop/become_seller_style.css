@@ -30,47 +30,54 @@ body {
 .background1 {
     background-color: #FFF8ED;
     width: 100%;
-    height: 650px;
+    height: 750px;
     margin-top: -80px;
     display: flex;
     justify-content: center;
 }
 
 .block1 {
-    padding-top: 120px;
-    padding-left: 50px;
+    padding-top: 200px;
     display: flex;
     justify-content: left;
     max-width: 1100px;
 }
 
 .block1-left {
-    margin-right: 100px;
+}
+
+.block1-right{
+    padding-left: 50px;
+    max-width: 50%;
 }
 
 .heading1 {
-    font-family: 'Inria Serif', serif;
-    font-weight: bold;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    color: #9a9a9a;
     font-size: 26;
     margin: 0px;
+    margin-bottom: 20px;
     padding-bottom: 5px;
-    padding-top: 40px;
+    padding-top: 20px;
 }
 
 .heading2 {
     font-family: 'Inria Serif', serif;
-    font-weight: bold;
+    font-weight: 600;
     font-size: 42;
     width: 370px;
     margin: 0px;
+    margin-bottom: 10px;
     padding-bottom: 5px;
 }
 
 .heading3 {
     font-family: 'Inria Serif', serif;
     font-weight: bold;
-    font-size: 20;
+    font-size: 30;
     margin: 0px;
+    margin-bottom: 20px;
     padding-bottom: 25px;
 }
 
@@ -83,32 +90,116 @@ body {
 
 
 .input-form {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    font-size: 13;
+    font-size: 16;
     border: 0;
-    border: 1px solid lightgrey;
+    border: 1px solid grey;
     border-radius: 4px;
     font-family: 'Inter', sans-serif;
-    height: 40px;
-    width: 300px;
+    height: 45px;
+    padding-left: 15px;
+    width: 350px;
     margin-bottom: 5px;
+    display: block;
+}
+
+.input-form:focus{
+    outline: 1px solid black;
+    box-shadow: 0px 1px 10px 0px rgba(0,0,0,0.2);
 }
 
 .get-shop-button {
     background-color: black;
     color: white;
-    display: flex;
-    justify-content: center;
-    width: 300px;
+    width: 350px;
+    font-size: 16;
+    font-weight: 500;
     padding: 5px 0px;
+    height: 45px;
+    outline: None;
+    border: None;
     border-radius: 4px;
-    margin-top: 10px;
+    margin-top: 5px;
+    cursor: pointer;
+    text-align: left;
+    padding-left: 15px;
+    box-shadow: 0px 1px 10px 0px rgba(0,0,0,0.2);
 }
+
+.get-shop-button:hover{
+    background-color: #444444;
+    transition: 0.5s;
+    box-shadow: 0px 1px 10px 3px rgba(0,0,0,0.2);
+}
+
+
+.thankYou-wrapper{
+    display: flex;
+    align-items: center;
+}
+
+.checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke: #000000;
+  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmark {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 15px;
+  stroke-width: 2;
+  stroke: #fff;
+  stroke-miterlimit: 10;
+  box-shadow: inset 0px 0px 0px #000000;
+  animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+}
+
+.checkmark__check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes scale {
+  0%, 100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+@keyframes fill {
+  100% {
+    box-shadow: inset 0px 0px 0px 30px #000000;
+  }
+}
+
+.thankYou{
+    display: inline-block;
+    font-size: 18;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+}
+
+
+
 
 .shop-example-img {
     height: 500px;
+    border-radius: 10px;
+    box-shadow: 0px 1px 10px 0px rgba(0,0,0,0.1);
 }
 
 
@@ -137,25 +228,26 @@ body {
     display: grid;
     grid-template-areas:
     'website effort commission-fee';
-    gap: 40px;
+    gap: 80px;
     margin-left: auto;
     margin-right: auto;
-    width: 70%;
     justify-items: center;
+    max-width: 1100px;
 }
 
 .content {
-    max-width: 240px;
     text-align: center;
     padding: 50px 0px;
 }
 
 .text {
-    opacity: 0.5;
+    color: #9a9a9a;
+    font-family: "Inter", sans-serif;
+    font-weight: 300;
 }
 
 .heading-block2 {
-    font-size: 22;
+    font-size: 28;
     font-family: "Inria serif", serif;
     font-weight: bold;
     margin: 0px;
@@ -169,10 +261,11 @@ body {
     align-items: center;
     margin: 0px;
     border-top: 1px solid lightgrey;
+    padding-top: 40px;
 }
 
 .heading-block3 {
-    font-size: 30;
+    font-size: 35;
     font-family: "Inria serif", serif;
     font-weight: bold;
     margin-bottom: 0px;
@@ -180,6 +273,7 @@ body {
 
 .text-block3 {
     max-width: 420px;
+    margin-bottom: 30px;
 }
 
 
@@ -231,7 +325,7 @@ body {
 .background2 {
     background-color: #FFF8ED;
     width: 100%;
-    height: 185px;
+    height: 200px;
     margin-top: 50px;
     display: flex;
     justify-content: center;
@@ -313,4 +407,129 @@ footer p, footer a, footer a:visited{
 #logo-footer{
     height: 30px;
     padding: 10px 0px;
+}
+
+
+
+
+
+@media screen and (max-width: 900px) {
+    .background1{
+        height: auto;
+        padding-bottom: 20px;
+    }
+
+    .block1{
+        flex-direction: column;
+        padding-top: 120px;
+    }
+
+    .block1-left{
+        padding: 0px 20px;
+        margin-bottom: 20px;
+    }
+
+    .block1-right{
+        padding: 0px 20px;
+        width: calc(100vw - 40px);
+    }
+
+    .heading1{
+        font-size: 20;
+        margin-bottom: 10px;
+        width: auto;
+    }
+
+    .heading2{
+        font-size: 35;
+        margin-bottom: 5px;
+        width: auto;
+    }
+
+    .heading3{
+        font-size: 25;
+        margin-bottom: 20px;
+        width: auto;
+    }
+
+    .input-form{
+        width: 100%;
+    }
+
+    .get-shop-button{
+        width: 100%;
+    }
+
+    .thankYou{
+        font-size: 16;
+    }
+
+    .shop-example-img{
+        width: calc(100vw - 40px);
+        height: auto;
+        border-radius: 7px;
+    }
+
+    .block2{
+        grid-template-columns: 100%;
+        grid-template-areas: 'website' 'effort' 'commission-fee';
+        gap: 20px;
+        padding: 50px 20px;
+    }
+
+    .content{
+        padding: 0px 0px;
+
+    }
+
+    .block3{
+        padding: 0px 20px;
+        width: auto;
+        margin-bottom: 40px;
+    }
+
+    .text-block3{
+        width: 100%;
+    }
+
+    .block4{
+        flex-direction: column-reverse;
+        padding: 0px 20px;
+    }
+
+    .block4-left, .block4-right, .block5-left, .block5-right{
+        width: 100%;
+        margin: 0px;
+    }
+
+
+    .block-img{
+        width: 100%;
+        height: auto;
+        margin-bottom: 50px;
+    }
+
+    .block5{
+        flex-direction: column;
+        padding: 0px 20px;
+    }
+
+    .background2{
+        height: auto;
+        padding: 20px 0px;
+    }
+
+    .block6{
+        flex-direction: column;
+        padding: 0px 20px;
+    }
+
+    .block6-left{
+        width: 100%;
+    }
+
+    .links-footer a{
+        font-size: 14;
+        margin: 0px 7px;
+    }
 }

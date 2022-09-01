@@ -6,6 +6,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -14,7 +15,7 @@
 
 
 <div class="logo-encomi">
-    <a href="/"><img id="logo-nav" src="/media/logos/logo.png"></a>
+    <a href="/"><img id="logo-nav" src="/media/logos/logo_blue.png"></a>
 </div>
 
 <div class="main">
@@ -28,20 +29,30 @@
                 <p class="heading3">without any effort or cost</p>
 
                 <div class="login-form">
-                    <form id="form" role="user-information" onsubmit="(e)=>{e.preventDefault(); updateKeyword()}">
+                    {% if not submitted %}
+                    <form id="form" method="post" action="">
+                        {% csrf_token %}
 
-                      <input type="email" id="email" name="email" class="input-form"
-                           placeholder="Your Email address">
-                      <input type="text" id="shop-name" name="shop-name" class="input-form"
-                          placeholder="Your shop name">
-                      <input type="submit" value="Get your own shop website" class="get-shop-button">
+                        {{form.email}}
+                        {{form.shop_name}}
+
+                      <input type="submit" value="Get your own free shop website" class="get-shop-button">
                     </form>
-
+                    {% endif %}
+                    {% if submitted %}
+                    <div class="thankYou-wrapper">
+                        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                          <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                          <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                        </svg>
+                        <p class="thankYou">Thank you for your submission!<br>We will contact you as soon as possible.</p>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
 
             <div class="block1-right">
-                <img class="shop-example-img" src="/media/icons/shop-example.png">
+                <img class="shop-example-img" src="/media/home/example1.png">
             </div>
 
         </div>
@@ -57,13 +68,13 @@
         <div class="content effort">
             <img class="icon effort-icon" src="/media/icons/no-extra-effort.png">
             <p class="heading-block2">No extra effort for you</p>
-            <p class="text">All your listings from any other platform will automatically be transfered to encomi. To gain the best insights into your sales, we offer you a simple seller dashboard.</p>
+            <p class="text">All your listings will automatically be synced with to other platforms. To gain the best insights into your sales, we offer you a simple seller dashboard.</p>
         </div>
 
         <div class="content commission-fee">
             <img class="icon commission-fee-icon" src="/media/icons/low-commission-fee.png">
             <p class="heading-block2">Low commission fee</p>
-            <p class="text">You won’t have to pay anything for your custom made website. Instead, we charge a commission fee of only 3.9%, lower than Etsy or Amazon.</p>
+            <p class="text">You won’t have to pay anything for your custom made website. Instead, we charge a commission fee of only 3.9%, lower than any other marketplace.</p>
         </div>
     </div>
 
@@ -74,7 +85,7 @@
 
     <div class="block4">
         <div class="block4-left">
-            <img class="block-img" src="/media/icons/block4-img.png">
+            <img class="block-img" src="/media/home/example2.png">
         </div>
         <div class="block4-right">
             <p class="heading-block2">A professional website, designed and tailored to your needs</p>
@@ -85,11 +96,11 @@
 
     <div class="block5">
         <div class="block5-left">
-            <p class="heading-block2">We offer you a frictionless selling experience</p>
+            <p class="heading-block2">Manage everything from one place</p>
             <p class="text">Maintaining an overview over all orders can be hard. We created a simple seller dashboard, to make that as easy as possible.</p>
         </div>
         <div class="block5-right">
-            <img class="block-img" src="/media/icons/block5-img.png">
+            <img class="block-img" src="/media/home/example3.png">
         </div>
     </div>
 
@@ -101,14 +112,25 @@
             </div>
             <div class="block6-right">
                 <div class="login-form">
-                    <form id="form2" role="user-information" onsubmit="(e)=>{e.preventDefault(); updateKeyword()}">
+                    {% if not submitted %}
+                    <form id="form2" method="post" action="">
+                        {% csrf_token %}
 
-                      <input type="email" id="email2" name="email" class="input-form"
-                           placeholder="Your Email address">
-                      <input type="text" id="shop-name2" name="shop-name" class="input-form"
-                          placeholder="Your shop name">
-                      <input type="submit" value="Get your own shop website" class="get-shop-button">
+                        {{form.email}}
+                        {{form.shop_name}}
+
+                      <input type="submit" value="Get your own free shop website" class="get-shop-button">
                     </form>
+                    {% endif %}
+                    {% if submitted %}
+                    <div class="thankYou-wrapper">
+                        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                          <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                          <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                        </svg>
+                        <p class="thankYou">Thank you for your submission!<br>We will contact you as soon as possible.</p>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

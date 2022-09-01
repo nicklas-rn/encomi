@@ -30,3 +30,16 @@ class AuthenticateUserForm(forms.Form):
         ),
         'inactive': "This account is inactive.",
     }
+
+
+class SellerApplicationForm(ModelForm):
+    class Meta:
+        model = SellerApplication
+        fields = [
+            'email',
+            'shop_name'
+        ]
+        widgets = {
+            'email': TextInput(attrs={'placeholder': 'Your Email address', 'class': 'input-form', 'required': 'required'}),
+            'shop_name': TextInput(attrs={'placeholder': 'Your shop name', 'class': 'input-form', 'required': 'required'})
+        }

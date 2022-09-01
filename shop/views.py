@@ -9,7 +9,8 @@ from django.contrib.auth import authenticate, login, logout
 
 
 def base(request):
-    return redirect('home/encomi')
+    return redirect('become_seller')
+    # return redirect('home/encomi')
 
 
 def home(request, seller_name):
@@ -325,7 +326,31 @@ def scrape(request):
 
 def become_seller(request):
 
-    context = {}
+    form = SellerApplicationForm()
+
+    submitted = False
+
+    if request.method == 'POST':
+        form = SellerApplicationForm(request.POST)
+        print(form)
+        if form.is_valid():
+            print(form)
+            try:
+                seller_application = SellerApplication.objects.create(
+                    email=form.cleaned_data['email'],
+                    shop_name=form.cleaned_data['shop_name'],
+                )
+                print(seller_application)
+                seller_application.save()
+                submitted = True
+
+            except:
+                return redirect('/')
+
+    context = {
+        'form': form,
+        'submitted': submitted,
+    }
 
     return render(request, 'shop/become_seller.html', context)
 
