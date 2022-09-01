@@ -1,0 +1,43 @@
+{% extends "shop/base.html" %}
+
+{% block content %}
+
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'shop/help_style.css' %}">
+
+<div class="background">
+
+    <div class="left">
+        <p class="header">FAQ</p>
+        <p class="text1">Sorry, we are currently working on this. </p>
+        <p class="text2">If you have a question please find our policies <a href="/TOU" class="link-policies">here</a>.</p>
+    </div>
+
+    <div class="right-wrapper">
+        <div class="right">
+            <p class="header">Send us a message</p>
+
+            <form class="message-form" onsubmit="(e)=>{e.preventDefault(); updateKeyword()}">
+
+                <input type="email" id="email" name="email" class="input-form"
+                   placeholder="Your Email address">
+                <textarea type="text" id="message" name="message" class="input-form"
+                  placeholder="Your message"></textarea>
+                <div class="message-button-wrapper">
+                    <input type="submit" value="Submit message" class="message-button">
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+
+</div>
+
+
+
+
+
+{% endblock %}
