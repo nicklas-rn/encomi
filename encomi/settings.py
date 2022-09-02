@@ -25,8 +25,13 @@ SECRET_KEY = 'django-insecure-$d5l*cdwzclzgxhl9wpay^ebbe700d@@5dxpemx^61v4%me!7_
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+## Pythonanywhere:
+# DEBUG = False
 
 ALLOWED_HOSTS = []
+
+## Pythonanywhere:
+# ALLOWED_HOSTS = ['encomi.co']
 
 
 # Application definition
@@ -129,6 +134,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
+
+## Pythonanywhere:
+# STATIC_URL = '/static/'
+# STATIC_ROOT = '/home/nicklas02/encomi/shop/static'
+
+# MEDIA_ROOT = '/home/nicklas02/encomi/media'
+# MEDIA_URL = "/media/"
+
 
 AUTH_USER_MODEL = 'shop.User'
 LOGIN_REDIRECT_URL = "/"
