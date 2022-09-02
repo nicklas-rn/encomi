@@ -1,0 +1,32 @@
+.mainmain{
+    display: None;
+}
+
+#main, #navbar {
+    background-color: #FFF8ED !important;
+}
+
+#background-footer {
+    background-color: white !important;
+}
+
+
+
+[data-custom-class='body'] {
+    padding: 25px !important;
+}
+
+.wrapper {
+    background-color: #FFF8ED;
+    width: 100%;
+}
+
+[data-custom-class="link"] {
+    color: black;
+}
+
+
+
+
+
+

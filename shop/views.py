@@ -506,27 +506,39 @@ def settings(request, seller_name):
 
     return render(request, 'shop/settings_dashboard.html', context)
 
-def seller_policy(request):
+def seller_policy(request, seller_name):
+    seller = Seller.objects.get(name=seller_name)
 
-    context = {}
+    context = {
+        'seller': seller,
+    }
 
     return render(request, 'shop/seller_policy.html', context)
 
-def privacy_policy(request):
+def privacy_policy(request, seller_name):
+    seller = Seller.objects.get(name=seller_name)
 
-    context = {}
+    context = {
+        'seller': seller,
+    }
 
     return render(request, 'shop/privacy_policy.html', context)
 
-def TOU(request):
+def TOU(request, seller_name):
+    seller = Seller.objects.get(name=seller_name)
 
-    context = {}
+    context = {
+        'seller': seller,
+    }
 
     return render(request, 'shop/TOU.html', context)
 
-def about(request):
+def about(request, seller_name):
+    seller = Seller.objects.get(name=seller_name)
 
-    context = {}
+    context = {
+        'seller': seller,
+    }
 
     return render(request, 'shop/about.html', context)
 
