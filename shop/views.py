@@ -216,10 +216,10 @@ def create_order(request, seller_name):
         parent_order.total += order.total
         parent_order.save()
 
-    return redirect(f"/summary/{seller_name}")
+    return redirect(f"/thankyou/{seller_name}")
 
 
-def summary(request, seller_name):
+def thankyou(request, seller_name):
     cart = cookieCart(request, seller_name)
 
     seller = Seller.objects.get(name=seller_name)
@@ -232,7 +232,7 @@ def summary(request, seller_name):
         'shipping': cart['shipping'],
     }
 
-    return render(request, 'shop/summary.html', context)
+    return render(request, 'shop/thankyou.html', context)
 
 
 def cart_total(request, seller_name):
@@ -614,4 +614,10 @@ def help_faqs(request, seller_name, type):
         'faqs': faqs,
     }
 
+<<<<<<< Updated upstream
     return render(request, 'shop/help_faqs.html', context)
+=======
+    return render(request, 'shop/help.html', context)
+
+
+>>>>>>> Stashed changes

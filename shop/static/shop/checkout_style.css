@@ -1,5 +1,5 @@
 #checkout {
-    margin: 20px 20px;
+    margin: 20px 40px;
     display: flex;
     justify-content: left;
     align-items: top;
@@ -142,4 +142,16 @@ input::placeholder {
     padding-bottom: 30px;
     font-family: 'Inria Serif', serif;
     padding-top: 40px;
+}
+
+
+.line2{
+    width: 130px;
+    height: 1px;
+    border: 2px solid black;
+    position: relative;
+    background-color: black;
+    border-radius: 10px;
+    margin-left: -2px;
+    z-index: 2;
 }
