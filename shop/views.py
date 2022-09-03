@@ -614,10 +614,5 @@ def help_faqs(request, seller_name, type):
         'faqs': faqs,
     }
 
-<<<<<<< Updated upstream
     return render(request, 'shop/help_faqs.html', context)
-=======
-    return render(request, 'shop/help.html', context)
 
-
->>>>>>> Stashed changes
