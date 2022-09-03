@@ -56,24 +56,23 @@
 
             <div class="newsletter-wrapper">
                 <p>You want to receive personalized offers and suggestions?</p>
-                <input type="text" class="email-input" id="email" name="email" placeholder="Email address">
 
-            {% if not submitted %}
-            <form class="message-form" method="post" action="">
+                {% if not submitted %}
+                <form class="message-form" method="post" action="">
 
-                {% csrf_token %}
+                    {% csrf_token %}
 
-                {{form.email}}
-                <div class="message-button-wrapper">
-                    <input type="submit" value="Receive offers" class="message-button">
+                    {{form.email}}
+                    <div class="message-button-wrapper">
+                        <input type="submit" value="Receive offers" class="message-button">
+                    </div>
+                </form>
+                {% endif %}
+                {% if submitted %}
+                <div class="thankYou-wrapper">
+                    <p class="thankYou">Thank you for your support!</p>
                 </div>
-            </form>
-            {% endif %}
-            {% if submitted %}
-            <div class="thankYou-wrapper">
-                <p class="thankYou">Thank you for your support!</p>
-            </div>
-            {% endif %}
+                {% endif %}
 
             </div>
 

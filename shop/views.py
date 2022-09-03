@@ -224,12 +224,36 @@ def thankyou(request, seller_name):
 
     seller = Seller.objects.get(name=seller_name)
 
+    form = NewsletterEmailForm()
+
+    submitted = False
+
+    if request.method == 'POST':
+        form = NewsletterEmailForm(request.POST)
+        print(form)
+        if form.is_valid():
+            print(form)
+            try:
+                email = NewsletterEmail.objects.create(
+                    email=form.cleaned_data['email'],
+                    datetime=datetime.now(),
+                )
+                print(email)
+                email.save()
+                submitted = True
+
+            except:
+                print('issue')
+                return redirect(f"/thankyou/{seller_name}")
+
     context = {
         'seller': seller,
         'cartItems': cart['items'],
         'cartSubTotal': cart['subtotal'],
         'cartTotal': cart['total'],
         'shipping': cart['shipping'],
+        'form': form,
+        'submitted': submitted,
     }
 
     return render(request, 'shop/thankyou.html', context)

@@ -1,3 +1,4 @@
 .idea/
 db.sqlite3
 media/item_images
+shop/migrations

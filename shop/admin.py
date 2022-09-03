@@ -16,4 +16,5 @@ admin.site.register(User)
 admin.site.register(SellerApplication)
 admin.site.register(FAQ)
 admin.site.register(HelpMessage)
+admin.site.register(NewsletterEmail)
 

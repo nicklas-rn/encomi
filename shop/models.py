@@ -189,3 +189,11 @@ class HelpMessage(models.Model):
 
     def __str__(self):
         return self.email
+
+
+class NewsletterEmail(models.Model):
+    email = models.EmailField(max_length=100)
+    datetime = models.DateTimeField(null=True)
+
+    def __str__(self):
+        return self.email

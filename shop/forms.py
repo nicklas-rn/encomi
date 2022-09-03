@@ -56,3 +56,14 @@ class HelpMessageForm(ModelForm):
             'email': TextInput(attrs={'placeholder': 'Your Email address', 'class': 'input-form', 'required': 'required'}),
             'message': Textarea(attrs={'placeholder': 'Your message', 'class': 'input-form', 'required': 'required'})
         }
+
+
+class NewsletterEmailForm(ModelForm):
+    class Meta:
+        model = NewsletterEmail
+        fields = [
+            'email',
+        ]
+        widgets = {
+            'email': TextInput(attrs={'placeholder': 'Your Email address', 'class': 'input-form', 'required': 'required'}),
+        }
