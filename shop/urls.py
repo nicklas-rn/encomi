@@ -29,10 +29,10 @@ urlpatterns = [
     path('dashboard/listings_items/<seller_name>', views.listings_items, name='listings_items'),
     path('dashboard/deliveries_selected/<seller_name>/<order_id>', views.deliveries_selected, name='deliveries_selected'),
 
-    path('seller_policy', views.seller_policy, name='seller_policy'),
-    path('privacy_policy', views.privacy_policy, name='privacy_policy'),
-    path('TOU', views.TOU, name='TOU'),
-    path('about/', views.about, name='about'),
+    path('seller_policy/<seller_name>', views.seller_policy, name='seller_policy'),
+    path('privacy_policy/<seller_name>', views.privacy_policy, name='privacy_policy'),
+    path('TOU/<seller_name>', views.TOU, name='TOU'),
+    path('about/<seller_name>', views.about, name='about'),
 
     # path('scrape/', views.scrape, name='scrape')
 ]
