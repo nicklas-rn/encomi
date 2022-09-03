@@ -167,3 +167,25 @@ class SellerApplication(models.Model):
 
     def __str__(self):
         return self.shop_name
+
+
+type_choices = {
+    ('buyer', 'buyer'),
+    ('seller', 'seller'),}
+
+
+class FAQ(models.Model):
+    title = models.CharField(max_length=300)
+    answer = models.TextField(max_length=1000)
+    type = models.CharField(max_length=30, choices=type_choices, null=True)
+
+    def __str__(self):
+        return self.title
+
+
+class HelpMessage(models.Model):
+    email = models.EmailField(max_length=100)
+    message = models.TextField(max_length=1000)
+
+    def __str__(self):
+        return self.email

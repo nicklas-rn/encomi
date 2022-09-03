@@ -1,0 +1,9 @@
+{% for faq in faqs %}
+<div class="faq" id="faq-{{faq.id}}" onclick="showDescription('{{faq.id}}')">
+    <div class="faq-title-wrapper">
+         <p class="faq-title">{{faq.title}}</p>
+        <img src="/media/icons/arrow-down.png" class="faq-icon" id="faq-icon-{{faq.id}}">
+    </div>
+    <p class="faq-content" id="faq-content-{{faq.id}}">{{faq.answer}}</p>
+</div>
+{% endfor %}

@@ -10,24 +10,40 @@
 
     <div class="left">
         <p class="header">FAQ</p>
-        <p class="text1">Sorry, we are currently working on this. </p>
-        <p class="text2">If you have a question please find our policies <a href="/TOU" class="link-policies">here</a>.</p>
+        <div class="slider">
+            <a onclick="updateFAQs('buyer')" class="slider-link slider-link-selected" id="slider-link-buyer">Buyer</a>
+            <a onclick="updateFAQs('seller')" class="slider-link" id="slider-link-seller">Seller</a>
+        </div>
+        <div class="faqs buyer_faqs" id="faqs">
+            {% include "shop/help_faqs.html" %}
+        </div>
     </div>
 
     <div class="right-wrapper">
         <div class="right">
             <p class="header">Send us a message</p>
 
-            <form class="message-form" onsubmit="(e)=>{e.preventDefault(); updateKeyword()}">
+            {% if not submitted %}
+            <form class="message-form" method="post" action="">
 
-                <input type="email" id="email" name="email" class="input-form"
-                   placeholder="Your Email address">
-                <textarea type="text" id="message" name="message" class="input-form"
-                  placeholder="Your message"></textarea>
+                {% csrf_token %}
+
+                {{form.email}}
+                {{form.message}}
                 <div class="message-button-wrapper">
                     <input type="submit" value="Submit message" class="message-button">
                 </div>
             </form>
+            {% endif %}
+            {% if submitted %}
+            <div class="thankYou-wrapper">
+                <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                  <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                  <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+                <p class="thankYou">Thank you for your message!<br>We will contact you as soon as possible.</p>
+            </div>
+            {% endif %}
         </div>
     </div>
 
@@ -37,6 +53,54 @@
 </div>
 
 
+<script>
+    function showDescription(id) {
+        var question, answer, icon;
+        question = document.getElementById('faq-' + id);
+        answer = document.getElementById('faq-content-' + id);
+        icon = document.getElementById('faq-icon-' + id);
+        question.setAttribute('onclick', 'hideDescription("'+id+'")');
+        answer.style.display = "block";
+        icon.style.transform = 'rotate(180deg)';
+    }
+
+    function hideDescription(id) {
+        var question, answer, icon;
+        question = document.getElementById('faq-' + id);
+        answer = document.getElementById('faq-content-' + id);
+        icon = document.getElementById('faq-icon-' + id);
+        question.setAttribute('onclick', 'showDescription("'+id+'")');
+        answer.style.display = "None";
+        icon.style.transform = 'rotate(0deg)';
+    }
+
+    function updateFAQs(type){
+        let request = new XMLHttpRequest();
+        let method = 'GET';
+        console.log(type)
+
+        let url = '/help_faqs/{{seller}}/' + type;
+        request.open(method, url);
+        request.onload = function () {
+            // the response is the rendered HTML
+            // which django sends as return render(response, "your_template.html", context)
+            let myHTML = request.response;
+            // This is the important part
+            // Set that HTML to the new, templated HTML returned by the server
+        document.getElementById('faqs').innerHTML = myHTML;
+        };
+        request.send();
+        if(type=='buyer'){
+            document.getElementById('slider-link-buyer').classList.add('slider-link-selected')
+            document.getElementById('slider-link-seller').classList.remove('slider-link-selected')
+        }
+        else if(type=='seller'){
+            document.getElementById('slider-link-buyer').classList.remove('slider-link-selected')
+            document.getElementById('slider-link-seller').classList.add('slider-link-selected')
+        }
+
+    }
+</script>
 
 
 

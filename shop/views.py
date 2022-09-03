@@ -9,8 +9,8 @@ from django.contrib.auth import authenticate, login, logout
 
 
 def base(request):
-    return redirect('become_seller')
-    # return redirect('home/encomi')
+    # return redirect('become_seller')
+    return redirect('home/encomi')
 
 
 def home(request, seller_name):
@@ -558,8 +558,48 @@ def login_user(request):
 def help(request, seller_name):
     seller = Seller.objects.get(name=seller_name)
 
+    faqs = FAQ.objects.filter(type='buyer')
+
+    form = HelpMessageForm()
+
+    submitted = False
+
+    if request.method == 'POST':
+        form = HelpMessageForm(request.POST)
+        print(form)
+        if form.is_valid():
+            print(form)
+            try:
+                message = HelpMessage.objects.create(
+                    email=form.cleaned_data['email'],
+                    message=form.cleaned_data['message'],
+                )
+                print(message)
+                message.save()
+                submitted = True
+
+            except:
+                print('issue')
+                return redirect('/')
+
     context = {
         'seller': seller,
+        'faqs': faqs,
+        'form': form,
+        'submitted': submitted
     }
 
     return render(request, 'shop/help.html', context)
+
+
+def help_faqs(request, seller_name, type):
+    seller = Seller.objects.get(name=seller_name)
+
+    faqs = FAQ.objects.filter(type=type)
+
+    context = {
+        'seller': seller,
+        'faqs': faqs,
+    }
+
+    return render(request, 'shop/help_faqs.html', context)

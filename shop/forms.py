@@ -43,3 +43,16 @@ class SellerApplicationForm(ModelForm):
             'email': TextInput(attrs={'placeholder': 'Your Email address', 'class': 'input-form', 'required': 'required'}),
             'shop_name': TextInput(attrs={'placeholder': 'Your shop name', 'class': 'input-form', 'required': 'required'})
         }
+
+
+class HelpMessageForm(ModelForm):
+    class Meta:
+        model = HelpMessage
+        fields = [
+            'email',
+            'message'
+        ]
+        widgets = {
+            'email': TextInput(attrs={'placeholder': 'Your Email address', 'class': 'input-form', 'required': 'required'}),
+            'message': Textarea(attrs={'placeholder': 'Your message', 'class': 'input-form', 'required': 'required'})
+        }
