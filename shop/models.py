@@ -60,7 +60,7 @@ class Style(models.Model):
 
 
 ORDER_STATUS_CHOICES = {
-    ('completed', 'completed'),
+    ('delivered', 'delivered'),
     ('on the way', 'on the way'),
     ('not handled', 'not handled'),
 }

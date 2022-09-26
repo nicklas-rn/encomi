@@ -28,6 +28,8 @@ urlpatterns = [
     path('dashboard/settings/<seller_name>', views.settings, name='settings'),
     path('dashboard/listings_items/<seller_name>', views.listings_items, name='listings_items'),
     path('dashboard/deliveries_selected/<seller_name>/<order_id>', views.deliveries_selected, name='deliveries_selected'),
+    path('dashboard/update_order_status/<seller_name>/<order_id>/<order_status>', views.update_order_status,
+         name='update_order_status'),
 
     path('seller_policy/<seller_name>', views.seller_policy, name='seller_policy'),
     path('privacy_policy/<seller_name>', views.privacy_policy, name='privacy_policy'),

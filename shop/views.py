@@ -521,6 +521,21 @@ def deliveries_selected(request, seller_name, order_id):
     return render(request, 'shop/selected_order.html', context)
 
 
+def update_order_status(request, seller_name, order_id, order_status):
+    seller = Seller.objects.get(name=seller_name)
+
+    selected_order = Order.objects.get(id=order_id)
+    selected_order.status = order_status
+    selected_order.save()
+
+    context = {
+        'selected_order': selected_order,
+        'seller': seller,
+    }
+
+    return render(request, 'shop/selected_order_status.html', context)
+
+
 def settings(request, seller_name):
     seller = Seller.objects.get(name=seller_name)
 
