@@ -1,0 +1,30 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    height: 100%;
+    width: 100%;
+    background-color: #FFF8ED;
+    margin: 0px;
+}
+
+#construction {
+    height: 60px;
+}
+
+.wrapper p {
+    width: 240px;
+    font-family: 'Inria serif', serif;
+    font-size: 30;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 10px;
+    margin: 0px;
+}
