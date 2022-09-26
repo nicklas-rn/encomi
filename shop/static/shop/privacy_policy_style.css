@@ -7,19 +7,25 @@
 }
 
 #background-footer {
-    background-color: white !important;
+    background-color: #FFF8ED !important;
 }
 
 
 
-[data-custom-class='body'] {
-    padding: 25px !important;
-}
 
-[data-custom-class='wrapper'] {
+.wrapper {
     background-color: #FFF8ED;
     width: 100%;
 }
+
+[data-custom-class='wrapper'] {
+    padding: 25px !important;
+}
+
+[data-custom-class="link"] {
+    color: black;
+}
+
 
 
 

@@ -218,10 +218,10 @@
     box-shadow: 0px 1px 10px 0px rgba(0,0,0,0.2);
 }
 
-.newsletter-wrapper p {
+.newsletter-wrapper-text{
     margin-top: 70px;
     margin-bottom: 10px;
-    font-size: 20;
+    font-size: 18;
     width: 350px;
 }
 
@@ -257,4 +257,9 @@
     margin-top: 8px;
     font-size: 15;
     width: 350px;
+}
+
+.thankYou{
+    margin-top: 20px;
+    font-size: 18;
 }
