@@ -3,7 +3,7 @@
 {% block content %}
 
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'shop/dashboard_style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'shop/settings_dashboard_style.css' %}">
 
 <nav class="navbar-left">
     <a href="/"><img id="logo-nav" src="/media/logos/logo.png"></a>
@@ -24,6 +24,62 @@
 
 <div class="mainmain">
 
+    <div class="settings-content">
+        <div class="navbar-top">
+            <ul class="navbar-top-links">
+                <li class="navbar-top-link" id="navbar-top-link-0" onclick="updateNavbar(0)"><a>Info & Appearence</a></li>
+                <li class="navbar-top-link" id="navbar-top-link-0" onclick="updateNavbar(0)"><a>Shipping</a></li>
+                <li class="navbar-top-link" id="navbar-top-link-0" onclick="updateNavbar(0)"><a>Policies</a></li>
+                <li class="navbar-top-link" id="navbar-top-link-0" onclick="updateNavbar(0)"><a>Users</a></li>
+            </ul>
+        </div>
+
+        <div class="settings-content-blocks">
+
+            <div class="settings-block1">
+                <p class="block-heading">Shipping</p>
+                <div class="settings-block1-fields">
+                    <textarea id="general-information" name="general-information" class="block1-inputfield">General information</textarea>
+                    <textarea id="taxes" name="taxes" class="block1-inputfield">Customs and Import Taxes</textarea>
+                </div>
+            </div>
+
+            <div class="settings-block2">
+                <p class="block-heading">Returns & Exchanges</p>
+                <div class="block2-upper">
+                    <div class="block2-boxes">
+                        <p class="block2-text">I accept...</p>
+                        <input type="checkbox" id="checkbox-returns" name="checkbox-returns" value="Returns">
+                        <label for="checkbox-returns">returns</label><br>
+                        <input type="checkbox" id="checkbox-exchanges" name="checkbox-exchanges" value="Exchanges">
+                        <label for="checkbox-exchanges">exchanges</label><br>
+                        <input type="checkbox" id="checkbox-cancellations" name="checkbox-cancellations" value="Cancellations">
+                        <label for="checkbox-cancellations">cancellations</label><br><br>
+                    </div>
+
+                    <div class="block2-details">
+                        <p class="block2-text G1">Contact me within</p><input type="number" id="returns-input" name="returns-input" min="1" max="300"><p class="block2-text G2">days of delivery</p>
+                        <p class="block2-text G3">Ship items back within</p><input type="number" id="exchange-input" name="exchange-input" min="1" max="300"><p class="block2-text G4">days of delivery</p>
+                        <p class="block2-text G5">Request a cancellation</p><input type="text" id="cancellation-input" name="cancellation-input">
+                    </div>
+                </div>
+
+                <div class="settings-block1-fields">
+                    <textarea id="conditions-of-return" name="conditions-of-return" class="block1-inputfield">Conditions of return</textarea>
+                    <textarea id="questions-order" name="questions-order" class="block1-inputfield">Questions about your order?</textarea>
+                </div>
+            </div>
+
+            <div class="settings-block3">
+                <p class="block-heading">Privacy Policy</p>
+                <div class="settings-block3-fields">
+                    <textarea id="privacy-policy" name="privacy-policy" class="block3-inputfield">Your Privacy Policy</textarea>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
