@@ -179,7 +179,7 @@ a:visited{
 }
 
 
-#form{
+#search-navbar{
     background-color: white;
     border-bottom: 1px black solid;
     width: 200px;
@@ -189,7 +189,7 @@ a:visited{
     align-items: center;
 }
 
-#query{
+#query-navbar{
     all: unset;
     color: black;
     font: 16px;

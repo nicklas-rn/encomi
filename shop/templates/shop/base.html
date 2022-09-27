@@ -119,12 +119,11 @@
             </div>
 
             <div class="search">
-                <form id="form" role="search" onsubmit="(e)=>{e.preventDefault(); updateKeyword()}">
+                <form id="search-navbar" role="search" onsubmit="(e)=>{e.preventDefault(); updateKeyword()}">
                     <img class="icon"
                             src="/media/icons/search.png" alt="">
-                    <input type="search" id="query"
-                           placeholder="Search..."
-                           aria-label="Search through site content">
+                    <input type="search" id="query-navbar"
+                           placeholder="Search...">
                 </form>
             </div>
         </div>
@@ -367,6 +366,20 @@
         window.location.href = '/shop/{{seller}}'
     }
 
+
+    document.getElementById('search-navbar').addEventListener('submit', function(e) {
+        e.preventDefault();
+        searchShop()
+    }, false);
+
+    function searchShop(){
+        search['keyword'] = document.getElementById('query-navbar').value
+        if (search['keyword'] == ''){
+            search['keyword'] = 'all'
+        }
+        document.cookie ='search=' + JSON.stringify(search) + ";domain=;path=/"
+        window.location.href = '/shop/{{seller}}'
+    }
 </script>
 
 
