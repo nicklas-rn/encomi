@@ -5,88 +5,89 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'shop/item_style.css' %}">
 
-<div id="item">
-    <div class="nav-images" >
-        {% for image in item.image_set.all %}
-        <img class="nav-image" src="{{image.image.url}}" width="70px" alt="" onmouseenter="updateImage('{{image.image.url}}')">
-        {% endfor %}
-    </div>
-
-    <div id="item-image-wrapper">
-        <img id="item-image" src="{{item.image_set.first.image.url}}" alt="">
-    </div>
-
-    <div class="description">
-        <div class="description-values">
-            <p class="item-title">{{ item.title }}</p>
-            <p class="item-price">{{ item.price|floatformat:2 }}€<p/>
-            <p class="item-price-old"><s>from {{ item.old_price|floatformat:2 }}€</s></p>
+<div id="item-wrapper">
+    <div id="item">
+        <div class="nav-images" >
+            {% for image in item.image_set.all %}
+            <img class="nav-image" src="{{image.image.url}}" width="70px" alt="" onmouseenter="updateImage('{{image.image.url}}')">
+            {% endfor %}
         </div>
 
-        {% for style_group in item.stylegroup_set.all %}
-        <div class="dropdown-wrapper" onmouseleave="closeDropdown('{{style_group}}')">
-            <div class="dropdown" id="dropdown-{{style_group}}" onmouseenter="showDropdown('{{style_group}}')">
-                <button class="button-dropdown" onclick="showDropdown()">
-                    <span class="text-button-dropdown" id="text-button-dropdown-{{style_group.type}}">Select {{style_group}}</span>
-                    <i class="icon-dropdown">
-                        <img class="image-dropdown"
-                        src="/media/icons/arrow-down.png" alt="">
-                    </i>
-                </button>
-            </div>
-            <div class="content-dropdown" id="content-dropdown-{{style_group.type}}">
-                {% for style in style_group.style_set.all %}
-                    <a class="option-dropdown" id="option-dropdown-{{style_group.type}}-{{style}}" onclick="updateDropdown('{{style_group.type}}', '{{style}}')">{{style}}</a>
-                {% endfor %}
-            </div>
+        <div id="item-image-wrapper">
+            <img id="item-image" src="{{item.image_set.first.image.url}}" alt="">
         </div>
-        {% endfor %}
-        <button id="button" onclick="addCookieItem()">Add to Cart</button>
-        <p id="customization-error">Please select all customization options</p>
 
-        <div id="item-properties">
-            <div class="item-property">
-                <div class="button-item-property" id="button-item-property-details" onclick="showContentProperty('details')">
-                    <span class="title-item-property">Details</span>
-                    <i class="icon-dropdown">
-                        <img class="image-dropdown"
-                        src="/media/icons/arrow-down.png" alt="">
-                    </i>
-                </div>
-                <div class="content-item-property" id="content-item-property-details">
-                    <p>{{item.details}}</p>
-                </div>
+        <div class="description">
+            <div class="description-values">
+                <p class="item-title">{{ item.title }}</p>
+                <p class="item-price">{{ item.price|floatformat:2 }}€<p/>
+                <p class="item-price-old"><s>from {{ item.old_price|floatformat:2 }}€</s></p>
             </div>
 
-            <div class="item-property">
-                <div class="button-item-property" id="button-item-property-description" onclick="showContentProperty('description')">
-                    <span class="title-item-property">Description</span>
-                    <i class="icon-dropdown">
-                        <img class="image-dropdown"
-                        src="/media/icons/arrow-down.png" alt="">
-                    </i>
+            {% for style_group in item.stylegroup_set.all %}
+            <div class="dropdown-wrapper" onmouseleave="closeDropdown('{{style_group}}')">
+                <div class="dropdown" id="dropdown-{{style_group}}" onmouseenter="showDropdown('{{style_group}}')">
+                    <button class="button-dropdown" onclick="showDropdown()">
+                        <span class="text-button-dropdown" id="text-button-dropdown-{{style_group.type}}">Select {{style_group}}</span>
+                        <i class="icon-dropdown">
+                            <img class="image-dropdown"
+                            src="/media/icons/arrow-down.png" alt="">
+                        </i>
+                    </button>
                 </div>
-                <div class="content-item-property" id="content-item-property-description">
-                    <p>{{item.description}}</p>
+                <div class="content-dropdown" id="content-dropdown-{{style_group.type}}">
+                    {% for style in style_group.style_set.all %}
+                        <a class="option-dropdown" id="option-dropdown-{{style_group.type}}-{{style}}" onclick="updateDropdown('{{style_group.type}}', '{{style}}')">{{style}}</a>
+                    {% endfor %}
                 </div>
             </div>
+            {% endfor %}
+            <button id="button" onclick="addCookieItem()">Add to Cart</button>
+            <p id="customization-error">Please select all customization options</p>
 
-            <div class="item-property">
-                <div class="button-item-property" id="button-item-property-delivery" onclick="showContentProperty('delivery')">
-                    <span class="title-item-property">Delivery</span>
-                    <i class="icon-dropdown">
-                        <img class="image-dropdown"
-                        src="/media/icons/arrow-down.png" alt="">
-                    </i>
+            <div id="item-properties">
+                <div class="item-property">
+                    <div class="button-item-property" id="button-item-property-details" onclick="showContentProperty('details')">
+                        <span class="title-item-property">Details</span>
+                        <i class="icon-dropdown">
+                            <img class="image-dropdown"
+                            src="/media/icons/arrow-down.png" alt="">
+                        </i>
+                    </div>
+                    <div class="content-item-property" id="content-item-property-details">
+                        <p>{{item.details}}</p>
+                    </div>
                 </div>
-                <div class="content-item-property" id="content-item-property-delivery">
-                    <p>7 Tage</p>
+
+                <div class="item-property">
+                    <div class="button-item-property" id="button-item-property-description" onclick="showContentProperty('description')">
+                        <span class="title-item-property">Description</span>
+                        <i class="icon-dropdown">
+                            <img class="image-dropdown"
+                            src="/media/icons/arrow-down.png" alt="">
+                        </i>
+                    </div>
+                    <div class="content-item-property" id="content-item-property-description">
+                        <p>{{item.description}}</p>
+                    </div>
+                </div>
+
+                <div class="item-property">
+                    <div class="button-item-property" id="button-item-property-delivery" onclick="showContentProperty('delivery')">
+                        <span class="title-item-property">Delivery</span>
+                        <i class="icon-dropdown">
+                            <img class="image-dropdown"
+                            src="/media/icons/arrow-down.png" alt="">
+                        </i>
+                    </div>
+                    <div class="content-item-property" id="content-item-property-delivery">
+                        <p>7 Tage</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 
 
 

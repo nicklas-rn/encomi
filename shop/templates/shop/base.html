@@ -86,43 +86,46 @@
 <body>
 
 
-<nav id="navbar">
-    <div id="link-wrapper-nav">
-        <a class="link-nav" href="/become_seller">Become a seller</a>
-        <a class="link-login" href="/login"><img id="login-img" src="/media/icons/login.png">Login</a>
-    </div>
+<nav id="navbar-wrapper">
+    <div id="navbar">
+        <div id="link-wrapper-nav">
+            <a class="link-nav" href="/become_seller">Become a seller</a>
+            <a class="link-login" href="/login"><img id="login-img" src="/media/icons/login.png">Login</a>
+        </div>
 
-    <a href="/home/{{seller}}"><img id="logo-nav" src="{{seller.logo.url}}"></a>
+        <a href="/home/{{seller}}"><img id="logo-nav" src="{{seller.logo.url}}"></a>
 
-    <div id="icon-wrapper-nav">
-        <a href="/help/{{seller}}"><img id="help-img" src="/media/icons/help.png"></a>
-        <a href="/cart/{{seller}}" onmouseenter="openCartPreview()"><img class="icon icon-nav" id="icon-nav" src="/media/icons/cart.svg"></a>
-        <p id="badge-icon-cart-nav">0</p>
-    </div>
-</nav>
-
-<div id="cart-preview" onmouseleave="closeCartPreview()">
+        <div id="icon-wrapper-nav">
+            <a href="/help/{{seller}}"><img id="help-img" src="/media/icons/help.png"></a>
+            <a href="/cart/{{seller}}" onmouseenter="openCartPreview()"><img class="icon icon-nav" id="icon-nav" src="/media/icons/cart.svg"></a>
+            <p id="badge-icon-cart-nav">0</p>
+        </div>
+        <div id="cart-preview" onmouseleave="closeCartPreview()">
     {% include "shop/cart_preview.html" %}
 </div>
 
+    </div>
+</nav>
+
 
 <div id="main">
-    <div class="mainmain">
-        <div class="category-links-horizontal" >
-            <div class="category-link-horizontal" id="category-link-horizontal-0" onclick="updateCategoryCookie(0)"><a>All</a></div>
-            {% for category in categories %}
-                <div class="category-link-horizontal" id="category-link-horizontal-{{category.id}}" onclick="updateCategoryCookie({{category.id}})"><a>{{category.title}}</a></div>
-            {% endfor %}
-        </div>
+    <div id="secondary-navbar-wrapper">
+        <div id="secondary-navbar">
+            <div class="category-links-horizontal" >
+                <div class="category-link-horizontal" id="category-link-horizontal-0" onclick="updateCategoryCookie(0)"><a>All</a></div>
+                {% for category in categories %}
+                    <div class="category-link-horizontal" id="category-link-horizontal-{{category.id}}" onclick="updateCategoryCookie({{category.id}})"><a>{{category.title}}</a></div>
+                {% endfor %}
+            </div>
 
-        <div class="search">
-            <form id="form" role="search" onsubmit="(e)=>{e.preventDefault(); updateKeyword()}">
-                <img class="icon"
-                        src="/media/icons/search.png" alt="">
-                <input type="search" id="query"
-                       placeholder="Search..."
-                       aria-label="Search through site content">
-            </form>
+            <div class="search">
+                <form id="search-navbar" role="search" onsubmit="(e)=>{e.preventDefault(); updateKeyword()}">
+                    <img class="icon"
+                            src="/media/icons/search.png" alt="">
+                    <input type="search" id="query-navbar"
+                           placeholder="Search...">
+                </form>
+            </div>
         </div>
     </div>
     {% block content %}
@@ -139,10 +142,10 @@
         </p>
 
         <p class="links-footer">
-            <a href="/seller_policy">Seller Policy</a>
-            <a href="/privacy_policy">Privacy Policy</a>
-            <a href="/TOU">Terms of Use</a>
-            <a href="/about">About us</a>
+            <a href="/seller_policy/{{seller}}">Seller Policy</a>
+            <a href="/privacy_policy/{{seller}}">Privacy Policy</a>
+            <a href="/TOU/{{seller}}">Terms of Use</a>
+            <a href="/about/{{seller}}">About us</a>
         </p>
     </div>
         <a href="/{{seller}}"><img id="logo-footer" src="{{seller.logo.url}}"></a>
@@ -158,9 +161,9 @@
 
 <style>
     #cart-preview{
-        position: fixed;
-        right: 20px;
-        top: 50px;
+        position: absolute;
+        right: 0px;
+        top: 40px;
         background-color: white;
         width: 300px;
         padding: 20px 20px 20px 20px;
@@ -313,9 +316,9 @@
     window.onscroll = function() {
     var currentScrollPos = window.pageYOffset;
         if (prevScrollpos > currentScrollPos) {
-            document.getElementById("navbar").style.top = "0";
+            document.getElementById("navbar-wrapper").style.top = "0";
         } else if (prevScrollpos < currentScrollPos && currentScrollPos > 40){
-            document.getElementById("navbar").style.top = "-60px";
+            document.getElementById("navbar-wrapper").style.top = "-60px";
             document.getElementById("cart-preview").style.display = "None";
         }
         prevScrollpos = currentScrollPos;
@@ -363,6 +366,20 @@
         window.location.href = '/shop/{{seller}}'
     }
 
+
+    document.getElementById('search-navbar').addEventListener('submit', function(e) {
+        e.preventDefault();
+        searchShop()
+    }, false);
+
+    function searchShop(){
+        search['keyword'] = document.getElementById('query-navbar').value
+        if (search['keyword'] == ''){
+            search['keyword'] = 'all'
+        }
+        document.cookie ='search=' + JSON.stringify(search) + ";domain=;path=/"
+        window.location.href = '/shop/{{seller}}'
+    }
 </script>
 
 

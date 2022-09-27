@@ -6,37 +6,38 @@
 <link rel="stylesheet" type="text/css" href="{% static 'shop/cart_style.css' %}"
       xmlns:width="http://www.w3.org/1999/xhtml">
 
-<div id="cart">
-    <ul class="left">
-        <p class="your-bag-heading">Your bag</p>
-        <div id="items-in-cart-list">
-            {% for cartItem in cartItems %}
-            <li class="item-in-cart-list" id="item-in-cart-list-{{cartItem.cart_id}}">
-                <img class="cartItem-image" src="{{cartItem.object.image_set.first.image.url}}" width= 100px alt="">
-                <div class="cartItem-properties">
-                    <a class="cartItem-link" href="/item/{{seller}}/{{cartItem.object.id}}">{{cartItem.object.title|truncatechars:40}}</a>
-                    <p class="cartItem-description">{% for style_group, style in cartItem.style_groups.items %}{{style}}{% endfor %}</p>
-                    <p class="cartItem-price">{{cartItem.price|floatformat:2}}€</p>
-                    <p class="cartItem-quantity">Quantity: {{cartItem.quantity}}</p>
+<div id="cart-wrapper">
+    <div id="cart">
+        <ul class="left">
+            <p class="your-bag-heading">Your bag</p>
+            <div id="items-in-cart-list">
+                {% for cartItem in cartItems %}
+                <li class="item-in-cart-list" id="item-in-cart-list-{{cartItem.cart_id}}">
+                    <img class="cartItem-image" src="{{cartItem.object.image_set.first.image.url}}" width= 100px alt="">
+                    <div class="cartItem-properties">
+                        <a class="cartItem-link" href="/item/{{seller}}/{{cartItem.object.id}}">{{cartItem.object.title|truncatechars:40}}</a>
+                        <p class="cartItem-description">{% for style_group, style in cartItem.style_groups.items %}{{style}}{% endfor %}</p>
+                        <p class="cartItem-price">{{cartItem.price|floatformat:2}}€</p>
+                        <p class="cartItem-quantity">Quantity: {{cartItem.quantity}}</p>
 
-                    <button class="removeButton" onclick="removeCookieItem({{cartItem.cart_id}})">
-                        <img class="removeIcon" src="/media/icons/trashcan.png" alt="">
-                        Remove
-                    </button>
-                </div>
-            </li>
-            {% endfor %}
-        </div>
-        <div id="message-wrapper">
-            <textarea id="message" rows="4" placeholder="Add a message">{{message}}</textarea>
-        </div>
-    </ul>
+                        <button class="removeButton" onclick="removeCookieItem({{cartItem.cart_id}})">
+                            <img class="removeIcon" src="/media/icons/trashcan.png" alt="">
+                            Remove
+                        </button>
+                    </div>
+                </li>
+                {% endfor %}
+            </div>
+            <div id="message-wrapper">
+                <textarea id="message" rows="4" placeholder="Add a message">{{message}}</textarea>
+            </div>
+        </ul>
 
-    <div class="right" id="cart-total">
-        {% include "shop/cart_total.html" %}
+        <div class="right" id="cart-total">
+            {% include "shop/cart_total.html" %}
+        </div>
     </div>
 </div>
-
 
 
 

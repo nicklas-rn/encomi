@@ -27,6 +27,7 @@
 
     <div class="mainmain-content">
         <div id="left">
+            <!--
             <form id="form" role="search" onsubmit="(e)=>{e.preventDefault(); updateKeyword()}">
                 <img class="icon"
                         src="/media/icons/search_dashboard.png" alt="">
@@ -34,7 +35,7 @@
                        placeholder="Search..."
                        aria-label="Search through site content">
             </form>
-
+            -->
             <div class="header-orderlist">
                  <img class="box"
                         src="/media/icons/box-to-tick.png" alt="">
@@ -46,12 +47,12 @@
             <div class="orderlist">
                 {% for order in orders %}
                 <a onclick="updateSelectedOrder('{{order.id}}')">
-                    <div class="orderlist-object" id="orderlist-object-{{order.id}}">
+                    <div class="orderlist-object" id="orderlist-object-{{order.id}}" style="{%if order.id == selected_order.id%}background-color: #f8f8f8{%endif%}">
                         <img class="box"
                             src="/media/icons/box-to-tick.png" alt="">
                             <p class="orderId">{{order.id}}</p>
                             <p class="orderDate">{{order.parent_order.datetime|date:"d.m.y"}}</p>
-                            <div class="orderStatus">
+                            <div class="orderStatus orderStatus-{{order.status|cut:' '}}">
                                 <img class="orderStatus-icon" src="/media/icons/shipping-black.png" alt="">
                                 <p class="orderStatus-text">{{order.status}}</p>
                             </div>
@@ -69,7 +70,6 @@
 
 
 <script>
-    document.getElementsByClassName('orderList-object')[0].style.backgroundColor = '#f8f8f8';
 
     function updateSelectedOrder(order_id){
         orders = document.getElementsByClassName('orderList-object')
@@ -95,6 +95,31 @@
             // This is the important part
             // Set that HTML to the new, templated HTML returned by the server
         document.getElementById('right').innerHTML = myHTML;
+        };
+        request.send();
+    }
+
+
+    function updateOrderStatus(order_id, order_status){
+        str = 'orderlist-object-' + order_id;
+        console.log(str)
+        status_element = document.getElementById(str).getElementsByClassName('orderStatus')[0]
+        status_element.className = ""
+        str = 'orderStatus-' + order_status.replace(/\s/g, "")
+        status_element.classList.add('orderStatus', str)
+        status_element.getElementsByClassName('orderStatus-text')[0].innerHTML = order_status
+
+        let request = new XMLHttpRequest();
+        let method = 'GET';
+        let category = search['category']
+        let sort = search['sort']
+        let keyword = search['keyword']
+
+        let url = '/dashboard/update_order_status/{{seller}}/' + order_id + '/' + order_status;
+        request.open(method, url);
+        request.onload = function () {
+            let myHTML = request.response;
+            document.getElementById('selectedOrderStatus-wrapper').innerHTML = myHTML;
         };
         request.send();
     }

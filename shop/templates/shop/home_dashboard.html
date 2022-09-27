@@ -13,7 +13,7 @@
     <ul class="dashboard-links">
         <li class="dashboard-link nav-home active-page" id="navigation-dashboard-link-dashboard"><a href="/dashboard/home/{{seller}}"><img class="icon-navbar" src="/media/icons/home-dashboard-white.png" alt="">Dashboard</a></li>
         <li class="dashboard-link nav-listings" id="navigation-dashboard-link-listings"><a href="/dashboard/listings/{{seller}}"><img class="icon-navbar" src="/media/icons/listings-dashboard-white.png" alt="">Listings</a></li>
-        <li class="dashboard-link nav-deliveries" id="navigation-dashboard-link-deliveries"><a href="/dashboard/deliveries/{{seller}}"><img class="icon-navbar" src="/media/icons/deliveries-dashboard-white.png" alt="">Deliveries</a></li>
+        <li class="dashboard-link nav-deliveries" id="navigation-dashboard-link-deliveries"><a href="/dashboard/deliveries/last/{{seller}}"><img class="icon-navbar" src="/media/icons/deliveries-dashboard-white.png" alt="">Deliveries</a></li>
         <li class="dashboard-link nav-settings" id="navigation-dashboard-link-settings"><a href="/dashboard/settings/{{seller}}"><img class="icon-navbar" src="/media/icons/settings-dashboard-white.png" alt="">Settings</a></li>
     </ul>
 
@@ -29,8 +29,8 @@
 <div class="mainmain">
 
     <div class="container">
-        <div class="item item1">
-            <p class="item-title">
+        <div class="element element1" id="element-sales">
+            <p class="element-title">
                 <img class="icon-dashboard" src="/media/icons/orders-dashboard.png" alt="">
                 Sales
             </p>
@@ -38,28 +38,90 @@
                 <canvas id="sales-chart"></canvas>
             </div>
         </div>
-        <div class="item item2">
-            <p class="item-title">
+        <div class="element element2">
+            <p class="element-title">
                 <img class="icon-dashboard" src="/media/icons/revenue-dashboard.png" alt="">
-                Revenue</p>
+                Revenue
+            </p>
+            <div class="statistic-wrapper" id="revenue-wrapper">
+                <p class="statistic-number">{{revenue|floatformat:2}}€</p>
+                <p class="statistic-change"><img class="icon-arrow-up" src="/media/icons/arrow_green.svg" alt=""><span>{{revenue_change|floatformat:2}}%</span> more than last month</p>
+            </div>
+            <a class="showMore-link" href="/dashboard/deliveries/last/{{seller}}">
+                <div class="showMore-wrapper">
+                    <p class="showMore-text">Show more</p>
+                    <img class="icon-arrow-right" src="/media/icons/arrow-right-black.png" alt="">
+                </div>
+            </a>
         </div>
-        <div class="item item3">
-            <p class="item-title">
+        <div class="element element3">
+            <p class="element-title">
                 <img class="icon-dashboard" src="/media/icons/pagevisits-dashboard.png" alt="">
                 Page Visits
             </p>
+            <div class="statistic-wrapper" id="pageVisits-wrapper">
+                <p class="statistic-number">0 <span style="font-size: 20;">(coming soon)</span></p>
+                <p class="statistic-change"><img class="icon-arrow-up" src="/media/icons/arrow_green.svg" alt=""><span>0%</span> more than last month</p>
+            </div>
+            <a class="showMore-link" href="/dashboard/deliveries/last/{{seller}}">
+                <div class="showMore-wrapper">
+                    <p class="showMore-text">Show more</p>
+                    <img class="icon-arrow-right" src="/media/icons/arrow-right-black.png" alt="">
+                </div>
+            </a>
         </div>
-        <div class="item item4">
-            <p class="item-title">
+        <div class="element element4">
+            <p class="element-title">
                 <img class="icon-dashboard" src="/media/icons/listings-dashboard.png" alt="">
                 Listings
             </p>
+            <div class="items" id="items">
+                {% for item in items %}
+                    <div class="item" onclick="window.location.href='/item/{{seller}}/{{item.id}}'">
+
+                        <img class="item-image item-first-image" id="item-first-image-{{item.id}}" src="{{item.image_set.first.image.url}}" onmouseenter="showSecondImage({{item.id}})" onmouseleave="showFirstImage({{item.id}})" width="250px" alt="">
+                        <img class="item-image item-second-image" id="item-second-image-{{item.id}}" src="{{item.image_set.last.image.url}}" onmouseenter="showSecondImage({{item.id}})" onmouseleave="showFirstImage({{item.id}})" width="250px" alt="">
+
+                        <p class="item-title">{{ item.title|truncatechars:15 }}</p>
+                        <p class="item-price"> {{ item.price|floatformat:2 }}€<p/>
+                        <p class="items-sold"><img class="items-sold-img" src="/media/icons/items-sold.png">14 sold</p>
+
+                    </div>
+                {% endfor %}
+            </div>
         </div>
-        <div class="item item5">
-            <p class="item-title">
+        <div class="element element5">
+            <p class="element-title">
                 <img class="icon-dashboard" src="/media/icons/deliveries-dashboard.png" alt="">
-                Deliveries
+                Orders
             </p>
+            <div id="orders">
+
+                <div class="header-orderlist">
+                     <img class="box"
+                            src="/media/icons/box-to-tick.png" alt="">
+                    <p class="header-orderId">Order ID</p>
+                    <p class="header-orderDate">Date</p>
+                    <p class="header-orderStatus">Status</p>
+                </div>
+
+                <div class="orderlist">
+                    {% for order in orders %}
+                    <a href="/dashboard/deliveries/{{order.id}}/{{seller}}">
+                        <div class="orderlist-object" id="orderlist-object-{{order.id}}">
+                            <img class="box"
+                                src="/media/icons/box-to-tick.png" alt="">
+                                <p class="orderId">{{order.id}}</p>
+                                <p class="orderDate">{{order.parent_order.datetime|date:"d.m.y"}}</p>
+                                <div class="orderStatus orderStatus-{{order.status|cut:' '}}">
+                                    <img class="orderStatus-icon" src="/media/icons/shipping-black.png" alt="">
+                                    <p class="orderStatus-text">{{order.status}}</p>
+                                </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -81,6 +143,7 @@
     type: 'line',
     data: data,
     options: {
+        maintainAspectRatio: false,
         plugins: {
             legend: {
               display: false

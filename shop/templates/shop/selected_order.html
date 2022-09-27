@@ -1,16 +1,7 @@
 <div id="heading-wrapper">
     <p id="heading-right">Order {{selected_order.id}}</p>
     <div id="selectedOrderStatus-wrapper">
-        <div class="orderStatus selectedOrderStatus">
-            <img class="orderStatus-icon" src="/media/icons/shipping-black.png" alt="">
-            <p class="orderStatus-text">{{selected_order.status}}</p>
-            <img class="orderStatus-icon-down" src="/media/icons/arrow-down.png" alt="">
-        </div>
-        <div id="selectedOrderStatus-content">
-            <a>not handled</a>
-            <a>on the way</a>
-            <a>delivered</a>
-        </div>
+    {% include "shop/selected_order_status.html" %}
     </div>
 </div>
 
@@ -51,3 +42,18 @@
     </div>
 
 </div>
+
+
+<script>
+    function orderStatusSelector(){
+        let content = document.getElementById('selectedOrderStatus-content')
+        console.log(content.style.display)
+        if(content.style.display == 'none' || content.style.display == ''){
+            content.style.display = 'flex'
+        }
+        else{
+            content.style.display = 'none'
+        }
+    }
+
+</script>

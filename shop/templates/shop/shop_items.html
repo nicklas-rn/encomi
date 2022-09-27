@@ -5,7 +5,7 @@
         <img class="item-image item-second-image" id="item-second-image-{{item.id}}" src="{{item.image_set.last.image.url}}" onmouseenter="showSecondImage({{item.id}})" onmouseleave="showFirstImage({{item.id}})" width="250px" alt="">
 
         <p class="item-seller">{{ item.seller }}</p>
-        <p class="item-title">{{ item.title|truncatechars:35 }}</p>
+        <p class="item-title">{{ item.title|truncatechars:30 }}</p>
         <p class="item-price"> {{ item.price|floatformat:2 }}€<p/>
     </div>
 {% endfor %}
