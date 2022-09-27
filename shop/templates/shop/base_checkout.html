@@ -16,19 +16,20 @@
 <body>
 
 
-
-<nav id="navbar">
-    <div id="logos-wrapper-nav">
-        <a href="/home/{{seller}}" class="logo-seller-nav"><img id="logo-seller-nav" src="{{seller.logo.url}}"></a>
-        <a href="/home/encomi" class="logo-seller-nav"><img id="logo-encomi-nav" src="/media/logos/encomi_logo_transparent.png"></a>
-    </div>
-
-    <div id="overview-wrapper-nav">
-        <div class="wrapper-title-nav">
-            <p class="cart-title">Cart</p><p id="checkout-title">Checkout</p><p>Summary</p>
+<nav id="navbar-wrapper">
+    <div id="navbar">
+        <div id="logos-wrapper-nav">
+            <a href="/home/{{seller}}" class="logo-seller-nav"><img id="logo-seller-nav" src="{{seller.logo.url}}"></a>
+            <a href="/home/encomi" class="logo-seller-nav"><img id="logo-encomi-nav" src="/media/logos/encomi_logo_transparent.png"></a>
         </div>
-        <div class="line"></div>
-        <div class="line2"></div>
+
+        <div id="overview-wrapper-nav">
+            <div class="wrapper-title-nav">
+                <p class="cart-title">Cart</p><p id="checkout-title">Checkout</p><p>Summary</p>
+            </div>
+            <div class="line"></div>
+            <div class="line2"></div>
+        </div>
     </div>
 
 </nav>
@@ -46,23 +47,32 @@
 <style>
     #main {
         margin: 0px;
-        padding-top: 90px;
+        padding: 90px 20px 0px 20px;
         height: calc(100% - 90px);
         min-height: calc(100% - 90px);
+        width: calc(100% - 40px);
+        display: flex;
+        justify-content: center;
     }
 
 
-    #navbar {
-        padding: 25px 0px;
+    #navbar-wrapper {
+        padding: 25px 20px;
         margin: 0px;
-        width: 100%;
+        width: calc(100% - 40px);
         border-bottom: 1px solid #EFEFEF;
+        justify-content: center;
+    }
+
+    #navbar{
+        display: flex;
         justify-content: left;
+
     }
 
     #logos-wrapper-nav {
         width: 50%;
-        padding: 0px 40px;
+        padding: 0px 0px;
     }
 
     #overview-wrapper-nav {

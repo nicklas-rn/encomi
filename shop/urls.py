@@ -24,7 +24,7 @@ urlpatterns = [
 
     path('dashboard/home/<seller_name>', views.dashboard, name='dashboard'),
     path('dashboard/listings/<seller_name>', views.listings, name='listings'),
-    path('dashboard/deliveries/<seller_name>', views.deliveries, name='deliveries'),
+    path('dashboard/deliveries/<order_id>/<seller_name>', views.deliveries, name='deliveries'),
     path('dashboard/settings/<seller_name>', views.settings, name='settings'),
     path('dashboard/listings_items/<seller_name>', views.listings_items, name='listings_items'),
     path('dashboard/deliveries_selected/<seller_name>/<order_id>', views.deliveries_selected, name='deliveries_selected'),

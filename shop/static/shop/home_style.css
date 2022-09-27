@@ -1,6 +1,6 @@
 .background {
     background-color: #FFF8ED;
-    width: 100%;
+    width: calc(100% - 40px);
     height: 300px;
     display: flex;
     justify-content: center;
@@ -8,6 +8,7 @@
     flex-direction: column;
     margin-top: 20px;
     margin-bottom: 200px;
+    padding: 0px 20px;
 }
 
 .background a {
@@ -20,9 +21,9 @@
 }
 
 .section{
-    width: calc(100% - 60px);
+    width: 100%;
     position: relative;
-    padding: 0px 30px;
+    max-width: 1100px;
 }
 
 .text-big {
@@ -64,6 +65,13 @@
     z-index: 1
 }
 
+.background-second{
+    display: flex;
+    justify-content: center;
+    width: calc(100% - 40px);
+    padding: 0px 20px;
+}
+
 #image-home-2 {
     width: 50%;
     max-width: 500px;
@@ -75,6 +83,8 @@
 .section2{
     display: flex;
     align-items: center;
+    width: 100%;
+    max-width: 1100px;
 }
 
 .section2-content{
@@ -97,16 +107,21 @@
 }
 
 
-
+.shops-pushed-wrapper{
+    display: flex;
+    justify-content: center;
+    width: calc(100% - 40px);
+    padding: 0px 20px;
+    margin: 100px 0px;
+}
 
 .shops-pushed {
     display: flex;
     flex-direction: row;
     justify-content: left;
     align-content: space-between;
-    width: calc(100% - 270px);
-    padding: 0px 30px;
-    margin: 100px 0px;
+    width: 100%;
+    max-width: 1100px;
 }
 
 .shop {

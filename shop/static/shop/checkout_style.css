@@ -1,5 +1,7 @@
 #checkout {
-    margin: 20px 40px;
+    margin: 20px 0px;
+    width: 100%;
+    max-width: 1100px;
     display: flex;
     justify-content: left;
     align-items: top;

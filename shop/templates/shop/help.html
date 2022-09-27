@@ -6,50 +6,47 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'shop/help_style.css' %}">
 
-<div class="background">
-
-    <div class="left">
-        <p class="header">FAQ</p>
-        <div class="slider">
-            <a onclick="updateFAQs('buyer')" class="slider-link slider-link-selected" id="slider-link-buyer">Buyer</a>
-            <a onclick="updateFAQs('seller')" class="slider-link" id="slider-link-seller">Seller</a>
-        </div>
-        <div class="faqs buyer_faqs" id="faqs">
-            {% include "shop/help_faqs.html" %}
-        </div>
-    </div>
-
-    <div class="right-wrapper">
-        <div class="right">
-            <p class="header">Send us a message</p>
-
-            {% if not submitted %}
-            <form class="message-form" method="post" action="">
-
-                {% csrf_token %}
-
-                {{form.email}}
-                {{form.message}}
-                <div class="message-button-wrapper">
-                    <input type="submit" value="Submit message" class="message-button">
-                </div>
-            </form>
-            {% endif %}
-            {% if submitted %}
-            <div class="thankYou-wrapper">
-                <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                  <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
-                  <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-                </svg>
-                <p class="thankYou">Thank you for your message!<br>We will contact you as soon as possible.</p>
+<div id="help-wrapper">
+    <div id="help">
+        <div class="left">
+            <p class="header">FAQ</p>
+            <div class="slider">
+                <a onclick="updateFAQs('buyer')" class="slider-link slider-link-selected" id="slider-link-buyer">Buyer</a>
+                <a onclick="updateFAQs('seller')" class="slider-link" id="slider-link-seller">Seller</a>
             </div>
-            {% endif %}
+            <div class="faqs buyer_faqs" id="faqs">
+                {% include "shop/help_faqs.html" %}
+            </div>
+        </div>
+
+        <div class="right-wrapper">
+            <div class="right">
+                <p class="header">Send us a message</p>
+
+                {% if not submitted %}
+                <form class="message-form" method="post" action="">
+
+                    {% csrf_token %}
+
+                    {{form.email}}
+                    {{form.message}}
+                    <div class="message-button-wrapper">
+                        <input type="submit" value="Submit message" class="message-button">
+                    </div>
+                </form>
+                {% endif %}
+                {% if submitted %}
+                <div class="thankYou-wrapper">
+                    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                      <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                      <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                    </svg>
+                    <p class="thankYou">Thank you for your message!<br>We will contact you as soon as possible.</p>
+                </div>
+                {% endif %}
+            </div>
         </div>
     </div>
-
-
-
-
 </div>
 
 

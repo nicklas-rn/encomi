@@ -1,5 +1,6 @@
 import json
 from django.shortcuts import render, redirect
+from django.utils import timezone
 from .models import *
 from .utils import *
 from .scraper import *
@@ -384,10 +385,37 @@ def dashboard(request, seller_name):
 
     sales_chart = salesStatistics(seller, 7)
 
+    orders = Order.objects.filter(seller=seller).order_by('-id')
+
+    items = Item.objects.all()[:5]
+
+    revenue = 0
+
+    old_revenue = 0
+
+    day_30_days = timezone.now() - timedelta(30)
+
+    day_60_days = timezone.now() - timedelta(30)
+
+    for order in orders:
+        if order.parent_order.datetime >= day_30_days:
+            revenue += order.total
+        elif order.parent_order.datetime >= day_60_days:
+            old_revenue += order.total
+
+    try:
+        revenue_change = (revenue - old_revenue) / old_revenue * 100
+    except ZeroDivisionError:
+        revenue_change = 10000
+
     context = {
         'seller': seller,
         'weekday_list': sales_chart['weekday_list'],
-        'sales_list': sales_chart['sales_list']
+        'sales_list': sales_chart['sales_list'],
+        'orders': orders,
+        'items': items,
+        'revenue': revenue,
+        'revenue_change': revenue_change,
     }
 
     return render(request, 'shop/home_dashboard.html', context)
@@ -492,12 +520,15 @@ def listings_items(request, seller_name):
     return render(request, 'shop/listings_dashboard_items.html', context)
 
 
-def deliveries(request, seller_name):
+def deliveries(request, order_id, seller_name):
     seller = Seller.objects.get(name=seller_name)
 
     orders = Order.objects.filter(seller=seller).order_by('-id')
 
-    selected_order = Order.objects.filter(seller=seller).last()
+    if order_id != 'last':
+        selected_order = Order.objects.get(id=order_id)
+    else:
+        selected_order = Order.objects.filter(seller=seller).last()
 
     context = {
         'seller': seller,

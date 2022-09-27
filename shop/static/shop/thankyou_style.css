@@ -16,12 +16,14 @@
     display: flex;
     justify-content: left;
     align-items: top;
+    width: 100%;
+    max-width: 1100px;
 }
 
 .left {
     padding-right: 50px;
-    width: calc(50% - 40px - 50px);
-    margin: 20px 0px 20px 40px;
+    width: 50%;
+    margin: 20px 0px 20px 0px;
 
 }
 
@@ -117,20 +119,27 @@
 
 
 
-
+.right-background{
+    position: absolute;
+    left: 50%;
+    top: 0px;
+    height: 100%;
+    width: 50%;
+    z-index: -10;
+    background-color: #FFFAF2;
+}
 
 
 .right-wrapper {
     height: 100%;
-    background-color: #FFFAF2;
     width: 50%;
     display: flex;
+    padding-left: 50px;
 }
 
 .right {
-    padding-left: 80px;
     width: 100%;
-    margin: 80px 40px 0px 0px;
+    margin: 80px 0px 0px 0px;
 }
 
 .thankYou-wrapper{
