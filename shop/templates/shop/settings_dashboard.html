@@ -10,7 +10,7 @@
     <ul class="dashboard-links">
         <li class="dashboard-link nav-home" id="navigation-dashboard-link-dashboard"><a href="/dashboard/home/{{seller}}"><img class="icon-navbar" src="/media/icons/home-dashboard-white.png" alt="">Dashboard</a></li>
         <li class="dashboard-link nav-listings" id="navigation-dashboard-link-listings"><a href="/dashboard/listings/{{seller}}"><img class="icon-navbar" src="/media/icons/listings-dashboard-white.png" alt="">Listings</a></li>
-        <li class="dashboard-link nav-deliveries" id="navigation-dashboard-link-deliveries"><a href="/dashboard/deliveries/{{seller}}"><img class="icon-navbar" src="/media/icons/deliveries-dashboard-white.png" alt="">Deliveries</a></li>
+        <li class="dashboard-link nav-deliveries" id="navigation-dashboard-link-deliveries"><a href="/dashboard/deliveries/last/{{seller}}"><img class="icon-navbar" src="/media/icons/deliveries-dashboard-white.png" alt="">Deliveries</a></li>
         <li class="dashboard-link nav-settings active-page" id="navigation-dashboard-link-settings"><a href="/dashboard/settings/{{seller}}"><img class="icon-navbar" src="/media/icons/settings-dashboard-white.png" alt="">Settings</a></li>
     </ul>
 
@@ -19,6 +19,7 @@
 <nav id="header">
     <p id="header-title"><img class="icon-header"
                 src="/media/icons/settings-dashboard.png" alt="">Settings</p>
+        <button class="save-button" type="submit" form="policiesForm"><img class="sync-data-img" src="/media/icons/sync-data.png">Save Changes</button>
 </nav>
 
 
@@ -27,61 +28,46 @@
     <div class="settings-content">
         <div class="navbar-top">
             <ul class="navbar-top-links">
-                <li class="navbar-top-link" id="navbar-top-link-0" onclick="updateNavbar(0)"><a>Info & Appearence</a></li>
-                <li class="navbar-top-link" id="navbar-top-link-0" onclick="updateNavbar(0)"><a>Shipping</a></li>
-                <li class="navbar-top-link" id="navbar-top-link-0" onclick="updateNavbar(0)"><a>Policies</a></li>
-                <li class="navbar-top-link" id="navbar-top-link-0" onclick="updateNavbar(0)"><a>Users</a></li>
+                <li class="navbar-top-link" id="navbar-top-link-info" onclick="updateSettingsContent('info')"><a>Info & Appearence</a></li>
+                <li class="navbar-top-link" id="navbar-top-link-shipping" onclick="updateSettingsContent('shipping')"><a>Shipping</a></li>
+                <li class="navbar-top-link navbar-top-link-selected" id="navbar-top-link-policies" onclick="updateSettingsContent('policies')"><a>Policies</a></li>
+                <li class="navbar-top-link" id="navbar-top-link-users" onclick="updateSettingsContent('users')"><a>Users</a></li>
             </ul>
         </div>
 
-        <div class="settings-content-blocks">
-
-            <div class="settings-block1">
-                <p class="block-heading">Shipping</p>
-                <div class="settings-block1-fields">
-                    <textarea id="general-information" name="general-information" class="block1-inputfield">General information</textarea>
-                    <textarea id="taxes" name="taxes" class="block1-inputfield">Customs and Import Taxes</textarea>
-                </div>
-            </div>
-
-            <div class="settings-block2">
-                <p class="block-heading">Returns & Exchanges</p>
-                <div class="block2-upper">
-                    <div class="block2-boxes">
-                        <p class="block2-text">I accept...</p>
-                        <input type="checkbox" id="checkbox-returns" name="checkbox-returns" value="Returns">
-                        <label for="checkbox-returns">returns</label><br>
-                        <input type="checkbox" id="checkbox-exchanges" name="checkbox-exchanges" value="Exchanges">
-                        <label for="checkbox-exchanges">exchanges</label><br>
-                        <input type="checkbox" id="checkbox-cancellations" name="checkbox-cancellations" value="Cancellations">
-                        <label for="checkbox-cancellations">cancellations</label><br><br>
-                    </div>
-
-                    <div class="block2-details">
-                        <p class="block2-text G1">Contact me within</p><input type="number" id="returns-input" name="returns-input" min="1" max="300"><p class="block2-text G2">days of delivery</p>
-                        <p class="block2-text G3">Ship items back within</p><input type="number" id="exchange-input" name="exchange-input" min="1" max="300"><p class="block2-text G4">days of delivery</p>
-                        <p class="block2-text G5">Request a cancellation</p><input type="text" id="cancellation-input" name="cancellation-input">
-                    </div>
-                </div>
-
-                <div class="settings-block1-fields">
-                    <textarea id="conditions-of-return" name="conditions-of-return" class="block1-inputfield">Conditions of return</textarea>
-                    <textarea id="questions-order" name="questions-order" class="block1-inputfield">Questions about your order?</textarea>
-                </div>
-            </div>
-
-            <div class="settings-block3">
-                <p class="block-heading">Privacy Policy</p>
-                <div class="settings-block3-fields">
-                    <textarea id="privacy-policy" name="privacy-policy" class="block3-inputfield">Your Privacy Policy</textarea>
-                </div>
-            </div>
-
+        <div id="settings-content-blocks">
+            {% include "shop/settings_dashboard_policies.html" %}
         </div>
 
     </div>
 
 </div>
+
+
+<script>
+    function updateSettingsContent(content){
+        settings_links = document.getElementsByClassName('navbar-top-link')
+        for(let i=0; i<settings_links.length; i++){
+            settings_links[i].classList.remove('navbar-top-link-selected')
+        }
+
+        settings_link_str = 'navbar-top-link-'+ content
+        document.getElementById(settings_link_str).classList.add('navbar-top-link-selected')
+
+
+        let request = new XMLHttpRequest();
+        let method = 'GET';
+
+        let url = '/dashboard/update_settings_content/{{seller}}/' + content;
+        request.open(method, url);
+        request.onload = function () {
+            let myHTML = request.response;
+        document.getElementById('settings-content-blocks').innerHTML = myHTML;
+        };
+        request.send();
+    }
+</script>
+
 
 
 {% endblock %}

@@ -2,11 +2,31 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager, UserManager
 
 
+class SellerPolicies(models.Model):
+    shipping_general_information = models.TextField(max_length=10000, null=True, blank=True)
+    shipping_customs_and_taxes = models.TextField(max_length=10000, null=True, blank=True)
+
+    accepts_returns = models.BooleanField(default=False, null=True, blank=True)
+    accepts_exchanges = models.BooleanField(default=False, null=True, blank=True)
+    accepts_cancellations = models.BooleanField(default=True, null=True, blank=True)
+
+    contact_within = models.IntegerField(default=3)
+    ship_back_within = models.IntegerField(default=7)
+    request_cancellation = models.CharField(default='before item has shipped', max_length=100)
+
+    returns_conditions = models.TextField(max_length=10000, null=True, blank=True)
+    returns_questions = models.TextField(max_length=10000, null=True, blank=True)
+    privacy = models.TextField(max_length=10000, null=True, blank=True)
+
+
+
 class Seller(models.Model):
     name = models.CharField(max_length=50, null=True)
     logo = models.ImageField(upload_to="seller_logos", default="logos/logo.png")
     etsy_url = models.CharField(max_length=300, null=True)
     delivery_price = models.FloatField(default=0)
+
+    policies = models.ForeignKey(SellerPolicies, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.name

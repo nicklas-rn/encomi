@@ -570,11 +570,50 @@ def update_order_status(request, seller_name, order_id, order_status):
 def settings(request, seller_name):
     seller = Seller.objects.get(name=seller_name)
 
+    seller_policies = seller.policies
+    if not seller_policies:
+        seller_policies = SellerPolicies.objects.create()
+        seller.policies = seller_policies
+        seller.save()
+    policies_form = PoliciesForm(instance=seller_policies)
+
+    if request.method == 'POST':
+        form = PoliciesForm(request.POST, instance=seller_policies)
+        print(request.POST['shipping_general_information'])
+        print(seller_policies.shipping_general_information)
+        if form.is_valid():
+            form.save()
+            print(seller_policies.shipping_general_information)
+
+        return redirect(f"/dashboard/settings/{seller}")
+
     context = {
         'seller': seller,
+        'policies_form': policies_form,
     }
 
     return render(request, 'shop/settings_dashboard.html', context)
+
+
+def update_settings_content(request, seller_name, content):
+    seller = Seller.objects.get(name=seller_name)
+
+    template = f"shop/settings_dashboard_{content}.html"
+
+    seller_policies = seller.policies
+    if not seller_policies:
+        seller_policies = SellerPolicies.objects.create()
+        seller.policies = seller_policies
+        seller.save()
+    policies_form = PoliciesForm(instance=seller_policies)
+
+    context = {
+        'seller': seller,
+        'policies_form': policies_form,
+    }
+
+    return render(request, template, context)
+
 
 def seller_policy(request, seller_name):
     seller = Seller.objects.get(name=seller_name)

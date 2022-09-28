@@ -5,21 +5,40 @@
             2px -2px 2px #EBEBEB;
 }
 
-.settings-content-blocks {
+#settings-content-blocks {
     height: calc(100% - 50px);
     overflow-y: scroll;
 }
 
 
 
+.save-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 15;
+    border: grey;
+    border-radius: 7px;
+    background-color: #EA8D8D;
+    border: 1px solid lightgrey;
+    width: 180px;
+    font-family: 'Inter', inter;
+    height: 40px;
+    cursor: pointer;
+}
 
+.sync-data-img {
+    height: 18px;
+    margin-right: 8px;
+    margin-left: 8px;
+}
 
 
 
 
 .navbar-top {
     border-bottom: solid 2px lightgrey;
-    padding: 20px 25px 10px 25px;
+    padding: 20px 25px 0px 25px;
 }
 
 
@@ -31,10 +50,13 @@
 
 .navbar-top-link{
     list-style-type: none;
-    padding-right: 40px;
+    padding-bottom: 7px;
     z-index: 3;
     cursor: pointer;
     color: grey;
+    margin-right: 20px;
+    position: relative;
+    top: 2px;
 }
 
 .navbar-top-link a{
@@ -42,13 +64,16 @@
     color: grey;
     font-size: 16;
     width: 223px;
-    padding: 10px 0px 10px 5px;
+    padding: 10px 0px 10px 0px;
 }
 
 .navbar-top-link-selected{
     border-bottom: 2px solid #EA8D8D;
     color: black;
-    font-weight: 600;
+}
+
+.navbar-top-link-selected a{
+    color: black;
 }
 
 .navbar-top-link:hover{
@@ -81,9 +106,9 @@
     min-width: 400px;
     min-height: 150px;
     margin-right: 8px;
-    color: grey;
+    color: black;
     border-radius: 4px;
-    border: 1px solid grey;
+    border: 1px solid lightgrey;
 }
 
 
@@ -134,9 +159,10 @@
 }
 
 #returns-input, #exchange-input {
-    width: 35px;
+    width: 45px;
     height: 35px;
     border-radius: 6px;
+    padding-left: 5px;
     border: solid 1px lightgrey;
 }
 
@@ -144,6 +170,7 @@
     height: 35px;
     width: 215px;
     border-radius: 6px;
+    padding-left: 5px;
     border: solid 1px lightgrey;
 }
 
@@ -167,7 +194,7 @@
     min-height: 150px;
     color: grey;
     border-radius: 4px;
-    border: 1px solid grey;
+    border: 1px solid lightgrey;
 }
 
 .settings-block3-fields {

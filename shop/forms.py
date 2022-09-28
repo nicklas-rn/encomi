@@ -1,4 +1,4 @@
-from django.forms import ModelForm, Textarea, EmailField, TextInput
+from django.forms import ModelForm, Textarea, EmailField, TextInput, CheckboxInput, NumberInput
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import *
 from django import forms
@@ -66,4 +66,49 @@ class NewsletterEmailForm(ModelForm):
         ]
         widgets = {
             'email': TextInput(attrs={'placeholder': 'Your Email address', 'class': 'input-form', 'required': 'required'}),
+        }
+
+
+class PoliciesForm(ModelForm):
+    class Meta:
+        model = SellerPolicies
+        fields = [
+            'shipping_general_information',
+            'shipping_customs_and_taxes',
+            'accepts_returns',
+            'accepts_exchanges',
+            'accepts_cancellations',
+            'contact_within',
+            'ship_back_within',
+            'request_cancellation',
+            'returns_conditions',
+            'returns_questions',
+            'privacy'
+        ]
+        widgets = {
+            'shipping_general_information': Textarea(
+                attrs={'placeholder': 'General Information', 'class': 'block1-inputfield'}),
+            'shipping_customs_and_taxes': Textarea(
+                attrs={'placeholder': 'Customs and Import Taxes', 'class': 'block1-inputfield'}),
+            'returns_conditions': Textarea(
+                attrs={'placeholder': 'Conditions of Returns', 'class': 'block1-inputfield'}),
+            'returns_questions': Textarea(
+                attrs={'placeholder': 'Questions about your Order?', 'class': 'block1-inputfield'}),
+            'privacy': Textarea(
+                attrs={'placeholder': 'Privacy Policy', 'class': 'block3-inputfield'}),
+
+            'accepts_returns': CheckboxInput(
+                attrs={}),
+            'accepts_exchanges': CheckboxInput(
+                attrs={}),
+            'accepts_cancellations': CheckboxInput(
+                attrs={}),
+
+            'contact_within': NumberInput(
+                attrs={'min': 0, 'max': 300, 'id': 'exchange-input'}),
+            'ship_back_within': NumberInput(
+                attrs={'min': 0, 'max': 300,  'id': 'returns-input'}),
+            'request_cancellation': TextInput(
+                attrs={'placeholder': 'when should you be contacted?', 'id': 'cancellation-input'}),
+
         }

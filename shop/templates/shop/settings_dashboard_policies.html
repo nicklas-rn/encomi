@@ -1,0 +1,43 @@
+<form id="policiesForm" method="post" action="">
+    {% csrf_token %}
+    <div class="settings-block1">
+        <p class="block-heading">Shipping</p>
+        <div class="settings-block1-fields">
+            {{policies_form.shipping_general_information}}
+            {{policies_form.shipping_customs_and_taxes}}
+        </div>
+    </div>
+
+    <div class="settings-block2">
+        <p class="block-heading">Returns & Exchanges</p>
+        <div class="block2-upper">
+            <div class="block2-boxes">
+                <p class="block2-text">I accept...</p>
+                {{policies_form.accepts_returns}}
+                <label for="id_accepts_returns">returns</label><br>
+                {{policies_form.accepts_exchanges}}
+                <label for="id_accepts_exchanges">exchanges</label><br>
+                {{policies_form.accepts_cancellations}}
+                <label for="id_accepts_cancellations">cancellations</label><br><br>
+            </div>
+
+            <div class="block2-details">
+                <p class="block2-text G1">Contact me within</p>{{policies_form.contact_within}}<p class="block2-text G2">days of delivery</p>
+                <p class="block2-text G3">Ship items back within</p>{{policies_form.ship_back_within}}<p class="block2-text G4">days of delivery</p>
+                <p class="block2-text G5">Request a cancellation</p>{{policies_form.request_cancellation}}
+            </div>
+        </div>
+
+        <div class="settings-block1-fields">
+            {{policies_form.returns_conditions}}
+            {{policies_form.returns_questions}}
+        </div>
+    </div>
+
+    <div class="settings-block3">
+        <p class="block-heading">Privacy Policy</p>
+        <div class="settings-block3-fields">
+            {{policies_form.privacy}}
+        </div>
+    </div>
+</form>
