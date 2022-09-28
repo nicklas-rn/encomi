@@ -180,3 +180,140 @@
 
 
 
+
+
+
+
+
+.recommendations-wrapper{
+    width: calc(100% - 40px);
+    padding: 0px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+
+.recommendations {
+    margin: 45px 0px;
+    width: 100%;
+    max-width: 1100px;
+}
+
+.recommendations-upper {
+    margin-bottom: 45px;
+}
+
+.recommendations-h1{
+    font-family: 'Inria serif', serif;
+    font-size: 24;
+    margin-bottom: 4px;
+}
+
+.recommendations-h2 {
+    margin-bottom: 10px;
+    font-size: 15;
+}
+
+
+
+
+
+
+
+
+.items {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    justify-content: left;
+    align-content: space-between;
+    width: calc(100% - 10px);
+    margin-right: 0px;
+}
+
+/*
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-column-gap: 25px;
+    grid-auto-rows: 0.5fr;
+*/
+
+.item {
+    width: 100%;
+    padding: 0px 20px 35px 0px;
+
+    position: relative;
+    cursor: pointer;
+}
+
+
+.item-image{
+    margin-bottom: 10px;
+    width: 200px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: var(--borderRadiusImage);
+}
+
+.item-first-image{
+    display: block;
+}
+
+.item-second-image{
+    display: None;
+}
+
+.item-seller{
+    font-family: 'Inria Serif', serif;
+    width: 100%;
+    margin-bottom: 0px;
+    font-size: 16px;
+}
+
+.item-title{
+    font-family: 'Inria Serif', serif;
+    width: 100%;
+    margin-bottom: 5px;
+    font-size: 16px;
+    padding-bottom: 0px;
+}
+
+.item-price{
+    font-family: 'Inter', sans-serif;
+    width: 100%;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.category-links a {
+  display: block;
+  height: 100%;
+}
+
+
+
+
+
+
+
+#items::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: violet;
+}
+
+#items::-webkit-scrollbar
+{
+	width: 12px;
+	border-radius: 10px;
+	background-color: violet;
+}
+
+#items::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: pink;
+}
+
