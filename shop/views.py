@@ -112,9 +112,13 @@ def item(request, seller_name, id):
     categories = seller.category_set.all()
 
 
+    items = seller.item_set.all()
+
+
     context = {
         'seller': seller,
         'item': item,
+        'items': items,
         'cartItems': cart['items'],
         'cartTotal': cart['total'],
         'categories': categories,
