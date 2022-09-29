@@ -3,7 +3,7 @@
 }
 
 
-.element1 { grid-area: orders; }
+.element1 { grid-area: sales; }
 .element2 { grid-area: revenue; }
 .element3 { grid-area: page-visits; }
 .element4 { grid-area: listings; }
@@ -12,7 +12,7 @@
 .container {
   display: grid;
   grid-template-areas:
-    'orders orders deliveries'
+    'sales sales deliveries'
     'revenue page-visits deliveries'
     'listings listings deliveries';
   gap: 15px;
@@ -47,6 +47,18 @@
 
 .element4{
     padding-bottom: 0px;
+}
+
+.element4-header, .element5-header {
+   display: flex;
+   justify-content: space-between;
+}
+
+.showMore-wrapper-element4 , .showMore-wrapper-element5 {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
 }
 
 
@@ -110,7 +122,7 @@
 
 
 
-#orders {
+#deliveries {
     line-height:30px;
     height: calc(100% - 100px);
     float: left;
@@ -199,7 +211,7 @@
 
 
 
-.header-orderlist {
+.header-deliverylist {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -214,25 +226,25 @@
     display: None;
 }
 
-.header-orderlist p {
+.header-deliverylist p {
     color: grey;
     font-size: 13;
 }
 
-.header-orderId, .orderId{
+.header-deliveryId, .deliveryId{
     width: 60px;
 }
 
-.header-orderDate, .orderDate{
+.header-deliveryDate, .deliveryDate{
     width: 70px;
 }
 
-.header-orderStatus, .orderStatus {
+.header-deliveryStatus, .deliveryStatus {
     width: 120px;
     padding-right: 20px;
 }
 
-.orderlist {
+.deliverylist {
     list-style: none;
     padding-left: 0px;
     line-height: 14px;
@@ -240,7 +252,7 @@
 }
 
 
-.orderlist-object {
+.deliverylist-object {
     border-bottom: 1px solid lightgrey;
     display: flex;
     justify-content: space-between;
@@ -251,17 +263,17 @@
     cursor: pointer;
 }
 
-.orderList-object:hover{
+.deliveryList-object:hover{
     background-color: #F8F8F8;
 }
 
-.orderlist-object p{
+.deliverylist-object p{
     display: inline-block;
     font-size: 14;
     color: black;
 }
 
-.orderStatus{
+.deliveryStatus{
     display: flex;
     align-items: center;
     border-radius: 20px;
@@ -271,7 +283,7 @@
     margin-right: 18px;
 }
 
-.orderStatus-icon{
+.deliveryStatus-icon{
     height: 12px;
     width: 12px;
     padding: 4px;
@@ -284,15 +296,15 @@
     border: 1px solid lightgrey;
 }
 
-.orderStatus-nothandled .orderStatus-icon{
+.deliveryStatus-nothandled .deliveryStatus-icon{
     background-color: #E22309;
 }
 
-.orderStatus-ontheway .orderStatus-icon{
+.deliveryStatus-ontheway .deliveryStatus-icon{
     background-color: #FFB800;
 }
 
-.orderStatus-delivered .orderStatus-icon{
+.deliveryStatus-delivered .deliveryStatus-icon{
     background-color: #00CF53;
 }
 
