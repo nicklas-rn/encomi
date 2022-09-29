@@ -131,6 +131,7 @@ def cart(request, seller_name):
     cart = cookieCart(request, seller_name)
 
     seller = Seller.objects.get(name=seller_name)
+    categories = seller.category_set.all()
 
 
     context = {
@@ -139,6 +140,7 @@ def cart(request, seller_name):
         'cartSubTotal': cart['subtotal'],
         'cartTotal': cart['total'],
         'shipping': cart['shipping'],
+        'categories': categories,
 
     }
 
@@ -199,6 +201,7 @@ def create_order(request, seller_name):
         order_item = OrderItem.objects.create(
             item=item_dict['object'],
             price=item_dict['price'],
+            quantity=item_dict['quantity'],
             order=order
         )
         print(item_dict['style_groups'].items())
@@ -212,8 +215,8 @@ def create_order(request, seller_name):
             )
             order_item_style_group.save()
 
-        order.subtotal += order_item.price
-        order.total += order_item.price
+        order.subtotal += order_item.price * order_item.quantity
+        order.total += order_item.price * order_item.quantity
         order.save()
 
     for order in parent_order.order_set.all():
