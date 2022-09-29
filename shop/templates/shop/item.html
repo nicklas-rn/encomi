@@ -5,6 +5,11 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'shop/item_style.css' %}">
 
+<div class="message-seller">
+    <a href="mailto:encomi.co@outlook.com?Subject=Buyer%20Request%20encomi&body=Please%20specify%20your%20request/question/..."
+       class="message-seller-button"><img class="message-seller-img" src="/media/icons/email.png">Message {{seller.name}}</a>
+</div>
+
 <div id="item-wrapper">
     <div id="item">
         <div class="nav-images" >
