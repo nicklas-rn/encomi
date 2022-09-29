@@ -21,7 +21,7 @@
 <nav id="header">
     <p id="header-title"><img class="icon-header"
                 src="/media/icons/settings-dashboard.png" alt="">Settings</p>
-        <button class="save-button" type="submit" form="policiesForm"><img class="sync-data-img" src="/media/icons/sync-data.png">Save Changes</button>
+        <button class="save-button" id="save-button" type="submit" disabled form="policiesForm"><img class="sync-data-img" src="/media/icons/sync-data.png">Save Changes</button>
 </nav>
 
 
@@ -47,6 +47,8 @@
 
 
 <script>
+    var settings_changed = false
+
     function updateSettingsContent(content){
         settings_links = document.getElementsByClassName('navbar-top-link')
         for(let i=0; i<settings_links.length; i++){
@@ -68,6 +70,22 @@
         };
         request.send();
     }
+
+    function showSaveButton(){
+    console.log(1)
+        button = document.getElementById('save-button')
+        button.type = 'submit'
+        button.style.opacity = 1
+        button.disabled = false
+        settings_changed = true
+    }
+
+    window.onbeforeunload = function(){
+      if(settings_changed){
+          return 'Are y ou sure you want to leave?';
+      }
+
+    };
 </script>
 
 

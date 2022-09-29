@@ -1,6 +1,7 @@
 .settings-content {
     background-color: white;
     border-radius: 20px;
+    height: 100%;
     box-shadow: -2px 2px 2px #EBEBEB,
             2px -2px 2px #EBEBEB;
 }
@@ -20,6 +21,7 @@
     border: grey;
     border-radius: 7px;
     background-color: #EA8D8D;
+    opacity: 0.5;
     border: 1px solid lightgrey;
     width: 180px;
     font-family: 'Inter', inter;

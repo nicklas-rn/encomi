@@ -346,9 +346,10 @@ def shop_items(request, seller_name):
     return render(request, 'shop/shop_items.html', context)
 
 
-def scrape(request):
+def scrape(request, seller_name):
+    seller = Seller.objects.get(name=seller_name)
 
-    scrapeEtsy()
+    scrapeEtsy(seller)
 
     return redirect(home)
 

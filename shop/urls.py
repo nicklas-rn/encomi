@@ -37,7 +37,7 @@ urlpatterns = [
     path('TOU/<seller_name>', views.TOU, name='TOU'),
     path('about/<seller_name>', views.about, name='about'),
 
-    path('scrape/', views.scrape, name='scrape')
+    path('scrape/<seller_name>', views.scrape, name='scrape')
 
 
 ]

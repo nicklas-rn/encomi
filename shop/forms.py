@@ -87,28 +87,28 @@ class PoliciesForm(ModelForm):
         ]
         widgets = {
             'shipping_general_information': Textarea(
-                attrs={'placeholder': 'General Information', 'class': 'block1-inputfield'}),
+                attrs={'placeholder': 'General Information', 'class': 'block1-inputfield', 'onkeydown': 'showSaveButton()'}),
             'shipping_customs_and_taxes': Textarea(
-                attrs={'placeholder': 'Customs and Import Taxes', 'class': 'block1-inputfield'}),
+                attrs={'placeholder': 'Customs and Import Taxes', 'class': 'block1-inputfield', 'onkeydown': 'showSaveButton()'}),
             'returns_conditions': Textarea(
-                attrs={'placeholder': 'Conditions of Returns', 'class': 'block1-inputfield'}),
+                attrs={'placeholder': 'Conditions of Returns', 'class': 'block1-inputfield', 'onkeydown': 'showSaveButton()'}),
             'returns_questions': Textarea(
-                attrs={'placeholder': 'Questions about your Order?', 'class': 'block1-inputfield'}),
+                attrs={'placeholder': 'Questions about your Order?', 'class': 'block1-inputfield', 'onkeydown': 'showSaveButton()'}),
             'privacy': Textarea(
-                attrs={'placeholder': 'Privacy Policy', 'class': 'block3-inputfield'}),
+                attrs={'placeholder': 'Privacy Policy', 'class': 'block3-inputfield', 'onkeydown': 'showSaveButton()'}),
 
             'accepts_returns': CheckboxInput(
-                attrs={}),
+                attrs={'onchange': 'showSaveButton()'}),
             'accepts_exchanges': CheckboxInput(
-                attrs={}),
+                attrs={'onchange': 'showSaveButton()'}),
             'accepts_cancellations': CheckboxInput(
-                attrs={}),
+                attrs={'onchange': 'showSaveButton()'}),
 
             'contact_within': NumberInput(
-                attrs={'min': 0, 'max': 300, 'id': 'exchange-input'}),
+                attrs={'min': 0, 'max': 300, 'id': 'exchange-input', 'onfocus': 'showSaveButton()'}),
             'ship_back_within': NumberInput(
-                attrs={'min': 0, 'max': 300,  'id': 'returns-input'}),
+                attrs={'min': 0, 'max': 300,  'id': 'returns-input', 'onfocus': 'showSaveButton()'}),
             'request_cancellation': TextInput(
-                attrs={'placeholder': 'when should you be contacted?', 'id': 'cancellation-input'}),
+                attrs={'placeholder': 'when should you be contacted?', 'id': 'cancellation-input', 'onkeydown': 'showSaveButton()'}),
 
         }

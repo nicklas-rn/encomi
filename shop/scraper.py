@@ -3,8 +3,8 @@ from bs4 import BeautifulSoup
 from .models import Category, Item, Image, StyleGroup, Style
 
 
-def scrapeEtsy():
-    URL = 'https://www.etsy.com/shop/amicajewels/?etsrc=sdt'
+def scrapeEtsy(seller):
+    URL = seller.etsy_url
     overview_url = requests.get(URL)
     overview_page = BeautifulSoup(overview_url.content, 'html.parser')
 
@@ -18,7 +18,7 @@ def scrapeEtsy():
         if Category.objects.filter(title=category_title).exists():
             category = Category.objects.get(title=category_title)
         else:
-            category = Category.objects.create(title=category_title)
+            category = Category.objects.create(title=category_title, seller=seller)
             category.save()
         print(category)
 
@@ -47,6 +47,7 @@ def scrapeEtsy():
                 item_price_str = item_page.find('p', {'class': 'wt-text-title-03 wt-mr-xs-2'}).decode_contents()
             item_price = float(re.sub('[^\d\.]', '', item_price_str))
             item.price = item_price
+            item.seller = seller
 
             try:
                 # item_old_price_str = item_page.find('span', text = re.compile('Original Price:(.*)', re.DOTALL)
