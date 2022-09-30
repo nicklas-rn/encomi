@@ -660,6 +660,15 @@ def about(request, seller_name):
     return render(request, 'shop/about.html', context)
 
 
+def registration_user(request):
+
+    context = {
+
+    }
+
+    return render(request, 'shop/registration.html', context)
+
+
 def login_user(request):
     if request.user.is_authenticated:
         return redirect('/')
