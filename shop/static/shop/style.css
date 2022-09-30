@@ -311,3 +311,28 @@ footer p, footer a, footer a:visited{
     height: 30px;
     padding: 10px 0px;
 }
+
+
+
+
+
+
+@media screen and (max-width: 900px) {
+    #secondary-navbar-wrapper{
+        width: 100%;
+    }
+
+    .category-links-horizontal{
+        display: None;
+    }
+
+    .search{
+        width: 100%;
+    }
+
+    #search-navbar{
+        width: 100%;
+    }
+
+
+}
