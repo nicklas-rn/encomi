@@ -101,7 +101,7 @@
         <a href="/home/{{seller}}"><img id="logo-nav" src="{{seller.logo.url}}"></a>
 
         <div id="icon-wrapper-nav">
-            <a href="/help/{{seller}}"><img id="help-img" src="/media/icons/help.png"></a>
+            <a href="/help/{{seller}}" class="help"><img id="help-img" src="/media/icons/help.png"></a>
             <a href="/cart/{{seller}}" onmouseenter="openCartPreview()"><img class="icon icon-nav" id="icon-nav" src="/media/icons/cart.svg"></a>
             <p id="badge-icon-cart-nav">0</p>
         </div>
@@ -111,6 +111,38 @@
 
     </div>
 </nav>
+
+<nav id="navbar-wrapper-mobile">
+    <div id="navbar-mobile">
+
+        <a href="/home/{{seller}}"><img id="logo-nav-mobile" src="{{seller.logo.url}}"></a>
+
+        <div id="icon-wrapper-nav-mobile">
+            <a href="/cart/{{seller}}" onmouseenter="openCartPreview()"><img id="icon-nav-mobile" src="/media/icons/cart.svg"></a>
+            <p id="badge-icon-cart-nav-mobile">0</p>
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container">
+    <input id="toggle" type="checkbox">
+
+    <label class="toggle-container" for="toggle">
+
+      <span class="button button-toggle"></span>
+    </label>
+
+    <!-- The Nav Menu -->
+    <nav class="nav">
+      <a class="nav-item" href="/shop/{{seller}}">Shop</a>
+      <a class="nav-item" href="/dashboard/home/{{seller}}">Dashboard</a>
+      <a class="nav-item" href="/help/{{seller}}">Help</a>
+      <a class="nav-item" href="/become_seller">Become a seller</a>
+    </nav>
+
+</div>
 
 
 <div id="main">
