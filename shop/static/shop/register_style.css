@@ -1,0 +1,211 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.main {
+    display: flex;
+    flex-direction: row;
+
+}
+
+#left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    background-color: #FFFAF2;
+}
+
+#logo-nav {
+    height: 35px;
+    padding-top: 15px;
+}
+
+.welcome-back {
+    font-size: 40;
+    margin: 12vh 0px 35px 0px;
+    font-weight: 400;
+}
+
+
+p label{
+    display: None;
+}
+
+.login-button {
+    background-color: black;
+    color: white;
+    font-size: 16;
+    font-weight: 500;
+    padding: 5px 25px;
+    height: 40px;
+    width: 450px;
+    outline: None;
+    border: None;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 0px 1px 10px 0px rgba(0,0,0,0.2);
+    margin-bottom: 5px;
+}
+
+.login-button:hover{
+    background-color: #444444;
+    transition: 0.5s;
+    box-shadow: 0px 1px 10px 3px rgba(0,0,0,0.2);
+}
+
+.new-here {
+    font-size: 15;
+    border: 0;
+    font-family: 'Inter', sans-serif;
+    height: 40px;
+    width: 300px;
+    text-decoration: none;
+    padding-top: 15px;
+    color: black;
+}
+
+a:link {
+  color: black;
+  text-decoration: none;
+}
+
+a:hover {
+  color: grey;
+}
+
+a:active {
+  color: black;
+}
+
+
+
+
+
+.registration-form-1 , .registration-form-2 , .registration-form-5 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 14;
+    border: 1px solid grey;
+    border-radius: 4px;
+    font-weight: 200;
+    font-family: 'Inter', sans-serif;
+    width: 450px;
+    height: 40px;
+    outline: None;
+    margin-bottom: 5px;
+    padding: 8px 10px;
+}
+
+.registration-form-3 , .registration-form-4 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 14;
+    border: 1px solid grey;
+    border-radius: 4px;
+    font-weight: 200;
+    font-family: 'Inter', sans-serif;
+    width: 222px;
+    height: 40px;
+    outline: None;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    padding: 8px 10px;
+}
+
+
+.registration-form-6 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 14;
+    border: 1px solid grey;
+    border-radius: 4px;
+    font-weight: 200;
+    font-family: 'Inter', sans-serif;
+    min-width: 450px;
+    max-width: 450px;
+    min-height: 100px;
+    max-height: 200px;
+    height: 150px;
+    outline: None;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    padding: 8px 10px;
+}
+
+
+.registration-form-1 { grid-area: email; }
+.registration-form-2 { grid-area: password; }
+.registration-form-3 { grid-area: first; }
+.registration-form-4 { grid-area: last; }
+.registration-form-5 { grid-area: code; }
+.registration-form-6 { grid-area: wishes; }
+.login-form-addon { grid-area: addon; }
+.login-button { grid-area: register; }
+.new-here { grid-area: login; }
+
+.login-form {
+  display: grid;
+  grid-template-areas:
+    'email email'
+    'password password'
+    'first last'
+    'code code'
+    'wishes wishes'
+    'addon addon'
+    'register register';
+}
+
+.login-form-addon {
+    margin-bottom: 10px;
+    color: grey;
+    font-family: 'Inter', sans-serif;
+    font-size: 13;
+}
+
+
+
+
+
+#right {
+    width: 50%;
+    position: relative;
+    height: 100vh;
+}
+
+#picture-login {
+    height: 100vh;
+    width: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+
+
+.text-picture {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    bottom: 150px;
+    width: 500px;
+    color: white;
+}
+
+.text-big {
+    font-family: 'Inria serif', serif;
+    font-size: 50;
+    margin-bottom: 10px;
+    font-weight: 100;
+}
+
+.text-small {
+    font-family: 'Inter', sans-serif;
+    font-weight: 100;
+    font-size: 20;
+}
