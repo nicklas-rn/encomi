@@ -41,7 +41,9 @@ def home(request, seller_name):
         'user': request.user,
     }
 
-    return render(request, 'shop/home.html', context)
+    home_template = f"shop/{seller}_home.html"
+
+    return render(request, home_template, context)
 
 
 def shop(request, seller_name):

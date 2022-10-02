@@ -1,0 +1,31 @@
+{% extends "shop/base.html" %}
+
+{% block content %}
+
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'shop/Amicajewels_home_style.css' %}">
+
+
+<div id="home-wrapper">
+    <div id="home">
+        <div class="left">
+            <p class="title">minimal pieces to be worn from day to evening</p>
+            <a class="link-shop" href="/shop">Shop all items<img class="arrow-right" src="/media/icons/arrow-right-black.png"></a>
+            <img id="image-home-left" src="/media/home/home1.png">
+        </div>
+
+        <div class="right">
+            <img id="image-home-right" src="/media/home/home2.png">
+            <p class="quote">“Our jewelry is designed to inspire you as a woman, to feel sophisticated and comfortable at the same time”</p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock %}

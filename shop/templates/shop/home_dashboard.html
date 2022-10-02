@@ -13,7 +13,7 @@
     <ul class="dashboard-links">
         <li class="dashboard-link nav-home active-page" id="navigation-dashboard-link-dashboard"><a href="/dashboard/home/{{seller}}"><img class="icon-navbar" src="/media/icons/home-dashboard-white.png" alt="">Dashboard</a></li>
         <li class="dashboard-link nav-listings" id="navigation-dashboard-link-listings"><a href="/dashboard/listings/{{seller}}"><img class="icon-navbar" src="/media/icons/listings-dashboard-white.png" alt="">Listings</a></li>
-        <li class="dashboard-link nav-deliveries" id="navigation-dashboard-link-deliveries"><a href="/dashboard/deliveries/last/{{seller}}"><img class="icon-navbar" src="/media/icons/deliveries-dashboard-white.png" alt="">Deliveries</a></li>
+        <li class="dashboard-link nav-deliveries" id="navigation-dashboard-link-deliveries"><a href="/dashboard/deliveries/last/{{seller}}"><img class="icon-navbar" src="/media/icons/deliveries-dashboard-white.png" alt="">Orders</a></li>
         <li class="dashboard-link nav-settings" id="navigation-dashboard-link-settings"><a href="/dashboard/settings/{{seller}}"><img class="icon-navbar" src="/media/icons/settings-dashboard-white.png" alt="">Settings</a></li>
     </ul>
 
@@ -103,7 +103,7 @@
             <div class="element5-header">
                 <p class="element-title">
                     <img class="icon-dashboard" src="/media/icons/deliveries-dashboard.png" alt="">
-                    Deliveries
+                    Orders
                 </p>
                 <a class="showMore-link" href="/dashboard/deliveries/last/{{seller}}">
                     <div class="showMore-wrapper-element5">
@@ -114,30 +114,30 @@
             </div>
             <div id="deliveries">
 
-                <div class="header-deliverylist">
+                <div class="header-orderlist">
                      <img class="box"
                             src="/media/icons/box-to-tick.png" alt="">
-                    <p class="header-deliveryId">Delivery ID</p>
-                    <p class="header-deliveryDate">Date</p>
-                    <p class="header-deliveryStatus">Status</p>
+                    <p class="header-orderId">Order ID</p>
+                    <p class="header-orderDate">Date</p>
+                    <p class="header-orderStatus">Status</p>
                 </div>
 
-                <div class="deliverylist">
-                    {% for delivery in deliveries %}
-                    <a href="/dashboard/deliveries/{{delivery.id}}/{{seller}}">
-                        <div class="deliverylist-object" id="deliverylist-object-{{delivery.id}}">
+                <div class="orderlist">
+                    {% for order in orders %}
+                    <a href="/dashboard/deliveries/{{order.id}}/{{seller}}">
+                        <div class="orderlist-object" id="orderlist-object-{{order.id}}" style="{%if order.id == selected_order.id%}background-color: #f8f8f8{%endif%}">
                             <img class="box"
                                 src="/media/icons/box-to-tick.png" alt="">
-                                <p class="deliveryId">{{delivery.id}}</p>
-                                <p class="deliveryDate">{{delivery.parent_delivery.datetime|date:"d.m.y"}}</p>
-                                <div class="deliveryStatus deliveryStatus-{{delivery.status|cut:' '}}">
-                                    <img class="deliveryStatus-icon" src="/media/icons/shipping-black.png" alt="">
-                                    <p class="deliveryStatus-text">{{delivery.status}}</p>
+                                <p class="orderId">{{order.id}}</p>
+                                <p class="orderDate">{{order.parent_order.datetime|date:"d.m.y"}}</p>
+                                <div class="orderStatus orderStatus-{{order.status|cut:' '}}">
+                                    <img class="orderStatus-icon" src="/media/icons/shipping-black.png" alt="">
+                                    <p class="orderStatus-text">{{order.status}}</p>
                                 </div>
                         </div>
                     </a>
                     {% endfor %}
-                </div>
+            </div>
             </div>
         </div>
     </div>
