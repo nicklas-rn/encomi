@@ -19,7 +19,6 @@ class SellerPolicies(models.Model):
     privacy = models.TextField(max_length=10000, null=True, blank=True)
 
 
-
 class Seller(models.Model):
     name = models.CharField(max_length=50, null=True)
     logo = models.ImageField(upload_to="seller_logos", default="logos/logo.png")
@@ -27,6 +26,8 @@ class Seller(models.Model):
     delivery_price = models.FloatField(default=0)
 
     policies = models.ForeignKey(SellerPolicies, on_delete=models.SET_NULL, null=True, blank=True)
+
+    registration_code = models.CharField(max_length=12, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -165,7 +166,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
 
-    seller = models.ForeignKey(Seller, null=True, on_delete=models.SET_NULL)
+    seller = models.ForeignKey(Seller, null=True, blank=True, on_delete=models.SET_NULL)
 
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)

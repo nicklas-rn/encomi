@@ -6,23 +6,32 @@
 
 <div class="main">
     <div id="left">
-      <a href="/home/encomi"><img id="logo-nav" src="/media/logos/logo.png"></a>
+        <a href="/home/encomi"><img id="logo-nav" src="/media/logos/logo_blue.png"></a>
 
         <p class="welcome-back">Register as a Seller</p>
 
-      <div class="login-form">
-          <form id="form" method="post" action="">
+        <div class="login-form">
+            <form id="form" method="post" action="">
 
-            {% csrf_token %}
+                {% csrf_token %}
 
-            {{form.email}}
+                {{form.email}}
 
-            {{form.password}}
+                {{form.password}}
+
+                {{form.first_name}}
+
+                {{form.last_name}}
+
+                {{form.registration_code}}
+
+                {{form.design_requests}}
+
             <input type="submit" value="Register" class="login-button">
-          </form>
-          <a href="/login" class="new-here"> <p>Already registered? Login</p></a>
+        </form>
+        <a href="/login" class="new-here"> <p>Already registered? Login</p></a>
 
-      </div>
+        </div>
 
     </div>
 

@@ -5,6 +5,7 @@ from .models import *
 from .utils import *
 from .scraper import *
 from .forms import *
+from django.http import HttpResponseRedirect, JsonResponse
 
 from django.contrib.auth import authenticate, login, logout
 
@@ -37,6 +38,7 @@ def home(request, seller_name):
         'cartTotal': cart['total'],
         'categories': categories,
         'pushed_sellers': pushed_sellers,
+        'user': request.user,
     }
 
     return render(request, 'shop/home.html', context)
@@ -660,13 +662,28 @@ def about(request, seller_name):
     return render(request, 'shop/about.html', context)
 
 
-def registration_user(request):
+def register_user(request):
+    if request.user.is_authenticated:
+        return redirect('/')
+    else:
+        form = CreateUserForm()
+        if request.method == 'POST':
+            form = CreateUserForm(request.POST)
+            if form.is_valid():
+                try:
+                    new_user = authenticate(email=form.cleaned_data['email'],
+                                            password=form.cleaned_data['password'],
+                                            )
+                    login(request, new_user)
 
-    context = {
+                    return redirect('/')
 
-    }
+                except:
+                    return redirect('/register/')
 
-    return render(request, 'shop/registration.html', context)
+        context = {'form': form}
+
+        return render(request, 'shop/register.html', context)
 
 
 def login_user(request):
@@ -691,6 +708,11 @@ def login_user(request):
         context = {'form': form}
 
         return render(request, 'shop/login.html', context)
+
+
+def logout_user(request):
+    logout(request)
+    return HttpResponseRedirect('/')
 
 
 def help(request, seller_name):
