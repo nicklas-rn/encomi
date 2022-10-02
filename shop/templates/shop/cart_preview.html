@@ -10,7 +10,7 @@
         <img class="image-cartItem" src="{{cartItem.object.image_set.first.image.url}}" alt="">
         <div class="properties-cartItem">
             <a class="text-cartItem title-cartItem text-link" href="/item/{{seller}}/{{cartItem.object.id}}">{{cartItem.object.title|truncatechars:40}}</a>
-            <p class="text-cartItem description-cartItem">{% for style_group, style in cartItem.style_groups.items %}{{style}}{% endfor %}</p>
+            <p class="text-cartItem description-cartItem">{% for style_group, style in cartItem.style_groups.items %}{%if forloop.counter0 != 0%}, {%endif%}{{style}}{% endfor %}</p>
             <p class="text-cartItem price-cartItem">{{cartItem.price|floatformat:2}}€</p>
             <p class="text-cartItem quantity-cartItem">Quantity: {{cartItem.quantity}}</p>
             <button></button>

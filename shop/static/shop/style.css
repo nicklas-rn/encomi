@@ -49,6 +49,10 @@ a:visited{
     color: black;
 }
 
+#navbar-wrapper-mobile, .container{
+    display: None;
+}
+
 #navbar-wrapper{
     z-index: 99;
     position: fixed;

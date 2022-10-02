@@ -97,7 +97,7 @@
     width: 100%;
     display: flex;
     align-items: center;
-    padding-top: 5px;
+    padding-top: 10px;
 }
 
 .showMore-text{
@@ -211,7 +211,7 @@
 
 
 
-.header-deliverylist {
+.header-orderlist {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -226,25 +226,25 @@
     display: None;
 }
 
-.header-deliverylist p {
+.header-orderlist p {
     color: grey;
     font-size: 13;
 }
 
-.header-deliveryId, .deliveryId{
+.header-orderId, .orderId{
     width: 60px;
 }
 
-.header-deliveryDate, .deliveryDate{
+.header-orderDate, .orderDate{
     width: 70px;
 }
 
-.header-deliveryStatus, .deliveryStatus {
+.header-orderStatus, .orderStatus {
     width: 120px;
     padding-right: 20px;
 }
 
-.deliverylist {
+.orderlist {
     list-style: none;
     padding-left: 0px;
     line-height: 14px;
@@ -252,7 +252,7 @@
 }
 
 
-.deliverylist-object {
+.orderlist-object {
     border-bottom: 1px solid lightgrey;
     display: flex;
     justify-content: space-between;
@@ -263,17 +263,17 @@
     cursor: pointer;
 }
 
-.deliveryList-object:hover{
+.orderList-object:hover{
     background-color: #F8F8F8;
 }
 
-.deliverylist-object p{
+.orderlist-object p{
     display: inline-block;
     font-size: 14;
     color: black;
 }
 
-.deliveryStatus{
+.orderStatus{
     display: flex;
     align-items: center;
     border-radius: 20px;
@@ -283,7 +283,7 @@
     margin-right: 18px;
 }
 
-.deliveryStatus-icon{
+.orderStatus-icon{
     height: 12px;
     width: 12px;
     padding: 4px;
@@ -296,15 +296,15 @@
     border: 1px solid lightgrey;
 }
 
-.deliveryStatus-nothandled .deliveryStatus-icon{
+.orderStatus-nothandled .orderStatus-icon{
     background-color: #E22309;
 }
 
-.deliveryStatus-ontheway .deliveryStatus-icon{
+.orderStatus-ontheway .orderStatus-icon{
     background-color: #FFB800;
 }
 
-.deliveryStatus-delivered .deliveryStatus-icon{
+.orderStatus-delivered .orderStatus-icon{
     background-color: #00CF53;
 }
 
@@ -330,4 +330,3 @@ a:visited {
   color: grey;
   background-color: transparent;
 }
-

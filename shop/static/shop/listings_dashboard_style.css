@@ -18,6 +18,8 @@
     width: 180px;
     font-family: 'Inter', inter;
     height: 40px;
+    color: black;
+    text-decoration: None;
 }
 
 .sync-data-img {
