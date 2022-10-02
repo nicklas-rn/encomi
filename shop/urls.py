@@ -17,8 +17,9 @@ urlpatterns = [
     path('shop_items/<seller_name>', views.shop_items, name='shop_items'),
 
     path('become_seller/', views.become_seller, name='become_seller'),
-    path('registration/', views.registration_user, name='registration'),
+    path('register/', views.register_user, name='register'),
     path('login/', views.login_user, name='login'),
+    path('logout/', views.logout_user, name='logout'),
     path('help/<seller_name>', views.help, name='help'),
     path('help_faqs/<seller_name>/<type>', views.help_faqs, name='help_faqs'),
 

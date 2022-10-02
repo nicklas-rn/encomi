@@ -5,10 +5,34 @@ from django import forms
 
 
 class CreateUserForm(UserCreationForm):
+
+    registration_code = forms.CharField(
+        label='registration_code',
+        widget=forms.TextInput(attrs={'placeholder': 'Your registration code', 'class': 'input-form', 'required': 'required'})
+    )
+    design_requests = forms.CharField(
+        label='design_requests',
+        widget=forms.Textarea(attrs={'placeholder': 'How do you want your website to look?', 'class': '', 'required': 'required'})
+    )
+
     class Meta:
         model = User
-        fields = ['email', 'first_name', 'last_name']
+        fields = ['email', 'first_name', 'last_name', 'password']
         exclude = ['username']
+
+        widgets = {
+            'email': TextInput(
+                attrs={'placeholder': 'Your Email address', 'class': 'input-form', 'required': 'required'}),
+            'password': forms.PasswordInput(
+                attrs={'autocomplete': 'current-password', 'placeholder': 'Password'}
+            ),
+            'first_name': TextInput(
+                attrs={'placeholder': 'First Name', 'class': 'input-form', 'required': 'required'}
+            ),
+            'last_name': TextInput(
+                attrs={'placeholder': 'Last Name', 'class': 'input-form', 'required': 'required'}
+            ),
+        }
 
 
 class AuthenticateUserForm(forms.Form):

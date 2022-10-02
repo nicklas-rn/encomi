@@ -89,7 +89,7 @@ a:visited{
     align-items: center;
 }
 
-#login-img {
+.login-img {
     height: 17px;
     padding-right: 5px;
 }

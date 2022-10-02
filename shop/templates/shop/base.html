@@ -90,7 +90,12 @@
     <div id="navbar">
         <div id="link-wrapper-nav">
             <a class="link-nav" href="/become_seller">Become a seller</a>
-            <a class="link-login" href="/login"><img id="login-img" src="/media/icons/login.png">Login</a>
+            {% if not user.is_authenticated %}
+            <a class="link-login" href="/login"><img class="login-img" src="/media/icons/login.png">Login</a>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <a class="link-login" href="/logout"><img class="login-img" src="/media/icons/logout.png">Logout</a>
+            {% endif %}
         </div>
 
         <a href="/home/{{seller}}"><img id="logo-nav" src="{{seller.logo.url}}"></a>
