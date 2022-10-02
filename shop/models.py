@@ -19,7 +19,6 @@ class SellerPolicies(models.Model):
     privacy = models.TextField(max_length=10000, null=True, blank=True)
 
 
-
 class Seller(models.Model):
     name = models.CharField(max_length=50, null=True)
     logo = models.ImageField(upload_to="seller_logos", default="logos/logo.png")
