@@ -1,6 +1,7 @@
 :root{
     --NoneIfNotEncomi: block;
 
+    --backgroundColor: #FFFCF8;
     --borderRadius: 4px;
     --borderRadiusImage: 0px;
     --buttonBackgroundColor: black;
