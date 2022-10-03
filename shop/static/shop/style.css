@@ -459,6 +459,8 @@ footer p, footer a, footer a:visited{
          overflow: hidden;
          z-index: 100;
     }
+
+
     /* Toggle Functionality */
      #toggle {
          display: none;
@@ -470,6 +472,7 @@ footer p, footer a, footer a:visited{
      #toggle:checked ~ .toggle-container .button-toggle:before {
          transform: translateY(-50%) rotate(45deg) scale(1);
     }
+
      #toggle:checked ~ .toggle-container .button-toggle:after {
          transform: translateY(-50%) rotate(-45deg) scale(1);
     }
