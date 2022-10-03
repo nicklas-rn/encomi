@@ -24,6 +24,7 @@ class Seller(models.Model):
     logo = models.ImageField(upload_to="seller_logos", default="logos/logo.png")
     etsy_url = models.CharField(max_length=300, null=True)
     delivery_price = models.FloatField(default=0)
+    delivery_days = models.IntegerField(default=4)
 
     policies = models.ForeignKey(SellerPolicies, on_delete=models.SET_NULL, null=True, blank=True)
 

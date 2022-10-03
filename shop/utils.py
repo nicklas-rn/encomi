@@ -86,6 +86,28 @@ def decodeOrder(data, seller):
     return {'items': items, 'total': total}
 
 
+def deliveryDateCalculator(cart):
+    today = datetime.now()
+
+    first_delivery_date = datetime.now() + timedelta(days=1000)
+    last_delivery_date = datetime.now()
+
+    for item in cart['items']:
+        item_seller = Seller.objects.get(name=item['object'].seller)
+        date = today + timedelta(days=item_seller.delivery_days)
+        if date < first_delivery_date:
+            first_delivery_date = date
+        if date > last_delivery_date:
+            last_delivery_date = date
+
+    if first_delivery_date != last_delivery_date:
+        delivery_date = f"{first_delivery_date.strftime('%A, %d. %b')} - {last_delivery_date.strftime('%A, %d. %b')}"
+    else:
+        delivery_date = f"{first_delivery_date.strftime('%A, %d. %b')}"
+
+    return delivery_date
+
+
 def salesStatistics(seller, days):
     today = datetime.today()
 

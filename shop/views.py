@@ -95,6 +95,8 @@ def shop(request, seller_name):
                 print(style.title)
     """
 
+
+
     context = {
         'seller': seller,
         'items': items,
@@ -137,6 +139,7 @@ def cart(request, seller_name):
     seller = Seller.objects.get(name=seller_name)
     categories = seller.category_set.all()
 
+    delivery_date = deliveryDateCalculator(cart)
 
     context = {
         'seller': seller,
@@ -145,7 +148,7 @@ def cart(request, seller_name):
         'cartTotal': cart['total'],
         'shipping': cart['shipping'],
         'categories': categories,
-
+        'deliveryDate': delivery_date,
     }
 
     return render(request, 'shop/cart.html', context)
@@ -158,6 +161,8 @@ def checkout(request, seller_name):
 
     seller = Seller.objects.get(name=seller_name)
 
+    delivery_date = deliveryDateCalculator(cart)
+
     context = {
         'seller': seller,
         'cartItems': cart['items'],
@@ -165,6 +170,7 @@ def checkout(request, seller_name):
         'cartTotal': cart['total'],
         'shipping': cart['shipping'],
         'order': str(request.COOKIES.get('cart')),
+        'deliveryDate': delivery_date,
     }
 
     return render(request, 'shop/checkout.html', context)
@@ -258,6 +264,8 @@ def thankyou(request, seller_name):
                 print('issue')
                 return redirect(f"/thankyou/{seller_name}")
 
+    delivery_date = deliveryDateCalculator(cart)
+
     context = {
         'seller': seller,
         'cartItems': cart['items'],
@@ -266,6 +274,7 @@ def thankyou(request, seller_name):
         'shipping': cart['shipping'],
         'form': form,
         'submitted': submitted,
+        'deliveryDate': delivery_date,
     }
 
     return render(request, 'shop/thankyou.html', context)
