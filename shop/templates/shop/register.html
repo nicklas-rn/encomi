@@ -1,7 +1,7 @@
 {% block content %}
 
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'shop/registration_style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'shop/register_style.css' %}">
 
 
 <div class="main">
@@ -10,8 +10,8 @@
 
         <p class="welcome-back">Register as a Seller</p>
 
-        <div class="login-form">
-            <form id="form" method="post" action="">
+        <div >
+            <form class="login-form" id="form" method="post" action="">
 
                 {% csrf_token %}
 
@@ -26,7 +26,7 @@
                 {{form.registration_code}}
 
                 {{form.design_requests}}
-
+            <p class="login-form-addon">*Design ideas, color schemes etc.</p>
             <input type="submit" value="Register" class="login-button">
         </form>
         <a href="/login" class="new-here"> <p>Already registered? Login</p></a>
@@ -39,7 +39,7 @@
         <img id="picture-login" src="/media/icons/picture_login.png">
 
         <div class="text-picture">
-            <p class="text-big">Sell jewellery like never before</p>
+            <p class="text-big">Sell jewelry like never before</p>
             <p class="text-small">We offer the most unique shopping experience</p>
         </div>
     </div>

@@ -8,11 +8,11 @@ class CreateUserForm(UserCreationForm):
 
     registration_code = forms.CharField(
         label='registration_code',
-        widget=forms.TextInput(attrs={'placeholder': 'Your registration code', 'class': 'input-form', 'required': 'required'})
+        widget=forms.TextInput(attrs={'placeholder': 'Your registration code', 'class': 'registration-form registration-form-5', 'required': 'required'})
     )
     design_requests = forms.CharField(
         label='design_requests',
-        widget=forms.Textarea(attrs={'placeholder': 'How do you want your website to look?', 'class': '', 'required': 'required'})
+        widget=forms.Textarea(attrs={'placeholder': 'Do you have any wishes for the appearance of your website?', 'class': 'registration-form-6', 'required': 'False'})
     )
 
     class Meta:
@@ -22,15 +22,15 @@ class CreateUserForm(UserCreationForm):
 
         widgets = {
             'email': TextInput(
-                attrs={'placeholder': 'Your Email address', 'class': 'input-form', 'required': 'required'}),
+                attrs={'placeholder': 'Your Email address', 'class': 'registration-form registration-form-1', 'required': 'required'}),
             'password': forms.PasswordInput(
-                attrs={'autocomplete': 'current-password', 'placeholder': 'Password'}
+                attrs={'autocomplete': 'current-password', 'placeholder': 'Password', 'class': 'registration-form-2'}
             ),
             'first_name': TextInput(
-                attrs={'placeholder': 'First Name', 'class': 'input-form', 'required': 'required'}
+                attrs={'placeholder': 'First Name', 'class': 'registration-form registration-form-3', 'required': 'required'}
             ),
             'last_name': TextInput(
-                attrs={'placeholder': 'Last Name', 'class': 'input-form', 'required': 'required'}
+                attrs={'placeholder': 'Last Name', 'class': 'registration-form registration-form-4', 'required': 'required'}
             ),
         }
 
