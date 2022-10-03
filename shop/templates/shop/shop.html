@@ -70,6 +70,7 @@
 
     if(search['keyword'] != 'all'){
         document.getElementById('query').value = search['keyword']
+        document.getElementById('query-navbar').value = search['keyword']
     }
     document.getElementById('text-button-dropdown-sort').innerHTML = "Sort: " + search['sort']
     category_items = document.getElementsByClassName('category-link')
