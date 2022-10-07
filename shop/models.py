@@ -21,10 +21,12 @@ class SellerPolicies(models.Model):
 
 class Seller(models.Model):
     name = models.CharField(max_length=50, null=True)
+    email = models.EmailField(null=True)
     logo = models.ImageField(upload_to="seller_logos", default="logos/logo.png")
     etsy_url = models.CharField(max_length=300, null=True)
     delivery_price = models.FloatField(default=0)
-    delivery_days = models.IntegerField(default=4)
+    delivery_days_min = models.IntegerField(default=4)
+    delivery_days_max = models.IntegerField(default=7)
 
     policies = models.ForeignKey(SellerPolicies, on_delete=models.SET_NULL, null=True, blank=True)
 
@@ -169,6 +171,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     seller = models.ForeignKey(Seller, null=True, blank=True, on_delete=models.SET_NULL)
 
+    registration_code = models.CharField(max_length=10, null=True, blank=True)
+    design_requests = models.TextField(max_length=2000, null=True, blank=True)
+
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
@@ -196,10 +201,18 @@ type_choices = {
     ('seller', 'seller'),}
 
 
+class FAQGroup(models.Model):
+    title = models.CharField(max_length=300)
+    type = models.CharField(max_length=30, choices=type_choices, null=True)
+
+    def __str__(self):
+        return self.title
+
+
 class FAQ(models.Model):
     title = models.CharField(max_length=300)
     answer = models.TextField(max_length=1000)
-    type = models.CharField(max_length=30, choices=type_choices, null=True)
+    group = models.ForeignKey(FAQGroup, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.title

@@ -6,8 +6,8 @@
 <link rel="stylesheet" type="text/css" href="{% static 'shop/item_style.css' %}">
 
 <div class="message-seller">
-    <a href="mailto:encomi.co@outlook.com?Subject=Buyer%20Request%20encomi&body=Please%20specify%20your%20request/question/..."
-       class="message-seller-button"><img class="message-seller-img" src="/media/icons/email.png">Message {{seller.name}}</a>
+    <a href="mailto:{{item.seller.email}}?Subject=Buyer%20Request%20encomi&body=Please%20specify%20your%20request/question/..."
+       class="message-seller-button"><img class="message-seller-img" src="/media/icons/email.png">Message {{item.seller.name}}</a>
 </div>
 
 <div id="item-wrapper">
@@ -54,7 +54,7 @@
                 </div>
             </div>
             {% endfor %}
-            <button id="button" onclick="addCookieItem()">Add to Cart</button>
+            <button id="cartButton" onclick="addCookieItem()">Add to Cart</button>
             <p id="customization-error">Please select all customization options</p>
 
             <div id="item-properties">
@@ -93,7 +93,20 @@
                         </i>
                     </div>
                     <div class="content-item-property" id="content-item-property-delivery">
-                        <p>7 Tage</p>
+                        <p>{{deliveryDate}}</p>
+                    </div>
+                </div>
+
+                 <div class="item-property">
+                    <div class="button-item-property" id="button-item-property-faq" onclick="showContentProperty('faq')">
+                        <span class="title-item-property">FAQs</span>
+                        <i class="icon-dropdown">
+                            <img class="image-dropdown"
+                            src="/media/icons/arrow-down.png" alt="">
+                        </i>
+                    </div>
+                    <div class="content-item-property" id="content-item-property-faq">
+                        <p>{{deliveryDate}}</p>
                     </div>
                 </div>
             </div>

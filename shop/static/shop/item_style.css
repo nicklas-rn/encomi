@@ -161,7 +161,7 @@
 
 
 
-#button {
+#cartButton {
     background-color: var(--buttonBackgroundColor);
     color: white;
     border-radius: 4px;
@@ -173,6 +173,12 @@
     display: inline-block;
     cursor: pointer;
     border: None;
+}
+
+#cartButton:hover{
+    background-color: #444444;
+    transition: 0.5s;
+    box-shadow: 0px 1px 10px 3px rgba(0,0,0,0.2);
 }
 
 #customization-error{
@@ -334,6 +340,11 @@
     top: 100px;
     border: None;
     cursor: pointer;
+    transition: 0.5s;
+}
+
+.scroll-button:hover{
+    background-color: rgba(255, 255, 255, 0.95);
 }
 
 .scroll-button-left{
@@ -390,6 +401,7 @@
     }
 
     #item-image-wrapper-mobile{
+        display: block;
         width: 100%;
         margin: 0px;
         margin-bottom: 20px;

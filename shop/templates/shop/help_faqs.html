@@ -1,9 +1,14 @@
-{% for faq in faqs %}
-<div class="faq" id="faq-{{faq.id}}" onclick="showDescription('{{faq.id}}')">
-    <div class="faq-title-wrapper">
-         <p class="faq-title">{{faq.title}}</p>
-        <img src="/media/icons/arrow-down.png" class="faq-icon" id="faq-icon-{{faq.id}}">
+{% for faq_group in faq_groups %}
+<div class="faq-group">
+    <p class="faq-group-title">{{faq_group}}</p>
+    {% for faq in faq_group.faq_set.all %}
+    <div class="faq" id="faq-{{faq.id}}" onclick="showDescription('{{faq.id}}')">
+        <div class="faq-title-wrapper">
+             <p class="faq-title">{{faq.title}}</p>
+            <img src="/media/icons/arrow-down.png" class="faq-icon" id="faq-icon-{{faq.id}}">
+        </div>
+        <p class="faq-content" id="faq-content-{{faq.id}}">{{faq.answer}}</p>
     </div>
-    <p class="faq-content" id="faq-content-{{faq.id}}">{{faq.answer}}</p>
+    {% endfor %}
 </div>
 {% endfor %}
