@@ -268,7 +268,7 @@ def thankyou(request, seller_name):
                 print('issue')
                 return redirect(f"/thankyou/{seller_name}")
 
-    delivery_date = deliveryDateCalculator(cart)
+    delivery_date = deliveryDateCalculator(cart['items'])
 
     context = {
         'seller': seller,

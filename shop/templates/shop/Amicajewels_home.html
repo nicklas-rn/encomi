@@ -77,7 +77,7 @@
         str = items + 'Items'
         console.log(str)
         items_element = document.getElementById(str)
-        let width = items_element.offsetWidth * direction;
+        let width = (items_element.offsetWidth + 25) * direction;
         console.log(width)
         items_element.scrollBy(width, 0)
 

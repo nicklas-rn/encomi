@@ -12,10 +12,15 @@
 
 <div id="item-wrapper">
     <div id="item">
-        <div class="nav-images" >
-            {% for image in item.image_set.all %}
-            <img class="nav-image" src="{{image.image.url}}" width="70px" alt="" onmouseenter="updateImage('{{image.image.url}}')">
-            {% endfor %}
+        <div class="nav-images-wrapper" id="nav-images-wrapper">
+            <div class="nav-images" id="nav-images">
+                {% for image in item.image_set.all %}
+                <img class="nav-image" src="{{image.image.url}}" width="70px" alt="" onmouseenter="updateImage('{{image.image.url}}')">
+                {% endfor %}
+            </div>
+            <button class="scroll-button scroll-button-vertical scroll-button-up" id="scroll-button-up" onclick="scrollImages(-1)"><img class="image-dropdown" src="/media/icons/arrow-right-black.png" alt=""></button>
+            <button class="scroll-button scroll-button-vertical" id="scroll-button-down" onclick="scrollImages(1)"><img class="image-dropdown" src="/media/icons/arrow-right-black.png" alt=""></button>
+
         </div>
 
         <div id="item-image-wrapper">
@@ -106,7 +111,18 @@
                         </i>
                     </div>
                     <div class="content-item-property" id="content-item-property-faq">
-                        <p>{{deliveryDate}}</p>
+                    </div>
+                </div>
+
+                 <div class="item-property">
+                    <div class="button-item-property" id="button-item-property-returns" onclick="showContentProperty('returns')">
+                        <span class="title-item-property">Returns</span>
+                        <i class="icon-dropdown">
+                            <img class="image-dropdown"
+                            src="/media/icons/arrow-down.png" alt="">
+                        </i>
+                    </div>
+                    <div class="content-item-property" id="content-item-property-returns">
                     </div>
                 </div>
             </div>
@@ -288,7 +304,7 @@
         str = items + 'Items'
         console.log(str)
         items_element = document.getElementById(str)
-        let width = items_element.offsetWidth * direction;
+        let width = (items_element.offsetWidth + 25) * direction;
         console.log(width)
         items_element.scrollBy(width, 0)
 
@@ -300,6 +316,31 @@
         }
         else{
             btn_left.style.display = 'block'
+        }
+    }
+
+
+    function scrollImages(direction){
+        navImages = document.getElementById('nav-images')
+        let height = navImages.offsetHeight * direction;
+        console.log(height)
+        navImages.scrollBy(0, height)
+
+        btn_up = document.getElementById('scroll-button-up')
+        btn_down = document.getElementById('scroll-button-down')
+        console.log((navImages.scrollTop + height))
+        if((navImages.scrollTop + height) <= 0){
+            btn_up.style.display = 'None'
+        }
+        else{
+            btn_up.style.display = 'block'
+        }
+
+        if((height * 2) != (navImages.scrollTop + height) && direction > 0){
+            btn_down.style.display = 'None'
+        }
+        else{
+            btn_down.style.display = 'block'
         }
     }
 </script>
