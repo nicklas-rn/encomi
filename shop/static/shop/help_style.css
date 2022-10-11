@@ -1,13 +1,17 @@
+body{
+    background-color: #FFFaF2;
+}
+
 #navbar-wrapper{
     background-color: #FFFaF2;
 }
 
 #main {
-    padding-top: 55px;
+    padding-top: 100px;
 }
 
-#secondary-navbar {
-    display: none;
+#secondary-navbar-wrapper{
+    background-color: #FFFAF2;
 }
 
 #help-wrapper {
@@ -144,8 +148,7 @@
 
 .message-form textarea {
     min-height: 150px;
-    max-width: 450px;
-    min-width: 450px;
+    width: 450px;
     padding-top: 8px;
     font-size: 16;
 }
@@ -256,4 +259,87 @@
     font-size: 18;
     font-family: 'Inter', sans-serif;
     font-weight: 400;
+}
+
+
+
+
+
+@media screen and (max-width: 900px) {
+    #main {
+        padding-top: 10px;
+    }
+
+
+    #help-wrapper{
+        margin: 0px;
+        width: 100%;
+    }
+
+    #help{
+        justify-content: start;
+        flex-direction: column;
+    }
+
+    .left {
+        width: 100%;
+        height: auto;
+        padding-right: 0px;
+        margin-bottom: 50px;
+        border-right: None;
+        flex-direction: column;
+    }
+
+    .slider{
+        margin-bottom: 0px;
+        border: 1px solid grey;
+        border-radius: 4px;
+        background-color: f0f0f0;
+        display: inline-block;
+        width: 247px;
+        position: relative;
+    }
+
+    .slider-link{
+        display: inline-block;
+        width: 120px;
+        text-align: center;
+        border-radius: 4px;
+        padding: 5px 0px;
+    }
+
+    .slider-link-selected{
+        background-color: white;
+        box-shadow: 0px 1px 10px 0px rgba(0,0,0,0.2);
+        position: relative;
+    }
+
+    .faq-group-title{
+        text-decoration: underline;
+    }
+
+    .faq-title{
+        font-size: 16;
+    }
+
+    .faq-icon{
+        width: 26px;
+        height: 26px;
+    }
+
+
+    .right-wrapper{
+        padding: 0px;
+        width: 100%;
+    }
+
+    .right{
+        width: 100%;
+    }
+
+    .input-form, .message-form textarea{
+        width: 100%;
+        padding-left: 10px;
+        font-size: 16;
+    }
 }

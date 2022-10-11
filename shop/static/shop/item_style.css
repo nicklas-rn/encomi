@@ -439,13 +439,15 @@
         height: 50vh;
         white-space: nowrap;
         overflow-x: scroll;
+        scroll-snap-type: x mandatory;
     }
 
     .item-image-mobile{
         vertical-align: top;
         object-fit: cover;
         height: 100%;
-        width: 100vw;
+        width: 100%;
+        scroll-snap-align: start;
     }
 
     .description{
@@ -479,6 +481,14 @@
 
     .recommendations-wrapper{
         width: 100%;
+    }
+
+    .items{
+        scroll-snap-type: x mandatory;
+    }
+
+    .item{
+        scroll-snap-align: start;
     }
 
 

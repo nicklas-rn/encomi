@@ -23,8 +23,9 @@
     <p id="header-title"><img class="icon-header"
                 src="/media/icons/settings-dashboard.png" alt="">Settings</p>
     <div class="buttons-settings-header">
-            <button class="add-faq-button" id="add-faq-button" type="submit"><img class="add-faq-img" src="/media/icons/plus.png">Add FAQ</button>
-            <button class="save-button" id="save-button" type="submit" disabled form="policiesForm"><img class="sync-data-img" src="/media/icons/sync-data.png">Save Changes</button>
+            <button class="add-faq-button button-faqs button-top" id="add-faq-button" onclick="addFAQ()"><img class="add-faq-img" src="/media/icons/plus.png">Add FAQ</button>
+            <button class="save-button button-faqs button-top" id="save-button-faqs" onclick="saveFAQs()"><img class="add-faq-img" src="/media/icons/sync-data.png">Save Changes</button>
+            <button class="save-button button-policies button-top" id="save-button-policies" type="submit" form="policiesForm"><img class="sync-data-img" src="/media/icons/sync-data.png">Save Changes</button>
     </div>
 </nav>
 
@@ -43,8 +44,6 @@
         </div>
 
         <div id="settings-content-blocks">
-            {% include "shop/settings_dashboard_policies.html" %}
-            {% include "shop/settings_dashboard_faqs.html" %}
         </div>
 
     </div>
@@ -55,6 +54,10 @@
 <script>
     var settings_changed = false
 
+    console.log(dashboard)
+
+    updateSettingsContent(dashboard['settings'])
+
     function updateSettingsContent(content){
         settings_links = document.getElementsByClassName('navbar-top-link')
         for(let i=0; i<settings_links.length; i++){
@@ -64,6 +67,21 @@
         settings_link_str = 'navbar-top-link-'+ content
         document.getElementById(settings_link_str).classList.add('navbar-top-link-selected')
 
+
+        buttons = document.getElementsByClassName('button-top')
+        for(let i=0; i<buttons.length; i++){
+            buttons[i].style.display = 'None';
+        }
+
+        button_str = 'button-' + content
+        let page_buttons = document.getElementsByClassName(button_str)
+        for(let i=0; i<page_buttons.length; i++){
+            page_buttons[i].style.display = 'flex';
+        }
+
+        dashboard['settings'] = content
+
+        document.cookie ='dashboard=' + JSON.stringify(dashboard) + ";domain=;path=/"
 
         let request = new XMLHttpRequest();
         let method = 'GET';
@@ -77,18 +95,66 @@
         request.send();
     }
 
-    function showSaveButton(){
-    console.log(1)
-        button = document.getElementById('save-button')
+    function showSaveButton(content){
+        str = 'save-button-' + content
+        button = document.getElementById(str)
         button.type = 'submit'
         button.style.opacity = 1
         button.disabled = false
         settings_changed = true
     }
 
+
+    function addFAQ(){
+        let div = document.createElement('div')
+        div.classList.add('faqs-inputfields')
+        let question = document.createElement('input')
+        question.classList.add('faqs-inputfield-question')
+        question.placeholder = "Your question"
+        let answer = document.createElement('textarea')
+        answer.classList.add('faqs-inputfield-answer')
+        answer.placeholder = "Your answer"
+
+        wrapper = document.getElementById('faqs-wrapper')
+        div.appendChild(question)
+        div.appendChild(answer)
+        wrapper.appendChild(div)
+
+        document.getElementById('no-faqs').style.display = 'None';
+
+        showSaveButton('faqs')
+    }
+
+    async function saveFAQs(){
+        faqs = document.getElementsByClassName('faqs-inputfields')
+
+        faq_object_list = []
+
+        for(let i=0; i<faqs.length; i++){
+            faq_object = {
+                id: faqs[i].getAttribute('data-id'),
+                question: faqs[i].getElementsByClassName('faqs-inputfield-question')[0].value,
+                answer: faqs[i].getElementsByClassName('faqs-inputfield-answer')[0].value,
+            }
+            faq_object_list.push(faq_object)
+
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/dashboard/create_settings_faq/{{seller}}',
+            data: {
+                'faq_object_list': JSON.stringify(faq_object_list),
+                'csrfmiddlewaretoken': '{{csrf_token}}'
+            },
+            success: async function() {let delayres = await delay(50); updateSettingsContent('faqs')}
+        })
+    }
+
+
     window.onbeforeunload = function(){
       if(settings_changed){
-          return 'Are y ou sure you want to leave?';
+          return 'Are you sure you want to leave?';
       }
 
     };

@@ -32,7 +32,10 @@ urlpatterns = [
     path('dashboard/deliveries_selected/<seller_name>/<order_id>', views.deliveries_selected, name='deliveries_selected'),
     path('dashboard/update_order_status/<seller_name>/<order_id>/<order_status>', views.update_order_status,
          name='update_order_status'),
-    path('dashboard/update_settings_content/<seller_name>/<content>', views.update_settings_content, name='update_settings_content'),
+    path('dashboard/update_settings_content/<seller_name>/<content>', views.update_settings_content,
+         name='update_settings_content'),
+    path('dashboard/create_settings_faq/<seller_name>', views.create_settings_faq,
+         name='create_settings_faq'),
 
     path('seller_policy/<seller_name>', views.seller_policy, name='seller_policy'),
     path('privacy_policy/<seller_name>', views.privacy_policy, name='privacy_policy'),

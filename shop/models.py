@@ -218,6 +218,16 @@ class FAQ(models.Model):
         return self.title
 
 
+class SellerFAQ(models.Model):
+    question = models.CharField(max_length=300)
+    answer = models.TextField(max_length=1000)
+    seller = models.ForeignKey(Seller, null=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
+
+
+
 class HelpMessage(models.Model):
     email = models.EmailField(max_length=100)
     message = models.TextField(max_length=1000)
