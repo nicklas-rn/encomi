@@ -24,7 +24,7 @@
 
 .welcome-back {
     font-size: 40;
-    margin: 12vh 0px 35px 0px;
+    margin: 5vh 0px 20px 0px;
     font-weight: 400;
 }
 
@@ -61,10 +61,15 @@ p label{
     border: 0;
     font-family: 'Inter', sans-serif;
     height: 40px;
-    width: 300px;
+    max-width: 450px;
     text-decoration: none;
     padding-top: 15px;
     color: black;
+}
+
+.new-here p {
+    max-width: 450px;
+    margin-right: 0px;
 }
 
 a:link {
@@ -113,8 +118,11 @@ a:active {
     height: 40px;
     outline: None;
     margin-bottom: 5px;
-    margin-right: 5px;
     padding: 8px 10px;
+}
+
+.registration-form-3 {
+    margin-right: 5px;
 }
 
 
@@ -134,10 +142,30 @@ a:active {
     height: 150px;
     outline: None;
     margin-bottom: 5px;
-    margin-right: 5px;
     padding: 8px 10px;
 }
 
+.login-form-addon {
+    margin-bottom: 10px;
+    color: grey;
+    font-family: 'Inter', sans-serif;
+    font-size: 13;
+    max-width: 450px;
+}
+
+.age-policies-agreement {
+    max-width: 450px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14;
+    color: grey;
+}
+
+.age-policies-agreement a {
+    color: grey;
+    text-decoration: underline;
+}
 
 .registration-form-1 { grid-area: email; }
 #id_password1 { grid-area: password; }
@@ -148,9 +176,11 @@ a:active {
 .registration-form-6 { grid-area: wishes; }
 .login-form-addon { grid-area: addon; }
 .login-button { grid-area: register; }
+.age-policies-agreement { grid-area: agreement; }
 .new-here { grid-area: login; }
 
 .login-form {
+  max-width: 450px;
   display: grid;
   grid-template-areas:
     'email email'
@@ -160,15 +190,11 @@ a:active {
     'code code'
     'wishes wishes'
     'addon addon'
+    'agreement agreement'
     'register register';
 }
 
-.login-form-addon {
-    margin-bottom: 10px;
-    color: grey;
-    font-family: 'Inter', sans-serif;
-    font-size: 13;
-}
+
 
 
 
@@ -181,7 +207,7 @@ a:active {
 }
 
 #picture-login {
-    height: 100vh;
+    height: 100%;
     width: 100%;
     object-fit: cover;
     position: absolute;
@@ -194,7 +220,7 @@ a:active {
     right: 0;
     margin-left: auto;
     margin-right: auto;
-    bottom: 150px;
+    bottom: 110px;
     width: 500px;
     color: white;
 }
