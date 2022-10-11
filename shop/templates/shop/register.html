@@ -17,7 +17,9 @@
 
                 {{form.email}}
 
-                {{form.password}}
+                {{form.password1}}
+
+                {{form.password2}}
 
                 {{form.first_name}}
 
@@ -26,6 +28,8 @@
                 {{form.registration_code}}
 
                 {{form.design_requests}}
+
+                {{form.errors}}{{form.non_field_errors}}
             <p class="login-form-addon">*Design ideas, color schemes etc.</p>
             <input type="submit" value="Register" class="login-button">
         </form>
@@ -45,6 +49,13 @@
     </div>
 </div>
 
-
+<script>
+    let password1 = document.getElementById('id_password1')
+    password1.classList.add('registration-form-2')
+    password1.placeholder='Password'
+    let password2 = document.getElementById('id_password2')
+    password2.classList.add('registration-form-2')
+    password2.placeholder='Confirm Password'
+</script>
 
 {% endblock %}

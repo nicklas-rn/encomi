@@ -57,7 +57,7 @@
 }
 
 .slider{
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     border: 1px solid grey;
     border-radius: 4px;
     background-color: f0f0f0;
@@ -84,6 +84,15 @@
     border-bottom: 1px solid black;
 }
 
+.faq-group:not(:last-child){
+    border-bottom: 1px solid black;
+}
+
+.faq-group-title{
+    margin-bottom: 20px;
+    margin-top: 20px;
+    font-size: 14;
+}
 
 .faq{
     border-top: 1px solid black;

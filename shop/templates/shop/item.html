@@ -6,20 +6,32 @@
 <link rel="stylesheet" type="text/css" href="{% static 'shop/item_style.css' %}">
 
 <div class="message-seller">
-    <a href="mailto:encomi.co@outlook.com?Subject=Buyer%20Request%20encomi&body=Please%20specify%20your%20request/question/..."
-       class="message-seller-button"><img class="message-seller-img" src="/media/icons/email.png">Message {{seller.name}}</a>
+    <a href="mailto:{{item.seller.email}}?Subject=Buyer%20Request%20encomi&body=Please%20specify%20your%20request/question/..."
+       class="message-seller-button"><img class="message-seller-img" src="/media/icons/email.png">Message {{item.seller.name}}</a>
 </div>
 
 <div id="item-wrapper">
     <div id="item">
-        <div class="nav-images" >
-            {% for image in item.image_set.all %}
-            <img class="nav-image" src="{{image.image.url}}" width="70px" alt="" onmouseenter="updateImage('{{image.image.url}}')">
-            {% endfor %}
+        <div class="nav-images-wrapper" id="nav-images-wrapper">
+            <div class="nav-images" id="nav-images">
+                {% for image in item.image_set.all %}
+                <img class="nav-image" src="{{image.image.url}}" width="70px" alt="" onmouseenter="updateImage('{{image.image.url}}')">
+                {% endfor %}
+            </div>
+            <button class="scroll-button scroll-button-vertical scroll-button-up" id="scroll-button-up" onclick="scrollImages(-1)"><img class="image-dropdown" src="/media/icons/arrow-right-black.png" alt=""></button>
+            <button class="scroll-button scroll-button-vertical" id="scroll-button-down" onclick="scrollImages(1)"><img class="image-dropdown" src="/media/icons/arrow-right-black.png" alt=""></button>
+
         </div>
 
         <div id="item-image-wrapper">
             <img id="item-image" src="{{item.image_set.first.image.url}}" alt="">
+        </div>
+
+
+        <div id="item-image-wrapper-mobile">
+            {% for image in item.image_set.all %}
+            <img class="item-image-mobile" src="{{image.image.url}}" alt="">
+            {% endfor %}
         </div>
 
         <div class="description">
@@ -47,7 +59,7 @@
                 </div>
             </div>
             {% endfor %}
-            <button id="button" onclick="addCookieItem()">Add to Cart</button>
+            <button id="cartButton" onclick="addCookieItem()">Add to Cart</button>
             <p id="customization-error">Please select all customization options</p>
 
             <div id="item-properties">
@@ -86,7 +98,31 @@
                         </i>
                     </div>
                     <div class="content-item-property" id="content-item-property-delivery">
-                        <p>7 Tage</p>
+                        <p>{{deliveryDate}}</p>
+                    </div>
+                </div>
+
+                 <div class="item-property">
+                    <div class="button-item-property" id="button-item-property-faq" onclick="showContentProperty('faq')">
+                        <span class="title-item-property">FAQs</span>
+                        <i class="icon-dropdown">
+                            <img class="image-dropdown"
+                            src="/media/icons/arrow-down.png" alt="">
+                        </i>
+                    </div>
+                    <div class="content-item-property" id="content-item-property-faq">
+                    </div>
+                </div>
+
+                 <div class="item-property">
+                    <div class="button-item-property" id="button-item-property-returns" onclick="showContentProperty('returns')">
+                        <span class="title-item-property">Returns</span>
+                        <i class="icon-dropdown">
+                            <img class="image-dropdown"
+                            src="/media/icons/arrow-down.png" alt="">
+                        </i>
+                    </div>
+                    <div class="content-item-property" id="content-item-property-returns">
                     </div>
                 </div>
             </div>
@@ -268,7 +304,7 @@
         str = items + 'Items'
         console.log(str)
         items_element = document.getElementById(str)
-        let width = items_element.offsetWidth * direction;
+        let width = (items_element.offsetWidth + 25) * direction;
         console.log(width)
         items_element.scrollBy(width, 0)
 
@@ -280,6 +316,31 @@
         }
         else{
             btn_left.style.display = 'block'
+        }
+    }
+
+
+    function scrollImages(direction){
+        navImages = document.getElementById('nav-images')
+        let height = navImages.offsetHeight * direction;
+        console.log(height)
+        navImages.scrollBy(0, height)
+
+        btn_up = document.getElementById('scroll-button-up')
+        btn_down = document.getElementById('scroll-button-down')
+        console.log((navImages.scrollTop + height))
+        if((navImages.scrollTop + height) <= 0){
+            btn_up.style.display = 'None'
+        }
+        else{
+            btn_up.style.display = 'block'
+        }
+
+        if((height * 2) != (navImages.scrollTop + height) && direction > 0){
+            btn_down.style.display = 'None'
+        }
+        else{
+            btn_down.style.display = 'block'
         }
     }
 </script>

@@ -95,6 +95,8 @@ def shop(request, seller_name):
                 print(style.title)
     """
 
+
+
     context = {
         'seller': seller,
         'items': items,
@@ -118,6 +120,9 @@ def item(request, seller_name, id):
 
     items = seller.item_set.all()
 
+    dummy_cart = [{'object': item}]
+
+    delivery_date = deliveryDateCalculator(dummy_cart)
 
     context = {
         'seller': seller,
@@ -126,6 +131,7 @@ def item(request, seller_name, id):
         'cartItems': cart['items'],
         'cartTotal': cart['total'],
         'categories': categories,
+        'deliveryDate': delivery_date,
     }
 
     return render(request, 'shop/item.html', context)
@@ -137,6 +143,7 @@ def cart(request, seller_name):
     seller = Seller.objects.get(name=seller_name)
     categories = seller.category_set.all()
 
+    delivery_date = deliveryDateCalculator(cart['items'])
 
     context = {
         'seller': seller,
@@ -145,7 +152,7 @@ def cart(request, seller_name):
         'cartTotal': cart['total'],
         'shipping': cart['shipping'],
         'categories': categories,
-
+        'deliveryDate': delivery_date,
     }
 
     return render(request, 'shop/cart.html', context)
@@ -158,6 +165,8 @@ def checkout(request, seller_name):
 
     seller = Seller.objects.get(name=seller_name)
 
+    delivery_date = deliveryDateCalculator(cart['items'])
+
     context = {
         'seller': seller,
         'cartItems': cart['items'],
@@ -165,6 +174,7 @@ def checkout(request, seller_name):
         'cartTotal': cart['total'],
         'shipping': cart['shipping'],
         'order': str(request.COOKIES.get('cart')),
+        'deliveryDate': delivery_date,
     }
 
     return render(request, 'shop/checkout.html', context)
@@ -258,6 +268,8 @@ def thankyou(request, seller_name):
                 print('issue')
                 return redirect(f"/thankyou/{seller_name}")
 
+    delivery_date = deliveryDateCalculator(cart['items'])
+
     context = {
         'seller': seller,
         'cartItems': cart['items'],
@@ -266,6 +278,7 @@ def thankyou(request, seller_name):
         'shipping': cart['shipping'],
         'form': form,
         'submitted': submitted,
+        'deliveryDate': delivery_date,
     }
 
     return render(request, 'shop/thankyou.html', context)
@@ -395,6 +408,9 @@ def become_seller(request):
 def dashboard(request, seller_name):
     seller = Seller.objects.get(name=seller_name)
 
+    if not request.user.is_authenticated or not request.user.seller == seller:
+        return redirect('/login/')
+
     sales_chart = salesStatistics(seller, 7)
 
     orders = Order.objects.filter(seller=seller).order_by('-id')
@@ -434,13 +450,16 @@ def dashboard(request, seller_name):
 
 
 def listings(request, seller_name):
+    seller = Seller.objects.get(name=seller_name)
+
+    if not request.user.is_authenticated or not request.user.seller == seller:
+        return redirect('/login/')
 
     search = json.loads(request.COOKIES['search'])
     category_id = search['category']
     sort = search['sort']
     keyword = search['keyword']
 
-    seller = Seller.objects.get(name=seller_name)
     if seller_name != 'encomi':
 
         if category_id != 0:
@@ -486,12 +505,16 @@ def listings(request, seller_name):
 
 
 def listings_items(request, seller_name):
+    seller = Seller.objects.get(name=seller_name)
+
+    if not request.user.is_authenticated or not request.user.seller == seller:
+        return redirect('/login/')
+
     search = json.loads(request.COOKIES['search'])
     category_id = search['category']
     sort = search['sort']
     keyword = search['keyword']
 
-    seller = Seller.objects.get(name=seller_name)
     if seller_name != 'encomi':
 
         if category_id != 0:
@@ -535,6 +558,9 @@ def listings_items(request, seller_name):
 def deliveries(request, order_id, seller_name):
     seller = Seller.objects.get(name=seller_name)
 
+    if not request.user.is_authenticated or not request.user.seller == seller:
+        return redirect('/login/')
+
     orders = Order.objects.filter(seller=seller).order_by('-id')
 
     if order_id != 'last':
@@ -554,6 +580,9 @@ def deliveries(request, order_id, seller_name):
 def deliveries_selected(request, seller_name, order_id):
     seller = Seller.objects.get(name=seller_name)
 
+    if not request.user.is_authenticated or not request.user.seller == seller:
+        return redirect('/login/')
+
     selected_order = Order.objects.get(id=order_id)
 
     context = {
@@ -566,6 +595,9 @@ def deliveries_selected(request, seller_name, order_id):
 
 def update_order_status(request, seller_name, order_id, order_status):
     seller = Seller.objects.get(name=seller_name)
+
+    if not request.user.is_authenticated or not request.user.seller == seller:
+        return redirect('/login/')
 
     selected_order = Order.objects.get(id=order_id)
     selected_order.status = order_status
@@ -581,6 +613,9 @@ def update_order_status(request, seller_name, order_id, order_status):
 
 def settings(request, seller_name):
     seller = Seller.objects.get(name=seller_name)
+
+    if not request.user.is_authenticated or not request.user.seller == seller:
+        return redirect('/login/')
 
     seller_policies = seller.policies
     if not seller_policies:
@@ -609,6 +644,9 @@ def settings(request, seller_name):
 
 def update_settings_content(request, seller_name, content):
     seller = Seller.objects.get(name=seller_name)
+
+    if not request.user.is_authenticated or not request.user.seller == seller:
+        return redirect('/login/')
 
     template = f"shop/settings_dashboard_{content}.html"
 
@@ -671,17 +709,18 @@ def register_user(request):
         form = CreateUserForm()
         if request.method == 'POST':
             form = CreateUserForm(request.POST)
+            print(form)
             if form.is_valid():
-                try:
-                    new_user = authenticate(email=form.cleaned_data['email'],
-                                            password=form.cleaned_data['password'],
-                                            )
-                    login(request, new_user)
+                print('valid')
+                form.save()
+                current_user = authenticate(email=form.cleaned_data['email'],
+                                        password=form.cleaned_data['password1'],
+                                        )
+                current_user.seller = Seller.objects.get(registration_code=current_user.registration_code)
+                current_user.save()
+                login(request, current_user)
 
-                    return redirect('/')
-
-                except:
-                    return redirect('/register/')
+                return redirect(f"/dashboard/home/{current_user.seller}")
 
         context = {'form': form}
 
@@ -720,7 +759,7 @@ def logout_user(request):
 def help(request, seller_name):
     seller = Seller.objects.get(name=seller_name)
 
-    faqs = FAQ.objects.filter(type='buyer')
+    faq_groups = FAQGroup.objects.filter(type='buyer')
 
     form = HelpMessageForm()
 
@@ -746,7 +785,7 @@ def help(request, seller_name):
 
     context = {
         'seller': seller,
-        'faqs': faqs,
+        'faq_groups': faq_groups,
         'form': form,
         'submitted': submitted
     }
@@ -757,11 +796,11 @@ def help(request, seller_name):
 def help_faqs(request, seller_name, type):
     seller = Seller.objects.get(name=seller_name)
 
-    faqs = FAQ.objects.filter(type=type)
+    faq_groups = FAQGroup.objects.filter(type=type)
 
     context = {
         'seller': seller,
-        'faqs': faqs,
+        'faq_groups': faq_groups,
     }
 
     return render(request, 'shop/help_faqs.html', context)

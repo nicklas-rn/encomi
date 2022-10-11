@@ -32,7 +32,7 @@
         <li class="item-in-order-list" id="item-in-cart-list-">
             <img class="orderItem-image" src="{{order_item.item.image_set.first.image.url}}" width= 100px alt="">
             <div class="orderItem-properties">
-                <a class="orderItem-link" href="/item/{{seller}}/{{cartItem.object.id}}">{{order_item.item.title|truncatechars:60}}</a>
+                <a class="orderItem-link" href="/item/{{seller}}/{{order_item.item.id}}">{{order_item.item.title|truncatechars:60}}</a>
                 <p class="orderItem-description">{% for style_group in order_item.orderitemstylegroup_set.all %}{{style_group.style_group.type}}: {{style_group.selected_style.title}}<br>{% endfor %}</p>
                 <p class="orderItem-price">{{order_item.price|floatformat:2}}€</p>
                 <p class="orderItem-quantity">Quantity: {{order_item.quantity}}</p>

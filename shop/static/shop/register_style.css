@@ -84,7 +84,7 @@ a:active {
 
 
 
-.registration-form-1 , .registration-form-2 , .registration-form-5 {
+.registration-form-1 , .registration-form-2, .registration-form-5 {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -140,7 +140,8 @@ a:active {
 
 
 .registration-form-1 { grid-area: email; }
-.registration-form-2 { grid-area: password; }
+#id_password1 { grid-area: password; }
+#id_password2 { grid-area: confirmPassword; }
 .registration-form-3 { grid-area: first; }
 .registration-form-4 { grid-area: last; }
 .registration-form-5 { grid-area: code; }
@@ -154,6 +155,7 @@ a:active {
   grid-template-areas:
     'email email'
     'password password'
+    'confirmPassword confirmPassword'
     'first last'
     'code code'
     'wishes wishes'

@@ -23,7 +23,75 @@
     </div>
 </div>
 
+<div class="recommendations-wrapper">
+    <div class="recommendations">
+        <div class="recommendations-upper">
+            <p class="recommendations-h1">Items you might like</p>
+            <p class="recommendations-h2">Recommendations for you</p>
 
+            <div class="items-wrapper">
+                <div class="items"  id="similarItems">
+                {% for item in items %}
+                    <div class="item" onclick="window.location.href='/item/{{seller}}/{{item.id}}'">
+                        <img class="recommended-item-image recommended-item-first-image" id="item-first-image-similar-{{item.id}}" src="{{item.image_set.first.image.url}}" onmouseenter="showSecondImage({{item.id}}, 'similar')" onmouseleave="showFirstImage({{item.id}}, 'similar')" width="250px" alt="">
+                        <img class="recommended-item-image recommended-item-second-image" id="item-second-image-similar-{{item.id}}" src="{{item.image_set.last.image.url}}" onmouseenter="showSecondImage({{item.id}}, 'similar')" onmouseleave="showFirstImage({{item.id}}, 'similar')" width="250px" alt="">
+
+                        <p class="recommended-item-seller">{{ item.seller }}</p>
+                        <p class="recommended-item-title">{{ item.title|truncatechars:30 }}</p>
+                        <p class="recommended-item-price"> {{ item.price|floatformat:2 }}€<p/>
+                    </div>
+                {% endfor %}
+                </div>
+                <button class="scroll-button scroll-button-left" id="scroll-button-left-similar" onclick="scrollItems('similar', -1)"><img class="image-dropdown" src="/media/icons/arrow-right-black.png" alt=""></button>
+                <button class="scroll-button" id="scroll-button-right-similar" onclick="scrollItems('similar', 1)"><img class="image-dropdown" src="/media/icons/arrow-right-black.png" alt=""></button>
+            </div>
+        </div>
+
+        <div class="recommendations-lower">
+            <p class="recommendations-h1">In Focus</p>
+            <p class="recommendations-h2">Recommendations for you</p>
+
+            <div class="items-wrapper">
+                <div class="items"  id="completeItems">
+                {% for item in items %}
+                    <div class="item" onclick="window.location.href='/item/{{seller}}/{{item.id}}'">
+                        <img class="recommended-item-image recommended-item-first-image" id="item-first-image-complete-{{item.id}}" src="{{item.image_set.first.image.url}}" onmouseenter="showSecondImage({{item.id}}, 'complete')" onmouseleave="showFirstImage({{item.id}}, 'complete')" width="250px" alt="">
+                        <img class="recommended-item-image recommended-item-second-image" id="item-second-image-complete-{{item.id}}" src="{{item.image_set.last.image.url}}" onmouseenter="showSecondImage({{item.id}}, 'complete')" onmouseleave="showFirstImage({{item.id}}, 'complete')" width="250px" alt="">
+
+                        <p class="recommended-item-seller">{{ item.seller }}</p>
+                        <p class="recommended-item-title">{{ item.title|truncatechars:30 }}</p>
+                        <p class="recommended-item-price"> {{ item.price|floatformat:2 }}€<p/>
+                    </div>
+                {% endfor %}
+                </div>
+                <button class="scroll-button scroll-button-left" id="scroll-button-left-complete" onclick="scrollItems('complete', -1)"><img class="image-dropdown" src="/media/icons/arrow-right-black.png" alt=""></button>
+                <button class="scroll-button" id="scroll-button-right-complete" onclick="scrollItems('complete', 1)"><img class="image-dropdown" src="/media/icons/arrow-right-black.png" alt=""></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function scrollItems(items, direction){
+        str = items + 'Items'
+        console.log(str)
+        items_element = document.getElementById(str)
+        let width = (items_element.offsetWidth + 25) * direction;
+        console.log(width)
+        items_element.scrollBy(width, 0)
+
+        let btn_left_str = 'scroll-button-left-' + items
+        btn_left = document.getElementById(btn_left_str)
+        console.log((items_element.scrollLeft + width))
+        if((items_element.scrollLeft + width) <= 0){
+            btn_left.style.display = 'None'
+        }
+        else{
+            btn_left.style.display = 'block'
+        }
+    }
+</script>
 
 
 

@@ -27,6 +27,10 @@
                 </li>
                 {% endfor %}
             </div>
+            <div id="delivery">
+                <p class="delivery-description">Estimated delivery date:</p>
+                <p class="delivery-value">{{deliveryDate}}</p>
+            </div>
             <li class="subtotal">
                 <p class="subtotal-text">Subtotal</p>
                 <p class="subtotal-number">{{cartSubTotal|floatformat:2}}€</p>

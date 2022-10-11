@@ -351,7 +351,17 @@ a:visited {
     font-family: 'Inria-Serif';
     font-size: 17;
     text-align: left;
+    color: black;
 }
+
+.orderItem-link:visited{
+    color: black;
+}
+
+.orderItem-link:hover{
+    text-decoration: underline;
+}
+
 
 .orderItem-description{
     font-size: 12;
