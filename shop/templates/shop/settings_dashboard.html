@@ -6,6 +6,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'shop/settings_dashboard_style.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'shop/settings_dashboard_info_style.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'shop/settings_dashboard_policies_style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'shop/settings_dashboard_faqs_style.css' %}">
 
 <nav class="navbar-left">
     <a href="/"><img id="logo-nav" src="/media/logos/logo.png"></a>
@@ -21,7 +22,10 @@
 <nav id="header">
     <p id="header-title"><img class="icon-header"
                 src="/media/icons/settings-dashboard.png" alt="">Settings</p>
-        <button class="save-button" id="save-button" type="submit" disabled form="policiesForm"><img class="sync-data-img" src="/media/icons/sync-data.png">Save Changes</button>
+    <div class="buttons-settings-header">
+            <button class="add-faq-button" id="add-faq-button" type="submit"><img class="add-faq-img" src="/media/icons/plus.png">Add FAQ</button>
+            <button class="save-button" id="save-button" type="submit" disabled form="policiesForm"><img class="sync-data-img" src="/media/icons/sync-data.png">Save Changes</button>
+    </div>
 </nav>
 
 
@@ -34,11 +38,13 @@
                 <!--<li class="navbar-top-link" id="navbar-top-link-shipping" onclick="updateSettingsContent('shipping')"><a>Shipping</a></li>-->
                 <li class="navbar-top-link navbar-top-link-selected" id="navbar-top-link-policies" onclick="updateSettingsContent('policies')"><a>Policies</a></li>
                 <!--<li class="navbar-top-link" id="navbar-top-link-users" onclick="updateSettingsContent('users')"><a>Users</a></li>-->
+                <li class="navbar-top-link" id="navbar-top-link-faqs" onclick="updateSettingsContent('faqs')"><a>FAQs</a></li>
             </ul>
         </div>
 
         <div id="settings-content-blocks">
             {% include "shop/settings_dashboard_policies.html" %}
+            {% include "shop/settings_dashboard_faqs.html" %}
         </div>
 
     </div>
