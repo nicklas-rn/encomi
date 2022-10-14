@@ -60,21 +60,21 @@ def shop(request, seller_name):
         if category_id != 0:
             try:
                 category = seller.category_set.get(id=category_id)
-                items = seller.item_set.filter(categories=category)
+                items = seller.item_set.filter(categories=category, status='in stock')
             except:
-                items = seller.item_set.all()
+                items = seller.item_set.filter(status='in stock')
         else:
-            items = seller.item_set.all()
+            items = seller.item_set.filter(status='in stock')
 
     else:
         if category_id != 0:
             try:
                 category = seller.category_set.get(id=category_id)
-                items = Item.objects.filter(categories=category)
+                items = Item.objects.filter(categories=category, status='in stock')
             except:
-                items = Item.objects.all()
+                items = Item.objects.filter(status='in stock')
         else:
-            items = Item.objects.all()
+            items = Item.objects.filter(status='in stock')
 
     if sort == 'Best':
         items = items.order_by('id')
@@ -203,6 +203,9 @@ def create_order(request, seller_name):
     )
 
     for item_dict in order_dict['items']:
+        item_object = item_dict['object']
+        item_object.sold_counter += 1
+        item_object.save()
         item_seller = item_dict['object'].seller
         if parent_order.order_set.filter(seller=item_seller):
             order = parent_order.order_set.get(seller=item_seller)
@@ -218,6 +221,7 @@ def create_order(request, seller_name):
             quantity=item_dict['quantity'],
             order=order
         )
+
         print(item_dict['style_groups'].items())
         for style_group, style in item_dict['style_groups'].items():
             style_group_object = order_item.item.stylegroup_set.get(type=style_group)
@@ -330,21 +334,21 @@ def shop_items(request, seller_name):
         if category_id != 0:
             try:
                 category = seller.category_set.get(id=category_id)
-                items = seller.item_set.filter(categories=category)
+                items = seller.item_set.filter(categories=category, status='in stock')
             except:
-                items = seller.item_set.all()
+                items = seller.item_set.filter(status='in stock')
         else:
-            items = seller.item_set.all()
+            items = seller.item_set.filter(status='in stock')
 
     else:
         if category_id != 0:
             try:
-                category = Category.objects.get(id=category_id)
-                items = Item.objects.filter(categories=category)
+                category = seller.category_set.get(id=category_id)
+                items = Item.objects.filter(categories=category, status='in stock')
             except:
-                items = Item.objects.item_set.all()
+                items = Item.objects.filter(status='in stock')
         else:
-            items = Item.objects.all()
+            items = Item.objects.filter(status='in stock')
 
     if sort == 'Best':
         items = items.order_by('id')
@@ -685,7 +689,18 @@ def create_settings_faq(request, seller_name):
             faq_object.answer = faq['answer']
             faq_object.save()
 
+    response = json.dumps({
+        'status': 'ok',
+    })
 
+    return HttpResponse(response)
+
+
+def delete_settings_faq(request, seller_name):
+    seller = Seller.objects.get(name=seller_name)
+    faq_id = json.loads(request.POST['faq_id'])
+    faq_object = SellerFAQ.objects.get(id=faq_id)
+    faq_object.delete()
 
     response = json.dumps({
         'status': 'ok',

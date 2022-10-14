@@ -36,6 +36,8 @@ urlpatterns = [
          name='update_settings_content'),
     path('dashboard/create_settings_faq/<seller_name>', views.create_settings_faq,
          name='create_settings_faq'),
+    path('dashboard/delete_settings_faq/<seller_name>', views.delete_settings_faq,
+         name='delete_settings_faq'),
 
     path('seller_policy/<seller_name>', views.seller_policy, name='seller_policy'),
     path('privacy_policy/<seller_name>', views.privacy_policy, name='privacy_policy'),

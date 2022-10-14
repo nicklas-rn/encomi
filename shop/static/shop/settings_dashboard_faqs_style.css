@@ -6,6 +6,7 @@
 }
 
 .faqs-inputfields {
+    margin-bottom: 20px;
 }
 
 .faqs-inputfield-question {
@@ -25,7 +26,7 @@
     padding: 7px;
     min-height: 100px;
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     margin-right: 0px;
     color: grey;
     font-size: 14;
@@ -33,4 +34,19 @@
     border-radius: 4px;
     border: 1px solid lightgrey;
     display: block;
+}
+
+.removeIcon {
+    height: 20px;
+    padding-right: 5px;
+}
+
+.removeButton {
+    background-color: transparent;
+    color: #929292;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: left;
+    align-items: center;
 }

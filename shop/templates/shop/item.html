@@ -111,6 +111,12 @@
                         </i>
                     </div>
                     <div class="content-item-property" id="content-item-property-faq">
+                        {% for faq in seller.sellerfaq_set.all %}
+                        <div class="faq">
+                            <p class="faq-question">{{faq.question}}</p>
+                            <p class="faq-answer">{{faq.answer}}</p>
+                        </div>
+                        {% endfor %}
                     </div>
                 </div>
 
@@ -123,6 +129,24 @@
                         </i>
                     </div>
                     <div class="content-item-property" id="content-item-property-returns">
+                        <p class="returns-title">I accept {%if seller.policies.accepts_exchanges%}exchanges{%endif%}{%if seller.policies.accepts_cancellations%}, cancellations{%endif%}{%if seller.policies.accepts_returns%} and returns{%endif%}</p>
+                        <p class="returns-description">
+                            Contact me within {{seller.policies.contact_within}} days of delivery<br>
+                            Ship items back within {{seller.policies.ship_back_within}} days of delivery<br>
+                            {%if seller.policies.accepts_cancellations%}Request a cancellation {{seller.policies.request_cancellation}}{%endif%}
+                        </p>
+                        {%if seller.policies.returns_conditions%}
+                        <p class="returns-title">Conditions of return</p>
+                        <p class="returns-description">
+                            {{seller.policies.returns_conditions}}
+                        </p>
+                        {%endif%}
+                        {%if seller.policies.returns_questions%}
+                        <p class="returns-title">Questions about your Order?</p>
+                        <p class="returns-description">
+                            {{seller.policies.returns_questions}}
+                        </p>
+                        {%endif%}
                     </div>
                 </div>
             </div>

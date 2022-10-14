@@ -13,36 +13,6 @@
 
 </head>
 
-<body>
-
-
-<nav id="navbar-wrapper">
-    <div id="navbar">
-        <div id="logos-wrapper-nav">
-            <a href="/home/{{seller}}" class="logo-seller-nav"><img id="logo-seller-nav" src="{{seller.logo.url}}"></a>
-            <a href="/home/encomi" class="logo-seller-nav"><img id="logo-encomi-nav" src="/media/logos/encomi_logo_transparent.png"></a>
-        </div>
-
-        <div id="overview-wrapper-nav">
-            <div class="wrapper-title-nav">
-                <p class="cart-title">Cart</p><p id="checkout-title">Checkout</p><p>Summary</p>
-            </div>
-            <div class="line"></div>
-            <div class="line2"></div>
-        </div>
-    </div>
-
-</nav>
-
-<div id="main">
-
-    {% block content %}
-
-    {% endblock %}
-</div>
-
-</body>
-
 
 <style>
     #main {
@@ -168,5 +138,36 @@
 
 
 </style>
+
+
+<body>
+
+
+<nav id="navbar-wrapper">
+    <div id="navbar">
+        <div id="logos-wrapper-nav">
+            <a href="/home/{{seller}}" class="logo-seller-nav"><img id="logo-seller-nav" src="{{seller.logo.url}}"></a>
+            <a href="/home/encomi" class="logo-seller-nav"><img id="logo-encomi-nav" src="/media/logos/encomi_logo_transparent.png"></a>
+        </div>
+
+        <div id="overview-wrapper-nav">
+            <div class="wrapper-title-nav">
+                <p class="cart-title">Cart</p><p id="checkout-title">Checkout</p><p>Summary</p>
+            </div>
+            <div class="line"></div>
+            <div class="line2"></div>
+        </div>
+    </div>
+
+</nav>
+
+<div id="main">
+
+    {% block content %}
+
+    {% endblock %}
+</div>
+
+</body>
 
 </html>
