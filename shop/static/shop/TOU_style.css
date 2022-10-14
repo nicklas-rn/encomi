@@ -6,6 +6,14 @@
     background-color: #FFF8ED !important;
 }
 
+#navbar-wrapper {
+    background-color: #FFF8ED !important;
+}
+
+#cart-preview {
+    background-color: #FFF8ED !important;
+}
+
 #background-footer {
     background-color: white !important;
 }
@@ -13,7 +21,7 @@
 
 
 [data-custom-class='body'] {
-    padding: 25px !important;
+    padding: 25px 25px 75px 25px !important;
 }
 
 .wrapper {

@@ -6,8 +6,21 @@
     background-color: #FFF8ED !important;
 }
 
+#navbar-wrapper {
+    background-color: #FFF8ED !important;
+}
+
+#secondary-navbar {
+    display: none;
+}
+
+#cart-preview {
+    background-color: #FFF8ED !important;
+}
+
 #background-footer {
     background-color: #FFF8ED !important;
+    margin-top: 75px;
 }
 
 
@@ -18,8 +31,9 @@
     width: 100%;
 }
 
+
 [data-custom-class='wrapper'] {
-    padding: 25px !important;
+    padding: 25px 25px 25px 25px !important;
 }
 
 [data-custom-class="link"] {
