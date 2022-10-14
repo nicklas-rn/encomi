@@ -151,13 +151,28 @@
         })
     }
 
+    async function deleteFAQ(faq_id){
+        $.ajax({
+            type: 'POST',
+            url: '/dashboard/delete_settings_faq/{{seller}}',
+            data: {
+                'faq_id': JSON.stringify(faq_id),
+                'csrfmiddlewaretoken': '{{csrf_token}}'
+            },
+            success: async function() {let delayres = await delay(50); updateSettingsContent('faqs')}
+        })
+    }
+
 
     window.onbeforeunload = function(){
       if(settings_changed){
           return 'Are you sure you want to leave?';
       }
-
     };
+
+    $(document).on("submit", "form", function(event){
+            window.onbeforeunload = null;
+    });
 </script>
 
 

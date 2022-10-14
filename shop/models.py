@@ -52,6 +52,13 @@ class Image(models.Model):
         return self.image.name
 
 
+ITEM_STATUS_CHOICES = {
+    ('in stock', 'in stock'),
+    ('out of stock', 'out of stock'),
+    ('deactivated', 'deactivated'),
+}
+
+
 class Item(models.Model):
     title = models.CharField(max_length=1200)
     keywords = models.CharField(blank=True, null=True, max_length=1200, default='All')
@@ -61,6 +68,8 @@ class Item(models.Model):
     description = models.TextField(max_length=5000, blank=True, null=True)
     categories = models.ManyToManyField(Category, null=True, blank=True)
     seller = models.ForeignKey('Seller', null=True, on_delete=models.CASCADE)
+    sold_counter = models.IntegerField(default=0)
+    status = models.CharField(max_length=100, default='in stock', choices=ITEM_STATUS_CHOICES)
 
     def __str__(self):
         return self.title
@@ -225,7 +234,6 @@ class SellerFAQ(models.Model):
 
     def __str__(self):
         return self.title
-
 
 
 class HelpMessage(models.Model):

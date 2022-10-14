@@ -160,6 +160,11 @@
     font-weight: 400;
 }
 
+.thankYou-description{
+    font-size: 15;
+    line-height: 25px;
+}
+
 .checkmark__circle {
   stroke-dasharray: 166;
   stroke-dashoffset: 166;
@@ -222,7 +227,7 @@
     border: 1px solid grey;
     border-radius: 4px;
     font-family: 'Inter', sans-serif;
-    height: 45px;
+    height: 40px;
     padding-left: 15px;
     width: 350px;
     margin-bottom: 5px;
@@ -305,8 +310,8 @@
 
     .order-summary-heading {
         padding-bottom: 15px;
+        font-size: 28;
     }
-
 
     .right-background{
         display: none;
@@ -349,6 +354,13 @@
 
     .thankYou-wrapper p {
         width: 100%;
+        font-size: 18;
+        line-height: 25px;
+    }
+
+    .thankYou-description{
+        font-size: 14;
+        line-height: 20px;
     }
 
 }

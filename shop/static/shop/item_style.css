@@ -230,6 +230,19 @@
     font-weight: 300;
 }
 
+.faq{
+
+}
+
+.faq-question, .returns-title{
+    font-weight: 400;
+    margin-bottom: 5px;
+}
+
+.faq-answer, .returns-description{
+    color: grey;
+    margin-bottom: 15px;
+}
 
 
 

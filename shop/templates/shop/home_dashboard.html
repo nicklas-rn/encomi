@@ -93,7 +93,7 @@
 
                         <p class="item-title">{{ item.title|truncatechars:15 }}</p>
                         <p class="item-price"> {{ item.price|floatformat:2 }}€<p/>
-                        <p class="items-sold"><img class="items-sold-img" src="/media/icons/items-sold.png">14 sold</p>
+                        <p class="items-sold"><img class="items-sold-img" src="/media/icons/items-sold.png">{{item.sold_counter}} sold</p>
 
                     </div>
                 {% endfor %}
