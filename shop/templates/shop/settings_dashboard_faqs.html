@@ -1,25 +1,16 @@
-
-
-<div class="faqs-wrapper">
-
-    <div class="faqs-inputfields">
-        <input id="faqs-inputfield-question" name="faqs-inputfield-question" placeholder="Your question"></input>
-        <textarea id="faqs-inputfield-answer" name="faqs-inputfield-answer">Your answer</textarea>
+<div class="faqs-wrapper" id="faqs-wrapper">
+    {% for faq in seller_faqs %}
+    <div class="faqs-inputfields" data-id="{{faq.id}}">
+        <input class="faqs-inputfield-question" placeholder="Your question" onkeydown="showSaveButton('faqs')" value="{{faq.question}}">
+        <textarea class="faqs-inputfield-answer" placeholder="Your answer" onkeydown="showSaveButton('faqs')">{{faq.answer}}</textarea>
     </div>
-
-    <div class="faqs-inputfields">
-        <textarea id="faqs-inputfield-question" name="faqs-inputfield-question">Your question</textarea>
-        <textarea id="faqs-inputfield-answer" name="faqs-inputfield-answer">Your answer</textarea>
-    </div>
-
-    <div class="faqs-inputfields">
-        <textarea id="faqs-inputfield-question" name="faqs-inputfield-question">Your question</textarea>
-        <textarea id="faqs-inputfield-answer" name="faqs-inputfield-answer">Your answer</textarea>
-    </div>
-
-    <div class="faqs-inputfields">
-        <textarea id="faqs-inputfield-question" name="faqs-inputfield-question">Your question</textarea>
-        <textarea id="faqs-inputfield-answer" name="faqs-inputfield-answer">Your answer</textarea>
-    </div>
+    {% endfor %}
+    {% if not seller_faqs %}
+    <p id="no-faqs">You haven't added FAQs yet</p>
+    {% endif %}
 
 </div>
+
+<script>
+
+</script>

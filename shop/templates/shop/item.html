@@ -240,9 +240,23 @@
         getCartCount()
 
         openCartPreview()
+        cartButtonColor('secondary')
         let delayres = await delay(2000)
+        cartButtonColor('primary')
         closeCartPreview()
 
+    }
+
+    function cartButtonColor(color){
+        btn = document.getElementById('cartButton')
+        if (color == 'primary'){
+            btn.style.backgroundColor = 'black';
+            btn.style.boxShadow = '0px 1px 10px 3px rgba(0,0,0,0.2)'
+        }
+        else if (color == 'secondary'){
+            btn.style.backgroundColor = 'DDBC9B';
+            btn.style.boxShadow = '0px 1px 10px 3px rgba(221,188,155,0.2)'
+        }
     }
 
 

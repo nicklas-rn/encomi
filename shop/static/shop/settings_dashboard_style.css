@@ -24,7 +24,6 @@
     border: grey;
     border-radius: 7px;
     background-color: #EA8D8D;
-    opacity: 0.5;
     border: 1px solid lightgrey;
     width: 180px;
     font-family: 'Inter', inter;
@@ -55,6 +54,14 @@
     font-family: 'Inter', inter;
     height: 40px;
     cursor: pointer;
+}
+
+.button-top{
+    display: None;
+}
+
+.save-button:disabled{
+    color: black;
 }
 
 .sync-data-img {

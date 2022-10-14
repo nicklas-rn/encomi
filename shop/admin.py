@@ -18,5 +18,5 @@ admin.site.register(FAQ)
 admin.site.register(FAQGroup)
 admin.site.register(HelpMessage)
 admin.site.register(NewsletterEmail)
-admin.site.register(SellerPolicies)
+admin.site.register(SellerFAQ)
 

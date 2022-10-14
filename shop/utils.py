@@ -102,9 +102,9 @@ def deliveryDateCalculator(items):
             last_delivery_date = max_date
 
     if first_delivery_date != last_delivery_date:
-        delivery_date = f"{first_delivery_date.strftime('%A, %d. %b')} - {last_delivery_date.strftime('%A, %d. %b')}"
+        delivery_date = f"{first_delivery_date.strftime('%a %d. %b')} - {last_delivery_date.strftime('%a %d. %b')}"
     else:
-        delivery_date = f"{first_delivery_date.strftime('%A, %d. %b')}"
+        delivery_date = f"{first_delivery_date.strftime('%a %d. %b')}"
 
     return delivery_date
 

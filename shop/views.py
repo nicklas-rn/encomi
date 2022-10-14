@@ -5,7 +5,7 @@ from .models import *
 from .utils import *
 from .scraper import *
 from .forms import *
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 
 from django.contrib.auth import authenticate, login, logout
 
@@ -657,12 +657,41 @@ def update_settings_content(request, seller_name, content):
         seller.save()
     policies_form = PoliciesForm(instance=seller_policies)
 
+    seller_faqs = SellerFAQ.objects.filter(seller=seller)
+
     context = {
         'seller': seller,
         'policies_form': policies_form,
+        'seller_faqs': seller_faqs,
     }
 
     return render(request, template, context)
+
+
+def create_settings_faq(request, seller_name):
+    seller = Seller.objects.get(name=seller_name)
+    faq_list = json.loads(request.POST['faq_object_list'])
+
+    for faq in faq_list:
+        if faq['id'] is None:
+            SellerFAQ.objects.create(
+                question=faq['question'],
+                answer=faq['answer'],
+                seller=seller,
+            )
+        else:
+            faq_object = SellerFAQ.objects.get(id=faq['id'])
+            faq_object.question = faq['question']
+            faq_object.answer = faq['answer']
+            faq_object.save()
+
+
+
+    response = json.dumps({
+        'status': 'ok',
+    })
+
+    return HttpResponse(response)
 
 
 def seller_policy(request, seller_name):
@@ -744,7 +773,12 @@ def login_user(request):
                     return redirect('/')
 
                 except:
-                    return redirect('/login/')
+                    context = {
+                        'form': form,
+                        'error': 'Wrong password or email address'
+                    }
+
+                    return render(request, 'shop/login.html', context)
 
         context = {'form': form}
 
@@ -760,6 +794,8 @@ def help(request, seller_name):
     seller = Seller.objects.get(name=seller_name)
 
     faq_groups = FAQGroup.objects.filter(type='buyer')
+
+    categories = seller.category_set.all()
 
     form = HelpMessageForm()
 
@@ -787,7 +823,8 @@ def help(request, seller_name):
         'seller': seller,
         'faq_groups': faq_groups,
         'form': form,
-        'submitted': submitted
+        'submitted': submitted,
+        'categories': categories,
     }
 
     return render(request, 'shop/help.html', context)

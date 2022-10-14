@@ -121,6 +121,15 @@ a:active {
 
 
 
+.error{
+    font-family: 'Inter', sans-serif;
+    padding: 10px 10px;
+    border: 1px solid black;
+    border-radius: 4px;
+    position: relative;
+    top: 50px;
+}
+
 
 
 
