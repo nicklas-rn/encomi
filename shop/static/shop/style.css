@@ -325,6 +325,109 @@ footer p, footer a, footer a:visited{
 
 
 
+/* Moving input fields*/
+
+:root {
+    --body: #ffffff;
+    --text: black;
+    --text-light: grey;
+    --primary: grey;
+    --border: lightgrey;
+    --padding: 10px 10px;
+    --line-height: 18px;
+}
+
+.input-group {
+    width: auto;
+    position: relative;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.input-group-wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.input-group-wrapper-small{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.input-group-inline{
+    display: inline-block;
+    width: calc(50% - 10px);
+    margin-bottom: 0px;
+}
+
+.input-group-inline-small{
+    display: inline-block;
+    width: calc(25% - 10px);
+    margin-bottom: 0px;
+    margin-right: 10px;
+}
+
+
+.input-group input, .input {
+    padding: var(--padding);
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    color: var(--text);
+    font-size: 14px;
+    line-height: var(--line-height);
+    border-radius: 6px;
+}
+
+.input-group:hover,
+    .input-group:focus-within {
+    border-color: var(--primary);
+}
+
+.input-group input, .input:focus,
+.input-group:hover input {
+    color: var(--text);
+    outline: None;
+}
+
+.input-group label {
+    position: absolute;
+    background-color: transparent;
+    padding: var(--padding);
+    line-height: var(--line-height);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    font-size: 14px;
+    color: var(--text-light);
+    cursor: text;
+    transition: 0.1s;
+}
+
+.input-group:hover label {
+    color: var(--primary);
+}
+
+.input-group:focus-within label,
+.input-group .input:not(:placeholder-shown) ~ label {
+    padding: 0px 5px;
+    line-height: 14px;
+    background-color: var(--body);
+    top: -8px;
+    left: 5px;
+    bottom: auto;
+    font-size: 12;
+    color: var(--text-light);
+}
+
+/* End moving input fields */
+
 
 
 

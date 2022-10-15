@@ -93,6 +93,8 @@
         document.getElementById('settings-content-blocks').innerHTML = myHTML;
         };
         request.send();
+
+        disableSaveButton(content)
     }
 
     function showSaveButton(content){
@@ -104,24 +106,64 @@
         settings_changed = true
     }
 
+    function disableSaveButton(content){
+        str = 'save-button-' + content
+        button = document.getElementById(str)
+        button.type = 'submit'
+        button.style.opacity = 0.5
+        button.disabled = true
+        settings_changed = false
+    }
+
 
     function addFAQ(){
+        let id = generateID(5)
+
         let div = document.createElement('div')
         div.classList.add('faqs-inputfields')
+
+
+        let input_group_question = document.createElement('div')
+        input_group_question.classList.add('input-group')
+
         let question = document.createElement('input')
         question.classList.add('faqs-inputfield-question')
-        question.placeholder = "Your question"
+        question.classList.add('input')
+        question.placeholder = " "
+        str = 'faqs-inputfield-question-' + id
+        question.setAttribute('id', str)
+
+        let label_question = document.createElement('label')
+        label_question.setAttribute('for', str)
+        label_question.innerHTML = 'Your question'
+
+
+        let input_group_answer = document.createElement('div')
+        input_group_answer.classList.add('input-group')
+
         let answer = document.createElement('textarea')
         answer.classList.add('faqs-inputfield-answer')
-        answer.placeholder = "Your answer"
+        answer.classList.add('input')
+        answer.placeholder = " "
+        str = 'faqs-inputfield-answer-' + id
+        answer.setAttribute('id', str)
+
+        let label_answer = document.createElement('label')
+        label_answer.setAttribute('for', str)
+        label_answer.innerHTML = 'Your answer'
 
         wrapper = document.getElementById('faqs-wrapper')
-        div.appendChild(question)
-        div.appendChild(answer)
+        div.appendChild(input_group_question)
+        div.appendChild(input_group_answer)
+        input_group_question.appendChild(question)
+        input_group_question.appendChild(label_question)
+        input_group_answer.appendChild(answer)
+        input_group_answer.appendChild(label_answer)
         wrapper.appendChild(div)
 
-        document.getElementById('no-faqs').style.display = 'None';
-
+        if(document.getElementById('no-faqs')){
+            document.getElementById('no-faqs').style.display = 'None';
+        }
         showSaveButton('faqs')
     }
 
