@@ -29,6 +29,7 @@ urlpatterns = [
     path('dashboard/deliveries/<order_id>/<seller_name>', views.deliveries, name='deliveries'),
     path('dashboard/settings/<seller_name>', views.settings, name='settings'),
     path('dashboard/listings_items/<seller_name>', views.listings_items, name='listings_items'),
+    path('dashboard/listings_new/<seller_name>', views.listings_new, name='listings_new'),
     path('dashboard/deliveries_selected/<seller_name>/<order_id>', views.deliveries_selected, name='deliveries_selected'),
     path('dashboard/update_order_status/<seller_name>/<order_id>/<order_status>', views.update_order_status,
          name='update_order_status'),

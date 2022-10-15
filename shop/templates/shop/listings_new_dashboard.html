@@ -1,0 +1,119 @@
+{% extends "shop/base_dashboard.html" %}
+
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'shop/listings_new_dashboard_style.css' %}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.10.2/Sortable.min.js"></script>
+
+<nav class="navbar-left">
+    <a href="/"><img id="logo-nav" src="/media/logos/logo.png"></a>
+    <ul class="dashboard-links">
+        <li class="dashboard-link nav-home" id="navigation-dashboard-link-dashboard"><a href="/dashboard/home/{{seller}}"><img class="icon-navbar" src="/media/icons/home-dashboard-white.png" alt="">Dashboard</a></li>
+        <li class="dashboard-link nav-listings active-page" id="navigation-dashboard-link-listings"><a href="/dashboard/listings/{{seller}}"><img class="icon-navbar" src="/media/icons/listings-dashboard-white.png" alt="">Listings</a></li>
+        <li class="dashboard-link nav-deliveries" id="navigation-dashboard-link-deliveries"><a href="/dashboard/deliveries/last/{{seller}}"><img class="icon-navbar" src="/media/icons/deliveries-dashboard-white.png" alt="">Orders</a></li>
+        <li class="dashboard-link nav-settings" id="navigation-dashboard-link-settings"><a href="/dashboard/settings/{{seller}}"><img class="icon-navbar" src="/media/icons/settings-dashboard-white.png" alt="">Settings</a></li>
+    </ul>
+
+</nav>
+
+<nav id="header">
+    <p id="header-title"><img class="icon-header"
+                src="/media/icons/listings-dashboard.png" alt="">Listings</p>
+
+    <a class="save-listing-button" href=""><img class="save-img" src="/media/icons/sync-data.png">Save listing</a>
+
+</nav>
+
+
+<div class="mainmain">
+    <div class="listings-new-content">
+        <div class="listings-new-content-header">
+            <a href="/dashboard/listings/{{seller}}"><img class="arrow_to_left" src="/media/icons/arrow_to_left.png" alt=""></a>
+            <p>Create listing</p>
+        </div>
+
+        <div class="listings-new">
+            <div class="listings-new-left">
+                <div class="nav-images-wrapper" id="nav-images-wrapper">
+                    <div class="nav-images" id="nav-images">
+                        {% for image in item.image_set.all %}
+                        <img class="nav-image" src="{{image.image.url}}" width="70px" alt="" onmouseenter="updateImage('{{image.image.url}}')">
+                        {% endfor %}
+                    </div>
+                </div>
+                <div id="item-image-wrapper">
+                    <img id="item-image" src="{{item.image_set.first.image.url}}" alt="">
+                </div>
+                <div id="item-image-wrapper-mobile">
+                    {% for image in item.image_set.all %}
+                    <img class="item-image-mobile" src="{{image.image.url}}" alt="">
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="listings-new-right">
+                <textarea type="text" class="inputfield-item-title block-1" id="item-title" name="item-title" placeholder="Item Title"></textarea>
+
+                <div class="block2">
+                    <input type="number" class="price-field" id="current-price" name="current-price" placeholder="Current Price">
+                    <p>€</p>
+                    <input type="number" class="price-field" id="old-price" name="old-price" placeholder="Old Price">
+                    <p>€</p>
+                </div>
+
+                <div class="block3">
+                    <input type="text" class="inputfield-customization-group" id="customization-group" name="customization-group" placeholder="Customization Group"></input>
+                    <div class="block3-drag-and-drop">
+                        <div class="block3-line">
+                            <img class="hamburger" src="/media/icons/hamburger.png" alt="">
+                            <input type="text" class="inputfield-customization-option" id="customization-option" name="customization-option" placeholder="Customization Option">
+                            <input type="number" class="price-field-customization" id="customization-price" name="current-price" placeholder="Price">
+                            <p>€</p>
+                        </div>
+                        <div class="block3-line">
+                            <img class="hamburger" src="/media/icons/hamburger.png" alt="">
+                            <input type="text" class="inputfield-customization-option" id="customization-option" name="customization-option" placeholder="Customization Option">
+                            <input type="number" class="price-field-customization" id="customization-price" name="customization-price" placeholder="Price">
+                            <p>€</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="block4">
+                    <a class="add-group-button" href=""><img class="add-img" src="/media/icons/plus.png">Add Group</a>
+                    <a class="add-option-button" href=""><img class="add-img" src="/media/icons/plus.png">Add Option</a>
+                </div>
+
+                <div class="block5">
+                    <textarea type="text" class="inputfield-text" id="item-details" name="item-details" placeholder="Details"></textarea>
+                    <textarea type="text" class="inputfield-text" id="item-description" name="item-description" placeholder="Description"></textarea>
+                    <textarea type="text" class="inputfield-text" id="item-materials" name="item-materials" placeholder="Material(s)"></textarea>
+                </div>
+
+
+
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+</div>
+
+
+<script>
+    const dragArea = document.querySelector(".block3-drag-and-drop");
+    new Sortable(dragArea, {
+      animation: 350
+    });
+</script>
+
+
+
+
+
+
+{% endblock %}

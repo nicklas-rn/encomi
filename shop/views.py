@@ -559,6 +559,18 @@ def listings_items(request, seller_name):
     return render(request, 'shop/listings_dashboard_items.html', context)
 
 
+
+def listings_new(request, seller_name):
+    seller = Seller.objects.get(name=seller_name)
+
+    context = {
+        'seller': seller,
+    }
+
+    return render(request, 'shop/listings_new_dashboard.html', context)
+
+
+
 def deliveries(request, order_id, seller_name):
     seller = Seller.objects.get(name=seller_name)
 
