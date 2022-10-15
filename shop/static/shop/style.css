@@ -329,40 +329,20 @@ footer p, footer a, footer a:visited{
 
 :root {
     --body: #ffffff;
-    --text: #081114;
-    --text-light: #ACC3C9;
-    --primary: #ACC3C9;
-    --border: #D5E1E4;
-    --padding: 10px 20px;
-    --line-height: 24px;
-}
-
-#new-order-link{
-    background-color: EAF0F2;
-}
-
-#dashboard-link{
-    background-color: transparent;
-}
-
-.new-order{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.form-wrapper{
-    max-width: 680px;
-    padding-bottom: 100px;
+    --text: black;
+    --text-light: grey;
+    --primary: grey;
+    --border: lightgrey;
+    --padding: 10px 10px;
+    --line-height: 18px;
 }
 
 .input-group {
-    width: calc(100%-4px);
+    width: auto;
     position: relative;
-    border: 2px solid var(--border);
-    border-radius: 8px;
-    margin-bottom: 20px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    margin-bottom: 10px;
 }
 
 .input-group-wrapper{
@@ -400,7 +380,7 @@ footer p, footer a, footer a:visited{
     background-color: transparent;
     width: 100%;
     color: var(--text);
-    font-size: 18px;
+    font-size: 14px;
     line-height: var(--line-height);
     border-radius: 6px;
 }
@@ -424,8 +404,7 @@ footer p, footer a, footer a:visited{
     top: 0;
     left: 0;
     bottom: 0;
-    font-size: 16px;
-    font-size: 16px;
+    font-size: 14px;
     color: var(--text-light);
     cursor: text;
     transition: 0.1s;
@@ -437,13 +416,13 @@ footer p, footer a, footer a:visited{
 
 .input-group:focus-within label,
 .input-group .input:not(:placeholder-shown) ~ label {
-    padding: 0px 8px;
+    padding: 0px 5px;
     line-height: 14px;
     background-color: var(--body);
-    top: -14px;
-    left: 10px;
+    top: -8px;
+    left: 5px;
     bottom: auto;
-    font-size: 14;
+    font-size: 12;
     color: var(--text-light);
 }
 
