@@ -106,15 +106,15 @@ class PoliciesForm(ModelForm):
         ]
         widgets = {
             'shipping_general_information': Textarea(
-                attrs={'placeholder': 'General Information', 'class': 'block1-inputfield', 'onkeydown': 'showSaveButton("policies")'}),
+                attrs={'placeholder': ' ', 'class': 'input block1-inputfield', 'onkeydown': 'showSaveButton("policies")'}),
             'shipping_customs_and_taxes': Textarea(
-                attrs={'placeholder': 'Customs and Import Taxes', 'class': 'block1-inputfield', 'onkeydown': 'showSaveButton("policies")'}),
+                attrs={'placeholder': ' ', 'class': 'input block1-inputfield', 'onkeydown': 'showSaveButton("policies")'}),
             'returns_conditions': Textarea(
-                attrs={'placeholder': 'Conditions of Returns', 'class': 'block1-inputfield', 'onkeydown': 'showSaveButton("policies")'}),
+                attrs={'placeholder': ' ', 'class': 'input block1-inputfield', 'onkeydown': 'showSaveButton("policies")'}),
             'returns_questions': Textarea(
-                attrs={'placeholder': 'Questions about your Order?', 'class': 'block1-inputfield', 'onkeydown': 'showSaveButton("policies")'}),
+                attrs={'placeholder': ' ', 'class': 'input block1-inputfield', 'onkeydown': 'showSaveButton("policies")'}),
             'privacy': Textarea(
-                attrs={'placeholder': 'Privacy Policy', 'class': 'block3-inputfield', 'onkeydown': 'showSaveButton("policies")'}),
+                attrs={'placeholder': ' ', 'class': 'input block3-inputfield', 'onkeydown': 'showSaveButton("policies")'}),
 
             'accepts_returns': CheckboxInput(
                 attrs={'onchange': 'showSaveButton("policies")'}),

@@ -3,8 +3,14 @@
     <div class="settings-block1">
         <p class="block-heading">Shipping</p>
         <div class="settings-block1-fields">
-            {{policies_form.shipping_general_information}}
-            {{policies_form.shipping_customs_and_taxes}}
+            <div class="input-group">
+                {{policies_form.shipping_general_information}}
+                <label for="id_shipping_general_information">General Information</label>
+            </div>
+            <div class="input-group">
+                {{policies_form.shipping_customs_and_taxes}}
+                <label for="id_customs_and_taxes">Customs and Import Taxes</label>
+            </div>
         </div>
     </div>
 
@@ -29,15 +35,24 @@
         </div>
 
         <div class="settings-block1-fields">
-            {{policies_form.returns_conditions}}
-            {{policies_form.returns_questions}}
+            <div class="input-group">
+                {{policies_form.returns_conditions}}
+                <label for="id_returns_conditions">Conditions of Returns</label>
+            </div>
+            <div class="input-group">
+                {{policies_form.returns_questions}}
+               <label for="id_returns_questions">Questions about your Order?</label>
+            </div>
         </div>
     </div>
 
     <div class="settings-block3">
         <p class="block-heading">Privacy Policy</p>
         <div class="settings-block3-fields">
-            {{policies_form.privacy}}
+            <div class="input-group">
+                {{policies_form.privacy}}
+                <label for="id_privacy">Privacy Policy</label>
+            </div>
         </div>
     </div>
 </form>
