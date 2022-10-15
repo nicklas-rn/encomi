@@ -630,11 +630,8 @@ def settings(request, seller_name):
 
     if request.method == 'POST':
         form = PoliciesForm(request.POST, instance=seller_policies)
-        print(request.POST['shipping_general_information'])
-        print(seller_policies.shipping_general_information)
         if form.is_valid():
             form.save()
-            print(seller_policies.shipping_general_information)
 
         return redirect(f"/dashboard/settings/{seller}")
 
