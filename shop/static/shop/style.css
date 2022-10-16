@@ -562,6 +562,7 @@ footer p, footer a, footer a:visited{
          position: relative;
          width: auto;
          height: auto;
+         min-height: 75px;
          background-color: transparent;
          overflow: hidden;
          z-index: 100;

@@ -91,6 +91,26 @@
 
 
 
+<script>
+    function scrollItems(items, direction){
+        str = items + 'Items'
+        console.log(str)
+        items_element = document.getElementById(str)
+        let width = (items_element.offsetWidth + 25) * direction;
+        console.log(width)
+        items_element.scrollBy(width, 0)
+
+        let btn_left_str = 'scroll-button-left-' + items
+        btn_left = document.getElementById(btn_left_str)
+        console.log((items_element.scrollLeft + width))
+        if((items_element.scrollLeft + width) <= 0){
+            btn_left.style.display = 'None'
+        }
+        else{
+            btn_left.style.display = 'block'
+        }
+    }
+</script>
 
 
 
