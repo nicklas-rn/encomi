@@ -541,6 +541,10 @@ footer p, footer a, footer a:visited{
         top: -6px;
     }
 
+    #logo-footer {
+        height: 50px;
+    }
+
 
 
 
@@ -748,8 +752,6 @@ footer p, footer a, footer a:visited{
          transform: translateY(-50%) scaleY(5);
          transition: 0.5s;
     }
-
-
 
 
 }

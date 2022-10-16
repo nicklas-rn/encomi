@@ -50,11 +50,6 @@
         min-height: 75px;
     }
 
-    #logo-footer {
-        height: 40px;
-        padding-top: 0px;
-    }
-
     [data-custom-class='wrapper'] {
         padding: 15px 25px 25px 25px !important;
     }
