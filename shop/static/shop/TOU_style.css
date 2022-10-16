@@ -10,6 +10,10 @@
     background-color: #FFF8ED !important;
 }
 
+#secondary-navbar {
+    display: none;
+}
+
 #cart-preview {
     background-color: #FFF8ED !important;
 }
@@ -29,10 +33,33 @@
     width: 100%;
 }
 
+.container {
+    background-color: #FFF8ED;
+}
+
 [data-custom-class="link"] {
     color: black;
 }
 
+
+
+
+@media screen and (max-width: 900px) {
+
+    .container {
+        min-height: 75px;
+    }
+
+    #logo-footer {
+        height: 40px;
+        padding-top: 0px;
+        margin-bottom: 30px;
+    }
+
+    [data-custom-class='wrapper'] {
+        padding: 15px 25px 25px 25px !important;
+    }
+}
 
 
 
