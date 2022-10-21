@@ -31,6 +31,10 @@
     width: 100%;
 }
 
+.container {
+    background-color: #FFF8ED;
+}
+
 
 [data-custom-class='wrapper'] {
     padding: 25px 25px 25px 25px !important;
@@ -40,6 +44,16 @@
     color: black;
 }
 
+@media screen and (max-width: 900px) {
+
+    .container {
+        min-height: 75px;
+    }
+
+    [data-custom-class='wrapper'] {
+        padding: 15px 25px 25px 25px !important;
+    }
+}
 
 
 
