@@ -46,3 +46,7 @@
     justify-content: left;
     align-items: center;
 }
+
+removeButton:hover{
+    text-decoration: underline;
+}

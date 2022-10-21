@@ -1,0 +1,13 @@
+<div class="block3-line" id="customization-option-{{customization_group_id}}-{{count}}">
+    <img class="hamburger" src="/media/icons/hamburger.png" alt="">
+    <div class="input-group input-group-inline input-group-inline-option">
+        <input type="text" class="input inputfield-customization-option" id="customization-option-input-{{customization_group_id}}-{{count}}" name="customization-option" placeholder=" ">
+        <label for="customization-option-input-{{customization_group_id}}-{{count}}">Customization Option</label>
+    </div>
+    <div class="input-group input-group-inline input-group-inline-option">
+        <input type="number" class="input price-field-customization" id="customization-price-{{customization_group_id}}-{{count}}" name="current-price" placeholder=" ">
+        <label for="customization-price-{{customization_group_id}}-{{count}}">Price</label>
+    </div>
+    <p>€</p>
+    <button class="removeOptionButton" onclick="deleteCustomizationOption('{{customization_group_id}}', '{{count}}')"><img class="removeIcon" src="/media/icons/trashcan.png" alt=""></button>
+</div>

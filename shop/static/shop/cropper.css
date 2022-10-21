@@ -1,0 +1,51 @@
+.cropped-image-wrapper{
+    height: calc(100% - 60px);
+}
+
+.image-workspace{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.action-button{
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.choose-image-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 15;
+    border: grey;
+    border-radius: 7px;
+    background-color: #F5E6D0;
+    width: 180px;
+    font-family: 'Inter', inter;
+    height: 40px;
+    color: black;
+    text-decoration: None;
+    margin-right: 10px;
+    border: 1px solid lightgrey;
+    cursor: pointer;
+}
+
+.save-image-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 15;
+    border: grey;
+    border-radius: 7px;
+    background-color: #F5E6D0;
+    width: 180px;
+    font-family: 'Inter', inter;
+    height: 40px;
+    color: black;
+    text-decoration: None;
+    border: 1px solid lightgrey;
+    cursor: pointer;
+}

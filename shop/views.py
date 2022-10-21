@@ -565,11 +565,43 @@ def listings_new(request, seller_name):
 
     context = {
         'seller': seller,
+        'customization_group_id': generateId(5),
     }
 
     return render(request, 'shop/listings_new_dashboard.html', context)
 
 
+def listings_new_customization_group(request, seller_name, id):
+    seller = Seller.objects.get(name=seller_name)
+
+    context = {
+        'seller': seller,
+        'customization_group_id': id,
+    }
+
+    return render(request, 'shop/listings_new_customization_group_dashboard.html', context)
+
+
+def listings_new_customization_option(request, seller_name, id, count):
+    seller = Seller.objects.get(name=seller_name)
+
+    context = {
+        'seller': seller,
+        'customization_group_id': id,
+        'count': count,
+    }
+
+    return render(request, 'shop/listings_new_customization_option_dashboard.html', context)
+
+
+def listings_new_image(request, seller_name):
+    seller = Seller.objects.get(name=seller_name)
+
+    context = {
+        'seller': seller,
+    }
+
+    return render(request, 'image_cropper/index.html', context)
 
 def deliveries(request, order_id, seller_name):
     seller = Seller.objects.get(name=seller_name)

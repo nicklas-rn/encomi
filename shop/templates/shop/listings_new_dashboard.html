@@ -4,6 +4,11 @@
 
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'shop/listings_new_dashboard_style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'shop/cropper.css' %}">
+
+
+<link rel="stylesheet" type="text/css" href="{% static 'image_cropper/css/cropper.css' %}">
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.10.2/Sortable.min.js"></script>
 
 <nav class="navbar-left">
@@ -37,13 +42,17 @@
             <div class="listings-new-left">
                 <div class="nav-images-wrapper" id="nav-images-wrapper">
                     <div class="nav-images" id="nav-images">
+                        <!--
                         {% for image in item.image_set.all %}
                         <img class="nav-image" src="{{image.image.url}}" width="70px" alt="" onmouseenter="updateImage('{{image.image.url}}')">
                         {% endfor %}
+                        -->
+                        <div id="nav-image-placeholder" onclick="openCropper(0)"><img class="add-img" src="/media/icons/plus.png"></div>
                     </div>
                 </div>
                 <div id="item-image-wrapper">
-                    <img id="item-image" src="{{item.image_set.first.image.url}}" alt="">
+                    <div id="item-image-placeholder" onclick="openCropper(0)"><img class="add-img" src="/media/icons/plus.png"></div>
+                    <img id="item-image" src="" alt="">
                 </div>
                 <div id="item-image-wrapper-mobile">
                     {% for image in item.image_set.all %}
@@ -52,63 +61,195 @@
                 </div>
             </div>
 
-            <div class="listings-new-right">
-                <textarea type="text" class="inputfield-item-title block-1" id="item-title" name="item-title" placeholder="Item Title"></textarea>
-
-                <div class="block2">
-                    <input type="number" class="price-field" id="current-price" name="current-price" placeholder="Current Price">
-                    <p>€</p>
-                    <input type="number" class="price-field" id="old-price" name="old-price" placeholder="Old Price">
-                    <p>€</p>
-                </div>
-
-                <div class="block3">
-                    <input type="text" class="inputfield-customization-group" id="customization-group" name="customization-group" placeholder="Customization Group"></input>
-                    <div class="block3-drag-and-drop">
-                        <div class="block3-line">
-                            <img class="hamburger" src="/media/icons/hamburger.png" alt="">
-                            <input type="text" class="inputfield-customization-option" id="customization-option" name="customization-option" placeholder="Customization Option">
-                            <input type="number" class="price-field-customization" id="customization-price" name="current-price" placeholder="Price">
-                            <p>€</p>
+            <div class="listings-new-right-wrapper">
+                <div class="listings-new-right">
+                    <div class="input-group">
+                        <textarea type="text" class="input inputfield-item-title block-1" id="item-title" name="item-title" placeholder=" "></textarea>
+                        <label for="item-title">Item Title</label>
+                    </div>
+                    <div class="block2">
+                        <div class="input-group input-group-inline input-group-inline-price">
+                            <input type="number" class="input price-field" id="current-price" name="current-price" placeholder=" ">
+                            <label for="current-price">Current Price</label>
                         </div>
-                        <div class="block3-line">
-                            <img class="hamburger" src="/media/icons/hamburger.png" alt="">
-                            <input type="text" class="inputfield-customization-option" id="customization-option" name="customization-option" placeholder="Customization Option">
-                            <input type="number" class="price-field-customization" id="customization-price" name="customization-price" placeholder="Price">
-                            <p>€</p>
+                        <p class="margin">€</p>
+                        <div class="input-group input-group-inline input-group-inline-price">
+                            <input type="number" class="input price-field" id="old-price" name="old-price" placeholder=" ">
+                            <label for="old-price">Old Price</label>
+                        </div>
+                        <p>€</p>
+                    </div>
+
+                    <div class="block3 drag-and-drop-test" id="block3">
+                    </div>
+
+                    <div class="block4">
+                        <button class="add-group-button" onclick="addCustomizationGroup()"><img class="add-img" src="/media/icons/plus.png">Add Customization Group</button>
+                    </div>
+
+                    <div class="block5">
+                        <div class="input-group">
+                            <textarea type="text" class="input inputfield-text" id="item-details" name="item-details" placeholder=" "></textarea>
+                            <label for="item-details">Details</label>
+                        </div>
+                        <div class="input-group">
+                            <textarea type="text" class="input inputfield-text" id="item-description" name="item-description" placeholder=" "></textarea>
+                            <label for="item-description">Description</label>
+                        </div>
+                        <div class="input-group">
+                            <textarea type="text" class="input inputfield-text" id="item-materials" name="item-materials" placeholder=" "></textarea>
+                            <label for="item-materials">Material(s)</label>
                         </div>
                     </div>
                 </div>
-
-                <div class="block4">
-                    <a class="add-group-button" href=""><img class="add-img" src="/media/icons/plus.png">Add Group</a>
-                    <a class="add-option-button" href=""><img class="add-img" src="/media/icons/plus.png">Add Option</a>
-                </div>
-
-                <div class="block5">
-                    <textarea type="text" class="inputfield-text" id="item-details" name="item-details" placeholder="Details"></textarea>
-                    <textarea type="text" class="inputfield-text" id="item-description" name="item-description" placeholder="Description"></textarea>
-                    <textarea type="text" class="inputfield-text" id="item-materials" name="item-materials" placeholder="Material(s)"></textarea>
-                </div>
-
-
-
-
             </div>
         </div>
-
-
-
     </div>
 
 </div>
 
 
+<div id="image-cropper-wrapper">
+    <div id="image-cropper">
+        <button id="image-cropper-close" onclick="closeCropper()"><img class="close-icon" src="/media/icons/close.svg"></button>
+        <!--{% include "image_cropper/index.html" %}-->
+        {% include "shop/cropper.html" %}
+    </div>
+</div>
+
+
+<script src="{% static 'shop/cropper.js' %}"></script>
+
+<script src="{% static 'image_cropper/js/cropper.js' %}"></script>
+
 <script>
-    const dragArea = document.querySelector(".block3-drag-and-drop");
-    new Sortable(dragArea, {
-      animation: 350
-    });
+    var imageId = 0
+
+    function openCropper(id){
+        document.getElementById('image-cropper-wrapper').style.display = 'flex'
+
+        console.log(id)
+
+        let images = document.getElementsByClassName('nav-image')
+        if(id!=0){
+            let transformedId = id - 1
+            image_workspace.src = images[transformedId].src
+            console.log(image_workspace.src)
+            cropper.destroy()
+            cropper = new Cropper(image_workspace, options)
+        }
+        else{
+            hiddenUpload.click()
+        }
+        imageId = id
+
+    }
+
+    function closeCropper(){
+        document.getElementById('image-cropper-wrapper').style.display = 'None'
+    }
+
+    function setImage(url){
+        let images = document.getElementsByClassName('nav-image')
+        let id = images.length + 1
+
+        if(imageId==0){
+            let navImagesWrapper = document.getElementById('nav-images-wrapper')
+            let img = document.createElement('img')
+            img.classList.add('nav-image')
+            img.src = url
+            img.onmouseenter = function() {updateImage(url)}
+            img.onclick = function() {openCropper(id)}
+            navImagesWrapper.appendChild(img)
+        }
+        else{
+            let transformedId = imageId - 1
+            images[transformedId].src = url
+            images[transformedId].onmouseenter = function() {updateImage(url)}
+        }
+
+        updateImage(url)
+    }
+
+
+
+    function updateImage(src){
+        document.getElementById('item-image-placeholder').style.display = 'None'
+        let itemImage = document.getElementById('item-image')
+        itemImage.style.display = 'block';
+        itemImage.src = src;
+    }
+
+
+
+    async function addCustomizationGroup(){
+        let id = generateID(5)
+
+        let request = new XMLHttpRequest();
+        let method = 'GET';
+
+        let url = '/dashboard/listings_new_customization_group/' + id + '/{{seller}}';
+        request.open(method, url);
+        request.onload = function () {
+            let myHTML = request.response;
+            let newDiv = document.createElement('div')
+            document.getElementById('block3').appendChild(newDiv);
+            newDiv.outerHTML = myHTML
+        };
+        request.send();
+
+        let delayres = await delay(50)
+
+
+        let dragAreaContainer = document.querySelector('.drag-and-drop-test');
+        new Sortable(dragAreaContainer, {
+            animation: 350
+        });
+
+        let dragArea = document.getElementsByClassName('block3-drag-and-drop');
+        for (let i=0; i<dragArea.length; i++){
+            new Sortable(dragArea[i], {
+                animation: 350
+            });
+        }
+    }
+
+    function addCustomizationOption(id){
+        str = 'customization-group-' + id
+        let container = document.getElementById(str)
+        let count = container.getElementsByClassName('block3-line').length + 1
+
+        str = 'block3-drag-and-drop-' + id
+
+        let request = new XMLHttpRequest();
+        let method = 'GET';
+
+        let url = '/dashboard/listings_new_customization_option/' + id +  '/' + count +   '/{{seller}}';
+        request.open(method, url);
+        request.onload = function () {
+            let myHTML = request.response;
+            let newDiv = document.createElement('div')
+            document.getElementById(str).appendChild(newDiv);
+            newDiv.outerHTML = myHTML
+        };
+        request.send();
+    }
+
+    function deleteCustomizationOption(id, count){
+        str = 'customization-option-' + id + '-' + count
+        console.log(str)
+        let element = document.getElementById(str)
+        console.log(element)
+        element.style.display = 'None'
+    }
+
+    function deleteCustomizationGroup(id){
+        str = 'customization-group-' + id
+        console.log(str)
+        let element = document.getElementById(str)
+        console.log(element)
+        element.remove()
+    }
 </script>
 
 
