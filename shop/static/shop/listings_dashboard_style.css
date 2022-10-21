@@ -7,6 +7,14 @@
     height: calc(100% - 50px);
 }
 
+.listings-buttons-wrapper {
+    display: flex;
+}
+
+.create-listing-button {
+    margin-right: 7px;
+}
+
 .sync-data-button {
     display: flex;
     flex-direction: row;
