@@ -1,3 +1,7 @@
+#cart-preview {
+    background-color: var(--backgroundColor) !important;
+}
+
 #navbar-wrapper{
     background-color: var(--backgroundColor);
 }

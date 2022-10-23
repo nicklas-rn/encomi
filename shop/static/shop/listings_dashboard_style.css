@@ -7,6 +7,7 @@
     height: calc(100% - 50px);
 }
 
+<<<<<<< HEAD
 .buttons-settings-header {
     display: flex;
 }
@@ -26,6 +27,14 @@
     color: black;
     text-decoration: None;
     margin-right: 8px;
+=======
+.listings-buttons-wrapper {
+    display: flex;
+}
+
+.create-listing-button {
+    margin-right: 7px;
+>>>>>>> 77aea7053d976f7cb140209dacd47e0254685cc5
 }
 
 .sync-data-button {
