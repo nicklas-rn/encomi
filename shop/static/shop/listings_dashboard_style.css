@@ -7,34 +7,12 @@
     height: calc(100% - 50px);
 }
 
-<<<<<<< HEAD
-.buttons-settings-header {
-    display: flex;
-}
-
-.new-listing-button {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    font-size: 15;
-    border: grey;
-    border-radius: 7px;
-    background-color: #F5E6D0;
-    border: 1px solid lightgrey;
-    width: 180px;
-    font-family: 'Inter', inter;
-    height: 40px;
-    color: black;
-    text-decoration: None;
-    margin-right: 8px;
-=======
 .listings-buttons-wrapper {
     display: flex;
 }
 
 .create-listing-button {
     margin-right: 7px;
->>>>>>> 77aea7053d976f7cb140209dacd47e0254685cc5
 }
 
 .sync-data-button {
