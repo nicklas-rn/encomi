@@ -30,6 +30,13 @@ class Seller(models.Model):
     delivery_days_min = models.IntegerField(default=4)
     delivery_days_max = models.IntegerField(default=7)
 
+    img_landing_page = models.FileField(null=True)
+    img_landing_page_mobile = models.FileField(null=True)
+    img_shop_page = models.FileField(null=True)
+    img_shop_page_mobile = models.FileField(null=True)
+    img_item_page = models.FileField(null=True)
+    img_item_page_mobile = models.FileField(null=True)
+
     policies = models.ForeignKey(SellerPolicies, on_delete=models.SET_NULL, null=True, blank=True)
 
     registration_code = models.CharField(max_length=12, null=True, blank=True)

@@ -88,8 +88,8 @@
 
 .block2-content {
     display: flex;
-    flex-direction: row;
-    overflow: auto;
+    flex-direction: column;
+    overflow: hidden;
     justify-content: left;
 
 }
@@ -100,6 +100,24 @@
     font-size: 16;
 }
 
+.block2-images {
+    display: flex;
+    width: 100%;
+    height: 280px;
+    margin: 15px 0px 60px 5px;
+}
+
 .image-page {
-    width: 400px;
+    width: 600px;
+    height: 280px;
+    box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    margin-right: 35px;
+}
+
+.image-page-mobile {
+    width: auto;
+    height: 280px;
+    box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
 }
