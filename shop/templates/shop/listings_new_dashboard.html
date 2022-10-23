@@ -26,7 +26,7 @@
     <p id="header-title"><img class="icon-header"
                 src="/media/icons/listings-dashboard.png" alt="">Listings</p>
 
-    <a class="save-listing-button" href=""><img class="save-img" src="/media/icons/sync-data.png">Save listing</a>
+    <a class="save-listing-button" onclick="saveListing()"><img class="save-img" src="/media/icons/sync-data.png">Save listing</a>
 
 </nav>
 
@@ -118,6 +118,9 @@
 </div>
 
 
+<input id="save-files" type="file" multiple>
+
+
 <script src="{% static 'shop/cropper.js' %}"></script>
 
 <script src="{% static 'image_cropper/js/cropper.js' %}"></script>
@@ -132,13 +135,20 @@
 
         let images = document.getElementsByClassName('nav-image')
         if(id!=0){
-            let transformedId = id - 1
-            image_workspace.src = images[transformedId].src
+            str = 'nav-image-' + id
+            image_workspace.src = document.getElementById(str).src
             console.log(image_workspace.src)
             cropper.destroy()
             cropper = new Cropper(image_workspace, options)
         }
         else{
+            if(document.getElementsByClassName('nav-image').length > 0){
+                file = null
+                url = window.URL.createObjectURL(new Blob([file], { type : 'image/jpg' }))
+                image_workspace.src = url
+                cropper.destroy()
+                cropper = new Cropper(image_workspace, options)
+            }
             hiddenUpload.click()
         }
         imageId = id
@@ -149,23 +159,34 @@
         document.getElementById('image-cropper-wrapper').style.display = 'None'
     }
 
-    function setImage(url){
+    function setImage(url, fileContainer){
         let images = document.getElementsByClassName('nav-image')
-        let id = images.length + 1
+        let id = generateID(5)
 
         if(imageId==0){
             let navImagesWrapper = document.getElementById('nav-images-wrapper')
+            let div = document.createElement('div')
             let img = document.createElement('img')
+            let input = document.createElement('input')
+            div.classList.add('nav-image-wrapper')
             img.classList.add('nav-image')
+            str = 'nav-image-' + id
+            img.id = str
             img.src = url
             img.onmouseenter = function() {updateImage(url)}
             img.onclick = function() {openCropper(id)}
-            navImagesWrapper.appendChild(img)
+            input.classList.add('nav-image-input')
+            input.type = 'file'
+            input.files = fileContainer.files
+            div.appendChild(img)
+            div.appendChild(input)
+            navImagesWrapper.appendChild(div)
         }
         else{
-            let transformedId = imageId - 1
-            images[transformedId].src = url
-            images[transformedId].onmouseenter = function() {updateImage(url)}
+            str = 'nav-image-' + imageId
+            let img = document.getElementById(str)
+            img.src = url
+            img.onmouseenter = function() {updateImage(url)}
         }
 
         updateImage(url)
@@ -249,6 +270,74 @@
         let element = document.getElementById(str)
         console.log(element)
         element.remove()
+    }
+
+
+
+
+
+    async function saveListing(){
+        listing_dict = {
+            'title': document.getElementById('item-title').value,
+            'current_price': document.getElementById('current-price').value,
+            'old_price': document.getElementById('old-price').value,
+            'details': document.getElementById('item-details').value,
+            'description': document.getElementById('item-description').value,
+            'materials': document.getElementById('item-materials').value,
+            'customization_groups': [],
+            'images': [],
+        }
+
+        var data = new FormData();
+
+        data.append('title', document.getElementById('item-title').value)
+        data.append('current_price', document.getElementById('current-price').value)
+        data.append('old_price', document.getElementById('old-price').value)
+        data.append('details', document.getElementById('item-details').value)
+        data.append('description', document.getElementById('item-description').value)
+        data.append('materials', document.getElementById('item-materials').value)
+
+
+        let customization_group_elements = document.getElementsByClassName('customization-group')
+        for(let i=0; i<customization_group_elements.length; i++){
+            let group_dict = {}
+            group_dict['title'] = customization_group_elements[i].getElementsByClassName('inputfield-customization-group')[0].value
+            group_dict['options'] = []
+
+            let option_elements = customization_group_elements[i].getElementsByClassName('block3-line')
+            for(let i=0; i<option_elements.length; i++){
+                let option_dict = {}
+                option_dict['title'] = option_elements[i].getElementsByClassName('inputfield-customization-option')[0].value
+                option_dict['price'] = option_elements[i].getElementsByClassName('price-field-customization')[0].value
+                group_dict['options'].push(option_dict)
+            }
+            listing_dict['customization_groups'].push(group_dict)
+            data.append('customization_groups', JSON.stringify(group_dict))
+        }
+
+        let image_elements = document.getElementsByClassName('nav-image-wrapper')
+        for(let i=0; i<image_elements.length; i++){
+            let item_img = image_elements[i].getElementsByClassName('nav-image-input')[0].files[0]
+            data.append('images', item_img)
+            listing_dict['images'].push(image_elements[i].getElementsByClassName('nav-image-input')[0].files[0])
+        }
+
+        data.append('csrfmiddlewaretoken', '{{ csrf_token }}')
+
+        for (var key of data.entries()) {
+            console.log(key[0] + ', ' + key[1]);
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/dashboard/listings_new_save/{{seller}}',
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            data: data,
+            success: async function() {let delayres = await delay(50); updateSettingsContent('faqs')}
+        })
     }
 </script>
 

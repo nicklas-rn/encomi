@@ -7,6 +7,27 @@
     height: calc(100% - 50px);
 }
 
+.buttons-settings-header {
+    display: flex;
+}
+
+.new-listing-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 15;
+    border: grey;
+    border-radius: 7px;
+    background-color: #F5E6D0;
+    border: 1px solid lightgrey;
+    width: 180px;
+    font-family: 'Inter', inter;
+    height: 40px;
+    color: black;
+    text-decoration: None;
+    margin-right: 8px;
+}
+
 .sync-data-button {
     display: flex;
     flex-direction: row;
@@ -15,6 +36,7 @@
     border: grey;
     border-radius: 7px;
     background-color: #F5E6D0;
+    border: 1px solid lightgrey;
     width: 180px;
     font-family: 'Inter', inter;
     height: 40px;

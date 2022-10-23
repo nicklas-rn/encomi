@@ -68,6 +68,7 @@ class Item(models.Model):
     old_price = models.FloatField(blank=True, null=True)
     details = models.TextField(max_length=5000, blank=True, null=True)
     description = models.TextField(max_length=5000, blank=True, null=True)
+    materials = models.TextField(max_length=5000, blank=True, null=True)
     categories = models.ManyToManyField(Category, null=True, blank=True)
     seller = models.ForeignKey('Seller', null=True, on_delete=models.CASCADE)
     sold_counter = models.IntegerField(default=0)

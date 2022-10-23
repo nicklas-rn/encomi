@@ -38,7 +38,12 @@ hiddenUpload.onchange = () => {
                     a.click()
                     actionButton[1].innerText = 'Download'*/
 
-                    setImage(downloadUrl)
+                    let imgFile = new File([blob], "img.jpg",{type:"image/jpeg", lastModified:new Date().getTime()});
+                    let fileContainer = new DataTransfer();
+                    fileContainer.items.add(imgFile);
+
+                    console.log(blob)
+                    setImage(downloadUrl, fileContainer)
                     closeCropper()
                 })
             }

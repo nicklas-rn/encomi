@@ -1,4 +1,5 @@
 import json
+from urllib.request import urlopen
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from .models import *
@@ -6,7 +7,8 @@ from .utils import *
 from .scraper import *
 from .forms import *
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
-
+from django.core.files import File
+from django.core.files.temp import NamedTemporaryFile
 from django.contrib.auth import authenticate, login, logout
 
 
@@ -569,6 +571,79 @@ def listings_new(request, seller_name):
     }
 
     return render(request, 'shop/listings_new_dashboard.html', context)
+
+
+def listings_new_save(request, seller_name):
+    seller = Seller.objects.get(name=seller_name)
+
+    """
+    listing_dict = json.loads(request.POST['listing_dict'])
+
+    item = Item.objects.create(
+        title=listing_dict['title'],
+        price=listing_dict['current_price'],
+        old_price=listing_dict['old_price'],
+        details=listing_dict['details'],
+        description=listing_dict['description'],
+        materials=listing_dict['materials'],
+        seller=seller
+    )
+
+    for img in listing_dict['images']:
+        img_obj = Image.objects.create(item=item, image=img)
+
+    for group in listing_dict['customization_group']:
+        style_group = StyleGroup.objects.create(
+            title=group['title'],
+            item=item
+        )
+        for option in group['options']:
+            style = Style.objects.create(
+                title=option['title'],
+                price=option['price'],
+                style_group=style_group,
+            )
+            
+    """
+
+    listing_dict = request.POST
+    listing_dict_files = request.FILES
+
+    print(listing_dict)
+    print(listing_dict_files)
+
+    item = Item.objects.create(
+        title=listing_dict['title'],
+        price=listing_dict['current_price'],
+        old_price=listing_dict['old_price'],
+        details=listing_dict['details'],
+        description=listing_dict['description'],
+        materials=listing_dict['materials'],
+        seller=seller
+    )
+
+    for img in listing_dict_files.getlist('images'):
+        img_obj = Image.objects.create(item=item, image=img)
+
+    for group in listing_dict.getlist('customization_groups'):
+        group = json.loads(group)
+        print(group)
+        style_group = StyleGroup.objects.create(
+            type=group['title'],
+            item=item
+        )
+        for option in group['options']:
+            style = Style.objects.create(
+                title=option['title'],
+                price=option['price'],
+                style_group=style_group,
+            )
+
+    response = json.dumps({
+        'status': 'ok',
+    })
+
+    return HttpResponse(response)
 
 
 def listings_new_customization_group(request, seller_name, id):
