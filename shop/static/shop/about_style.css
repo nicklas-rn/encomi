@@ -3,6 +3,41 @@
     margin: 0px;
 }
 
+.mainmain{
+    display: None;
+}
+
+#main, #navbar {
+    background-color: #FFF8ED !important;
+}
+
+#navbar-wrapper {
+    background-color: #FFF8ED !important;
+}
+
+#secondary-navbar {
+    display: none;
+}
+
+#cart-preview {
+    background-color: #FFF8ED !important;
+}
+
+#background-footer {
+    background-color: white !important;
+    margin-top: 75px;
+}
+
+
+
+
+
+
+
+
+
+
+
 .wrapper {
     display: flex;
     flex-direction: column;
