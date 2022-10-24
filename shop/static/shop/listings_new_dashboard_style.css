@@ -6,7 +6,7 @@ a {
 .listings-new-content {
     background-color: white;
     border-radius: 20px;
-    padding: 25px 25px 0px 25px;
+    padding: 25px;
     box-shadow: -2px 2px 2px #EBEBEB,
             2px -2px 2px #EBEBEB;
     height: calc(100% - 50px);
@@ -62,12 +62,12 @@ a {
 }
 
 .listings-new-left {
-    width: 60%;
+    width: 50%;
     padding-top: 20px;
 }
 
 .listings-new-right-wrapper {
-    width: 40%;
+    width: 50%;
     padding-top: 20px;
 }
 
@@ -138,8 +138,8 @@ a {
 }
 
 #item-image-wrapper{
-    height: calc(100vh - 300px);
-    width: 70%;
+    height: 470px;
+    width: 380px;
     margin-right: 50px;
     margin-left: 25px;
     display: inline-block;
