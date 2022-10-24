@@ -37,8 +37,8 @@
         <div class="description">
             <div class="description-values">
                 <p class="item-title">{{ item.title }}</p>
-                <p class="item-price">{{ item.price|floatformat:2 }}€<p/>
-                <p class="item-price-old"><s>from {{ item.old_price|floatformat:2 }}€</s></p>
+                <p class="item-price" id="item-price">{{ item.price|floatformat:2 }}€<p/>
+                <p class="item-price-old" id="item-price-old"><s>from {{ item.old_price|floatformat:2 }}€</s></p>
             </div>
 
             {% for style_group in item.stylegroup_set.all %}
@@ -54,7 +54,7 @@
                 </div>
                 <div class="content-dropdown" id="content-dropdown-{{style_group.type}}">
                     {% for style in style_group.style_set.all %}
-                        <a class="option-dropdown" id="option-dropdown-{{style_group.type}}-{{style}}" onclick="updateDropdown('{{style_group.type}}', '{{style}}')">{{style}}</a>
+                        <a class="option-dropdown" id="option-dropdown-{{style_group.type}}-{{style}}" onclick="updateDropdown('{{style_group.type}}', '{{style}}', '{{style.price|floatformat:2}}')">{{style}} {%if style.price != item.price and style.price%}({{style.price|floatformat:2}}€){%endif%}</a>
                     {% endfor %}
                 </div>
             </div>
@@ -297,9 +297,15 @@
         document.getElementById(str).style.display = 'None';
     }
 
-    function updateDropdown(style_group, style){
+    function updateDropdown(style_group, style, style_price){
         str = 'text-button-dropdown-' + style_group
         document.getElementById(str).innerHTML = style;
+        if(style_price != ''){
+            document.getElementById('item-price').innerHTML = style_price + '€'
+        }
+        else{
+            document.getElementById('item-price').innerHTML = {{ item.price|floatformat:2 }} + '€'
+        }
         closeDropdown(style_group)
         document.getElementById('customization-error').style.display = 'None'
     }
