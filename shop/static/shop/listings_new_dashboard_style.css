@@ -413,13 +413,12 @@ a {
 
 
 
-
+/*
 @media screen and (max-width: 1416px) {
     .listings-new {
         display: flex;
         justify-content: center;
         flex-direction: column;
-
         width: 100%;
         overflow: scroll;
     }
