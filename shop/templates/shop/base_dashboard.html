@@ -47,7 +47,7 @@
 </nav>
 
 <nav class="navbar-mobile">
-    <a href="/"><img id="logo-nav-mobile" src="/media/logos/logo.png"></a>
+    <a class="logo-nav-mobile" href="/"><img id="logo-nav-mobile" src="/media/logos/logo.png"></a>
 
     <ul class="dashboard-links">
         <li class="dashboard-link nav-home" id="navigation-dashboard-link-dashboard-mobile"><a href="/dashboard/home/{{seller}}"><img class="icon-navbar" src="/media/icons/home-dashboard-white.png" alt="">Home</a></li>
@@ -55,7 +55,6 @@
         <li class="dashboard-link nav-deliveries" id="navigation-dashboard-link-deliveries-mobile"><a href="/dashboard/deliveries/last/{{seller}}"><img class="icon-navbar" src="/media/icons/deliveries-dashboard-white.png" alt="">Orders</a></li>
         <li class="dashboard-link nav-settings" id="navigation-dashboard-link-settings-mobile"><a href="/dashboard/settings/{{seller}}"><img class="icon-navbar" src="/media/icons/settings-dashboard-white.png" alt="">Settings</a></li>
     </ul>
-
 </nav>
 
 
@@ -312,12 +311,26 @@
 
     /* End moving input fields */
 
+    .navbar-mobile {
+    display: none;
+    }
 
 
 
 
 
     @media screen and (max-width: 900px) {
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .mainmain::-webkit-scrollbar {
+          display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .mainmain {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
+        }
+
         .navbar-left {
             display: none;
         }
@@ -342,6 +355,12 @@
             height: 30px;
         }
 
+        .logo-nav-mobile {
+            height: 35px;
+            padding-top: 15px;
+            padding-bottom: 5px;
+        }
+
         .dashboard-links {
             display: flex;
             justify-content: space-between;
@@ -349,11 +368,17 @@
         }
 
         .dashboard-link {
-        padding: 0px;
+            padding: 0px;
+            display: flex;
+            align-items: center;
+            margin: 0px;
         }
 
-        .active-page a {
-            border: none;
+        .icon-navbar {
+            padding-right: 3px;
+            height: 18px;
+            width: 18px;
+            padding-top: 2px;
         }
 
         #header {
