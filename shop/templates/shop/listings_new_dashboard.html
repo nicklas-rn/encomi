@@ -166,7 +166,10 @@
             let div = document.createElement('div')
             let img = document.createElement('img')
             let input = document.createElement('input')
+            let button = document.createElement('button')
+            let button_img = document.createElement('img')
             div.classList.add('nav-image-wrapper')
+            div.id = 'nav-image-wrapper-' + id
             img.classList.add('nav-image')
             str = 'nav-image-' + id
             img.id = str
@@ -176,8 +179,14 @@
             input.classList.add('nav-image-input')
             input.type = 'file'
             input.files = fileContainer.files
+            button.classList.add('nav-image-removeButton')
+            button.onclick = function() {deleteImage(id)}
+            button_img.classList.add('removeIcon')
+            button_img.src = '/media/icons/trashcan.png'
+            button.appendChild(button_img)
             div.appendChild(img)
             div.appendChild(input)
+            div.appendChild(button)
             navImagesWrapper.appendChild(div)
         }
         else{
@@ -190,6 +199,19 @@
         updateImage(url)
     }
 
+    function deleteImage(id){
+        str = 'nav-image-wrapper-' + id
+        document.getElementById(str).remove()
+
+        let images = document.getElementsByClassName('nav-image')
+        if(images.length > 0){
+            updateImage(images[0].src)
+        }
+        else{
+            document.getElementById('item-image-placeholder').style.display = 'flex'
+            document.getElementById('item-image').style.display = 'None'
+        }
+    }
 
 
     function updateImage(src){

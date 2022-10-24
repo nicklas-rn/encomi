@@ -100,6 +100,10 @@ a {
     border: 2px solid black;
 }
 
+.nav-image-wrapper{
+    position: relative;
+}
+
 .nav-image {
     display: block;
     width: 100%;
@@ -115,6 +119,15 @@ a {
 
 .nav-image-input{
     display: None;
+}
+
+.nav-image-removeButton{
+    position: absolute;
+    top: 5px;
+    right: -25px;
+    background-color: transparent;
+    border: None;
+    cursor: pointer;
 }
 
 #nav-image-placeholder{
