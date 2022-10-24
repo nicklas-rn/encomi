@@ -61,12 +61,12 @@
 .nav-images-wrapper{
     display: inline-block;
     vertical-align: top;
-    height: calc(100vh - 300px);
+    height: 470px;
     position: relative;
 }
 
 .nav-images {
-    max-height: calc(100vh - 300px);
+    max-height: 470px;
     overflow: scroll;
     width: 100px;
     position: relative;
@@ -99,8 +99,8 @@
 }
 
 #item-image-wrapper{
-    height: calc(100vh - 300px);
-    width: 40%;
+    height: 470px;
+    width: 380px;
     margin-right: 60px;
     margin-left: 25px;
     display: inline-block;
