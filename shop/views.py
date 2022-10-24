@@ -114,7 +114,10 @@ def item(request, seller_name, id):
 
     cart = cookieCart(request, seller_name)
 
-    item = Item.objects.get(id=id)
+    if id != '0':
+        item = Item.objects.get(id=id)
+    else:
+        item = Item.objects.last()
 
     seller = Seller.objects.get(name=seller_name)
     categories = seller.category_set.all()
