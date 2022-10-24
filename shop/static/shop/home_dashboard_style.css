@@ -1,3 +1,5 @@
+
+
 .element {
     font-size: 25;
 }
@@ -15,10 +17,12 @@
     'sales sales deliveries'
     'revenue page-visits deliveries'
     'listings listings deliveries';
+  grid-template-columns: 420px 420px auto;
   gap: 15px;
-  height: 100%;
+  height: auto;
+  overflow: auto;
   margin: 0px;
-  max-width: 1200px;
+
 }
 
 .element {
@@ -339,6 +343,17 @@ a:visited {
 
 
 @media screen and (max-width: 900px) {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .container::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .container {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
+
     .container {
       display: flex;
       flex-direction: column;
