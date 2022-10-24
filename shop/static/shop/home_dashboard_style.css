@@ -330,3 +330,34 @@ a:visited {
   color: grey;
   background-color: transparent;
 }
+
+
+
+
+
+
+
+
+@media screen and (max-width: 900px) {
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      height: 100%;
+      margin-bottom: 30px;
+    }
+
+    .element {
+        text-align: left;
+        padding: 15px 20px;
+        border-radius: 20px;
+        box-shadow: -2px 2px 2px #EBEBEB,
+                    2px -2px 2px #EBEBEB;
+        background-color: white;
+        position: relative;
+    }
+
+
+
+
+}
