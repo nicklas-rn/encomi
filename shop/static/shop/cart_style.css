@@ -127,9 +127,18 @@ li a {
     font-size: 12;
     line-height: 20px;
     vertical-align: bottom;
+    overflow: visible;
+    border: 1px solid black;
+    padding: 5px 7px;
 }
 
+.quantity-select{
+    padding: 0px;
+    border: None;
+    cursor: pointer;
+    outline: None;
 
+}
 
 .removeIcon {
     height: 20px;

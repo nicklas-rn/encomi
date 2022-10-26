@@ -18,7 +18,21 @@
                         <a class="cartItem-link" href="/item/{{seller}}/{{cartItem.object.id}}">{{cartItem.object.title|truncatechars:40}}</a>
                         <p class="cartItem-description">{% for style_group, style in cartItem.style_groups.items %}{%if forloop.counter0 != 0%}, {%endif%}{{style}}{% endfor %}</p>
                         <p class="cartItem-price">{{cartItem.price|floatformat:2}}€</p>
-                        <p class="cartItem-quantity">Quantity: {{cartItem.quantity}}</p>
+                        <div class="cartItem-quantity">
+                            <select class="quantity-select" id="content-select-quantity-{{cartItem.cart_id}}" onchange="updateQuantity({{cartItem.cart_id}})">
+                                <option class="option-select" id="option-dropdown-quantity-1" onclick="updateQuantity({{cartItem.cart_id}}, '1')" {%if cartItem.quantity == 1%}selected="selected"{%endif%}>1</option>
+                                <option class="option-select" id="option-dropdown-quantity-2" onclick="updateQuantity({{cartItem.cart_id}}, '2')" {%if cartItem.quantity == 2%}selected="selected"{%endif%}>2</option>
+                                <option class="option-select" id="option-dropdown-quantity-3" onclick="updateQuantity({{cartItem.cart_id}}, '3')" {%if cartItem.quantity == 3%}selected="selected"{%endif%}>3</option>
+                                <option class="option-select" id="option-dropdown-quantity-4" onclick="updateQuantity({{cartItem.cart_id}}, '4')" {%if cartItem.quantity == 4%}selected="selected"{%endif%}>4</option>
+                                <option class="option-select" id="option-dropdown-quantity-5" onclick="updateQuantity({{cartItem.cart_id}}, '5')" {%if cartItem.quantity == 5%}selected="selected"{%endif%}>5</option>
+                                <option class="option-select" id="option-dropdown-quantity-6" onclick="updateQuantity({{cartItem.cart_id}}, '6')" {%if cartItem.quantity == 6%}selected="selected"{%endif%}>6</option>
+                                <option class="option-select" id="option-dropdown-quantity-7" onclick="updateQuantity({{cartItem.cart_id}}, '7')" {%if cartItem.quantity == 7%}selected="selected"{%endif%}>7</option>
+                                <option class="option-select" id="option-dropdown-quantity-8" onclick="updateQuantity({{cartItem.cart_id}}, '8')" {%if cartItem.quantity == 8%}selected="selected"{%endif%}>8</option>
+                                <option class="option-select" id="option-dropdown-quantity-9" onclick="updateQuantity({{cartItem.cart_id}}, '9')" {%if cartItem.quantity == 9%}selected="selected"{%endif%}>9</option>
+                                <option class="option-select" id="option-dropdown-quantity-10" onclick="updateQuantity({{cartItem.cart_id}}, '10')" {%if cartItem.quantity == 9%}selected="selected"{%endif%}>10</option>
+                            </select>
+                        </div>
+                        <!--<p class="cartItem-quantity">Quantity: {{cartItem.quantity}}</p>-->
 
                         <button class="removeButton" onclick="removeCookieItem({{cartItem.cart_id}})">
                             <img class="removeIcon" src="/media/icons/trashcan.png" alt="">
@@ -50,6 +64,14 @@
 
 
 <script>
+    function updateQuantity(cartItemId){
+        str = 'content-select-quantity-' + cartItemId
+        let quantity = Number(document.getElementById(str).value)
+        cart[cartItemId]['quantity'] = quantity
+        console.log('CART:', cart)
+        document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+        updateCartTotal()
+    }
 
     function removeCookieItem(cartItemId){
         delete cart[cartItemId]
