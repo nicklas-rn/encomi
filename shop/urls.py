@@ -35,6 +35,8 @@ urlpatterns = [
          name='listings_new_customization_option'),
     path('dashboard/listings_new_image/<seller_name>', views.listings_new_image, name='listings_new_image'),
     path('dashboard/listings_new_save/<seller_name>', views.listings_new_save, name='listings_new_save'),
+    path('dashboard/listings_edit/<seller_name>/<id>', views.listings_edit, name='listings_edit'),
+    path('dashboard/listings_edit_save/<seller_name>/<id>', views.listings_edit_save, name='listings_edit_save'),
     path('dashboard/deliveries_selected/<seller_name>/<order_id>', views.deliveries_selected, name='deliveries_selected'),
     path('dashboard/update_order_status/<seller_name>/<order_id>/<order_status>', views.update_order_status,
          name='update_order_status'),

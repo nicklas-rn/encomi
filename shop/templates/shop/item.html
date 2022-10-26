@@ -42,9 +42,9 @@
             </div>
 
             {% for style_group in item.stylegroup_set.all %}
-            <div class="dropdown-wrapper" onmouseleave="closeDropdown('{{style_group}}')">
-                <div class="dropdown" id="dropdown-{{style_group}}" onmouseenter="showDropdown('{{style_group}}')">
-                    <button class="button-dropdown" onclick="showDropdown()">
+            <div class="dropdown-wrapper">
+                <div class="dropdown" id="dropdown-{{style_group}}" onclick="showDropdown('{{style_group}}')">
+                    <button class="button-dropdown" onclick="showDropdown('{{style_group}}')">
                         <span class="text-button-dropdown" id="text-button-dropdown-{{style_group.type}}">Select {{style_group}}</span>
                         <i class="icon-dropdown">
                             <img class="image-dropdown"
@@ -52,7 +52,7 @@
                         </i>
                     </button>
                 </div>
-                <div class="content-dropdown" id="content-dropdown-{{style_group.type}}">
+                <div class="content-dropdown popup" id="content-dropdown-{{style_group.type}}">
                     {% for style in style_group.style_set.all %}
                         <a class="option-dropdown" id="option-dropdown-{{style_group.type}}-{{style}}" onclick="updateDropdown('{{style_group.type}}', '{{style}}', '{{style.price|floatformat:2}}')">{{style}} {%if style.price != item.price and style.price%}({{style.price|floatformat:2}}€){%endif%}</a>
                     {% endfor %}
@@ -381,6 +381,7 @@
             btn_up.style.display = 'block'
         }
 
+        console.log(navImages.scrollTop)
         if((height * 2) != (navImages.scrollTop + height) && direction > 0){
             btn_down.style.display = 'None'
         }
@@ -388,6 +389,17 @@
             btn_down.style.display = 'block'
         }
     }
+
+
+    $('body').click(function() {
+        $(".popup").hide();
+    });
+
+    $('.dropdown-wrapper').click(function(e) {
+        e.stopPropagation();
+    });
+
+
 </script>
 
 

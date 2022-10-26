@@ -1,5 +1,5 @@
 {% for item in items %}
-    <div class="item" onclick="window.location.href='/item/{{seller}}/{{item.id}}'">
+    <div class="item" onclick="window.location.href='/dashboard/listings_edit/{{seller}}/{{item.id}}'">
 
         <img class="item-image item-first-image" id="item-first-image-{{item.id}}" src="{{item.image_set.first.image.url}}" onmouseenter="showSecondImage({{item.id}})" onmouseleave="showFirstImage({{item.id}})" width="250px" alt="">
         <img class="item-image item-second-image" id="item-second-image-{{item.id}}" src="{{item.image_set.last.image.url}}" onmouseenter="showSecondImage({{item.id}})" onmouseleave="showFirstImage({{item.id}})" width="250px" alt="">

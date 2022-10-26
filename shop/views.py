@@ -681,6 +681,78 @@ def listings_new_image(request, seller_name):
 
     return render(request, 'image_cropper/index.html', context)
 
+
+def listings_edit(request, seller_name, id):
+    seller = Seller.objects.get(name=seller_name)
+
+    if id != '0':
+        item = Item.objects.get(id=id)
+    else:
+        item = Item.objects.last()
+
+    context = {
+        'seller': seller,
+        'customization_group_id': generateId(5),
+        'item': item,
+    }
+
+    return render(request, 'shop/listings_edit_dashboard.html', context)
+
+
+def listings_edit_save(request, seller_name, id):
+    seller = Seller.objects.get(name=seller_name)
+
+    listing_dict = request.POST
+    listing_dict_files = request.FILES
+
+    print(listing_dict)
+    print(listing_dict_files)
+
+    item = Item.objects.get(id=id)
+    item.title = listing_dict['title']
+    item.price = float(listing_dict['current_price'])
+    item.old_price = float(listing_dict['old_price'])
+    item.details = listing_dict['details']
+    item.description = listing_dict['description']
+    item.materials = listing_dict['materials']
+
+    item.save()
+
+    old_images = item.image_set.all()
+    for old_image in old_images:
+        if str(old_image.id) not in listing_dict['old_images']:
+            old_image.delete()
+
+    for img in listing_dict_files.getlist('new_images'):
+        img_obj = Image.objects.create(item=item, image=img)
+
+    old_groups = item.stylegroup_set.all()
+    for old_group in old_groups:
+        old_group.delete()
+
+    for group in listing_dict.getlist('customization_groups'):
+        group = json.loads(group)
+        print(group)
+        style_group = StyleGroup.objects.create(
+            type=group['title'],
+            item=item
+        )
+        for option in group['options']:
+            style = Style.objects.create(
+                title=option['title'],
+                style_group=style_group,
+            )
+            if option['price']:
+                style.price = option['price']
+                style.save()
+
+    response = json.dumps({
+        'status': 'ok',
+    })
+
+    return HttpResponse(response)
+
+
 def deliveries(request, order_id, seller_name):
     seller = Seller.objects.get(name=seller_name)
 
