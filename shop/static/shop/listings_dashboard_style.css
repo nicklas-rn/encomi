@@ -234,6 +234,19 @@
 
 
 @media screen and (max-width: 900px) {
+    #header {
+        padding-right: 5px !important;
+    }
+
+    .listings-buttons-wrapper {
+        display: block;
+    }
+
+    .create-listing-button {
+        margin-bottom: 5px;
+    }
+
+
     .listings-content {
         height: auto;
         overflow: auto;
@@ -264,6 +277,8 @@
         width: 100%;
         max-height: 10000px;
     }
+
+
 
 
 
