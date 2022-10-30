@@ -91,7 +91,6 @@
     flex-direction: column;
     overflow: hidden;
     justify-content: left;
-
 }
 
 .block2-titles {
@@ -136,5 +135,12 @@
 
 
 
+@media screen and (max-width: 900px) {
+    .block2-images {
+        overflow: auto;
+        height: auto;
+    }
 
 
+
+}
