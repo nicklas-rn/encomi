@@ -65,12 +65,12 @@
                 <div class="listings-new-right">
                     <div class="input-group">
                         <textarea type="text" class="input inputfield-item-title block-1" id="item-title" name="item-title" placeholder=" "></textarea>
-                        <label for="item-title">Item Title</label>
+                        <label for="item-title">Item Title*</label>
                     </div>
                     <div class="block2">
                         <div class="input-group input-group-inline input-group-inline-price">
                             <input type="number" class="input price-field" id="current-price" name="current-price" placeholder=" ">
-                            <label for="current-price">Current Price</label>
+                            <label for="current-price">Current Price*</label>
                         </div>
                         <p class="margin">€</p>
                         <div class="input-group input-group-inline input-group-inline-price">
@@ -293,71 +293,106 @@
     }
 
 
+    function verifyInputs(){
+        let verification_counter = 0
+        let alert_msg = "Please add the following: "
+        if(document.getElementById('item-title').value != ''){
+            verification_counter += 1
+        }
+        else{
+            alert_msg += '\n\u2022 Title'
+        }
+        if(document.getElementById('current-price').value != ''){
+            verification_counter += 1
+        }
+        else{
+            alert_msg += '\n\u2022 Current Price'
+        }
+        if(document.getElementsByClassName('nav-image-wrapper').length > 0){
+            verification_counter += 1
+        }
+        else{
+            alert_msg += '\n\u2022 at least on image'
+        }
+
+        if(verification_counter == 3){
+            console.log('inputs verified')
+            return true
+        }
+        else{
+            alert(alert_msg)
+            return false
+        }
+
+    }
+
 
 
 
     async function saveListing(){
-        listing_dict = {
-            'title': document.getElementById('item-title').value,
-            'current_price': document.getElementById('current-price').value,
-            'old_price': document.getElementById('old-price').value,
-            'details': document.getElementById('item-details').value,
-            'description': document.getElementById('item-description').value,
-            'materials': document.getElementById('item-materials').value,
-            'customization_groups': [],
-            'images': [],
-        }
-
-        var data = new FormData();
-
-        data.append('title', document.getElementById('item-title').value)
-        data.append('current_price', document.getElementById('current-price').value)
-        data.append('old_price', document.getElementById('old-price').value)
-        data.append('details', document.getElementById('item-details').value)
-        data.append('description', document.getElementById('item-description').value)
-        data.append('materials', document.getElementById('item-materials').value)
-
-
-        let customization_group_elements = document.getElementsByClassName('customization-group')
-        for(let i=0; i<customization_group_elements.length; i++){
-            let group_dict = {}
-            group_dict['title'] = customization_group_elements[i].getElementsByClassName('inputfield-customization-group')[0].value
-            group_dict['options'] = []
-
-            let option_elements = customization_group_elements[i].getElementsByClassName('block3-line')
-            for(let i=0; i<option_elements.length; i++){
-                let option_dict = {}
-                option_dict['title'] = option_elements[i].getElementsByClassName('inputfield-customization-option')[0].value
-                option_dict['price'] = option_elements[i].getElementsByClassName('price-field-customization')[0].value
-                group_dict['options'].push(option_dict)
+        if(verifyInputs()){
+            listing_dict = {
+                'title': document.getElementById('item-title').value,
+                'current_price': document.getElementById('current-price').value,
+                'old_price': document.getElementById('old-price').value,
+                'details': document.getElementById('item-details').value,
+                'description': document.getElementById('item-description').value,
+                'materials': document.getElementById('item-materials').value,
+                'customization_groups': [],
+                'images': [],
             }
-            listing_dict['customization_groups'].push(group_dict)
-            data.append('customization_groups', JSON.stringify(group_dict))
+
+            var data = new FormData();
+
+            data.append('title', document.getElementById('item-title').value)
+            data.append('current_price', document.getElementById('current-price').value)
+            data.append('old_price', document.getElementById('old-price').value)
+            data.append('details', document.getElementById('item-details').value)
+            data.append('description', document.getElementById('item-description').value)
+            data.append('materials', document.getElementById('item-materials').value)
+
+
+            let customization_group_elements = document.getElementsByClassName('customization-group')
+            for(let i=0; i<customization_group_elements.length; i++){
+                let group_dict = {}
+                group_dict['title'] = customization_group_elements[i].getElementsByClassName('inputfield-customization-group')[0].value
+                group_dict['options'] = []
+
+                let option_elements = customization_group_elements[i].getElementsByClassName('block3-line')
+                for(let i=0; i<option_elements.length; i++){
+                    let option_dict = {}
+                    option_dict['title'] = option_elements[i].getElementsByClassName('inputfield-customization-option')[0].value
+                    option_dict['price'] = option_elements[i].getElementsByClassName('price-field-customization')[0].value
+                    group_dict['options'].push(option_dict)
+                }
+                listing_dict['customization_groups'].push(group_dict)
+                data.append('customization_groups', JSON.stringify(group_dict))
+            }
+
+            let image_elements = document.getElementsByClassName('nav-image-wrapper')
+            for(let i=0; i<image_elements.length; i++){
+                let item_img = image_elements[i].getElementsByClassName('nav-image-input')[0].files[0]
+                data.append('images', item_img)
+                listing_dict['images'].push(image_elements[i].getElementsByClassName('nav-image-input')[0].files[0])
+            }
+
+            data.append('csrfmiddlewaretoken', '{{ csrf_token }}')
+
+            for (var key of data.entries()) {
+                console.log(key[0] + ', ' + key[1]);
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/dashboard/listings_new_save/{{seller}}',
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: 'json',
+                data: data,
+                success: function() {window.location.href = '/dashboard/listings/{{seller}}'}
+            })
         }
-
-        let image_elements = document.getElementsByClassName('nav-image-wrapper')
-        for(let i=0; i<image_elements.length; i++){
-            let item_img = image_elements[i].getElementsByClassName('nav-image-input')[0].files[0]
-            data.append('images', item_img)
-            listing_dict['images'].push(image_elements[i].getElementsByClassName('nav-image-input')[0].files[0])
-        }
-
-        data.append('csrfmiddlewaretoken', '{{ csrf_token }}')
-
-        for (var key of data.entries()) {
-            console.log(key[0] + ', ' + key[1]);
-        }
-
-        $.ajax({
-            type: 'POST',
-            url: '/dashboard/listings_new_save/{{seller}}',
-            cache: false,
-            contentType: false,
-            processData: false,
-            dataType: 'json',
-            data: data,
-            success: async function() {let delayres = await delay(50); updateSettingsContent('faqs')}
-        })
     }
 </script>
 

@@ -11,6 +11,9 @@
         <ul class="left">
             <p class="your-bag-heading">Your bag</p>
             <div id="items-in-cart-list">
+                {% if not cartItems %}
+                <p class="item-in-cart-list" style="padding-left: 10px;">Your cart is empty</p>
+                {% endif %}
                 {% for cartItem in cartItems %}
                 <li class="item-in-cart-list" id="item-in-cart-list-{{cartItem.cart_id}}">
                     <img class="cartItem-image" src="{{cartItem.object.image_set.first.image.url}}" width= 100px alt="">
