@@ -271,16 +271,37 @@ a {
     margin-right: 25px;
 }
 
+.input-group-wrapper-upper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    position: relative;
+}
+
+.input-group-fullWidth{
+    width: 100%;
+}
+
+.block3-drag-and-drop {
+    width: calc(100% - 27px);
+}
+
 .block3-line {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
     position: relative;
+    margin-left: 27px;
+
 }
 
 .hamburger {
     height: 11px;
     margin-right: 10px;
+}
+
+.hamburger-fullWidth {
+    margin-bottom: 5px;
 }
 
 .hamburger:hover{
