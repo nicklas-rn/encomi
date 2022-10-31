@@ -50,3 +50,25 @@
 removeButton:hover{
     text-decoration: underline;
 }
+
+
+
+
+
+
+
+
+@media screen and (max-width: 900px) {
+   #header {
+        padding-right: 5px !important;
+   }
+
+   .buttons-faqs-wrapper {
+
+    }
+
+    .add-faq-button {
+        margin-bottom: 5px;
+    }
+
+}
