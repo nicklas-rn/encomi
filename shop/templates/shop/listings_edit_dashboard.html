@@ -347,7 +347,29 @@
             alert_msg += '\n\u2022 at least on image'
         }
 
-        if(verification_counter == 3){
+        let customization_group_elements = document.getElementsByClassName('customization-group')
+        let group_verification_counter = 0
+        for(let i=0; i<customization_group_elements.length; i++){
+            let option_counter = 0
+            let option_elements = customization_group_elements[i].getElementsByClassName('block3-line')
+            for(let x=0; x<option_elements.length; x++){
+                console.log(x, option_elements[x])
+                if(option_elements[x].style.display != 'none' && option_elements[x].getElementsByClassName('inputfield-customization-option')[0].value != ''){
+                    option_counter += 1
+                }
+            }
+            if(option_counter >= 2){
+                group_verification_counter += 1
+            }
+        }
+        if(group_verification_counter == customization_group_elements.length){
+            verification_counter += 1
+        }
+        else{
+            alert_msg += '\n\u2022 at least two options per customization group'
+        }
+
+        if(verification_counter == 4){
             console.log('inputs verified')
             return true
         }
@@ -391,7 +413,7 @@
 
                 let option_elements = customization_group_elements[i].getElementsByClassName('block3-line')
                 for(let i=0; i<option_elements.length; i++){
-                if(option_elements[i].style.display != 'none'){
+                    if (option_elements[x].style.display != 'none' && option_elements[x].getElementsByClassName('inputfield-customization-option')[0].value != ''){
                         let option_dict = {}
                         option_dict['title'] = option_elements[i].getElementsByClassName('inputfield-customization-option')[0].value
                         option_dict['price'] = option_elements[i].getElementsByClassName('price-field-customization')[0].value

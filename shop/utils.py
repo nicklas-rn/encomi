@@ -3,6 +3,12 @@ from .models import *
 from datetime import datetime, timedelta
 
 
+def sortItems(items):
+    items = items.extra(select={'sort_priority': f'{random.randint(1,10)} * (sold_counter + 1)'}, order_by=['-sort_priority'])
+    for item in items:
+        print(item.sort_priority)
+    return items
+
 def generateId(length):
     # choose from all lowercase letter
     letters = string.ascii_lowercase

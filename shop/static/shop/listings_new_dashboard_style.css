@@ -55,14 +55,13 @@ a {
 
 .listings-new {
     display: flex;
-    justify-content: center;
+    justify-content: left;
     height: calc(100% - 25px);
     width: 100%;
     overflow: scroll;
 }
 
 .listings-new-left {
-    width: 50%;
     max-height: calc(100% - 25px);
     padding-top: 20px;
 }

@@ -101,7 +101,7 @@ def shop(request, seller_name):
 
     context = {
         'seller': seller,
-        'items': items,
+        'items': sortItems(items),
         'categories': categories,
         'cartItems': cart['items'],
         'cartTotal': cart['total'],
@@ -186,23 +186,24 @@ def checkout(request, seller_name):
 
 
 def create_order(request, seller_name):
-    data = json.loads(request.body)
+    data = request.POST
 
     print(f"data: {request.body}")
+    print(f"order: {json.loads(request.POST['order'])}")
 
     seller = Seller.objects.get(name=seller_name)
 
-    order_dict = decodeOrder(data['order'], seller)
+    order_dict = decodeOrder(json.loads(data['order']), seller)
 
-    print(data['order_information'])
+    order_information = json.loads(data['order_information'])
 
     parent_order = ParentOrder.objects.create(
-        first_name=data['order_information']['first_name'],
-        last_name=data['order_information']['last_name'],
-        street_name=data['order_information']['street_name'],
-        house_number=data['order_information']['house_number'],
-        postal_code=data['order_information']['postal_code'],
-        city=data['order_information']['city'],
+        first_name=order_information['first_name'],
+        last_name=order_information['last_name'],
+        street_name=order_information['street_name'],
+        house_number=order_information['house_number'],
+        postal_code=order_information['postal_code'],
+        city=order_information['city'],
         message=request.COOKIES.get('cartMessage'),
         datetime=datetime.now(),
     )
