@@ -621,12 +621,15 @@ def listings_new_save(request, seller_name):
     item = Item.objects.create(
         title=listing_dict['title'],
         price=listing_dict['current_price'],
-        old_price=listing_dict['old_price'],
         details=listing_dict['details'],
         description=listing_dict['description'],
         materials=listing_dict['materials'],
         seller=seller
     )
+
+    if listing_dict['old_price']:
+        item.old_price = float(listing_dict['old_price'])
+        item.save()
 
     for img in listing_dict_files.getlist('images'):
         img_obj = Image.objects.create(item=item, image=img)
@@ -714,7 +717,8 @@ def listings_edit_save(request, seller_name, id):
     item = Item.objects.get(id=id)
     item.title = listing_dict['title']
     item.price = float(listing_dict['current_price'])
-    item.old_price = float(listing_dict['old_price'])
+    if listing_dict['old_price']:
+        item.old_price = float(listing_dict['old_price'])
     item.details = listing_dict['details']
     item.description = listing_dict['description']
     item.materials = listing_dict['materials']
