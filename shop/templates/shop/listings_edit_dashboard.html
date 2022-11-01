@@ -87,8 +87,9 @@
                     <div class="block3 drag-and-drop-test" id="block3">
                         {% for style_group in item.stylegroup_set.all %}
                         <div class="customization-group" id="customization-group-{{style_group.id}}">
-                            <div class="input-group">
-                                <input type="text" class="input inputfield-customization-group" id="customization-group-input-{{style_group.id}}" name="customization-group" placeholder=" " value="{{style_group.type}}">
+                            <div class="input-group input-group-wrapper-upper">
+                                <img class="hamburger hamburger-fullWidth" src="/media/icons/hamburger.png" alt="">
+                                <input type="text" class="input inputfield-customization-group input-group-fullWidth" id="customization-group-input-{{style_group.id}}" name="customization-group" placeholder=" " value="{{style_group.type}}">
                                 <label for="customization-group-input-{{style_group.id}}">Customization Group</label>
                             </div>
                             <div class="block3-drag-and-drop" id="block3-drag-and-drop-{{style_group.id}}">
