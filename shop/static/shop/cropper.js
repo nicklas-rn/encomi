@@ -24,6 +24,7 @@ hiddenUpload.onchange = () => {
         preview: '.img-preview',
         viewMode: 2,
         modal: false,
+        aspectRatio: 380/470,
         background: false,
         ready: function(){
             // download cropped image
