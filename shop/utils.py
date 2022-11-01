@@ -1,13 +1,13 @@
 import json, string, random
 from .models import *
 from datetime import datetime, timedelta
+from django.db.models import Q
 
 
 def sortItems(items):
-    items = items.extra(select={'sort_priority': f'{random.randint(1,10)} * (sold_counter + 1)'}, order_by=['-sort_priority'])
-    for item in items:
-        print(item.sort_priority)
+    items = items.extra(order_by=['?'])
     return items
+
 
 def generateId(length):
     # choose from all lowercase letter
@@ -16,8 +16,59 @@ def generateId(length):
     return result_str
 
 
+def getRecommendedItems(request, seller):
+    title = []
+    fill_words = ['the', 'or', 'and', 'plain', 'set']
+
+    try:
+        cart = json.loads(request.COOKIES['cart'])
+    except:
+        cart = {}
+
+    for k in cart:
+        item_object = Item.objects.get(id=cart[k]['itemId'])
+        for word in item_object.title.split():
+            if word.lower() not in fill_words:
+                title.append(word)
+                print(word)
+
+    if cart:
+        if seller != 'encomi':
+            query = Q()
+            for word in title:
+                query = query | Q(title__contains=word)
+
+            items = seller.item_set.filter(query)
+
+        else:
+            query = Q()
+            for word in title:
+                query = query | Q(title_contains=word)
+
+            items = Item.objects.filter(query)
+
+    else:
+        if seller != 'encomi':
+            items = seller.item_set.all()
+        else:
+            items = Item.objects.all()
+
+    return items
+
+
+def getFocusedItems(seller):
+    if seller != 'encomi':
+        items = seller.item_set.all().order_by('sold_counter')
+    else:
+        items = Item.objects.all().order_by('sold_counter')
+    return items
+
+
+def getRandomNumber(min, max):
+    return random.randint(min, max)
+
+
 def cookieCart(request, seller):
-    # Create empty cart for now for non-logged in user
     try:
         cart = json.loads(request.COOKIES['cart'])
 
@@ -31,6 +82,8 @@ def cookieCart(request, seller):
     total = 0
 
     seller_list = []
+
+    print(cart)
 
     for k in cart:
         item_object = Item.objects.get(id=cart[k]['itemId'])
