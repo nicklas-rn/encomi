@@ -6,11 +6,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{{seller}} - {% block title %}{% endblock %}</title>
     <link rel="icon" href="/media/icons/favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="{% static 'shop/base_animations.js' %}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+
     <!--<script>
         function delay(delayInms) {
           return new Promise(resolve => {
@@ -180,7 +182,8 @@
             <a href="/seller_policy/{{seller}}">Seller Policy</a>
             <a href="/privacy_policy/{{seller}}">Privacy Policy</a>
             <a href="/TOU/{{seller}}">Terms of Use</a>
-            <a href="/about/{{seller}}">About us</a>
+            <a href="/help/{{seller}}">FAQs</a>
+            <a href="/help/{{seller}}">Contact</a>
         </p>
     </div>
         <a href="/home/{{seller}}"><img id="logo-footer" src="{{seller.logo.url}}"></a>
