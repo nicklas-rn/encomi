@@ -414,7 +414,7 @@
                 group_dict['options'] = []
 
                 let option_elements = customization_group_elements[i].getElementsByClassName('block3-line')
-                for(let i=0; i<option_elements.length; i++){
+                for(let x=0; x<option_elements.length; x++){
                     if (option_elements[x].style.display != 'none' && option_elements[x].getElementsByClassName('inputfield-customization-option')[0].value != ''){
                         let option_dict = {}
                         option_dict['title'] = option_elements[i].getElementsByClassName('inputfield-customization-option')[0].value

@@ -33,7 +33,7 @@
 
             <div class="items-wrapper">
                 <div class="items"  id="similarItems">
-                {% for item in items %}
+                {% for item in recommended_items %}
                     <div class="item" onclick="window.location.href='/item/{{seller}}/{{item.id}}'">
                         <img class="recommended-item-image recommended-item-first-image" id="item-first-image-similar-{{item.id}}" src="{{item.image_set.first.image.url}}" onmouseenter="showSecondImage({{item.id}}, 'similar')" onmouseleave="showFirstImage({{item.id}}, 'similar')" width="250px" alt="">
                         <img class="recommended-item-image recommended-item-second-image" id="item-second-image-similar-{{item.id}}" src="{{item.image_set.last.image.url}}" onmouseenter="showSecondImage({{item.id}}, 'similar')" onmouseleave="showFirstImage({{item.id}}, 'similar')" width="250px" alt="">
@@ -55,7 +55,7 @@
 
             <div class="items-wrapper">
                 <div class="items"  id="completeItems">
-                {% for item in items %}
+                {% for item in focused_items %}
                     <div class="item" onclick="window.location.href='/item/{{seller}}/{{item.id}}'">
                         <img class="recommended-item-image recommended-item-first-image" id="item-first-image-complete-{{item.id}}" src="{{item.image_set.first.image.url}}" onmouseenter="showSecondImage({{item.id}}, 'complete')" onmouseleave="showFirstImage({{item.id}}, 'complete')" width="250px" alt="">
                         <img class="recommended-item-image recommended-item-second-image" id="item-second-image-complete-{{item.id}}" src="{{item.image_set.last.image.url}}" onmouseenter="showSecondImage({{item.id}}, 'complete')" onmouseleave="showFirstImage({{item.id}}, 'complete')" width="250px" alt="">

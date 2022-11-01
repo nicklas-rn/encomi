@@ -203,6 +203,13 @@ a:visited{
     align-items: center;
 }
 
+.search-button{
+    background-color: transparent;
+    border: None;
+    cursor: pointer;
+
+}
+
 #query-navbar{
     all: unset;
     color: black;
