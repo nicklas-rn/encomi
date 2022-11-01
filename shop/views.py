@@ -133,7 +133,8 @@ def item(request, seller_name, id):
     context = {
         'seller': seller,
         'item': item,
-        'items': sortItems(items),
+        'similarItems': sortItems(getSimilarItems(seller, item)),
+        'complementaryItems': sortItems(getComplementaryItems(seller, item)),
         'cartItems': cart['items'],
         'cartTotal': cart['total'],
         'categories': categories,

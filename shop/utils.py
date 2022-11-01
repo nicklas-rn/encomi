@@ -3,6 +3,9 @@ from .models import *
 from datetime import datetime, timedelta
 from django.db.models import Q
 
+fill_words = ['the', 'or', 'and', 'plain', 'set']
+type_words = ['necklace', 'bracelet', 'ring', 'rings', 'earring', 'earrings', 'ear climbers']
+
 
 def sortItems(items):
     items = items.extra(order_by=['?'])
@@ -18,7 +21,6 @@ def generateId(length):
 
 def getRecommendedItems(request, seller):
     title = []
-    fill_words = ['the', 'or', 'and', 'plain', 'set']
 
     try:
         cart = json.loads(request.COOKIES['cart'])
@@ -61,6 +63,61 @@ def getFocusedItems(seller):
         items = seller.item_set.all().order_by('sold_counter')
     else:
         items = Item.objects.all().order_by('sold_counter')
+    return items
+
+
+def getSimilarItems(seller, item):
+    title = []
+
+    for word in item.title.split():
+        if word.lower() not in fill_words:
+            title.append(word)
+            print(word)
+
+    if seller != 'encomi':
+        query = Q()
+        for word in title:
+            query = query | Q(title__contains=word)
+
+        items = seller.item_set.filter(query)
+
+    else:
+        query = Q()
+        for word in title:
+            query = query | Q(title_contains=word)
+
+        items = Item.objects.filter(query)
+
+    return items
+
+
+def getComplementaryItems(seller, item):
+    title = []
+
+    for word in item.title.split():
+        if word.lower() not in fill_words:
+            title.append(word)
+            print(word)
+
+    if seller != 'encomi':
+        include_query = Q()
+        for word in title:
+            if word.lower() not in type_words:
+                include_query = include_query | Q(title__contains=word)
+
+        exclude_query = Q()
+        for word in title:
+            if word.lower() in type_words:
+                exclude_query = exclude_query | Q(title__contains=word)
+        items = seller.item_set.filter(include_query).exclude(exclude_query)
+
+    else:
+        query = Q()
+        for word in title:
+            query = query | Q(title_contains=word)
+
+        items = Item.objects.filter(query)
+
     return items
 
 

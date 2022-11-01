@@ -40,7 +40,9 @@
             <div class="description-values">
                 <p class="item-title">{{ item.title }}</p>
                 <p class="item-price" id="item-price">{{ item.price|floatformat:2 }}€<p/>
+                {%if item.old_price != 0%}
                 <p class="item-price-old" id="item-price-old"><s>from {{ item.old_price|floatformat:2 }}€</s></p>
+                {%endif%}
             </div>
 
             {% for style_group in item.stylegroup_set.all %}
@@ -166,7 +168,7 @@
 
             <div class="items-wrapper">
                 <div class="items"  id="similarItems">
-                {% for item in items %}
+                {% for item in similarItems %}
                     <div class="item" onclick="window.location.href='/item/{{seller}}/{{item.id}}'">
                         <img class="recommended-item-image recommended-item-first-image" id="item-first-image-similar-{{item.id}}" src="{{item.image_set.first.image.url}}" onmouseenter="showSecondImage({{item.id}}, 'similar')" onmouseleave="showFirstImage({{item.id}}, 'similar')" width="250px" alt="">
                         <img class="recommended-item-image recommended-item-second-image" id="item-second-image-similar-{{item.id}}" src="{{item.image_set.last.image.url}}" onmouseenter="showSecondImage({{item.id}}, 'similar')" onmouseleave="showFirstImage({{item.id}}, 'similar')" width="250px" alt="">
@@ -183,12 +185,12 @@
         </div>
 
         <div class="recommendations-lower">
-            <p class="recommendations-h1">Similar Items</p>
+            <p class="recommendations-h1">Complete the Style</p>
             <p class="recommendations-h2">Recommendations for you</p>
 
             <div class="items-wrapper">
                 <div class="items"  id="completeItems">
-                {% for item in items %}
+                {% for item in complementaryItems %}
                     <div class="item" onclick="window.location.href='/item/{{seller}}/{{item.id}}'">
                         <img class="recommended-item-image recommended-item-first-image" id="item-first-image-complete-{{item.id}}" src="{{item.image_set.first.image.url}}" onmouseenter="showSecondImage({{item.id}}, 'complete')" onmouseleave="showFirstImage({{item.id}}, 'complete')" width="250px" alt="">
                         <img class="recommended-item-image recommended-item-second-image" id="item-second-image-complete-{{item.id}}" src="{{item.image_set.last.image.url}}" onmouseenter="showSecondImage({{item.id}}, 'complete')" onmouseleave="showFirstImage({{item.id}}, 'complete')" width="250px" alt="">
