@@ -160,6 +160,25 @@
 <script>
     var imageId = 0
 
+    let dragAreaContainers = document.getElementsByClassName('drag-and-drop-test');
+    let dragAreas = document.getElementsByClassName('block3-drag-and-drop');
+
+    for(let i=0; i<dragAreaContainers.length; i++){
+        let dragAreaContainer = document.querySelector('.drag-and-drop-test');
+        new Sortable(dragAreaContainer, {
+            animation: 350
+        });
+    }
+
+    for(let i=0; i<dragAreas.length; i++){
+        let dragArea = document.getElementsByClassName('block3-drag-and-drop');
+        for (let i=0; i<dragArea.length; i++){
+            new Sortable(dragArea[i], {
+                animation: 350
+            });
+        }
+    }
+
     function openCropper(id){
         document.getElementById('image-cropper-wrapper').style.display = 'flex'
 
@@ -417,8 +436,8 @@
                 for(let x=0; x<option_elements.length; x++){
                     if (option_elements[x].style.display != 'none' && option_elements[x].getElementsByClassName('inputfield-customization-option')[0].value != ''){
                         let option_dict = {}
-                        option_dict['title'] = option_elements[i].getElementsByClassName('inputfield-customization-option')[0].value
-                        option_dict['price'] = option_elements[i].getElementsByClassName('price-field-customization')[0].value
+                        option_dict['title'] = option_elements[x].getElementsByClassName('inputfield-customization-option')[0].value
+                        option_dict['price'] = option_elements[x].getElementsByClassName('price-field-customization')[0].value
                         group_dict['options'].push(option_dict)
                     }
                 }
