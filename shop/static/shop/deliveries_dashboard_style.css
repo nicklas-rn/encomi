@@ -196,7 +196,6 @@ a:visited {
 #right {
     padding: 25px 0px;
     margin-left: 30%;
-
 }
 
 #heading-wrapper{
@@ -371,4 +370,57 @@ a:visited {
     font-size: 12;
     line-height: 20px;
     vertical-align: bottom;
+}
+
+
+
+
+
+
+
+
+@media screen and (max-width: 900px) {
+    .mainmain  {
+
+        height: calc(100% - 20px);
+    }
+
+    .mainmain-content {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        overflow: auto;
+    }
+
+    #left {
+        width: auto;
+        height: 200px;
+        max-height: 200px;
+        border-bottom: 2px solid grey;
+        overflow: scroll;
+    }
+
+    #right {
+        max-width: auto;
+        margin-left: 0px;
+        min-height: 100%;
+    }
+
+    .order-details {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-areas:
+            'grid-item-1 grid-item-2'
+            'grid-item-3 grid-item-4'
+            'grid item-5 grid-item-6'
+            'grid-item-7 grid-item-8';
+        width: auto;
+    }
+
+    .grid-item {
+      font-size: 13px;
+      text-align: left;
+      padding-bottom: 5px;
+    }
+
 }

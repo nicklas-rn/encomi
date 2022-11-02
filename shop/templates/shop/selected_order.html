@@ -6,18 +6,18 @@
 </div>
 
 <div class="order-details">
-    <div class="grid-item grid-item-transparent">Orderer</div>
-    <div class="grid-item">{{selected_order.parent_order.first_name}} {{selected_order.parent_order.last_name}}</div>
-    <div class="grid-item grid-item-transparent">Date</div>
-    <div class="grid-item">{{selected_order.parent_order.datetime|date:"d.m.y"}}</div>
-    <div class="grid-item grid-item-transparent">Address</div>
-    <div class="grid-item">
+    <div class="grid-item grid-item-1 grid-item-transparent">Orderer</div>
+    <div class="grid-item grid-item-2">{{selected_order.parent_order.first_name}} {{selected_order.parent_order.last_name}}</div>
+    <div class="grid-item grid-item-3 grid-item-transparent">Date</div>
+    <div class="grid-item grid-item-4">{{selected_order.parent_order.datetime|date:"d.m.y"}}</div>
+    <div class="grid-item grid-item-5 grid-item-transparent">Address</div>
+    <div class="grid-item grid-item-6">
         {{selected_order.parent_order.street_name}} {{selected_order.parent_order.house_number}}</br>
         {{selected_order.parent_order.postal_code}} {{selected_order.parent_order.city}}</br>
         Germany
     </div>
-    <div class="grid-item grid-item-transparent">Total</div>
-    <div class="grid-item">{{selected_order.total|floatformat:2}}€</div>
+    <div class="grid-item grid-item-7 grid-item-transparent">Total</div>
+    <div class="grid-item grid-item-8">{{selected_order.total|floatformat:2}}€</div>
 </div>
 
 <div class="message">
