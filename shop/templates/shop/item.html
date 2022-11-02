@@ -27,6 +27,9 @@
         <div id="item-image-wrapper">
             <img id="item-image" src="{{item.image_set.first.image.url}}" alt="">
         </div>
+        <div id="myModal" class="modal">
+            <img id="img01" class="modal-content" src="{{item.image_set.first.image.url}}" alt="">
+        </div>
 
 
         <div id="item-image-wrapper-mobile">
@@ -401,6 +404,32 @@
     $('.dropdown-wrapper').click(function(e) {
         e.stopPropagation();
     });
+
+
+
+    // Get the modal
+    var modal = document.getElementById('myModal');
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var img = document.getElementById('item-image');
+    var modalImg = document.getElementById("img01");
+    img.onclick = function(){
+        modal.style.display = "block";
+        modalImg.src = this.src;
+        modalImg.alt = this.alt;
+        captionText.innerHTML = this.alt;
+    }
+
+
+    // When the user clicks on <span> (x), close the modal
+    modal.onclick = function() {
+        img01.className += " out";
+        setTimeout(function() {
+           modal.style.display = "none";
+           img01.className = "modal-content";
+         }, 400);
+
+     }
 
 
 </script>
