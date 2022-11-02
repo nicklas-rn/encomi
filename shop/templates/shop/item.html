@@ -417,17 +417,18 @@
         modal.style.display = "block";
         modalImg.src = this.src;
         modalImg.alt = this.alt;
-        captionText.innerHTML = this.alt;
+        console.log('show')
     }
 
 
     // When the user clicks on <span> (x), close the modal
     modal.onclick = function() {
         img01.className += " out";
+        console.log('remove')
         setTimeout(function() {
            modal.style.display = "none";
            img01.className = "modal-content";
-         }, 400);
+         }, 10);
 
      }
 
