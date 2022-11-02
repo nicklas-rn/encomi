@@ -644,9 +644,11 @@ def listings_new_save(request, seller_name):
         for option in group['options']:
             style = Style.objects.create(
                 title=option['title'],
-                price=option['price'],
                 style_group=style_group,
             )
+            if option['price']:
+                style.price = float(option['price'])
+                style.save()
 
     response = json.dumps({
         'status': 'ok',
