@@ -3,7 +3,6 @@
     margin: 0px;
 }
 
-
 .mainmain{
     display: None;
 }
@@ -37,36 +36,32 @@
 
 
 
-
-
-
-
-
-
-
-
 .wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-    height: 100%;
-    width: 100%;
-    background-color: #FFF8ED;
-    margin: 0px;
+    max-width: 1200px;
+    padding-left: 35px;
 }
 
-#construction {
-    height: 60px;
+h2 {
+    margin-bottom: 20px;
 }
 
-.wrapper p {
-    width: 240px;
-    font-family: 'Inria serif', serif;
-    font-size: 30;
-    font-weight: bold;
-    text-align: center;
-    padding-top: 10px;
-    margin: 0px;
+h3 {
+    margin-bottom: 10px;
+}
+
+h4 {
+    margin-bottom: 5px;
+}
+
+ol {
+    margin-left: 40px;
+    margin-bottom: 5px;
+}
+
+.table-of-contents p {
+    padding-bottom: 5px;
+}
+
+.prohibited-items {
+    margin-left: 20px;
 }
