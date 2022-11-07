@@ -244,10 +244,8 @@ def salesStatistics(seller, days):
         day = today - timedelta(days=i)
         orders = Order.objects.filter(seller=seller)
         for order in orders:
-            print(order.parent_order.datetime.day, day.day)
-            if order.parent_order.datetime.day == day.day:
+            if order.parent_order.datetime.date() == day.date():
                 sales += 1
-                print(day)
 
         sales_list.append(sales)
 
