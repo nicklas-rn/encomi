@@ -30,7 +30,7 @@ class Seller(models.Model):
     delivery_days_min = models.IntegerField(default=4)
     delivery_days_max = models.IntegerField(default=7)
 
-    favicon = models.ImageField(null=True)
+    favicon = models.ImageField(null=True, default="icons/favicon.png")
 
     img_landing_page = models.FileField(null=True)
     img_landing_page_mobile = models.FileField(null=True)
