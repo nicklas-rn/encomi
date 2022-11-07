@@ -38,6 +38,13 @@
         <div class="listings-new-content-header">
             <a href="/dashboard/listings/{{seller}}"><img class="arrow_to_left" src="/media/icons/arrow_to_left.png" alt=""></a>
             <p>Create listing</p>
+            <div class="listing-status-wrapper">
+                <select name="listing-status" id="listing-status">
+                    <option value="In stock">In stock</option>
+                    <option value="Out of stock">Out of stock</option>
+                    <option value="Deactivated">Deactivated</option>
+                </select>
+            </div>
         </div>
 
         <div class="listings-new">
@@ -128,6 +135,7 @@
 
 <script>
     var imageId = 0
+    var saved = false
 
     function openCropper(id){
         document.getElementById('image-cropper-wrapper').style.display = 'flex'
@@ -360,6 +368,8 @@
 
     async function saveListing(){
         if(verifyInputs()){
+            saved = true
+
             listing_dict = {
                 'title': document.getElementById('item-title').value,
                 'current_price': document.getElementById('current-price').value,
@@ -373,6 +383,7 @@
 
             var data = new FormData();
 
+            data.append('status', document.getElementById('listing-status').value)
             data.append('title', document.getElementById('item-title').value)
             data.append('current_price', document.getElementById('current-price').value)
             data.append('old_price', document.getElementById('old-price').value)
@@ -425,6 +436,13 @@
             })
         }
     }
+
+
+    window.onbeforeunload = function(){
+        if(!saved){
+            return 'Are you sure you want to leave?';
+        }
+    };
 
 </script>
 

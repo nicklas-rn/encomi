@@ -24,9 +24,9 @@ def home(request, seller_name):
     seller = Seller.objects.get(name=seller_name)
     print(seller)
     if seller_name != 'encomi':
-        items = seller.item_set.all()
+        items = seller.item_set.filter(status='In stock')
     else:
-        items = Item.objects.all()
+        items = Item.objects.filter(status='In stock')
 
     categories = seller.category_set.all()
 
@@ -63,21 +63,21 @@ def shop(request, seller_name):
         if category_id != 0:
             try:
                 category = seller.category_set.get(id=category_id)
-                items = seller.item_set.filter(categories=category, status='in stock')
+                items = seller.item_set.filter(categories=category, status='In stock')
             except:
-                items = seller.item_set.filter(status='in stock')
+                items = seller.item_set.filter(status='In stock')
         else:
-            items = seller.item_set.filter(status='in stock')
+            items = seller.item_set.filter(status='In stock')
 
     else:
         if category_id != 0:
             try:
                 category = seller.category_set.get(id=category_id)
-                items = Item.objects.filter(categories=category, status='in stock')
+                items = Item.objects.filter(categories=category, status='In stock')
             except:
-                items = Item.objects.filter(status='in stock')
+                items = Item.objects.filter(status='In stock')
         else:
-            items = Item.objects.filter(status='in stock')
+            items = Item.objects.filter(status='In stock')
 
     if sort == 'Best':
         items = items.order_by('id')
@@ -97,8 +97,6 @@ def shop(request, seller_name):
             for style in style_group.styles.all():
                 print(style.title)
     """
-
-
 
     context = {
         'seller': seller,
@@ -342,21 +340,21 @@ def shop_items(request, seller_name):
         if category_id != 0:
             try:
                 category = seller.category_set.get(id=category_id)
-                items = seller.item_set.filter(categories=category, status='in stock')
+                items = seller.item_set.filter(categories=category, status='In stock')
             except:
-                items = seller.item_set.filter(status='in stock')
+                items = seller.item_set.filter(status='In stock')
         else:
-            items = seller.item_set.filter(status='in stock')
+            items = seller.item_set.filter(status='In stock')
 
     else:
         if category_id != 0:
             try:
                 category = seller.category_set.get(id=category_id)
-                items = Item.objects.filter(categories=category, status='in stock')
+                items = Item.objects.filter(categories=category, status='In stock')
             except:
-                items = Item.objects.filter(status='in stock')
+                items = Item.objects.filter(status='In stock')
         else:
-            items = Item.objects.filter(status='in stock')
+            items = Item.objects.filter(status='In stock')
 
     if sort == 'Best':
         items = items.order_by('id')
@@ -619,6 +617,7 @@ def listings_new_save(request, seller_name):
     print(listing_dict_files)
 
     item = Item.objects.create(
+        status=listing_dict['status'],
         title=listing_dict['title'],
         price=listing_dict['current_price'],
         details=listing_dict['details'],
@@ -717,6 +716,7 @@ def listings_edit_save(request, seller_name, id):
     print(listing_dict_files)
 
     item = Item.objects.get(id=id)
+    item.status = listing_dict['status']
     item.title = listing_dict['title']
     item.price = float(listing_dict['current_price'])
     if listing_dict['old_price']:

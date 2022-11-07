@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{{seller}} - {% block title %}{% endblock %}</title>
-    <link rel="icon" href="/media/icons/favicon.png">
+    <link rel="icon" href="{{seller.favicon.url}}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="{% static 'shop/base_animations.js' %}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>

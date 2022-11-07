@@ -65,7 +65,7 @@
                 </div>
             </div>
             {% endfor %}
-            <button id="cartButton" onclick="addCookieItem()">Add to Cart</button>
+            <button id="cartButton" onclick="addCookieItem()" {%if item.status != 'In stock'%}disabled{%endif%}>{%if item.status == 'In stock'%}Add to Cart{%endif%}{%if item.status != 'In stock'%}Out of Stock{%endif%}</button>
             <p id="customization-error">Please select all customization options</p>
 
             <div id="item-properties">
@@ -215,6 +215,7 @@
 
 
 <script>
+
     async function addCookieItem(){
         console.log('Adding cookies')
 
@@ -351,6 +352,7 @@
         document.getElementById(item_second_image_id).style.display = 'None';
     }
 
+
     function scrollItems(items, direction){
         str = items + 'Items'
         console.log(str)
@@ -372,14 +374,15 @@
 
 
     function scrollImages(direction){
-        navImages = document.getElementById('nav-images')
+        let navImages = document.getElementById('nav-images')
         let height = navImages.offsetHeight * direction;
-        console.log(height)
+        console.log('height: ' + height)
+        console.log('scrollTop + height: ' + (navImages.scrollTop + height))
         navImages.scrollBy(0, height)
 
         btn_up = document.getElementById('scroll-button-up')
         btn_down = document.getElementById('scroll-button-down')
-        console.log((navImages.scrollTop + height))
+        console.log('scrollTop + height) % height: ' + ((navImages.scrollTop + height) % height))
         if((navImages.scrollTop + height) <= 0){
             btn_up.style.display = 'None'
         }
@@ -388,11 +391,21 @@
         }
 
         console.log(navImages.scrollTop)
-        if((height * 2) != (navImages.scrollTop + height) && direction > 0){
+        if(((navImages.scrollTop + height) % height) != 0 && direction > 0){
             btn_down.style.display = 'None'
         }
         else{
             btn_down.style.display = 'block'
+        }
+    }
+
+    checkImageScrollButtons()
+
+    function checkImageScrollButtons(){
+        let navImages = document.getElementsByClassName('nav-image')
+        btn_down = document.getElementById('scroll-button-down')
+        if(navImages.length < 4){
+            btn_down.style.display = 'None'
         }
     }
 

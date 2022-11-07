@@ -53,6 +53,20 @@ a {
     font-size: 20;
 }
 
+.listing-status-wrapper{
+    margin-left: 35px;
+    padding-right: 5px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+}
+
+#listing-status{
+    border: None;
+    outline: None;
+    padding: 5px;
+    cursor: pointer;
+}
+
 .listings-new {
     display: flex;
     justify-content: left;
@@ -198,7 +212,6 @@ a {
     height: 50px;
     color: black;
     border-radius: 4px;
-    border: 1px solid lightgrey;
 }
 
 .inputfield-customization-option {
@@ -254,7 +267,6 @@ a {
     min-height: 80px;
     color: black;
     border-radius: 4px;
-    border: 1px solid lightgrey;
 }
 
 

@@ -37,7 +37,14 @@
     <div class="listings-new-content">
         <div class="listings-new-content-header">
             <a href="/dashboard/listings/{{seller}}"><img class="arrow_to_left" src="/media/icons/arrow_to_left.png" alt=""></a>
-            <p>Create listing</p>
+            <p>Edit listing</p>
+            <div class="listing-status-wrapper">
+                <select name="listing-status" id="listing-status">
+                    <option value="In stock" {%if item.status == 'In stock'%}selected{%endif%}>In stock</option>
+                    <option value="Out of stock" {%if item.status == 'Out of stock'%}selected{%endif%}>Out of stock</option>
+                    <option value="Deactivated" {%if item.status == 'Deactivated'%}selected{%endif%}>Deactivated</option>
+                </select>
+            </div>
         </div>
 
         <div class="listings-new">
@@ -87,10 +94,12 @@
                     <div class="block3 drag-and-drop-test" id="block3">
                         {% for style_group in item.stylegroup_set.all %}
                         <div class="customization-group" id="customization-group-{{style_group.id}}">
-                            <div class="input-group input-group-wrapper-upper">
+                            <div class="input-group-wrapper-upper">
                                 <img class="hamburger hamburger-fullWidth" src="/media/icons/hamburger.png" alt="">
-                                <input type="text" class="input inputfield-customization-group input-group-fullWidth" id="customization-group-input-{{style_group.id}}" name="customization-group" placeholder=" " value="{{style_group.type}}">
-                                <label for="customization-group-input-{{style_group.id}}">Customization Group</label>
+                                <div class="input-group input-group-fullWidth">
+                                    <input type="text" class="input inputfield-customization-group input-group-fullWidth" id="customization-group-input-{{style_group.id}}" name="customization-group" placeholder=" " value="{{style_group.type}}">
+                                    <label for="customization-group-input-{{style_group.id}}">Customization Group</label>
+                                </div>
                             </div>
                             <div class="block3-drag-and-drop" id="block3-drag-and-drop-{{style_group.id}}">
                                 {% for style in style_group.style_set.all %}
@@ -159,6 +168,7 @@
 <script src="{% static 'image_cropper/js/cropper.js' %}"></script>
 
 <script>
+    var saved = false
     var imageId = 0
 
     let dragAreaContainers = document.getElementsByClassName('drag-and-drop-test');
@@ -405,6 +415,8 @@
 
     async function saveListing(){
         if(verifyInputs()){
+            saved = true
+
             listing_dict = {
                 'title': document.getElementById('item-title').value,
                 'current_price': document.getElementById('current-price').value,
@@ -419,6 +431,7 @@
 
             var data = new FormData();
 
+            data.append('status', document.getElementById('listing-status').value)
             data.append('title', document.getElementById('item-title').value)
             data.append('current_price', document.getElementById('current-price').value)
             data.append('old_price', document.getElementById('old-price').value)
@@ -480,6 +493,13 @@
             })
         }
     }
+
+
+    window.onbeforeunload = function(){
+        if(!saved){
+            return 'Are you sure you want to leave?';
+        }
+    };
 </script>
 
 

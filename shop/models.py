@@ -30,6 +30,8 @@ class Seller(models.Model):
     delivery_days_min = models.IntegerField(default=4)
     delivery_days_max = models.IntegerField(default=7)
 
+    favicon = models.ImageField(null=True)
+
     img_landing_page = models.FileField(null=True)
     img_landing_page_mobile = models.FileField(null=True)
     img_shop_page = models.FileField(null=True)
@@ -62,9 +64,9 @@ class Image(models.Model):
 
 
 ITEM_STATUS_CHOICES = {
-    ('in stock', 'in stock'),
-    ('out of stock', 'out of stock'),
-    ('deactivated', 'deactivated'),
+    ('In stock', 'In stock'),
+    ('Out of stock', 'Out of stock'),
+    ('Deactivated', 'Deactivated'),
 }
 
 
@@ -79,7 +81,7 @@ class Item(models.Model):
     categories = models.ManyToManyField(Category, null=True, blank=True)
     seller = models.ForeignKey('Seller', null=True, on_delete=models.CASCADE)
     sold_counter = models.IntegerField(default=0)
-    status = models.CharField(max_length=100, default='in stock', choices=ITEM_STATUS_CHOICES)
+    status = models.CharField(max_length=100, default='In stock', choices=ITEM_STATUS_CHOICES)
 
     def __str__(self):
         return self.title

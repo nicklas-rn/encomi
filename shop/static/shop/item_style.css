@@ -133,7 +133,7 @@
 .modal-content {
     margin: auto;
     display: block;
-    width: 75%;
+    width: 75
     //max-width: 75%;
 }
 
@@ -230,6 +230,8 @@
     font-size: 18;
     font-weight: 400;
     top: 46px;
+    max-height: 300px;
+    overflow: scroll;
 }
 
 .option-dropdown{

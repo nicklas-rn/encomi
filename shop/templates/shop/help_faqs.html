@@ -7,7 +7,7 @@
              <p class="faq-title">{{faq.title}}</p>
             <img src="/media/icons/arrow-down.png" class="faq-icon" id="faq-icon-{{faq.id}}">
         </div>
-        <p class="faq-content" id="faq-content-{{faq.id}}">{{faq.answer}}</p>
+        <p class="faq-content" id="faq-content-{{faq.id}}">{{faq.answer|linebreaks}}</p>
     </div>
     {% endfor %}
 </div>

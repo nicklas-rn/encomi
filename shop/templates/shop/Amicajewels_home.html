@@ -93,6 +93,20 @@
             btn_left.style.display = 'block'
         }
     }
+
+    function showSecondImage(item_id, items){
+        item_first_image_id = 'item-first-image-' + items + '-' + item_id
+        item_second_image_id = 'item-second-image-' + items + '-' + item_id
+        document.getElementById(item_first_image_id).style.display = 'None';
+        document.getElementById(item_second_image_id).style.display = 'block';
+    }
+
+    function showFirstImage(item_id, items){
+        item_first_image_id = 'item-first-image-' + items + '-' + item_id
+        item_second_image_id = 'item-second-image-' + items + '-' + item_id
+        document.getElementById(item_first_image_id).style.display = 'block';
+        document.getElementById(item_second_image_id).style.display = 'None';
+    }
 </script>
 
 

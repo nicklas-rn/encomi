@@ -8,7 +8,12 @@
 <link rel="stylesheet" type="text/css" href="{% static 'shop/checkout_style.css' %}">
 
 <!-- Replace "test" with your own sandbox Business account app client ID -->
-<script src="https://www.paypal.com/sdk/js?client-id=ATZy7_w2X0Ec7vhNGRMVvMdFsC5lljVyJ53HKH4Yfi4VdHjdHvUN7ge5q4ZzCaZTgakPs6WcdPfC482w&currency=EUR"></script>
+<script
+
+        src=https://www.paypal.com/sdk/js?client-id=ATZy7_w2X0Ec7vhNGRMVvMdFsC5lljVyJ53HKH4Yfi4VdHjdHvUN7ge5q4ZzCaZTgakPs6WcdPfC482w&currency=EUR&enable-funding=venmo
+
+        data-sdk-integration-source="button-factory" data-partner-attribution-id="encomi_SP__PPCP">
+</script>
 
 <div id="checkout">
     <div class="left">
@@ -91,6 +96,7 @@
 
 
 <script>
+
   paypal.Buttons({
     // Sets up the transaction when a payment button is clicked
     createOrder: (data, actions) => {
@@ -151,6 +157,79 @@
       });
     }
   }).render('#paypal-button-container');
+
+
+
+  /*
+  paypal.Buttons({
+    // Sets up the transaction when a payment button is clicked
+    createOrder: (data, actions) => {
+      return fetch('api-m.sandbox.paypal.com/v2/checkout/orders', {
+        method: 'post',
+        headers: {
+            'content-type': 'application/json',
+            'PayPal-Partner-Attribution-Id': 'encomi_SP_PPCP'
+        },
+        body: {
+            purchase_units: [
+                {
+                    amount: {
+                        value: '{{cartTotal|floatformat:2}}',
+                        currency_code: 'EUR',
+                        breakdown: {
+                            item_total: {
+                                value: '{{cartSubTotal|floatformat:2}}',
+                                currency_code: 'EUR'
+                            },
+                            shipping: {
+                                value: '{{shipping|floatformat:2}}',
+                                currency_code: 'EUR'
+                            }
+                        }
+                    },
+                    items: [
+                    {% for cartItem in cartItems %}
+                        {
+                            name: `{{cartItem.object.title|truncatechars:70}}`,
+                            description: '{% for style_group, style in cartItem.style_groups.items %}{{style_group}}: {{style}} {% endfor %}',
+                            quantity: '{{cartItem.quantity}}',
+                            unit_amount: {
+                                currency_code: 'EUR',
+                                value: '{{cartItem.price|floatformat:2}}',
+                                },
+                        },
+                    {% endfor %}
+                    ]
+                }
+            ],
+            id: generateID(16)
+        }
+      })
+    },
+    // Finalize the transaction after payer approval
+    onApprove: (data, actions) => {
+      return actions.order.capture().then(function(orderData) {
+        $.ajax({
+            type: 'POST',
+            url: '/create_order/{{seller}}',
+            data: {
+                'order': JSON.stringify({{order|safe}}),
+                'order_information': JSON.stringify({
+                    first_name: document.getElementById('firstname').value,
+                    last_name: document.getElementById('lastname').value,
+                    street_name: document.getElementById('streetname').value,
+                    house_number: document.getElementById('number').value,
+                    postal_code: document.getElementById('postalcode').value,
+                    city: document.getElementById('city').value,
+                }),
+                'csrfmiddlewaretoken': '{{csrf_token}}'
+            },
+            success: async function() {let delayres = await delay(50); window.location.href = '/thankyou/{{seller}}'}
+        })
+      });
+    }
+  }).render('#paypal-button-container');
+  */
 
 
   function testPayment(){

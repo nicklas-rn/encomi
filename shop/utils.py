@@ -38,31 +38,31 @@ def getRecommendedItems(request, seller):
         if seller != 'encomi':
             query = Q()
             for word in title:
-                query = query | Q(title__contains=word)
+                query = query | Q(title__contains=word, status='In stock')
 
             items = seller.item_set.filter(query)
 
         else:
             query = Q()
             for word in title:
-                query = query | Q(title_contains=word)
+                query = query | Q(title_contains=word, status='In stock')
 
             items = Item.objects.filter(query)
 
     else:
         if seller != 'encomi':
-            items = seller.item_set.all()
+            items = seller.item_set.filter(status='In stock')
         else:
-            items = Item.objects.all()
+            items = Item.objects.filter(status='In stock')
 
     return items
 
 
 def getFocusedItems(seller):
     if seller != 'encomi':
-        items = seller.item_set.all().order_by('sold_counter')
+        items = seller.item_set.filter(status='In stock').order_by('sold_counter')
     else:
-        items = Item.objects.all().order_by('sold_counter')
+        items = Item.objects.filter(status='In stock').order_by('sold_counter')
     return items
 
 
@@ -77,14 +77,14 @@ def getSimilarItems(seller, item):
     if seller != 'encomi':
         query = Q()
         for word in title:
-            query = query | Q(title__contains=word)
+            query = query | Q(title__contains=word, status='In stock')
 
         items = seller.item_set.filter(query)
 
     else:
         query = Q()
         for word in title:
-            query = query | Q(title_contains=word)
+            query = query | Q(title_contains=word, status='In stock')
 
         items = Item.objects.filter(query)
 
@@ -103,7 +103,7 @@ def getComplementaryItems(seller, item):
         include_query = Q()
         for word in title:
             if word.lower() not in type_words:
-                include_query = include_query | Q(title__contains=word)
+                include_query = include_query | Q(title__contains=word, status='In stock')
 
         exclude_query = Q()
         for word in title:
@@ -114,7 +114,7 @@ def getComplementaryItems(seller, item):
     else:
         query = Q()
         for word in title:
-            query = query | Q(title_contains=word)
+            query = query | Q(title_contains=word, status='In stock')
 
         items = Item.objects.filter(query)
 
