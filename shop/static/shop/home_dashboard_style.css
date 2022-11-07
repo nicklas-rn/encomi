@@ -9,7 +9,7 @@
 .element2 { grid-area: revenue; }
 .element3 { grid-area: page-visits; }
 .element4 { grid-area: listings; }
-.element5{ grid-area: deliveries; height: calc(100vh - 170px); position: relative;}
+.element5{ grid-area: deliveries; height: calc(100vh - 170px); max-width: 600px; position: relative;}
 
 .container {
   display: grid;

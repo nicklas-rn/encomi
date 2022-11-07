@@ -831,6 +831,10 @@ def settings(request, seller_name):
         seller.save()
     policies_form = PoliciesForm(instance=seller_policies)
 
+    action_url = ''
+    if not seller.pp_tracking_id:
+        action_url = getPayPalActionURL()
+
     if request.method == 'POST':
         form = PoliciesForm(request.POST, instance=seller_policies)
         if form.is_valid():
@@ -841,6 +845,7 @@ def settings(request, seller_name):
     context = {
         'seller': seller,
         'policies_form': policies_form,
+        'action_url': action_url
     }
 
     return render(request, 'shop/settings_dashboard.html', context)
@@ -861,12 +866,17 @@ def update_settings_content(request, seller_name, content):
         seller.save()
     policies_form = PoliciesForm(instance=seller_policies)
 
+    action_url = ''
+    if not seller.pp_tracking_id:
+        action_url = getPayPalActionURL()
+
     seller_faqs = SellerFAQ.objects.filter(seller=seller)
 
     context = {
         'seller': seller,
         'policies_form': policies_form,
         'seller_faqs': seller_faqs,
+        'action_url': action_url,
     }
 
     return render(request, template, context)

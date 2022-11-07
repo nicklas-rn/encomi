@@ -1,4 +1,4 @@
-import json, string, random
+import json, string, random, requests
 from .models import *
 from datetime import datetime, timedelta
 from django.db.models import Q
@@ -257,3 +257,66 @@ def salesStatistics(seller, days):
     sales_list.reverse()
 
     return {'weekday_list': weekday_list, 'sales_list': sales_list}
+
+
+def getPayPalAccessToken():
+    data = {
+        'grant_type': 'client_credentials',
+    }
+
+    response = requests.post('https://api-m.sandbox.paypal.com/v1/oauth2/token', data=data,
+                             auth=(
+                                 'ATZy7_w2X0Ec7vhNGRMVvMdFsC5lljVyJ53HKH4Yfi4VdHjdHvUN7ge5q4ZzCaZTgakPs6WcdPfC482w',
+                                 'ENvpbwL9xW_Rss8whsLy5AGvO2nxfRhPI7itaONkX2t2XzHbJHN248bud3aY_skc2T0jYfwhEPDSBhKa'
+                             )
+                             )
+
+    access_token = response.json()['access_token']
+
+    return access_token
+
+
+def getPayPalActionURL():
+    headers = {
+        # Already added when you pass json= but not when you pass data=
+        # 'Content-Type': 'application/json',
+        'Authorization': f'Bearer {getPayPalAccessToken()}',
+    }
+
+    json_data = {
+        'tracking_id': f'{generateId(6)}',
+        'operations': [
+            {
+                'operation': 'API_INTEGRATION',
+                'api_integration_preference': {
+                    'rest_api_integration': {
+                        'integration_method': 'PAYPAL',
+                        'integration_type': 'THIRD_PARTY',
+                        'third_party_details': {
+                            'features': [
+                                'PAYMENT',
+                                'REFUND',
+                            ],
+                        },
+                    },
+                },
+            },
+        ],
+        'products': [
+            'EXPRESS_CHECKOUT',
+        ],
+        'legal_consents': [
+            {
+                'type': 'SHARE_DATA_CONSENT',
+                'granted': True,
+            },
+        ],
+    }
+
+    response = requests.post('https://api-m.sandbox.paypal.com/v2/customer/partner-referrals', headers=headers,
+                             json=json_data)
+
+    action_url = response.json()['links'][1]['href']
+    print(action_url)
+
+    return action_url
