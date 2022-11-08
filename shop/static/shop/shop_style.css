@@ -340,6 +340,7 @@ ul {
  	 box-sizing: border-box;
 	 letter-spacing: 0.6px;
 	 margin: 20px 0px 40px 260px;
+	 display: none;
 }
 .page__numbers, .page__btn, .page__dots {
 	 display: flex;
