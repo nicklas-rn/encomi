@@ -19,6 +19,12 @@ def base(request):
 
 def home(request, seller_name):
 
+    # Comment out for production:
+    for item in Item.objects.all():
+        item.status = 'In stock'
+        item.save()
+
+
     cart = cookieCart(request, seller_name)
 
     seller = Seller.objects.get(name=seller_name)
