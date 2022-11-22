@@ -202,12 +202,13 @@ li a {
     color: white;
     border-radius: 4px;
     padding: 12px 20px 12px 20px;
-    width: calc(100% - 20px);
+    width: 100%;
     text-align: left;
     font-size: 18;
     font-weight: 300;
     text-align: center;
     display: inline-block;
+    border: None;
     margin: auto;
     cursor: pointer;
 }

@@ -1,0 +1,27 @@
+.payments-content {
+    background-color: white;
+    border-radius: 20px;
+    height: 100%;
+    box-shadow: -2px 2px 2px #EBEBEB,
+            2px -2px 2px #EBEBEB;
+    padding: 20px;
+}
+
+.paypal-signup{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 15;
+    border: grey;
+    border-radius: 7px;
+    background-color: #EA8D8D;
+    border: 1px solid lightgrey;
+    width: 180px;
+    font-family: 'Inter', inter;
+    height: 40px;
+    cursor: pointer;
+    color: black;
+    text-align: center;
+    text-decoration: None;
+    padding-left: 10px;
+}

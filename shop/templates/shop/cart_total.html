@@ -13,4 +13,4 @@
     <p class="total-price-number">{{cartTotal|floatformat:2}}€</p>
 </div>
 
-<a id="button-proceed-to-checkout" onclick="proceedCheckout()">Proceed to Checkout</a>
+<button id="button-proceed-to-checkout" {% if not cartItems %}disabled{%endif%} onclick="proceedCheckout()">Proceed to Checkout</button>

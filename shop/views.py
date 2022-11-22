@@ -837,10 +837,6 @@ def settings(request, seller_name):
         seller.save()
     policies_form = PoliciesForm(instance=seller_policies)
 
-    action_url = ''
-    if not seller.pp_tracking_id:
-        action_url = getPayPalActionURL()
-
     if request.method == 'POST':
         form = PoliciesForm(request.POST, instance=seller_policies)
         if form.is_valid():
@@ -851,7 +847,6 @@ def settings(request, seller_name):
     context = {
         'seller': seller,
         'policies_form': policies_form,
-        'action_url': action_url
     }
 
     return render(request, 'shop/settings_dashboard.html', context)
@@ -872,17 +867,12 @@ def update_settings_content(request, seller_name, content):
         seller.save()
     policies_form = PoliciesForm(instance=seller_policies)
 
-    action_url = ''
-    if not seller.pp_tracking_id:
-        action_url = getPayPalActionURL()
-
     seller_faqs = SellerFAQ.objects.filter(seller=seller)
 
     context = {
         'seller': seller,
         'policies_form': policies_form,
         'seller_faqs': seller_faqs,
-        'action_url': action_url,
     }
 
     return render(request, template, context)
@@ -925,6 +915,26 @@ def delete_settings_faq(request, seller_name):
     return HttpResponse(response)
 
 
+def payments(request, seller_name):
+    seller = Seller.objects.get(name=seller_name)
+
+    action_url = ''
+    if not seller.pp_tracking_id:
+        seller.pp_tracking_id = generateId(6)
+        seller.save()
+    action_url = getPayPalActionURL(seller)
+
+    getSellerPayPalStatus(seller)
+
+    context = {
+        'seller': seller,
+        'action_url': action_url,
+        'sellerPayPalStatus': getSellerPayPalStatus(seller),
+    }
+
+    return render(request, 'shop/payments_dashboard.html', context)
+
+
 def seller_policy(request, seller_name):
     seller = Seller.objects.get(name=seller_name)
 
@@ -933,6 +943,7 @@ def seller_policy(request, seller_name):
     }
 
     return render(request, 'shop/seller_policy.html', context)
+
 
 def privacy_policy(request, seller_name):
     seller = Seller.objects.get(name=seller_name)

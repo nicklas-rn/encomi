@@ -276,15 +276,16 @@ def getPayPalAccessToken():
     return access_token
 
 
-def getPayPalActionURL():
+def getPayPalActionURL(seller):
     headers = {
         # Already added when you pass json= but not when you pass data=
         # 'Content-Type': 'application/json',
         'Authorization': f'Bearer {getPayPalAccessToken()}',
+        'PayPal-Partner-Attribution-Id': 'encomi_SP_PPCP'
     }
 
     json_data = {
-        'tracking_id': f'{generateId(6)}',
+        'tracking_id': f'{seller.pp_tracking_id}',
         'operations': [
             {
                 'operation': 'API_INTEGRATION',
@@ -296,12 +297,17 @@ def getPayPalActionURL():
                             'features': [
                                 'PAYMENT',
                                 'REFUND',
+                                'ACCESS_MERCHANT_INFORMATION',
                             ],
                         },
                     },
                 },
             },
         ],
+        'partner_config_override': {
+            'return_url': f'https://encomi.co/dashboard/payments/{seller}'
+        },
+
         'products': [
             'EXPRESS_CHECKOUT',
         ],
@@ -320,3 +326,25 @@ def getPayPalActionURL():
     print(action_url)
 
     return action_url
+
+
+def getSellerPayPalStatus(seller):
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': f'Bearer {getPayPalAccessToken()}',
+        'PayPal-Partner-Attribution-Id': 'encomi_SP_PPCP'
+    }
+
+    seller_merchant_id = requests.get(
+        f'https://api-m.sandbox.paypal.com/v1/customer/partners/KDVNVWPCAS786/merchant-integrations?tracking_id={seller.pp_tracking_id}',
+        headers=headers
+    ).json()['merchant_id']
+    print('seller merchant id:', seller_merchant_id)
+
+    seller_data = requests.get(
+        f'https://api-m.sandbox.paypal.com/v1/customer/partners/KDVNVWPCAS786/merchant-integrations/{seller_merchant_id}',
+        headers=headers).json()
+
+    print('response: ', seller_data['primary_email_confirmed'])
+
+    return seller_data['primary_email_confirmed']
