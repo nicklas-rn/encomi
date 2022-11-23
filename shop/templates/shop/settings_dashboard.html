@@ -1,31 +1,227 @@
 {% extends "shop/base_dashboard.html" %}
 
+{% block title %}Settings{% endblock %}
+
 {% block content %}
 
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'shop/dashboard_style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'shop/settings_dashboard_style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'shop/settings_dashboard_info_style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'shop/settings_dashboard_policies_style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'shop/settings_dashboard_faqs_style.css' %}">
 
+<!--
 <nav class="navbar-left">
     <a href="/"><img id="logo-nav" src="/media/logos/logo.png"></a>
     <ul class="dashboard-links">
         <li class="dashboard-link nav-home" id="navigation-dashboard-link-dashboard"><a href="/dashboard/home/{{seller}}"><img class="icon-navbar" src="/media/icons/home-dashboard-white.png" alt="">Dashboard</a></li>
         <li class="dashboard-link nav-listings" id="navigation-dashboard-link-listings"><a href="/dashboard/listings/{{seller}}"><img class="icon-navbar" src="/media/icons/listings-dashboard-white.png" alt="">Listings</a></li>
-        <li class="dashboard-link nav-deliveries" id="navigation-dashboard-link-deliveries"><a href="/dashboard/deliveries/{{seller}}"><img class="icon-navbar" src="/media/icons/deliveries-dashboard-white.png" alt="">Deliveries</a></li>
+        <li class="dashboard-link nav-deliveries" id="navigation-dashboard-link-deliveries"><a href="/dashboard/deliveries/last/{{seller}}"><img class="icon-navbar" src="/media/icons/deliveries-dashboard-white.png" alt="">Orders</a></li>
         <li class="dashboard-link nav-settings active-page" id="navigation-dashboard-link-settings"><a href="/dashboard/settings/{{seller}}"><img class="icon-navbar" src="/media/icons/settings-dashboard-white.png" alt="">Settings</a></li>
     </ul>
-
 </nav>
+-->
 
 <nav id="header">
     <p id="header-title"><img class="icon-header"
                 src="/media/icons/settings-dashboard.png" alt="">Settings</p>
+    <div class="buttons-settings-header">
+        <div class="buttons-faqs-wrapper">
+            <button class="add-faq-button button-faqs button-top" id="add-faq-button" onclick="addFAQ()"><img class="add-faq-img" src="/media/icons/plus.png">Add FAQ</button>
+            <button class="save-button button-faqs button-top" id="save-button-faqs" onclick="saveFAQs()"><img class="add-faq-img" src="/media/icons/sync-data.png">Save Changes</button>
+        </div>
+            <button class="save-button button-policies button-top" id="save-button-policies" type="submit" form="policiesForm"><img class="sync-data-img" src="/media/icons/sync-data.png">Save Changes</button>
+    </div>
 </nav>
 
 
 <div class="mainmain">
 
+    <div class="settings-content">
+        <div class="navbar-top">
+            <ul class="navbar-top-links">
+                <li class="navbar-top-link" id="navbar-top-link-info" onclick="updateSettingsContent('info')"><a>Info & Appearence</a></li>
+                <!--<li class="navbar-top-link" id="navbar-top-link-shipping" onclick="updateSettingsContent('shipping')"><a>Shipping</a></li>-->
+                <li class="navbar-top-link navbar-top-link-selected" id="navbar-top-link-policies" onclick="updateSettingsContent('policies')"><a>Policies</a></li>
+                <!--<li class="navbar-top-link" id="navbar-top-link-users" onclick="updateSettingsContent('users')"><a>Users</a></li>-->
+                <li class="navbar-top-link" id="navbar-top-link-faqs" onclick="updateSettingsContent('faqs')"><a>FAQs</a></li>
+           </ul>
+        </div>
+
+        <div id="settings-content-blocks">
+        </div>
+
+    </div>
 
 </div>
+
+
+<script>
+    var settings_changed = false
+
+    console.log(dashboard)
+
+    updateSettingsContent(dashboard['settings'])
+
+    function updateSettingsContent(content){
+        settings_links = document.getElementsByClassName('navbar-top-link')
+        for(let i=0; i<settings_links.length; i++){
+            settings_links[i].classList.remove('navbar-top-link-selected')
+        }
+
+        settings_link_str = 'navbar-top-link-'+ content
+        document.getElementById(settings_link_str).classList.add('navbar-top-link-selected')
+
+
+        buttons = document.getElementsByClassName('button-top')
+        for(let i=0; i<buttons.length; i++){
+            buttons[i].style.display = 'None';
+        }
+
+        button_str = 'button-' + content
+        let page_buttons = document.getElementsByClassName(button_str)
+        for(let i=0; i<page_buttons.length; i++){
+            page_buttons[i].style.display = 'flex';
+        }
+
+        dashboard['settings'] = content
+
+        document.cookie ='dashboard=' + JSON.stringify(dashboard) + ";domain=;path=/"
+
+        let request = new XMLHttpRequest();
+        let method = 'GET';
+
+        let url = '/dashboard/update_settings_content/{{seller}}/' + content;
+        request.open(method, url);
+        request.onload = function () {
+            let myHTML = request.response;
+        document.getElementById('settings-content-blocks').innerHTML = myHTML;
+        };
+        request.send();
+
+        disableSaveButton(content)
+    }
+
+    function showSaveButton(content){
+        str = 'save-button-' + content
+        button = document.getElementById(str)
+        button.type = 'submit'
+        button.style.opacity = 1
+        button.disabled = false
+        settings_changed = true
+    }
+
+    function disableSaveButton(content){
+        str = 'save-button-' + content
+        button = document.getElementById(str)
+        button.type = 'submit'
+        button.style.opacity = 0.5
+        button.disabled = true
+        settings_changed = false
+    }
+
+
+    function addFAQ(){
+        let id = generateID(5)
+
+        let div = document.createElement('div')
+        div.classList.add('faqs-inputfields')
+
+
+        let input_group_question = document.createElement('div')
+        input_group_question.classList.add('input-group')
+
+        let question = document.createElement('input')
+        question.classList.add('faqs-inputfield-question')
+        question.classList.add('input')
+        question.placeholder = " "
+        str = 'faqs-inputfield-question-' + id
+        question.setAttribute('id', str)
+
+        let label_question = document.createElement('label')
+        label_question.setAttribute('for', str)
+        label_question.innerHTML = 'Your question'
+
+
+        let input_group_answer = document.createElement('div')
+        input_group_answer.classList.add('input-group')
+
+        let answer = document.createElement('textarea')
+        answer.classList.add('faqs-inputfield-answer')
+        answer.classList.add('input')
+        answer.placeholder = " "
+        str = 'faqs-inputfield-answer-' + id
+        answer.setAttribute('id', str)
+
+        let label_answer = document.createElement('label')
+        label_answer.setAttribute('for', str)
+        label_answer.innerHTML = 'Your answer'
+
+        wrapper = document.getElementById('faqs-wrapper')
+        div.appendChild(input_group_question)
+        div.appendChild(input_group_answer)
+        input_group_question.appendChild(question)
+        input_group_question.appendChild(label_question)
+        input_group_answer.appendChild(answer)
+        input_group_answer.appendChild(label_answer)
+        wrapper.appendChild(div)
+
+        if(document.getElementById('no-faqs')){
+            document.getElementById('no-faqs').style.display = 'None';
+        }
+        showSaveButton('faqs')
+    }
+
+    async function saveFAQs(){
+        faqs = document.getElementsByClassName('faqs-inputfields')
+
+        faq_object_list = []
+
+        for(let i=0; i<faqs.length; i++){
+            faq_object = {
+                id: faqs[i].getAttribute('data-id'),
+                question: faqs[i].getElementsByClassName('faqs-inputfield-question')[0].value,
+                answer: faqs[i].getElementsByClassName('faqs-inputfield-answer')[0].value,
+            }
+            faq_object_list.push(faq_object)
+
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/dashboard/create_settings_faq/{{seller}}',
+            data: {
+                'faq_object_list': JSON.stringify(faq_object_list),
+                'csrfmiddlewaretoken': '{{csrf_token}}'
+            },
+            success: async function() {let delayres = await delay(50); updateSettingsContent('faqs')}
+        })
+    }
+
+    async function deleteFAQ(faq_id){
+        $.ajax({
+            type: 'POST',
+            url: '/dashboard/delete_settings_faq/{{seller}}',
+            data: {
+                'faq_id': JSON.stringify(faq_id),
+                'csrfmiddlewaretoken': '{{csrf_token}}'
+            },
+            success: async function() {let delayres = await delay(50); updateSettingsContent('faqs')}
+        })
+    }
+
+
+    window.onbeforeunload = function(){
+      if(settings_changed){
+          return 'Are you sure you want to leave?';
+      }
+    };
+
+    $(document).on("submit", "form", function(event){
+            window.onbeforeunload = null;
+    });
+</script>
+
 
 
 {% endblock %}

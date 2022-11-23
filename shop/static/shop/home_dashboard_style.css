@@ -1,26 +1,33 @@
-.item {
+
+
+.element {
     font-size: 25;
 }
 
 
-.item1 { grid-area: orders; }
-.item2 { grid-area: revenue; }
-.item3 { grid-area: page-visits; }
-.item4 { grid-area: listings; }
-.item5 { grid-area: deliveries; }
+.element1 { grid-area: sales; }
+.element2 { grid-area: revenue; }
+.element3 { grid-area: page-visits; }
+.element4 { grid-area: listings; }
+.element5{ grid-area: deliveries; height: calc(100vh - 170px); max-width: 600px; position: relative;}
 
 .container {
   display: grid;
   grid-template-areas:
-    'orders orders deliveries'
+    'sales sales deliveries'
     'revenue page-visits deliveries'
     'listings listings deliveries';
+  grid-template-columns: 420px 420px auto;
   gap: 15px;
-  height: 100%;
+  height: auto;
+  overflow-y: auto;
   margin: 0px;
+  height: calc(100vh - 100px);
+  max-height: 100%;
+
 }
 
-.item {
+.element {
     text-align: left;
     padding: 15px 20px;
     border-radius: 20px;
@@ -36,17 +43,334 @@
     margin-right: 8px;
 }
 
-.item-title{
+.element-title{
     font-family: 'Inter', sans-serif;
     font-weight: 400;
     font-size: 22;
     margin-bottom: 20px;
 }
 
+
+.element4{
+    padding-bottom: 0px;
+}
+
+.element4-header, .element5-header {
+   display: flex;
+   justify-content: space-between;
+}
+
+.showMore-wrapper-element4 , .showMore-wrapper-element5 {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+}
+
+
 #sales-chart-wrapper{
+    width: 100%;
     max-width: 800px;
+    height: 220px;
 }
 
 #sales-chart{
     width: 100%;
+}
+
+
+
+.statistic-number{
+    font-size: 30;
+    margin-bottom: 10px;
+}
+
+.statistic-change{
+    font-size: 15;
+    color: #6C6C6C;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.statistic-change span{
+    color: #47A06B;
+    margin-right: 5px;
+}
+
+.showMore-wrapper{
+    border-top: 1px solid lightgrey;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+}
+
+.showMore-text{
+    font-size: 15px;
+}
+
+.showMore-link:hover{
+   cursor: pointer;
+}
+
+.showMore-link:visited{
+    color: black;
+}
+
+.icon-arrow-right{
+    height: 22px;
+    width: 22px;
+    position: relative;
+    top: 1px;
+}
+
+
+
+
+#deliveries {
+    line-height:30px;
+    height: calc(100% - 95px);
+    float: left;
+    position: relative;
+    left: -20px;
+    width: calc(100% + 40px);
+    padding: 25px 0px;
+}
+
+
+.icon {
+    width: 20px;
+    height: 20px;
+    padding: 10px;
+}
+
+
+
+
+
+.items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+    justify-content: left;
+    width: calc(100% - 10px);
+    margin-right: 0px;
+    max-height: calc(100% - 50px);
+    overflow: scroll;
+    position: relative;
+    padding: 10px 10px 10px 10px;
+    top: -10px;
+    left: -10px;
+
+}
+
+.item {
+    padding: 5px 5px 10px 5px;
+    position: relative;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: -1px 1px 5px #ECECEC,
+                1px -1px 5px #ECECEC;
+}
+
+.item-image {
+    margin-bottom: 10px;
+    border-radius: 10px;
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+}
+
+
+.item-second-image{
+    display: None;
+}
+
+.item-title, .item-price {
+    font-size: 14;
+    margin-bottom: 10px;
+}
+
+.item-price {
+    font-weight: bold;
+    font-family: 'Inter', inter;
+    margin-bottom: 10px;
+}
+
+
+.items-sold {
+    color: #A0A0A0;
+    font-size: 12;
+    font-family: 'Inter', inter;
+}
+
+.items-sold-img {
+    height: 16px;
+    padding-right: 5px;
+}
+
+
+
+
+
+
+.header-orderlist {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(100% - 25px);
+    border-bottom: 1px solid #9A9A9A;
+    padding-left: 25px;
+}
+
+.box {
+    height: 20px;
+    margin-right: 10px;
+    display: None;
+}
+
+.header-orderlist p {
+    color: grey;
+    font-size: 13;
+}
+
+.header-orderId, .orderId{
+    width: 60px;
+}
+
+.header-orderDate, .orderDate{
+    width: 70px;
+}
+
+.header-orderStatus, .orderStatus {
+    width: 120px;
+    padding-right: 20px;
+}
+
+.orderlist {
+    list-style: none;
+    padding-left: 0px;
+    line-height: 14px;
+    max-height: calc(100% - 20px);
+    overflow: hidden;
+
+}
+
+
+.orderlist-object {
+    border-bottom: 1px solid lightgrey;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(100% - 25px);
+    padding-left: 25px;
+    height: 65px;
+    cursor: pointer;
+}
+
+.orderList-object:hover{
+    background-color: #F8F8F8;
+}
+
+.orderlist-object p{
+    display: inline-block;
+    font-size: 14;
+    color: black;
+}
+
+.orderStatus{
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+    border: 1px solid lightgrey;
+    height: 20px;
+    padding-right: 2px;
+    margin-right: 18px;
+}
+
+.orderStatus-icon{
+    height: 12px;
+    width: 12px;
+    padding: 4px;
+    display: inline-block;
+    margin-right: 7;
+    background-color: #FFB800;
+    border-radius: 20px;
+    position: relative;
+    left: -1px;
+    border: 1px solid lightgrey;
+}
+
+.orderStatus-nothandled .orderStatus-icon{
+    background-color: #E22309;
+}
+
+.orderStatus-ontheway .orderStatus-icon{
+    background-color: #FFB800;
+}
+
+.orderStatus-delivered .orderStatus-icon{
+    background-color: #00CF53;
+}
+
+
+
+
+a:link {
+  color: black;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+/*
+a:visited {
+  color: pink;
+  background-color: transparent;
+  text-decoration: none;
+}
+*/
+
+
+
+
+
+
+
+
+@media screen and (max-width: 900px) {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .container::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .container {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      height: 100%;
+      margin-bottom: 30px;
+    }
+
+    .element {
+        text-align: left;
+        padding: 15px 20px;
+        border-radius: 20px;
+        box-shadow: -2px 2px 2px #EBEBEB,
+                    2px -2px 2px #EBEBEB;
+        background-color: white;
+        position: relative;
+    }
+
+
+
+
 }

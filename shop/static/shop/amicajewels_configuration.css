@@ -1,6 +1,11 @@
 :root{
+    --NoneIfNotEncomi: None;
+
+    --backgroundColor: white;
     --borderRadius: 4px;
     --borderRadiusImage: 0px;
     --buttonBackgroundColor: black;
+    --shopItemDisplay: repeat(auto-fit, minmax(250px, 260px));
+    --shopRelativeImageHeight: 85%;
 }
 

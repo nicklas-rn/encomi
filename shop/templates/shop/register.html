@@ -1,0 +1,73 @@
+{% block content %}
+
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'shop/register_style.css' %}">
+
+<head>
+    <title>encomi - Register as a seller</title>
+    <link rel="icon" href="/media/icons/favicon.png">
+</head>
+
+
+<div class="main">
+    <div id="left">
+        <a href="/home/encomi"><img id="logo-nav" src="/media/logos/logo_blue.png"></a>
+
+        <p class="welcome-back">Register as a Seller</p>
+
+        <div >
+            <form class="login-form" id="form" method="post" action="">
+
+                {% csrf_token %}
+
+                {{form.email}}
+
+                {{form.password1}}
+
+                {{form.password2}}
+
+                {{form.first_name}}
+
+                {{form.last_name}}
+
+                {{form.registration_code}}
+
+                {{form.design_requests}}
+
+                {{form.errors}}{{form.non_field_errors}}
+            <p class="login-form-addon">*Design ideas, color schemes etc.</p>
+
+            <div class="age-policies-agreement">
+                <input type="checkbox" id="age-policies-agreement" name="age-policies-agreement" value="" required>
+                <label for="age-policies-agreement">I hereby confirm that I am at least 18 years old and that I have read and understood the
+                    <a href="/TOU/encomi">Terms of Use</a>, <a href="/privacy_policy/encomi">Privacy Policy</a> and <a href="/seller_policy/encomi">Seller Policy</a>.</label>
+            </div>
+            <input type="submit" value="Register" class="login-button">
+        </form>
+        <a href="/login" class="new-here"><p>Already registered? Login</p></a>
+
+        </div>
+
+    </div>
+
+    <div id="right">
+        <img id="picture-login" src="/media/icons/picture_login.png">
+
+        <div class="text-picture">
+            <p class="text-big">Sell jewelry like never before</p>
+            <p class="text-small">We offer the most unique shopping experience</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    let password1 = document.getElementById('id_password1')
+    password1.classList.add('registration-form-2')
+    password1.placeholder='Password'
+    let password2 = document.getElementById('id_password2')
+    password2.classList.add('registration-form-2')
+    password2.placeholder='Confirm Password'
+</script>
+
+{% endblock %}

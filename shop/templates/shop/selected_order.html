@@ -1,32 +1,23 @@
 <div id="heading-wrapper">
     <p id="heading-right">Order {{selected_order.id}}</p>
     <div id="selectedOrderStatus-wrapper">
-        <div class="orderStatus selectedOrderStatus">
-            <img class="orderStatus-icon" src="/media/icons/shipping-black.png" alt="">
-            <p class="orderStatus-text">{{selected_order.status}}</p>
-            <img class="orderStatus-icon-down" src="/media/icons/arrow-down.png" alt="">
-        </div>
-        <div id="selectedOrderStatus-content">
-            <a>not handled</a>
-            <a>on the way</a>
-            <a>delivered</a>
-        </div>
+    {% include "shop/selected_order_status.html" %}
     </div>
 </div>
 
 <div class="order-details">
-    <div class="grid-item grid-item-transparent">Orderer</div>
-    <div class="grid-item">{{selected_order.parent_order.first_name}} {{selected_order.parent_order.last_name}}</div>
-    <div class="grid-item grid-item-transparent">Date</div>
-    <div class="grid-item">{{selected_order.parent_order.datetime|date:"d.m.y"}}</div>
-    <div class="grid-item grid-item-transparent">Address</div>
-    <div class="grid-item">
+    <div class="grid-item grid-item-1 grid-item-transparent">Orderer</div>
+    <div class="grid-item grid-item-2">{{selected_order.parent_order.first_name}} {{selected_order.parent_order.last_name}}</div>
+    <div class="grid-item grid-item-3 grid-item-transparent">Date</div>
+    <div class="grid-item grid-item-4">{{selected_order.parent_order.datetime|date:"d.m.y"}}</div>
+    <div class="grid-item grid-item-5 grid-item-transparent">Address</div>
+    <div class="grid-item grid-item-6">
         {{selected_order.parent_order.street_name}} {{selected_order.parent_order.house_number}}</br>
         {{selected_order.parent_order.postal_code}} {{selected_order.parent_order.city}}</br>
         Germany
     </div>
-    <div class="grid-item grid-item-transparent">Total</div>
-    <div class="grid-item">{{selected_order.total}}</div>
+    <div class="grid-item grid-item-7 grid-item-transparent">Total</div>
+    <div class="grid-item grid-item-8">{{selected_order.total|floatformat:2}}€</div>
 </div>
 
 <div class="message">
@@ -41,7 +32,7 @@
         <li class="item-in-order-list" id="item-in-cart-list-">
             <img class="orderItem-image" src="{{order_item.item.image_set.first.image.url}}" width= 100px alt="">
             <div class="orderItem-properties">
-                <a class="orderItem-link" href="/item/{{seller}}/{{cartItem.object.id}}">{{order_item.item.title|truncatechars:60}}</a>
+                <a class="orderItem-link" href="/item/{{seller}}/{{order_item.item.id}}">{{order_item.item.title|truncatechars:60}}</a>
                 <p class="orderItem-description">{% for style_group in order_item.orderitemstylegroup_set.all %}{{style_group.style_group.type}}: {{style_group.selected_style.title}}<br>{% endfor %}</p>
                 <p class="orderItem-price">{{order_item.price|floatformat:2}}€</p>
                 <p class="orderItem-quantity">Quantity: {{order_item.quantity}}</p>
@@ -51,3 +42,18 @@
     </div>
 
 </div>
+
+
+<script>
+    function orderStatusSelector(){
+        let content = document.getElementById('selectedOrderStatus-content')
+        console.log(content.style.display)
+        if(content.style.display == 'none' || content.style.display == ''){
+            content.style.display = 'flex'
+        }
+        else{
+            content.style.display = 'none'
+        }
+    }
+
+</script>

@@ -1,0 +1,26 @@
+<div class="faqs-wrapper" id="faqs-wrapper">
+    {% for faq in seller_faqs %}
+    <div class="faqs-inputfields" data-id="{{faq.id}}">
+        <div class="input-group">
+            <input class="input faqs-inputfield-question" id="faqs-inputfield-question-{{faq.id}}" placeholder=" " onkeydown="showSaveButton('faqs')" value="{{faq.question}}">
+            <label for="faqs-inputfield-question-{{faq.id}}">Your question</label>
+        </div>
+        <div class="input-group">
+            <textarea class="input faqs-inputfield-answer" id="faqs-inputfield-answer-{{faq.id}}" placeholder=" " onkeydown="showSaveButton('faqs')">{{faq.answer}}</textarea>
+            <label for="faqs-inputfield-answer-{{faq.id}}">Your answer</label>
+        </div>
+        <button class="removeButton" onclick="deleteFAQ({{faq.id}})">
+            <img class="removeIcon" src="/media/icons/trashcan.png" alt="">
+            Remove
+        </button>
+    </div>
+    {% endfor %}
+    {% if not seller_faqs %}
+    <p id="no-faqs">You haven't added FAQs yet</p>
+    {% endif %}
+
+
+
+</div>
+
+

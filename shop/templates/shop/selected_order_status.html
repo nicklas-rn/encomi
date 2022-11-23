@@ -1,0 +1,10 @@
+<div class="orderStatus selectedOrderStatus orderStatus-{{selected_order.status|cut:' '}}" onclick="orderStatusSelector()">
+    <img class="orderStatus-icon" src="/media/icons/shipping-black.png" alt="">
+    <p class="orderStatus-text">{{selected_order.status}}</p>
+    <img class="orderStatus-icon-down" src="/media/icons/arrow-down.png" alt="">
+</div>
+<div id="selectedOrderStatus-content">
+    <a onclick="updateOrderStatus({{selected_order.id}}, 'not handled')">not handled</a>
+    <a onclick="updateOrderStatus({{selected_order.id}}, 'on the way')">on the way</a>
+    <a onclick="updateOrderStatus({{selected_order.id}}, 'delivered')">delivered</a>
+</div>

@@ -1,0 +1,454 @@
+{% extends "shop/base_dashboard.html" %}
+
+{% block title %}Create listing{% endblock %}
+
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'shop/listings_new_dashboard_style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'shop/cropper.css' %}">
+
+
+<link rel="stylesheet" type="text/css" href="{% static 'image_cropper/css/cropper.css' %}">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.10.2/Sortable.min.js"></script>
+
+<nav class="navbar-left">
+    <a href="/"><img id="logo-nav" src="/media/logos/logo.png"></a>
+    <ul class="dashboard-links">
+        <li class="dashboard-link nav-home" id="navigation-dashboard-link-dashboard"><a href="/dashboard/home/{{seller}}"><img class="icon-navbar" src="/media/icons/home-dashboard-white.png" alt="">Dashboard</a></li>
+        <li class="dashboard-link nav-listings active-page" id="navigation-dashboard-link-listings"><a href="/dashboard/listings/{{seller}}"><img class="icon-navbar" src="/media/icons/listings-dashboard-white.png" alt="">Listings</a></li>
+        <li class="dashboard-link nav-deliveries" id="navigation-dashboard-link-deliveries"><a href="/dashboard/deliveries/last/{{seller}}"><img class="icon-navbar" src="/media/icons/deliveries-dashboard-white.png" alt="">Orders</a></li>
+        <li class="dashboard-link nav-settings" id="navigation-dashboard-link-settings"><a href="/dashboard/settings/{{seller}}"><img class="icon-navbar" src="/media/icons/settings-dashboard-white.png" alt="">Settings</a></li>
+    </ul>
+
+</nav>
+
+<nav id="header">
+    <p id="header-title"><img class="icon-header"
+                src="/media/icons/listings-dashboard.png" alt="">Listings</p>
+
+    <a class="save-listing-button" onclick="saveListing()"><img class="save-img" src="/media/icons/sync-data.png">Save listing</a>
+
+</nav>
+
+
+<div class="mainmain">
+    <div class="listings-new-content">
+        <div class="listings-new-content-header">
+            <a href="/dashboard/listings/{{seller}}"><img class="arrow_to_left" src="/media/icons/arrow_to_left.png" alt=""></a>
+            <p>Create listing</p>
+            <div class="listing-status-wrapper">
+                <select name="listing-status" id="listing-status">
+                    <option value="In stock">In stock</option>
+                    <option value="Out of stock">Out of stock</option>
+                    <option value="Deactivated">Deactivated</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="listings-new">
+            <div class="listings-new-left">
+                <div class="nav-images-wrapper" id="nav-images-wrapper">
+                    <div class="nav-images" id="nav-images">
+                        <!--
+                        {% for image in item.image_set.all %}
+                        <img class="nav-image" src="{{image.image.url}}" width="70px" alt="" onmouseenter="updateImage('{{image.image.url}}')">
+                        {% endfor %}
+                        -->
+                        <div id="nav-image-placeholder" onclick="openCropper(0)"><img class="add-img" src="/media/icons/plus.png"></div>
+
+                    </div>
+                </div>
+                <div id="item-image-wrapper">
+                    <div id="item-image-placeholder" onclick="openCropper(0)"><img class="add-img" src="/media/icons/plus.png"></div>
+                    <img id="item-image" src="" alt="">
+                </div>
+                <div id="item-image-wrapper-mobile">
+                    {% for image in item.image_set.all %}
+                    <img class="item-image-mobile" src="{{image.image.url}}" alt="">
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="listings-new-right-wrapper">
+                <div class="listings-new-right">
+                    <div class="input-group">
+                        <textarea type="text" class="input inputfield-item-title block-1" id="item-title" name="item-title" placeholder=" "></textarea>
+                        <label for="item-title">Item Title*</label>
+                    </div>
+                    <div class="block2">
+                        <div class="input-group input-group-inline input-group-inline-price">
+                            <input type="number" class="input price-field" id="current-price" name="current-price" placeholder=" ">
+                            <label for="current-price">Current Price*</label>
+                        </div>
+                        <p class="margin">€</p>
+                        <div class="input-group input-group-inline input-group-inline-price">
+                            <input type="number" class="input price-field" id="old-price" name="old-price" placeholder=" ">
+                            <label for="old-price">Old Price</label>
+                        </div>
+                        <p>€</p>
+                    </div>
+
+                    <div class="block3 drag-and-drop-test" id="block3">
+                    </div>
+
+                    <div class="block4">
+                        <button class="add-group-button" onclick="addCustomizationGroup()"><img class="add-img" src="/media/icons/plus.png">Add Customization Group</button>
+                    </div>
+
+                    <div class="block5">
+                        <div class="input-group">
+                            <textarea type="text" class="input inputfield-text" id="item-details" name="item-details" placeholder=" "></textarea>
+                            <label for="item-details">Details</label>
+                        </div>
+                        <div class="input-group">
+                            <textarea type="text" class="input inputfield-text" id="item-description" name="item-description" placeholder=" "></textarea>
+                            <label for="item-description">Description</label>
+                        </div>
+                        <div class="input-group">
+                            <textarea type="text" class="input inputfield-text" id="item-materials" name="item-materials" placeholder=" "></textarea>
+                            <label for="item-materials">Material(s)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div id="image-cropper-wrapper">
+    <div id="image-cropper">
+        <button id="image-cropper-close" onclick="closeCropper()"><img class="close-icon" src="/media/icons/close.svg"></button>
+        <!--{% include "image_cropper/index.html" %}-->
+        {% include "shop/cropper.html" %}
+    </div>
+</div>
+
+
+
+<script src="{% static 'shop/cropper.js' %}"></script>
+
+<script src="{% static 'image_cropper/js/cropper.js' %}"></script>
+
+<script>
+    var imageId = 0
+    var saved = false
+
+    function openCropper(id){
+        document.getElementById('image-cropper-wrapper').style.display = 'flex'
+
+        console.log(id)
+
+        let images = document.getElementsByClassName('nav-image')
+        if(id!=0){
+            str = 'nav-image-' + id
+            image_workspace.src = document.getElementById(str).src
+            console.log(image_workspace.src)
+            cropper.destroy()
+            cropper = new Cropper(image_workspace, options)
+        }
+        else{
+            if(document.getElementsByClassName('nav-image').length > 0){
+                file = null
+                url = window.URL.createObjectURL(new Blob([file], { type : 'image/jpg' }))
+                image_workspace.src = url
+                cropper.destroy()
+                cropper = new Cropper(image_workspace, options)
+            }
+            hiddenUpload.click()
+        }
+        imageId = id
+
+    }
+
+    function closeCropper(){
+        document.getElementById('image-cropper-wrapper').style.display = 'None'
+    }
+
+    function setImage(url, fileContainer){
+        let images = document.getElementsByClassName('nav-image')
+        let id = generateID(5)
+
+        if(imageId==0){
+            let navImagesWrapper = document.getElementById('nav-images-wrapper')
+            let div = document.createElement('div')
+            let img = document.createElement('img')
+            let input = document.createElement('input')
+            let button = document.createElement('button')
+            let button_img = document.createElement('img')
+            div.classList.add('nav-image-wrapper')
+            div.id = 'nav-image-wrapper-' + id
+            img.classList.add('nav-image')
+            str = 'nav-image-' + id
+            img.id = str
+            img.src = url
+            img.onmouseenter = function() {updateImage(url)}
+            img.onclick = function() {openCropper(id)}
+            input.classList.add('nav-image-input')
+            input.type = 'file'
+            input.files = fileContainer.files
+            button.classList.add('nav-image-removeButton')
+            button.onclick = function() {deleteImage(id)}
+            button_img.classList.add('removeIcon')
+            button_img.src = '/media/icons/trashcan.png'
+            button.appendChild(button_img)
+            div.appendChild(img)
+            div.appendChild(input)
+            div.appendChild(button)
+            navImagesWrapper.appendChild(div)
+        }
+        else{
+            str = 'nav-image-' + imageId
+            let img = document.getElementById(str)
+            img.src = url
+            img.onmouseenter = function() {updateImage(url)}
+        }
+
+        updateImage(url)
+    }
+
+    function deleteImage(id){
+        str = 'nav-image-wrapper-' + id
+        document.getElementById(str).remove()
+
+        let images = document.getElementsByClassName('nav-image')
+        if(images.length > 0){
+            updateImage(images[0].src)
+        }
+        else{
+            document.getElementById('item-image-placeholder').style.display = 'flex'
+            document.getElementById('item-image').style.display = 'None'
+        }
+    }
+
+
+    function updateImage(src){
+        document.getElementById('item-image-placeholder').style.display = 'None'
+        let itemImage = document.getElementById('item-image')
+        itemImage.style.display = 'block';
+        itemImage.src = src;
+    }
+
+
+
+    async function addCustomizationGroup(){
+        let id = generateID(5)
+
+        let request = new XMLHttpRequest();
+        let method = 'GET';
+
+        let url = '/dashboard/listings_new_customization_group/' + id + '/{{seller}}';
+        request.open(method, url);
+        request.onload = function () {
+            let myHTML = request.response;
+            let newDiv = document.createElement('div')
+            document.getElementById('block3').appendChild(newDiv);
+            newDiv.outerHTML = myHTML
+        };
+        request.send();
+
+        let delayres = await delay(50)
+
+
+        let dragAreaContainer = document.querySelector('.drag-and-drop-test');
+        new Sortable(dragAreaContainer, {
+            animation: 350
+        });
+
+        let dragArea = document.getElementsByClassName('block3-drag-and-drop');
+        for (let i=0; i<dragArea.length; i++){
+            new Sortable(dragArea[i], {
+                animation: 350
+            });
+        }
+    }
+
+    function addCustomizationOption(id){
+        str = 'customization-group-' + id
+        let container = document.getElementById(str)
+        let count = container.getElementsByClassName('block3-line').length + 1
+
+        str = 'block3-drag-and-drop-' + id
+
+        let request = new XMLHttpRequest();
+        let method = 'GET';
+
+        let url = '/dashboard/listings_new_customization_option/' + id +  '/' + count +   '/{{seller}}';
+        request.open(method, url);
+        request.onload = function () {
+            let myHTML = request.response;
+            let newDiv = document.createElement('div')
+            document.getElementById(str).appendChild(newDiv);
+            newDiv.outerHTML = myHTML
+        };
+        request.send();
+    }
+
+    function deleteCustomizationOption(id, count){
+        str = 'customization-option-' + id + '-' + count
+        console.log(str)
+        let element = document.getElementById(str)
+        console.log(element)
+        element.style.display = 'None'
+    }
+
+    function deleteCustomizationGroup(id){
+        str = 'customization-group-' + id
+        console.log(str)
+        let element = document.getElementById(str)
+        console.log(element)
+        element.remove()
+    }
+
+
+    function verifyInputs(){
+        let verification_counter = 0
+        let alert_msg = "Please add the following: "
+        if(document.getElementById('item-title').value != ''){
+            verification_counter += 1
+        }
+        else{
+            alert_msg += '\n\u2022 Title'
+        }
+
+        if(document.getElementById('current-price').value != ''){
+            verification_counter += 1
+        }
+        else{
+            alert_msg += '\n\u2022 Current Price'
+
+        }
+        if(document.getElementsByClassName('nav-image-wrapper').length > 0){
+            verification_counter += 1
+        }
+
+        else{
+            alert_msg += '\n\u2022 at least on image'
+        }
+
+        let customization_group_elements = document.getElementsByClassName('customization-group')
+        let group_verification_counter = 0
+        for(let i=0; i<customization_group_elements.length; i++){
+            let option_counter = 0
+            let option_elements = customization_group_elements[i].getElementsByClassName('block3-line')
+            for(let x=0; x<option_elements.length; x++){
+                console.log(x, option_elements[x])
+                if(option_elements[x].style.display != 'none' && option_elements[x].getElementsByClassName('inputfield-customization-option')[0].value != ''){
+                    option_counter += 1
+                }
+            }
+            if(option_counter >= 2){
+                group_verification_counter += 1
+            }
+        }
+        if(group_verification_counter == customization_group_elements.length){
+            verification_counter += 1
+        }
+        else{
+            alert_msg += '\n\u2022 at least two options per customization group'
+        }
+
+
+        if(verification_counter == 4){
+            console.log('inputs verified')
+            return true
+        }
+        else{
+            alert(alert_msg)
+            return false
+        }
+
+    }
+
+
+
+
+    async function saveListing(){
+        if(verifyInputs()){
+            saved = true
+
+            listing_dict = {
+                'title': document.getElementById('item-title').value,
+                'current_price': document.getElementById('current-price').value,
+                'old_price': document.getElementById('old-price').value,
+                'details': document.getElementById('item-details').value,
+                'description': document.getElementById('item-description').value,
+                'materials': document.getElementById('item-materials').value,
+                'customization_groups': [],
+                'images': [],
+            }
+
+            var data = new FormData();
+
+            data.append('status', document.getElementById('listing-status').value)
+            data.append('title', document.getElementById('item-title').value)
+            data.append('current_price', document.getElementById('current-price').value)
+            data.append('old_price', document.getElementById('old-price').value)
+            data.append('details', document.getElementById('item-details').value)
+            data.append('description', document.getElementById('item-description').value)
+            data.append('materials', document.getElementById('item-materials').value)
+
+
+            let customization_group_elements = document.getElementsByClassName('customization-group')
+            for(let i=0; i<customization_group_elements.length; i++){
+                let group_dict = {}
+                group_dict['title'] = customization_group_elements[i].getElementsByClassName('inputfield-customization-group')[0].value
+                group_dict['options'] = []
+
+                let option_elements = customization_group_elements[i].getElementsByClassName('block3-line')
+                for(let x=0; x<option_elements.length; x++){
+                    if (option_elements[x].style.display != 'none' && option_elements[x].getElementsByClassName('inputfield-customization-option')[0].value != ''){
+                        let option_dict = {}
+                        option_dict['title'] = option_elements[x].getElementsByClassName('inputfield-customization-option')[0].value
+                        option_dict['price'] = option_elements[x].getElementsByClassName('price-field-customization')[0].value
+                        group_dict['options'].push(option_dict)
+                    }
+                }
+                listing_dict['customization_groups'].push(group_dict)
+                data.append('customization_groups', JSON.stringify(group_dict))
+            }
+
+            let image_elements = document.getElementsByClassName('nav-image-wrapper')
+            for(let i=0; i<image_elements.length; i++){
+                let item_img = image_elements[i].getElementsByClassName('nav-image-input')[0].files[0]
+                data.append('images', item_img)
+                listing_dict['images'].push(image_elements[i].getElementsByClassName('nav-image-input')[0].files[0])
+            }
+
+            data.append('csrfmiddlewaretoken', '{{ csrf_token }}')
+
+            for (var key of data.entries()) {
+                console.log(key[0] + ', ' + key[1]);
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/dashboard/listings_new_save/{{seller}}',
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: 'json',
+                data: data,
+                success: function() {window.location.href = '/dashboard/listings/{{seller}}'}
+            })
+        }
+    }
+
+
+    window.onbeforeunload = function(){
+        if(!saved){
+            return 'Are you sure you want to leave?';
+        }
+    };
+
+</script>
+
+
+
+
+
+
+{% endblock %}

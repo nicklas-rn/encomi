@@ -1,31 +1,33 @@
 {% extends "shop/base_dashboard.html" %}
 
+{% block title %}Listings{% endblock %}
+
 {% block content %}
 
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'shop/listings_dashboard_style.css' %}">
 
 
-
+<!--
 <nav class="navbar-left">
     <a href="/"><img id="logo-nav" src="/media/logos/logo.png"></a>
-
-
     <ul class="dashboard-links">
         <li class="dashboard-link nav-home" id="navigation-dashboard-link-dashboard"><a href="/dashboard/home/{{seller}}"><img class="icon-navbar" src="/media/icons/home-dashboard-white.png" alt="">Dashboard</a></li>
         <li class="dashboard-link nav-listings active-page" id="navigation-dashboard-link-listings"><a href="/dashboard/listings/{{seller}}"><img class="icon-navbar" src="/media/icons/listings-dashboard-white.png" alt="">Listings</a></li>
-        <li class="dashboard-link nav-deliveries" id="navigation-dashboard-link-deliveries"><a href="/dashboard/deliveries/{{seller}}"><img class="icon-navbar" src="/media/icons/deliveries-dashboard-white.png" alt="">Deliveries</a></li>
+        <li class="dashboard-link nav-deliveries" id="navigation-dashboard-link-deliveries"><a href="/dashboard/deliveries/last/{{seller}}"><img class="icon-navbar" src="/media/icons/deliveries-dashboard-white.png" alt="">Orders</a></li>
         <li class="dashboard-link nav-settings" id="navigation-dashboard-link-settings"><a href="/dashboard/settings/{{seller}}"><img class="icon-navbar" src="/media/icons/settings-dashboard-white.png" alt="">Settings</a></li>
     </ul>
 
 </nav>
+-->
 
 <nav id="header">
     <p id="header-title"><img class="icon-header"
                 src="/media/icons/listings-dashboard.png" alt="">Listings</p>
-
-    <div class="sync-data-button"><img class="sync-data-img" src="/media/icons/sync-data.png">Sync data</div>
-
+    <div class="listings-buttons-wrapper">
+        <a class="create-listing-button sync-data-button" href="/dashboard/listings_new/{{seller}}"><img class="plus-img sync-data-img" src="/media/icons/plus.png">Create listing</a>
+        <a class="sync-data-button" href="/scrape/{{seller}}"><img class="sync-data-img" src="/media/icons/sync-data.png">Sync data</a>
+    </div>
 </nav>
 
 
@@ -40,7 +42,7 @@
                 {% endfor %}
             </ul>
 
-        <div class="add-category-button"><img class="add-category-img" src="/media/icons/add-category.png">Add category</div>
+        <a class="add-category-button" ><img class="add-category-img" src="/media/icons/add-category.png">Add category</a>
 
         </div>
 

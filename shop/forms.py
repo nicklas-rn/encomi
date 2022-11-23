@@ -1,14 +1,33 @@
-from django.forms import ModelForm, Textarea, EmailField, TextInput
+from django.forms import ModelForm, Textarea, EmailField, TextInput, CheckboxInput, NumberInput
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import *
 from django import forms
 
 
 class CreateUserForm(UserCreationForm):
+
     class Meta:
         model = User
-        fields = ['email', 'first_name', 'last_name']
+        fields = ['email', 'first_name', 'last_name', 'registration_code', 'design_requests']
         exclude = ['username']
+
+        widgets = {
+            'email': TextInput(
+                attrs={'placeholder': 'Your Email address', 'class': 'registration-form registration-form-1', 'required': 'required'}),
+            'first_name': TextInput(
+                attrs={'placeholder': 'First Name', 'class': 'registration-form registration-form-3', 'required': 'required'}
+            ),
+            'last_name': TextInput(
+                attrs={'placeholder': 'Last Name', 'class': 'registration-form registration-form-4', 'required': 'required'}
+            ),
+            'registration_code': TextInput(
+                attrs={'placeholder': 'Your registration code', 'class': 'registration-form registration-form-5',
+                       'required': 'required'}
+            ),
+            'design_requests': Textarea(
+                attrs={'placeholder': 'Do you have any wishes for the appearance of your website?', 'class': 'registration-form-6',}
+            ),
+        }
 
 
 class AuthenticateUserForm(forms.Form):
@@ -42,4 +61,73 @@ class SellerApplicationForm(ModelForm):
         widgets = {
             'email': TextInput(attrs={'placeholder': 'Your Email address', 'class': 'input-form', 'required': 'required'}),
             'shop_name': TextInput(attrs={'placeholder': 'Your shop name', 'class': 'input-form', 'required': 'required'})
+        }
+
+
+class HelpMessageForm(ModelForm):
+    class Meta:
+        model = HelpMessage
+        fields = [
+            'email',
+            'message'
+        ]
+        widgets = {
+            'email': TextInput(attrs={'placeholder': 'Your Email address', 'class': 'input-form', 'required': 'required'}),
+            'message': Textarea(attrs={'placeholder': 'Your message', 'class': 'input-form', 'required': 'required'})
+        }
+
+
+class NewsletterEmailForm(ModelForm):
+    class Meta:
+        model = NewsletterEmail
+        fields = [
+            'email',
+        ]
+        widgets = {
+            'email': TextInput(attrs={'placeholder': 'Your Email address', 'class': 'input-form', 'required': 'required'}),
+        }
+
+
+class PoliciesForm(ModelForm):
+    class Meta:
+        model = SellerPolicies
+        fields = [
+            'shipping_general_information',
+            'shipping_customs_and_taxes',
+            'accepts_returns',
+            'accepts_exchanges',
+            'accepts_cancellations',
+            'contact_within',
+            'ship_back_within',
+            'request_cancellation',
+            'returns_conditions',
+            'returns_questions',
+            'privacy'
+        ]
+        widgets = {
+            'shipping_general_information': Textarea(
+                attrs={'placeholder': ' ', 'class': 'input block1-inputfield', 'onkeydown': 'showSaveButton("policies")'}),
+            'shipping_customs_and_taxes': Textarea(
+                attrs={'placeholder': ' ', 'class': 'input block1-inputfield', 'onkeydown': 'showSaveButton("policies")'}),
+            'returns_conditions': Textarea(
+                attrs={'placeholder': ' ', 'class': 'input block1-inputfield', 'onkeydown': 'showSaveButton("policies")'}),
+            'returns_questions': Textarea(
+                attrs={'placeholder': ' ', 'class': 'input block1-inputfield', 'onkeydown': 'showSaveButton("policies")'}),
+            'privacy': Textarea(
+                attrs={'placeholder': ' ', 'class': 'input block3-inputfield', 'onkeydown': 'showSaveButton("policies")'}),
+
+            'accepts_returns': CheckboxInput(
+                attrs={'onchange': 'showSaveButton("policies")'}),
+            'accepts_exchanges': CheckboxInput(
+                attrs={'onchange': 'showSaveButton("policies")'}),
+            'accepts_cancellations': CheckboxInput(
+                attrs={'onchange': 'showSaveButton("policies")'}),
+
+            'contact_within': NumberInput(
+                attrs={'min': 0, 'max': 300, 'id': 'exchange-input', 'onfocus': 'showSaveButton("policies")'}),
+            'ship_back_within': NumberInput(
+                attrs={'min': 0, 'max': 300,  'id': 'returns-input', 'onfocus': 'showSaveButton("policies")'}),
+            'request_cancellation': TextInput(
+                attrs={'placeholder': 'when should you be contacted?', 'id': 'cancellation-input', 'onkeydown': 'showSaveButton("policies")'}),
+
         }

@@ -1,0 +1,97 @@
+{% extends "shop/base_checkout.html" %}
+
+{% block title %}Order Summary{% endblock %}
+
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'shop/thankyou_style.css' %}">
+
+<!-- Replace "test" with your own sandbox Business account app client ID -->
+<script src="https://www.paypal.com/sdk/js?client-id=ASktPD2Ra2TZB5j4maoVbH5VmkrN_HL5qQdZjP5wknMtVr8OywDDfp5bSxA4oehSdSPaMLKoZWAZ3y4t&currency=EUR"></script>
+
+<div id="checkout">
+    <div class="left">
+        <p class="order-summary-heading">Order summary</p>
+
+        <ul class="left-content">
+            <div id="items-in-cart-list">
+                {% for cartItem in cartItems %}
+                <li class="item-in-cart-list" id="item-in-cart-list-{{cartItem.cart_id}}">
+
+                    <img class="cartItem-image" src="{{cartItem.object.image_set.first.image.url}}" width= 100px alt="">
+                    <div class="cartItem-properties">
+                        <a class="cartItem-link" href="/item/{{cartItem.object.id}}">{{cartItem.object.title|truncatechars:40}}</a>
+                        <p class="cartItem-description">{% for style_group, style in cartItem.style_groups.items %}{{style}}{% endfor %}</p>
+                        <p class="cartItem-price">{{cartItem.price|floatformat:2}}€</p>
+                        <p class="cartItem-quantity">Quantity: {{cartItem.quantity}}</p>
+                    </div>
+                </li>
+                {% endfor %}
+            </div>
+            <div id="delivery">
+                <p class="delivery-description">Estimated delivery:</p>
+                <p class="delivery-value">{{deliveryDate}}</p>
+            </div>
+            <li class="subtotal">
+                <p class="subtotal-text">Subtotal</p>
+                <p class="subtotal-number">{{cartSubTotal|floatformat:2}}€</p>
+            </li>
+
+            <li class="delivery-fee">
+                <p class="delivery-fee-text">Delivery</p>
+                <p class="delivery-fee-number">{{shipping|floatformat:2}}€</p>
+            </li>
+            <li class="total-price">
+                <p class="total-price-text">Total</p>
+                <p class="total-price-number">{{cartTotal|floatformat:2}}€</p>
+            </li>
+        </ul>
+    </div>
+    <div class="right-background"></div>
+    <div class="right-wrapper">
+        <div class="right">
+
+            <div class="thankYou-wrapper">
+                <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                  <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                  <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+                <p class="thankYou">Thank you for your order!</br><span class="thankYou-description">You will receive updates about your order by Email.</span></p>
+            </div>
+
+            <div class="newsletter-wrapper">
+                <p class="newsletter-wrapper-text">You want to receive personalized offers and suggestions?</p>
+
+                {% if not submitted %}
+                <form class="message-form" method="post" action="">
+
+                    {% csrf_token %}
+
+                    {{form.email}}
+                    <div class="message-button-wrapper">
+                        <input type="submit" value="Receive offers" class="message-button">
+                    </div>
+                </form>
+                {% endif %}
+                {% if submitted %}
+                <div class="thankYou-wrapper-newsletter">
+                    <p class="thankYou">Thank you for your support!</p>
+                </div>
+                {% endif %}
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    cart = {}
+    console.log('Cart cleared', cart)
+    document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+</script>
+
+{% endblock %}

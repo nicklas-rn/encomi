@@ -1,87 +1,211 @@
 {% extends "shop/base.html" %}
 
+{% block title %}{{ item.title }}{% endblock %}
+
 {% block content %}
 
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'shop/item_style.css' %}">
 
-<div id="item">
-    <div class="nav-images" >
-        {% for image in item.image_set.all %}
-        <img class="nav-image" src="{{image.image.url}}" width="70px" alt="" onmouseenter="updateImage('{{image.image.url}}')">
-        {% endfor %}
-    </div>
+<div class="message-seller">
+    <a href="mailto:{{item.seller.email}}?Subject=Buyer%20Request%20encomi&body=Please%20specify%20your%20request/question/..."
+       class="message-seller-button"><img class="message-seller-img" src="/media/icons/email.png">Message {{item.seller.name}}</a>
+</div>
 
-    <div id="item-image-wrapper">
-        <img id="item-image" src="{{item.image_set.first.image.url}}" alt="">
-    </div>
-
-    <div class="description">
-        <div class="description-values">
-            <p class="item-title">{{ item.title }}</p>
-            <p class="item-price">{{ item.price|floatformat:2 }}€<p/>
-            <p class="item-price-old"><s>from {{ item.old_price|floatformat:2 }}€</s></p>
-        </div>
-
-        {% for style_group in item.stylegroup_set.all %}
-        <div class="dropdown-wrapper" onmouseleave="closeDropdown('{{style_group}}')">
-            <div class="dropdown" id="dropdown-{{style_group}}" onmouseenter="showDropdown('{{style_group}}')">
-                <button class="button-dropdown" onclick="showDropdown()">
-                    <span class="text-button-dropdown" id="text-button-dropdown-{{style_group.type}}">Select {{style_group}}</span>
-                    <i class="icon-dropdown">
-                        <img class="image-dropdown"
-                        src="/media/icons/arrow-down.png" alt="">
-                    </i>
-                </button>
-            </div>
-            <div class="content-dropdown" id="content-dropdown-{{style_group.type}}">
-                {% for style in style_group.style_set.all %}
-                    <a class="option-dropdown" id="option-dropdown-{{style_group.type}}-{{style}}" onclick="updateDropdown('{{style_group.type}}', '{{style}}')">{{style}}</a>
+<div id="item-wrapper">
+    <div id="item">
+        <div class="nav-images-wrapper" id="nav-images-wrapper">
+            <div class="nav-images" id="nav-images">
+                {% for image in item.image_set.all %}
+                <img class="nav-image" src="{{image.image.url}}" width="70px" alt="" onmouseenter="updateImage('{{image.image.url}}')">
                 {% endfor %}
             </div>
+            <button class="scroll-button scroll-button-vertical scroll-button-up" id="scroll-button-up" onclick="scrollImages(-1)"><img class="image-dropdown" src="/media/icons/arrow-right-black.png" alt=""></button>
+            <button class="scroll-button scroll-button-vertical" id="scroll-button-down" onclick="scrollImages(1)"><img class="image-dropdown" src="/media/icons/arrow-right-black.png" alt=""></button>
         </div>
-        {% endfor %}
-        <button id="button" onclick="addCookieItem()">Add to Cart</button>
-        <p id="customization-error">Please select all customization options</p>
 
-        <div id="item-properties">
-            <div class="item-property">
-                <div class="button-item-property" id="button-item-property-details" onclick="showContentProperty('details')">
-                    <span class="title-item-property">Details</span>
-                    <i class="icon-dropdown">
-                        <img class="image-dropdown"
-                        src="/media/icons/arrow-down.png" alt="">
-                    </i>
-                </div>
-                <div class="content-item-property" id="content-item-property-details">
-                    <p>{{item.details}}</p>
-                </div>
+        <div id="item-image-wrapper">
+            <img id="item-image" src="{{item.image_set.first.image.url}}" alt="">
+        </div>
+        <div id="myModal" class="modal">
+            <img id="img01" class="modal-content" src="{{item.image_set.first.image.url}}" alt="">
+
+        </div>
+
+
+        <div id="item-image-wrapper-mobile">
+            {% for image in item.image_set.all %}
+            <img class="item-image-mobile" src="{{image.image.url}}" alt="">
+            {% endfor %}
+        </div>
+
+        <div class="description">
+            <div class="description-values">
+                <p class="item-title">{{ item.title }}</p>
+                <p class="item-price" id="item-price">{{ item.price|floatformat:2 }}€<p/>
+                {%if item.old_price != 0%}
+                <p class="item-price-old" id="item-price-old"><s>from {{ item.old_price|floatformat:2 }}€</s></p>
+                {%endif%}
             </div>
 
-            <div class="item-property">
-                <div class="button-item-property" id="button-item-property-description" onclick="showContentProperty('description')">
-                    <span class="title-item-property">Description</span>
-                    <i class="icon-dropdown">
-                        <img class="image-dropdown"
-                        src="/media/icons/arrow-down.png" alt="">
-                    </i>
+            {% for style_group in item.stylegroup_set.all %}
+            <div class="dropdown-wrapper">
+                <div class="dropdown" id="dropdown-{{style_group}}" onclick="showDropdown('{{style_group}}')">
+                    <button class="button-dropdown" onclick="showDropdown('{{style_group}}')">
+                        <span class="text-button-dropdown" id="text-button-dropdown-{{style_group.type}}">Select {{style_group}}</span>
+                        <i class="icon-dropdown">
+                            <img class="image-dropdown"
+                            src="/media/icons/arrow-down.png" alt="">
+                        </i>
+                    </button>
                 </div>
-                <div class="content-item-property" id="content-item-property-description">
-                    <p>{{item.description}}</p>
+                <div class="content-dropdown popup" id="content-dropdown-{{style_group.type}}">
+                    {% for style in style_group.style_set.all %}
+                        <a class="option-dropdown" id="option-dropdown-{{style_group.type}}-{{style}}" onclick="updateDropdown('{{style_group.type}}', '{{style}}', '{{style.price|floatformat:2}}')">{{style}} {%if style.price != item.price and style.price%}({{style.price|floatformat:2}}€){%endif%}</a>
+                    {% endfor %}
                 </div>
             </div>
+            {% endfor %}
+            <button id="cartButton" onclick="addCookieItem()" {%if item.status != 'In stock'%}disabled{%endif%}>{%if item.status == 'In stock'%}Add to Cart{%endif%}{%if item.status != 'In stock'%}Out of Stock{%endif%}</button>
+            <p id="customization-error">Please select all customization options</p>
 
-            <div class="item-property">
-                <div class="button-item-property" id="button-item-property-delivery" onclick="showContentProperty('delivery')">
-                    <span class="title-item-property">Delivery</span>
-                    <i class="icon-dropdown">
-                        <img class="image-dropdown"
-                        src="/media/icons/arrow-down.png" alt="">
-                    </i>
+            <div id="item-properties">
+                <div class="item-property">
+                    <div class="button-item-property" id="button-item-property-details" onclick="showContentProperty('details')">
+                        <span class="title-item-property">Details</span>
+                        <i class="icon-dropdown">
+                            <img class="image-dropdown"
+                            src="/media/icons/arrow-down.png" alt="">
+                        </i>
+                    </div>
+                    <div class="content-item-property" id="content-item-property-details">
+                        <p>{{item.details}}</p>
+                    </div>
                 </div>
-                <div class="content-item-property" id="content-item-property-delivery">
-                    <p>7 Tage</p>
+
+                <div class="item-property">
+                    <div class="button-item-property" id="button-item-property-description" onclick="showContentProperty('description')">
+                        <span class="title-item-property">Description</span>
+                        <i class="icon-dropdown">
+                            <img class="image-dropdown"
+                            src="/media/icons/arrow-down.png" alt="">
+                        </i>
+                    </div>
+                    <div class="content-item-property" id="content-item-property-description">
+                        <p>{{item.description}}</p>
+                    </div>
                 </div>
+
+                <div class="item-property">
+                    <div class="button-item-property" id="button-item-property-delivery" onclick="showContentProperty('delivery')">
+                        <span class="title-item-property">Delivery</span>
+                        <i class="icon-dropdown">
+                            <img class="image-dropdown"
+                            src="/media/icons/arrow-down.png" alt="">
+                        </i>
+                    </div>
+                    <div class="content-item-property" id="content-item-property-delivery">
+                        <p>{{deliveryDate}}</p>
+                    </div>
+                </div>
+
+                 <div class="item-property">
+                    <div class="button-item-property" id="button-item-property-faq" onclick="showContentProperty('faq')">
+                        <span class="title-item-property">FAQs</span>
+                        <i class="icon-dropdown">
+                            <img class="image-dropdown"
+                            src="/media/icons/arrow-down.png" alt="">
+                        </i>
+                    </div>
+                    <div class="content-item-property" id="content-item-property-faq">
+                        {% for faq in seller.sellerfaq_set.all %}
+                        <div class="faq">
+                            <p class="faq-question">{{faq.question}}</p>
+                            <p class="faq-answer">{{faq.answer}}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                 <div class="item-property">
+                    <div class="button-item-property" id="button-item-property-returns" onclick="showContentProperty('returns')">
+                        <span class="title-item-property">Returns</span>
+                        <i class="icon-dropdown">
+                            <img class="image-dropdown"
+                            src="/media/icons/arrow-down.png" alt="">
+                        </i>
+                    </div>
+                    <div class="content-item-property" id="content-item-property-returns">
+                        <p class="returns-title">I accept {%if seller.policies.accepts_exchanges%}exchanges{%endif%}{%if seller.policies.accepts_cancellations%}, cancellations{%endif%}{%if seller.policies.accepts_returns%} and returns{%endif%}</p>
+                        <p class="returns-description">
+                            Contact me within {{seller.policies.contact_within}} days of delivery<br>
+                            Ship items back within {{seller.policies.ship_back_within}} days of delivery<br>
+                            {%if seller.policies.accepts_cancellations%}Request a cancellation {{seller.policies.request_cancellation}}{%endif%}
+                        </p>
+                        {%if seller.policies.returns_conditions%}
+                        <p class="returns-title">Conditions of return</p>
+                        <p class="returns-description">
+                            {{seller.policies.returns_conditions}}
+                        </p>
+                        {%endif%}
+                        {%if seller.policies.returns_questions%}
+                        <p class="returns-title">Questions about your Order?</p>
+                        <p class="returns-description">
+                            {{seller.policies.returns_questions}}
+                        </p>
+                        {%endif%}
+                        <p class="returns-description">Last updated: {{seller.policies.last_updated|date:"M d, Y"}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="recommendations-wrapper">
+    <div class="recommendations">
+        <div class="recommendations-upper">
+            <p class="recommendations-h1">Similar Items</p>
+            <p class="recommendations-h2">Recommendations for you</p>
+
+            <div class="items-wrapper">
+                <div class="items"  id="similarItems">
+                {% for item in similarItems %}
+                    <div class="item" onclick="window.location.href='/item/{{seller}}/{{item.id}}'">
+                        <img class="recommended-item-image recommended-item-first-image" id="item-first-image-similar-{{item.id}}" src="{{item.image_set.first.image.url}}" onmouseenter="showSecondImage({{item.id}}, 'similar')" onmouseleave="showFirstImage({{item.id}}, 'similar')" width="250px" alt="">
+                        <img class="recommended-item-image recommended-item-second-image" id="item-second-image-similar-{{item.id}}" src="{{item.image_set.last.image.url}}" onmouseenter="showSecondImage({{item.id}}, 'similar')" onmouseleave="showFirstImage({{item.id}}, 'similar')" width="250px" alt="">
+
+                        <p class="recommended-item-seller">{{ item.seller }}</p>
+                        <p class="recommended-item-title">{{ item.title|truncatechars:30 }}</p>
+                        <p class="recommended-item-price"> {{ item.price|floatformat:2 }}€<p/>
+                    </div>
+                {% endfor %}
+                </div>
+                <button class="scroll-button scroll-button-left" id="scroll-button-left-similar" onclick="scrollItems('similar', -1)"><img class="image-dropdown" src="/media/icons/arrow-right-black.png" alt=""></button>
+                <button class="scroll-button" id="scroll-button-right-similar" onclick="scrollItems('similar', 1)"><img class="image-dropdown" src="/media/icons/arrow-right-black.png" alt=""></button>
+            </div>
+        </div>
+
+        <div class="recommendations-lower">
+            <p class="recommendations-h1">Complete the Style</p>
+            <p class="recommendations-h2">Recommendations for you</p>
+
+            <div class="items-wrapper">
+                <div class="items"  id="completeItems">
+                {% for item in complementaryItems %}
+                    <div class="item" onclick="window.location.href='/item/{{seller}}/{{item.id}}'">
+                        <img class="recommended-item-image recommended-item-first-image" id="item-first-image-complete-{{item.id}}" src="{{item.image_set.first.image.url}}" onmouseenter="showSecondImage({{item.id}}, 'complete')" onmouseleave="showFirstImage({{item.id}}, 'complete')" width="250px" alt="">
+                        <img class="recommended-item-image recommended-item-second-image" id="item-second-image-complete-{{item.id}}" src="{{item.image_set.last.image.url}}" onmouseenter="showSecondImage({{item.id}}, 'complete')" onmouseleave="showFirstImage({{item.id}}, 'complete')" width="250px" alt="">
+
+                        <p class="recommended-item-seller">{{ item.seller }}</p>
+                        <p class="recommended-item-title">{{ item.title|truncatechars:30 }}</p>
+                        <p class="recommended-item-price"> {{ item.price|floatformat:2 }}€<p/>
+                    </div>
+                {% endfor %}
+                </div>
+                <button class="scroll-button scroll-button-left" id="scroll-button-left-complete" onclick="scrollItems('complete', -1)"><img class="image-dropdown" src="/media/icons/arrow-right-black.png" alt=""></button>
+                <button class="scroll-button" id="scroll-button-right-complete" onclick="scrollItems('complete', 1)"><img class="image-dropdown" src="/media/icons/arrow-right-black.png" alt=""></button>
             </div>
         </div>
     </div>
@@ -91,10 +215,8 @@
 
 
 
-
-
-
 <script>
+
     async function addCookieItem(){
         console.log('Adding cookies')
 
@@ -103,7 +225,7 @@
         console.log(cartIndex)
 
         // Create Dict for new item
-        itemDict = {
+        let itemDict = {
             itemId: itemId,
             style_groups: {},
         }
@@ -151,9 +273,23 @@
         getCartCount()
 
         openCartPreview()
+        cartButtonColor('secondary')
         let delayres = await delay(2000)
+        cartButtonColor('primary')
         closeCartPreview()
 
+    }
+
+    function cartButtonColor(color){
+        btn = document.getElementById('cartButton')
+        if (color == 'primary'){
+            btn.style.backgroundColor = 'black';
+            btn.style.boxShadow = '0px 1px 10px 3px rgba(0,0,0,0.2)'
+        }
+        else if (color == 'secondary'){
+            btn.style.backgroundColor = 'DDBC9B';
+            btn.style.boxShadow = '0px 1px 10px 3px rgba(221,188,155,0.2)'
+        }
     }
 
 
@@ -169,9 +305,15 @@
         document.getElementById(str).style.display = 'None';
     }
 
-    function updateDropdown(style_group, style){
+    function updateDropdown(style_group, style, style_price){
         str = 'text-button-dropdown-' + style_group
         document.getElementById(str).innerHTML = style;
+        if(style_price != ''){
+            document.getElementById('item-price').innerHTML = style_price + '€'
+        }
+        else{
+            document.getElementById('item-price').innerHTML = {{ item.price|floatformat:2 }} + '€'
+        }
         closeDropdown(style_group)
         document.getElementById('customization-error').style.display = 'None'
     }
@@ -195,6 +337,115 @@
         str = 'button-item-property-' + property
         document.getElementById(str).setAttribute( "onClick", btnStr );
     }
+
+
+    function showSecondImage(item_id, items){
+        item_first_image_id = 'item-first-image-' + items + '-' + item_id
+        item_second_image_id = 'item-second-image-' + items + '-' + item_id
+        document.getElementById(item_first_image_id).style.display = 'None';
+        document.getElementById(item_second_image_id).style.display = 'block';
+    }
+
+    function showFirstImage(item_id, items){
+        item_first_image_id = 'item-first-image-' + items + '-' + item_id
+        item_second_image_id = 'item-second-image-' + items + '-' + item_id
+        document.getElementById(item_first_image_id).style.display = 'block';
+        document.getElementById(item_second_image_id).style.display = 'None';
+    }
+
+
+    function scrollItems(items, direction){
+        str = items + 'Items'
+        console.log(str)
+        items_element = document.getElementById(str)
+        let width = (items_element.offsetWidth + 25) * direction;
+        console.log(width)
+        items_element.scrollBy(width, 0)
+
+        let btn_left_str = 'scroll-button-left-' + items
+        btn_left = document.getElementById(btn_left_str)
+        console.log((items_element.scrollLeft + width))
+        if((items_element.scrollLeft + width) <= 0){
+            btn_left.style.display = 'None'
+        }
+        else{
+            btn_left.style.display = 'block'
+        }
+    }
+
+
+    function scrollImages(direction){
+        let navImages = document.getElementById('nav-images')
+        let height = navImages.offsetHeight * direction;
+        console.log('height: ' + height)
+        console.log('scrollTop + height: ' + (navImages.scrollTop + height))
+        navImages.scrollBy(0, height)
+
+        btn_up = document.getElementById('scroll-button-up')
+        btn_down = document.getElementById('scroll-button-down')
+        console.log('scrollTop + height) % height: ' + ((navImages.scrollTop + height) % height))
+        if((navImages.scrollTop + height) <= 0){
+            btn_up.style.display = 'None'
+        }
+        else{
+            btn_up.style.display = 'block'
+        }
+
+        console.log(navImages.scrollTop)
+        if(((navImages.scrollTop + height) % height) != 0 && direction > 0){
+            btn_down.style.display = 'None'
+        }
+        else{
+            btn_down.style.display = 'block'
+        }
+    }
+
+    checkImageScrollButtons()
+
+    function checkImageScrollButtons(){
+        let navImages = document.getElementsByClassName('nav-image')
+        btn_down = document.getElementById('scroll-button-down')
+        if(navImages.length < 4){
+            btn_down.style.display = 'None'
+        }
+    }
+
+
+    $('body').click(function() {
+        $(".popup").hide();
+    });
+
+    $('.dropdown-wrapper').click(function(e) {
+        e.stopPropagation();
+    });
+
+
+
+    // Get the modal
+    var modal = document.getElementById('myModal');
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var img = document.getElementById('item-image');
+    var modalImg = document.getElementById("img01");
+    img.onclick = function(){
+        modal.style.display = "block";
+        modalImg.src = this.src;
+        modalImg.alt = this.alt;
+        console.log('show')
+    }
+
+
+    // When the user clicks on <span> (x), close the modal
+    modal.onclick = function() {
+        img01.className += " out";
+        console.log('remove')
+        setTimeout(function() {
+           modal.style.display = "none";
+           img01.className = "modal-content";
+         }, 10);
+
+     }
+
 
 </script>
 

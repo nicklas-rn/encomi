@@ -1,0 +1,124 @@
+.settings-content {
+    background-color: white;
+    border-radius: 20px;
+    height: 100%;
+    box-shadow: -2px 2px 2px #EBEBEB,
+            2px -2px 2px #EBEBEB;
+}
+
+#settings-content-blocks {
+    height: calc(100% - 50px);
+    overflow-y: scroll;
+}
+
+
+.buttons-settings-header {
+    display: flex;
+}
+
+.add-faq-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 15;
+    border: grey;
+    border-radius: 7px;
+    background-color: #EA8D8D;
+    border: 1px solid lightgrey;
+    width: 180px;
+    font-family: 'Inter', inter;
+    height: 40px;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.add-faq-img {
+    height: 18px;
+    margin-right: 8px;
+    margin-left: 8px;
+}
+
+
+
+.save-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 15;
+    border: grey;
+    border-radius: 7px;
+    background-color: #EA8D8D;
+    opacity: 0.5;
+    border: 1px solid lightgrey;
+    width: 180px;
+    font-family: 'Inter', inter;
+    height: 40px;
+    cursor: pointer;
+}
+
+.button-top{
+    display: None;
+}
+
+.save-button:disabled{
+    color: black;
+}
+
+.sync-data-img {
+    height: 18px;
+    margin-right: 8px;
+    margin-left: 8px;
+}
+
+
+
+
+.navbar-top {
+    border-bottom: solid 2px lightgrey;
+    padding: 20px 25px 0px 25px;
+}
+
+
+.navbar-top-links {
+    z-index: 1;
+    display: flex;
+    justify-content: left;
+}
+
+.navbar-top-link{
+    list-style-type: none;
+    padding-bottom: 7px;
+    z-index: 3;
+    cursor: pointer;
+    color: grey;
+    margin-right: 20px;
+    position: relative;
+    top: 2px;
+}
+
+.navbar-top-link a{
+    text-decoration: none;
+    color: grey;
+    font-size: 16;
+    width: 223px;
+    padding: 10px 0px 10px 0px;
+}
+
+.navbar-top-link-selected{
+    border-bottom: 2px solid #EA8D8D;
+    color: black;
+}
+
+.navbar-top-link-selected a{
+    color: black;
+}
+
+.navbar-top-link:hover{
+    color: black;
+}
+
+
+
+
+
+

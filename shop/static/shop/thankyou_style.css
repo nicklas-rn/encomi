@@ -1,0 +1,366 @@
+.line2{
+    width: 230px;
+    height: 1px;
+    border: 2px solid black;
+    position: relative;
+    background-color: black;
+    border-radius: 10px;
+    margin-left: -2px;
+}
+
+
+
+
+#checkout {
+    height: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: top;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.left {
+    padding-right: 50px;
+    width: 50%;
+    margin: 20px 0px 20px 0px;
+
+}
+
+.left-content {
+    border: 1px lightgrey solid;
+    border-radius: 4px;
+
+}
+
+.order-summary-heading {
+    font-size: 30;
+    font-family: 'Inria Serif', serif;
+    padding-bottom: 30px;
+}
+
+#items-in-cart-list{
+    padding: 10 20 0 20;
+    max-height: 500px;
+    overflow: scroll;
+}
+
+.item-in-cart-list {
+    list-style-type: None;
+    padding: 10px 0px 10px 0px;
+}
+
+.cartItem-image{
+    width: 80px;
+    height: 120px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.cartItem-properties{
+    display: inline-block;
+    width: calc(100% - 105px);
+    vertical-align: top;
+}
+
+.cartItem-link{
+    font-family: 'Inria-Serif';
+    font-size: 17;
+    margin-bottom: 7px;
+    text-align: left;
+}
+
+.cartItem-description{
+    font-size: 12;
+    margin-bottom: 10px;S
+}
+
+.cartItem-price{
+    display: inline-block;
+    padding-bottom: 15px;
+}
+
+.cartItem-quantity{
+    display: inline-block;
+    float: right;
+    font-size: 12;
+    line-height: 20px;
+    vertical-align: bottom;
+}
+
+#delivery{
+    border-top: solid 1px lightgrey;
+    padding: 10px 20px 10px 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.subtotal {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 30px;
+    padding-top: 37px;
+    padding: 15px 20px;
+    border-top: 1px lightgrey solid;
+}
+
+.delivery-fee {
+    padding-bottom: 15px;
+    border-bottom: 1px lightgrey solid;
+    border-width: 80%;
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 20px;
+}
+
+.total-price{
+    padding: 20px 0px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 20px;
+    font-weight: bold;
+}
+
+
+
+
+
+.right-background{
+    position: absolute;
+    left: 50%;
+    top: 0px;
+    height: 100%;
+    width: 50%;
+    z-index: -10;
+    background-color: #FFFAF2;
+}
+
+
+.right-wrapper {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    padding-left: 50px;
+}
+
+.right {
+    width: 100%;
+    margin: 80px 0px 0px 0px;
+}
+
+.thankYou-wrapper{
+    display: flex;
+    align-items: center;
+}
+
+.thankYou{
+    font-size: 20;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+}
+
+.thankYou-description{
+    font-size: 15;
+    line-height: 25px;
+}
+
+.checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke: #000000;
+  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmark {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 15px;
+  stroke-width: 2;
+  stroke: #fff;
+  stroke-miterlimit: 10;
+  box-shadow: inset 0px 0px 0px #000000;
+  animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+}
+
+.checkmark__check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes scale {
+  0%, 100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+@keyframes fill {
+  100% {
+    box-shadow: inset 0px 0px 0px 30px #000000;
+  }
+}
+
+
+
+
+
+
+
+
+.input-form {
+    font-size: 16;
+    border: 0;
+    border: 1px solid grey;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    height: 40px;
+    padding-left: 15px;
+    width: 350px;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.input-form:focus{
+    outline: 1px solid black;
+    box-shadow: 0px 1px 10px 0px rgba(0,0,0,0.2);
+}
+
+.newsletter-wrapper-text{
+    margin-top: 70px;
+    margin-bottom: 10px;
+    font-size: 18;
+    width: 350px;
+}
+
+.message-button-wrapper {
+    align-self: flex-end;
+}
+
+.message-button {
+    background-color: black;
+    color: white;
+    font-size: 15;
+    font-weight: 500;
+    padding: 5px 25px;
+    height: 40px;
+    outline: None;
+    border: None;
+    border-radius: 4px;
+    margin-top: 5px;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 0px 1px 10px 0px rgba(0,0,0,0.2);
+    width: 350px;
+}
+
+.message-button:hover{
+    background-color: #444444;
+    transition: 0.5s;
+    box-shadow: 0px 1px 10px 3px rgba(0,0,0,0.2);
+}
+
+.thankYou-wrapper p {
+    margin: 0px;
+    margin-top: 8px;
+    font-size: 15;
+    width: 350px;
+}
+
+.thankYou{
+    margin-top: 20px;
+    font-size: 18;
+}
+
+
+
+
+
+
+@media screen and (max-width: 900px) {
+
+    #checkout {
+        height: auto;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: left;
+        align-items: top;
+        width: 100%;
+        max-width: 1200px;
+    }
+
+    .left {
+        padding-right: 0px;
+        width: auto;
+        margin: 20px 0px 20px 0px;
+    }
+
+    .order-summary-heading {
+        padding-bottom: 15px;
+        font-size: 28;
+    }
+
+    .right-background{
+        display: none;
+    }
+
+    .right-wrapper {
+        height: auto;
+        width: auto;
+        display: flex;
+        padding-left: 0px;
+    }
+
+    .right {
+        width: 100%;
+        margin: 80px 0px 0px 0px;
+    }
+
+    .checkmark {
+      width: 50px;
+      height: 40px;
+    }
+
+
+    .input-form {
+        width: 100%;
+    }
+
+    .newsletter-wrapper{
+        margin-bottom: 30px;
+    }
+
+
+    .newsletter-wrapper-text{
+        width: 100%;
+    }
+
+    .message-button {
+        width: 100%;
+    }
+
+    .thankYou-wrapper p {
+        width: 100%;
+        font-size: 18;
+        line-height: 25px;
+    }
+
+    .thankYou-description{
+        font-size: 14;
+        line-height: 20px;
+    }
+
+}

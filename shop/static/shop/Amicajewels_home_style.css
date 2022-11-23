@@ -1,0 +1,265 @@
+#home-wrapper {
+    display: flex;
+    justify-content: center;
+    width: calc(100% - 40px);
+    padding: 0px 20px;
+}
+
+#home{
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+    width: 100%;
+    max-width: 1200px;
+    margin-bottom: 60px;
+}
+
+.left {
+    width: 50%;
+    height: 100%;
+    padding-right: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    text-align: left;
+}
+
+.right {
+    width: 50%;
+    height: 100%;
+    padding-left: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+#image-home-left{
+    width: 100%;
+}
+
+#image-home-right{
+    width: 100%;
+    margin-bottom: 60px;
+}
+
+.title{
+    font-size: 47;
+    font-family: 'Inria-serif', serif;
+    margin-bottom: 20px;
+}
+
+.link-shop{
+    display: flex;
+    align-items: center;
+    font-weight: 300;
+    font-size: 22;
+    margin-bottom: 30px;
+}
+
+.arrow-right{
+    height: 30px;
+    width: 30px;
+}
+
+.quote{
+    font-size: 22;
+    line-height: 1.25;
+    font-weight: 300;
+}
+
+
+
+
+
+
+
+.recommendations-wrapper{
+    width: calc(100% - 40px);
+    padding: 0px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+
+.recommendations {
+    margin: 45px 0px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.recommendations-upper {
+    margin-bottom: 45px;
+}
+
+.recommendations-h1{
+    font-family: 'Inria serif', serif;
+    font-size: 24;
+    margin-bottom: 4px;
+}
+
+.recommendations-h2 {
+    margin-bottom: 10px;
+    font-size: 15;
+}
+
+
+
+
+
+
+.items-wrapper{
+    position: relative;
+}
+
+.items {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    justify-content: left;
+    align-content: space-between;
+    width: 100%;
+    margin-right: 0px;
+    position: relative;
+    scroll-behavior: smooth;
+}
+
+/*
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-column-gap: 25px;
+    grid-auto-rows: 0.5fr;
+*/
+
+.item {
+    width: 100%;
+    padding: 0px 25px 0px 0px;
+
+    position: relative;
+    cursor: pointer;
+}
+
+
+.recommended-item-image{
+    margin-bottom: 10px;
+    width: 220px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: var(--borderRadiusImage);
+}
+
+.recommended-item-first-image{
+    display: block;
+}
+
+.recommended-item-second-image{
+    display: None;
+}
+
+.recommended-item-seller{
+    font-family: 'Inria Serif', serif;
+    width: 100%;
+    margin-bottom: 0px;
+    font-size: 16px;
+}
+
+.recommended-item-title{
+    font-family: 'Inria Serif', serif;
+    width: 100%;
+    margin-bottom: 5px;
+    font-size: 16px;
+    padding-bottom: 0px;
+}
+
+.recommended-item-price{
+    font-family: 'Inter', sans-serif;
+    width: 100%;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+
+.scroll-button{
+    height: 50px;
+    width: 50px;
+    background-color: rgba(255, 255, 255, 0.7);
+    position: absolute;
+    right: 0px;
+    top: 100px;
+    border: None;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.scroll-button:hover{
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
+.scroll-button-left{
+    position: absolute;
+    display: None;
+    left: 0px;
+}
+
+.scroll-button img{
+    height: 30px;
+    width: 30px;
+}
+
+.scroll-button-left img{
+    transform: rotate(180deg);
+}
+
+
+.items::-webkit-scrollbar-track
+{
+	display: None;
+}
+
+.items::-webkit-scrollbar
+{
+    display: None;
+}
+
+
+
+
+
+
+@media screen and (max-width: 900px) {
+
+    #home-wrapper{
+        width: 100%;
+    }
+
+    #home{
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+
+    .left{
+        width: 100%;
+        padding: 0px;
+    }
+
+    .right{
+        width: 100%;
+        padding: 0px;
+        margin-top: 30px;
+    }
+
+    #image-home-right{
+        display: None;
+    }
+
+    .quote{
+        font-size: 20;
+    }
+
+    .recommendations-wrapper{
+        width: 100%;
+    }
+
+    .recommended-item-image{
+        width: 190px;
+        height: 230px;
+    }
+}

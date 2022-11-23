@@ -6,10 +6,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="icon" href="/media/icons/favicon.png">
-
+    <title>{{seller}} - {% block title %}{% endblock %}</title>
+    <link rel="icon" href="{{seller.favicon.url}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="{% static 'shop/base_animations.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+    <script>
+
+        var correctPasswordEntered = JSON.parse(getCookie('correctPasswordEntered'))
+
+        if(correctPasswordEntered == undefined){
+            correctPasswordEntered = false
+            document.cookie ='correctPasswordEntered=' + JSON.stringify(correctPasswordEntered) + ";domain=;path=/"
+        }
+
+        if('{{seller.password}}' && !correctPasswordEntered){
+            var password;
+            var pass1="{{seller.password}}";
+            password=prompt('Enter Password','');
+            if (password==pass1){
+                correctPasswordEntered = true
+                document.cookie ='correctPasswordEntered=' + JSON.stringify(correctPasswordEntered) + ";domain=;path=/"
+                alert('Correct Password. Click OK to Enter');
+            }
+            else { window.location="encomi.co";
+            }
+        }
+    </script>
+
+
     <!--<script>
         function delay(delayInms) {
           return new Promise(resolve => {
@@ -86,43 +112,79 @@
 <body>
 
 
-<nav id="navbar">
-    <div id="link-wrapper-nav">
-        <a class="link-nav" href="/become_seller">Become a seller</a>
-        <a class="link-login" href="/login"><img id="login-img" src="/media/icons/login.png">Login</a>
-    </div>
+<nav id="navbar-wrapper">
+    <div id="navbar">
+        <div id="link-wrapper-nav">
+            <a class="link-nav" href="/become_seller">Become a seller</a>
+            {% if not user.is_authenticated %}
+            <a class="link-login" href="/login"><img class="login-img" src="/media/icons/login.png">Login</a>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <a class="link-login" href="/logout"><img class="login-img" src="/media/icons/logout.png">Logout</a>
+            {% endif %}
+        </div>
 
-    <a href="/home/{{seller}}"><img id="logo-nav" src="{{seller.logo.url}}"></a>
+        <a href="/home/{{seller}}"><img id="logo-nav" src="{{seller.logo.url}}"></a>
 
-    <div id="icon-wrapper-nav">
-        <a href="/help/{{seller}}"><img id="help-img" src="/media/icons/help.png"></a>
-        <a href="/cart/{{seller}}" onmouseenter="openCartPreview()"><img class="icon icon-nav" id="icon-nav" src="/media/icons/cart.svg"></a>
-        <p id="badge-icon-cart-nav">0</p>
+        <div id="icon-wrapper-nav">
+            <a href="/help/encomi" class="help"><img id="help-img" src="/media/icons/help.png"></a>
+            <a href="/cart/{{seller}}" onmouseenter="openCartPreview()"><img class="icon icon-nav" id="icon-nav" src="/media/icons/cart.svg"></a>
+            <p id="badge-icon-cart-nav">0</p>
+        </div>
+        <div id="cart-preview" onmouseleave="closeCartPreview()">
+    {% include "shop/cart_preview.html" %}
+</div>
+
     </div>
 </nav>
 
-<div id="cart-preview" onmouseleave="closeCartPreview()">
-    {% include "shop/cart_preview.html" %}
+
+<div class="container">
+    <a id="logo-wrapper-nav-mobile" href="/home/{{seller}}"><img id="logo-nav-mobile" src="{{seller.logo.url}}"></a>
+
+    <div id="icon-wrapper-nav-mobile">
+        <a href="/help/{{seller}}" class="help"><img id="help-img" src="/media/icons/help.png"></a>
+        <a href="/cart/{{seller}}" onmouseenter="openCartPreview()"><img id="icon-nav-mobile" src="/media/icons/cart.svg"></a>
+        <p id="badge-icon-cart-nav-mobile">0</p>
+    </div>
+
+
+    <input id="toggle" type="checkbox">
+
+    <label class="toggle-container" for="toggle">
+
+      <span class="button button-toggle"></span>
+    </label>
+
+    <!-- The Nav Menu -->
+    <nav class="nav">
+        {% for category in categories %}
+            <a onclick="updateCategoryCookie({{category.id}})" class="nav-item" href="/shop/{{seller}}">{{category.title}}</a>
+        {% endfor %}
+    </nav>
+
+    <div class="line"></div>
+
 </div>
 
 
 <div id="main">
-    <div class="mainmain">
-        <div class="category-links-horizontal" >
-            <div class="category-link-horizontal" id="category-link-horizontal-0" onclick="updateCategoryCookie(0)"><a>All</a></div>
-            {% for category in categories %}
-                <div class="category-link-horizontal" id="category-link-horizontal-{{category.id}}" onclick="updateCategoryCookie({{category.id}})"><a>{{category.title}}</a></div>
-            {% endfor %}
-        </div>
+    <div id="secondary-navbar-wrapper">
+        <div id="secondary-navbar">
+            <div class="category-links-horizontal" >
+                <div class="category-link-horizontal" id="category-link-horizontal-0" onclick="updateCategoryCookie(0)"><a>All</a></div>
+                {% for category in categories %}
+                    <div class="category-link-horizontal" id="category-link-horizontal-{{category.id}}" onclick="updateCategoryCookie({{category.id}})"><a>{{category.title}}</a></div>
+                {% endfor %}
+            </div>
 
-        <div class="search">
-            <form id="form" role="search" onsubmit="(e)=>{e.preventDefault(); updateKeyword()}">
-                <img class="icon"
-                        src="/media/icons/search.png" alt="">
-                <input type="search" id="query"
-                       placeholder="Search..."
-                       aria-label="Search through site content">
-            </form>
+            <div class="search">
+                <form id="search-navbar" role="search" onsubmit="(e)=>{e.preventDefault(); updateKeyword()}">
+                    <button class="search-button" type="submit"><img class="icon" src="/media/icons/search.png" alt=""></button>
+                    <input type="search" id="query-navbar"
+                           placeholder="Search...">
+                </form>
+            </div>
         </div>
     </div>
     {% block content %}
@@ -135,17 +197,18 @@
 
         <p class="social-media">
             <img id="instagram-logo" src="/media/icons/instagram-logo.png" alt="">
-            <a href="https://www.instagram.com/encomi.co/">Follow us on Instagram</a>
+            <a href="https://www.instagram.com/encomi_co/">Follow us on Instagram</a>
         </p>
 
         <p class="links-footer">
-            <a href="/seller_policy">Seller Policy</a>
-            <a href="/privacy_policy">Privacy Policy</a>
-            <a href="/TOU">Terms of Use</a>
-            <a href="/about">About us</a>
+            <a href="/seller_policy/{{seller}}">Seller Policy</a>
+            <a href="/privacy_policy/{{seller}}">Privacy Policy</a>
+            <a href="/TOU/{{seller}}">Terms of Use</a>
+            <a href="/help/{{seller}}">FAQs</a>
+            <a href="/help/{{seller}}">Contact</a>
         </p>
     </div>
-        <a href="/{{seller}}"><img id="logo-footer" src="{{seller.logo.url}}"></a>
+        <a href="/home/{{seller}}"><img id="logo-footer" src="{{seller.logo.url}}"></a>
 
 </footer>
 
@@ -158,9 +221,9 @@
 
 <style>
     #cart-preview{
-        position: fixed;
-        right: 20px;
-        top: 50px;
+        position: absolute;
+        right: 0px;
+        top: 40px;
         background-color: white;
         width: 300px;
         padding: 20px 20px 20px 20px;
@@ -306,6 +369,12 @@
         outline: None;
         border: None;
     }
+
+    #button-cart-preview:hover{
+        background-color: #444444;
+        transition: 0.5s;
+        box-shadow: 0px 1px 10px 3px rgba(0,0,0,0.2);
+    }
 </style>
 
 <script>
@@ -313,9 +382,9 @@
     window.onscroll = function() {
     var currentScrollPos = window.pageYOffset;
         if (prevScrollpos > currentScrollPos) {
-            document.getElementById("navbar").style.top = "0";
+            document.getElementById("navbar-wrapper").style.top = "0";
         } else if (prevScrollpos < currentScrollPos && currentScrollPos > 40){
-            document.getElementById("navbar").style.top = "-60px";
+            document.getElementById("navbar-wrapper").style.top = "-60px";
             document.getElementById("cart-preview").style.display = "None";
         }
         prevScrollpos = currentScrollPos;
@@ -329,6 +398,7 @@
             cartCount += cart[k]['quantity']
         }
         document.getElementById('badge-icon-cart-nav').innerHTML = cartCount
+        document.getElementById('badge-icon-cart-nav-mobile').innerHTML = cartCount
     }
 
     getCartCount()
@@ -363,6 +433,20 @@
         window.location.href = '/shop/{{seller}}'
     }
 
+
+    document.getElementById('search-navbar').addEventListener('submit', function(e) {
+        e.preventDefault();
+        searchShop()
+    }, false);
+
+    function searchShop(){
+        search['keyword'] = document.getElementById('query-navbar').value
+        if (search['keyword'] == ''){
+            search['keyword'] = 'all'
+        }
+        document.cookie ='search=' + JSON.stringify(search) + ";domain=;path=/"
+        window.location.href = '/shop/{{seller}}'
+    }
 </script>
 
 

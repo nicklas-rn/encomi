@@ -2,11 +2,51 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager, UserManager
 
 
+class SellerPolicies(models.Model):
+    shipping_general_information = models.TextField(max_length=10000, null=True, blank=True)
+    shipping_customs_and_taxes = models.TextField(max_length=10000, null=True, blank=True)
+
+    accepts_returns = models.BooleanField(default=False, null=True, blank=True)
+    accepts_exchanges = models.BooleanField(default=False, null=True, blank=True)
+    accepts_cancellations = models.BooleanField(default=True, null=True, blank=True)
+
+    contact_within = models.IntegerField(default=3)
+    ship_back_within = models.IntegerField(default=7)
+    request_cancellation = models.CharField(default='before item has shipped', max_length=100)
+
+    returns_conditions = models.TextField(max_length=10000, null=True, blank=True)
+    returns_questions = models.TextField(max_length=10000, null=True, blank=True)
+    privacy = models.TextField(max_length=10000, null=True, blank=True)
+
+    last_updated = models.DateTimeField(null=True, auto_now=True)
+
+
 class Seller(models.Model):
     name = models.CharField(max_length=50, null=True)
+    email = models.EmailField(null=True)
     logo = models.ImageField(upload_to="seller_logos", default="logos/logo.png")
     etsy_url = models.CharField(max_length=300, null=True)
     delivery_price = models.FloatField(default=0)
+    delivery_days_min = models.IntegerField(default=4)
+    delivery_days_max = models.IntegerField(default=7)
+
+    password = models.CharField(max_length=12, null=True, blank=True)
+
+    favicon = models.ImageField(null=True, default="icons/favicon.png")
+
+    img_landing_page = models.FileField(null=True)
+    img_landing_page_mobile = models.FileField(null=True)
+    img_shop_page = models.FileField(null=True)
+    img_shop_page_mobile = models.FileField(null=True)
+    img_item_page = models.FileField(null=True)
+    img_item_page_mobile = models.FileField(null=True)
+
+    policies = models.ForeignKey(SellerPolicies, on_delete=models.SET_NULL, null=True, blank=True)
+
+    registration_code = models.CharField(max_length=12, null=True, blank=True)
+
+    pp_tracking_id = models.CharField(max_length=40, null=True, blank=True)
+    pp_email = models.EmailField(null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -28,6 +68,13 @@ class Image(models.Model):
         return self.image.name
 
 
+ITEM_STATUS_CHOICES = {
+    ('In stock', 'In stock'),
+    ('Out of stock', 'Out of stock'),
+    ('Deactivated', 'Deactivated'),
+}
+
+
 class Item(models.Model):
     title = models.CharField(max_length=1200)
     keywords = models.CharField(blank=True, null=True, max_length=1200, default='All')
@@ -35,8 +82,11 @@ class Item(models.Model):
     old_price = models.FloatField(blank=True, null=True)
     details = models.TextField(max_length=5000, blank=True, null=True)
     description = models.TextField(max_length=5000, blank=True, null=True)
+    materials = models.TextField(max_length=5000, blank=True, null=True)
     categories = models.ManyToManyField(Category, null=True, blank=True)
     seller = models.ForeignKey('Seller', null=True, on_delete=models.CASCADE)
+    sold_counter = models.IntegerField(default=0)
+    status = models.CharField(max_length=100, default='In stock', choices=ITEM_STATUS_CHOICES)
 
     def __str__(self):
         return self.title
@@ -60,7 +110,7 @@ class Style(models.Model):
 
 
 ORDER_STATUS_CHOICES = {
-    ('completed', 'completed'),
+    ('delivered', 'delivered'),
     ('on the way', 'on the way'),
     ('not handled', 'not handled'),
 }
@@ -145,7 +195,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
 
-    seller = models.ForeignKey(Seller, null=True, on_delete=models.SET_NULL)
+    seller = models.ForeignKey(Seller, null=True, blank=True, on_delete=models.SET_NULL)
+
+    registration_code = models.CharField(max_length=10, null=True, blank=True)
+    design_requests = models.TextField(max_length=2000, null=True, blank=True)
 
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -167,3 +220,52 @@ class SellerApplication(models.Model):
 
     def __str__(self):
         return self.shop_name
+
+
+type_choices = {
+    ('buyer', 'buyer'),
+    ('seller', 'seller'),}
+
+
+class FAQGroup(models.Model):
+    title = models.CharField(max_length=300)
+    type = models.CharField(max_length=30, choices=type_choices, null=True)
+
+    def __str__(self):
+        return self.title
+
+
+class FAQ(models.Model):
+    title = models.CharField(max_length=300)
+    answer = models.TextField(max_length=1000)
+    group = models.ForeignKey(FAQGroup, null=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return self.title
+
+
+class SellerFAQ(models.Model):
+    question = models.CharField(max_length=300)
+    answer = models.TextField(max_length=1000)
+    seller = models.ForeignKey(Seller, null=True, on_delete=models.CASCADE)
+
+    last_updated = models.DateTimeField(null=True, auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+
+class HelpMessage(models.Model):
+    email = models.EmailField(max_length=100)
+    message = models.TextField(max_length=1000)
+
+    def __str__(self):
+        return self.email
+
+
+class NewsletterEmail(models.Model):
+    email = models.EmailField(max_length=100)
+    datetime = models.DateTimeField(null=True)
+
+    def __str__(self):
+        return self.email

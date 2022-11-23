@@ -1,0 +1,61 @@
+{% extends "shop/base_dashboard.html" %}
+
+{% block title %}Settings{% endblock %}
+
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'shop/payments_dashboard_style.css' %}">
+<!--
+<nav class="navbar-left">
+    <a href="/"><img id="logo-nav" src="/media/logos/logo.png"></a>
+    <ul class="dashboard-links">
+        <li class="dashboard-link nav-home" id="navigation-dashboard-link-dashboard"><a href="/dashboard/home/{{seller}}"><img class="icon-navbar" src="/media/icons/home-dashboard-white.png" alt="">Dashboard</a></li>
+        <li class="dashboard-link nav-listings" id="navigation-dashboard-link-listings"><a href="/dashboard/listings/{{seller}}"><img class="icon-navbar" src="/media/icons/listings-dashboard-white.png" alt="">Listings</a></li>
+        <li class="dashboard-link nav-deliveries" id="navigation-dashboard-link-deliveries"><a href="/dashboard/deliveries/last/{{seller}}"><img class="icon-navbar" src="/media/icons/deliveries-dashboard-white.png" alt="">Orders</a></li>
+        <li class="dashboard-link nav-settings active-page" id="navigation-dashboard-link-settings"><a href="/dashboard/settings/{{seller}}"><img class="icon-navbar" src="/media/icons/settings-dashboard-white.png" alt="">Settings</a></li>
+    </ul>
+</nav>
+-->
+
+<nav id="header">
+    <p id="header-title"><img class="icon-header"
+                src="/media/icons/settings-dashboard.png" alt="">Payments</p>
+</nav>
+
+
+<div class="mainmain">
+    <div class="payments-content">
+        {% if not sellerPayPalStatus %}
+        <div dir="ltr" style="text-align: left;" trbidi="on">
+            <script>
+            (function(d, s, id) {
+              var js, ref = d.getElementsByTagName(s)[0];
+              if (!d.getElementById(id)) {
+                js = d.createElement(s);
+                js.id = id;
+                js.async = true;
+                js.src = "https://www.paypal.com/webapps/merchantboarding/js/lib/lightbox/partner.js";
+                ref.parentNode.insertBefore(js, ref);
+              }
+            }(document, "script", "paypal-js"));
+
+            </script>
+            <a class="paypal-signup" data-paypal-button="true" href="{{action_url}}&displayMode=minibrowser" target="PPFrame">Connect with PayPal</a>
+        </div>
+        {% endif %}
+        {% if  sellerPayPalStatus %}
+        <p>You have already connected your PayPal account</p>
+        {% endif %}
+    </div>
+
+</div>
+
+
+<script>
+
+</script>
+
+
+
+{% endblock %}

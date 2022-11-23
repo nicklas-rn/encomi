@@ -1,5 +1,7 @@
 #checkout {
-    margin: 20px 20px;
+    margin: 20px 0px;
+    width: 100%;
+    max-width: 1200px;
     display: flex;
     justify-content: left;
     align-items: top;
@@ -11,9 +13,8 @@
 }
 
 .left-content {
-    border: 1px #E4E4E4 solid;
+    border: 1px lightgrey solid;
     border-radius: 4px;
-
 }
 
 .order-summary-heading {
@@ -72,18 +73,26 @@
 }
 
 
+#delivery{
+    border-top: solid 1px lightgrey;
+    padding: 10px 20px 10px 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
 .subtotal {
     display: flex;
     justify-content: space-between;
     padding-bottom: 30px;
     padding-top: 37px;
     padding: 15px 20px;
-    border-top: 1px #E4E4E4 solid;
+    border-top: 1px lightgrey solid;
 }
 
 .delivery-fee {
     padding-bottom: 15px;
-    border-bottom: 1px #E4E4E4 solid;
+    border-bottom: 1px lightgrey solid;
     border-width: 80%;
     display: flex;
     justify-content: space-between;
@@ -118,18 +127,15 @@
     font-family: 'Inria Serif', serif;
 }
 
-input::placeholder {
-    color: lightgrey;
-    opacity: 1;
+.shipping-information{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-column-gap: 10px;
 }
 
 .shipping-input {
     padding: 10px;
-    border: 1px solid #E4E4E4;
     border-radius: 4px;
-    margin-right: 6px;
-    margin-bottom: 8px;
-    width: calc(50% - 6px);
 }
 
 .shipping-input-right{
@@ -142,4 +148,85 @@ input::placeholder {
     padding-bottom: 30px;
     font-family: 'Inria Serif', serif;
     padding-top: 40px;
+}
+
+
+.line2{
+    width: 130px;
+    height: 1px;
+    border: 2px solid black;
+    position: relative;
+    background-color: black;
+    border-radius: 10px;
+    margin-left: -2px;
+    z-index: 2;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 900px) {
+
+
+    #checkout {
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .left {
+        padding-right: 0px;
+        width: 100%;
+    }
+
+    .order-summary-heading {
+        font-size: 28;
+        padding-bottom: 15px;
+    }
+
+
+
+
+    .right {
+        padding-left: 0px;
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+    .shipping-information-heading {
+        font-size: 28;
+        padding-bottom: 15px;
+    }
+
+    .shipping-information {
+        padding-bottom: 30px;
+    }
+
+    .payment-options-heading {
+        font-size: 28;
+        padding-bottom: 15px;
+        font-family: 'Inria Serif', serif;
+        padding-top: 0px;
+    }
+
+    .shipping-input {
+        margin-right: 2px;
+        width: calc(50% - 5px);
+    }
+
+    .shipping-input-right{
+        width: calc(50% - 4px);
+    }
+
 }

@@ -1,0 +1,58 @@
+<form id="policiesForm" method="post" action="">
+    {% csrf_token %}
+    <div class="settings-block1">
+        <p class="block-heading">Shipping</p>
+        <div class="settings-block1-fields">
+            <div class="input-group">
+                {{policies_form.shipping_general_information}}
+                <label for="id_shipping_general_information">General Information</label>
+            </div>
+            <div class="input-group">
+                {{policies_form.shipping_customs_and_taxes}}
+                <label for="id_customs_and_taxes">Customs and Import Taxes</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="settings-block2">
+        <p class="block-heading">Returns & Exchanges</p>
+        <div class="block2-upper">
+            <div class="block2-boxes">
+                <p class="block2-text">I accept...</p>
+                {{policies_form.accepts_returns}}
+                <label for="id_accepts_returns">returns</label><br>
+                {{policies_form.accepts_exchanges}}
+                <label for="id_accepts_exchanges">exchanges</label><br>
+                {{policies_form.accepts_cancellations}}
+                <label for="id_accepts_cancellations">cancellations</label><br><br>
+            </div>
+
+            <div class="block2-details">
+                <p class="block2-text G1">Contact me within</p>{{policies_form.contact_within}}<p class="block2-text G2">days of delivery</p>
+                <p class="block2-text G3">Ship items back within</p>{{policies_form.ship_back_within}}<p class="block2-text G4">days of delivery</p>
+                <p class="block2-text G5">Request a cancellation</p>{{policies_form.request_cancellation}}
+            </div>
+        </div>
+
+        <div class="settings-block1-fields">
+            <div class="input-group">
+                {{policies_form.returns_conditions}}
+                <label for="id_returns_conditions">Conditions of Returns</label>
+            </div>
+            <div class="input-group">
+                {{policies_form.returns_questions}}
+               <label for="id_returns_questions">Questions about your Order?</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="settings-block3">
+        <p class="block-heading">Privacy Policy</p>
+        <div class="settings-block3-fields">
+            <div class="input-group">
+                {{policies_form.privacy}}
+                <label for="id_privacy">Privacy Policy</label>
+            </div>
+        </div>
+    </div>
+</form>
