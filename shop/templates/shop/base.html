@@ -12,6 +12,29 @@
     <script src="{% static 'shop/base_animations.js' %}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
+    <script>
+
+        var correctPasswordEntered = JSON.parse(getCookie('correctPasswordEntered'))
+
+        if(correctPasswordEntered == undefined){
+            correctPasswordEntered = false
+            document.cookie ='correctPasswordEntered=' + JSON.stringify(correctPasswordEntered) + ";domain=;path=/"
+        }
+
+        if('{{seller.password}}' && !correctPasswordEntered){
+            var password;
+            var pass1="{{seller.password}}";
+            password=prompt('Enter Password','');
+            if (password==pass1){
+                correctPasswordEntered = true
+                document.cookie ='correctPasswordEntered=' + JSON.stringify(correctPasswordEntered) + ";domain=;path=/"
+                alert('Correct Password. Click OK to Enter');
+            }
+            else { window.location="encomi.co";
+            }
+        }
+    </script>
+
 
     <!--<script>
         function delay(delayInms) {

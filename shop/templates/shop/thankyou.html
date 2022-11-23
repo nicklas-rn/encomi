@@ -88,4 +88,10 @@
 </div>
 
 
+<script>
+    cart = {}
+    console.log('Cart cleared', cart)
+    document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+</script>
+
 {% endblock %}

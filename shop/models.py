@@ -30,6 +30,8 @@ class Seller(models.Model):
     delivery_days_min = models.IntegerField(default=4)
     delivery_days_max = models.IntegerField(default=7)
 
+    password = models.CharField(max_length=12, null=True, blank=True)
+
     favicon = models.ImageField(null=True, default="icons/favicon.png")
 
     img_landing_page = models.FileField(null=True)
@@ -44,6 +46,7 @@ class Seller(models.Model):
     registration_code = models.CharField(max_length=12, null=True, blank=True)
 
     pp_tracking_id = models.CharField(max_length=40, null=True, blank=True)
+    pp_email = models.EmailField(null=True, blank=True)
 
     def __str__(self):
         return self.name

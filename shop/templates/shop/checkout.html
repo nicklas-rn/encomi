@@ -103,6 +103,9 @@
       return actions.order.create({
         purchase_units: [
             {
+                payee: {
+                    email_address: '{{seller.pp_email}}',
+                },
                 amount: {
                     value: '{{cartTotal|floatformat:2}}',
                     currency_code: 'EUR',
@@ -116,6 +119,17 @@
                             currency_code: 'EUR'
                         }
                     }
+                },
+                payment_instruction: {
+                    disbursement_mode: 'INSTANT',
+                    platform_fees: [
+                    {
+                        amount: {
+                            currency_code: 'EUR',
+                            value: '{{cartTotalFees|floatformat:2}}',
+                        },
+                    },
+                    ],
                 },
                 items: [
                 {% for cartItem in cartItems %}

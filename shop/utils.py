@@ -172,9 +172,11 @@ def cookieCart(request, seller):
 
     shipping = total - subtotal
 
+    total_fees = total * 0.039
+
     print(items, subtotal, total)
 
-    return {'items': items, 'subtotal': subtotal, 'total': total, 'shipping': shipping}
+    return {'items': items, 'subtotal': subtotal, 'total': total, 'totalFees': total_fees, 'shipping': shipping}
 
 
 def decodeOrder(data, seller):
@@ -345,6 +347,10 @@ def getSellerPayPalStatus(seller):
         f'https://api-m.sandbox.paypal.com/v1/customer/partners/KDVNVWPCAS786/merchant-integrations/{seller_merchant_id}',
         headers=headers).json()
 
-    print('response: ', seller_data['primary_email_confirmed'])
+    print('response: ', seller_data)
+
+    if not seller.pp_email and seller_data['primary_email_confirmed']:
+        seller.pp_email = seller_data['primary_email']
+        seller.save()
 
     return seller_data['primary_email_confirmed']

@@ -183,6 +183,7 @@ def checkout(request, seller_name):
         'cartItems': cart['items'],
         'cartSubTotal': cart['subtotal'],
         'cartTotal': cart['total'],
+        'cartTotalFees': cart['totalFees'],
         'shipping': cart['shipping'],
         'order': str(request.COOKIES.get('cart')),
         'deliveryDate': delivery_date,
