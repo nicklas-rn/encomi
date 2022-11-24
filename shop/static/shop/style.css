@@ -298,6 +298,19 @@ footer p, footer a, footer a:visited{
 
 }
 
+.made-by{
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+#logo-footer-encomi{
+    height: 20px;
+    position: relative;
+    top: -1px;
+    padding: 0px 5px;
+}
+
 #instagram-logo {
     height: 20px;
     padding-right: 10px;

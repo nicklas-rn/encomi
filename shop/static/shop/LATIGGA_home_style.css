@@ -51,17 +51,17 @@
     display: flex;
     align-items: center;
     font-weight: 300;
-    font-size: 22;
+    font-size: 20;
     margin-bottom: 30px;
 }
 
 .arrow-right{
-    height: 30px;
-    width: 30px;
+    height: 26px;
+    width: 26px;
 }
 
 .quote{
-    font-size: 22;
+    font-size: 18;
     line-height: 1.25;
     font-weight: 300;
 }

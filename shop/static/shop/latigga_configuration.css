@@ -5,7 +5,7 @@
     --borderRadius: 4px;
     --borderRadiusImage: 0px;
     --buttonBackgroundColor: black;
-    --shopItemDisplay: repeat(auto-fit, minmax(250px, 260px));
+    --shopItemDisplay: repeat(auto-fit, minmax(260px, 280px));
     --shopRelativeImageHeight: 85%;
 }
 
