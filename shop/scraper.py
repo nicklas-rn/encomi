@@ -12,7 +12,7 @@ def scrapeEtsy(seller):
 
     for category_page_link in category_page_links:
         category_page_url_id = category_page_link['data-section-id']
-        category_page_url =requests.get(f"{URL}&section_id={category_page_url_id}")
+        category_page_url =requests.get(f"{URL}?ref=simple-shop-header-name&section_id={category_page_url_id}")
         category_title = category_page_link.findChildren('span', recursive=False)[0].find(text=True).strip()
 
         if Category.objects.filter(title=category_title).exists():
@@ -20,7 +20,7 @@ def scrapeEtsy(seller):
         else:
             category = Category.objects.create(title=category_title, seller=seller)
             category.save()
-        print(category)
+        print(category, category_page_url)
 
         category_page = BeautifulSoup(category_page_url.content, 'html.parser')
 
@@ -31,9 +31,9 @@ def scrapeEtsy(seller):
             item_page = BeautifulSoup(item_url.content, 'html.parser')
             item_title = item_page.find('h1').decode_contents()
 
+
             if Item.objects.filter(title=item_title).exists():
                 item = Item.objects.get(title=item_title)
-                item.categories.add(category)
 
             else:
                 item = Item.objects.create(title=item_title)
@@ -48,6 +48,7 @@ def scrapeEtsy(seller):
             item_price = float(re.sub('[^\d\.]', '', item_price_str))
             item.price = item_price
             item.seller = seller
+            item.categories.add(category)
 
             try:
                 # item_old_price_str = item_page.find('span', text = re.compile('Original Price:(.*)', re.DOTALL)
@@ -58,6 +59,17 @@ def scrapeEtsy(seller):
                 item_old_price_str = '0'
             item_old_price = float(re.sub('[^\d\.]', '', item_old_price_str))
             item.old_price = item_old_price
+
+            item.details = ''
+            item_details_element = item_page.find('ul', {'class': 'jewelry-attributes'})
+            for item_detail_element in item_details_element.findChildren('div'):
+                print(item_detail_element.find('span'))
+                if not item_detail_element.find('span'):
+                    item.details += f'- {item_detail_element.decode_contents()}\n'
+
+            item_description_element = item_page.find('p', {'data-product-details-description-text-content': True})
+            item.description = item_description_element.decode_contents().replace('<br/>', '\n').strip()
+
             item.save()
 
             item_images = item_page.find_all('img', {'class': 'wt-max-width-full wt-horizontal-center wt-vertical-center carousel-image wt-rounded'})

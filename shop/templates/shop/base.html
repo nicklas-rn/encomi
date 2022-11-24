@@ -21,7 +21,9 @@
             document.cookie ='correctPasswordEntered=' + JSON.stringify(correctPasswordEntered) + ";domain=;path=/"
         }
 
-        if('{{seller.password}}' && !correctPasswordEntered){
+        console.log('{{seller.password}}')
+
+        if('{{seller.password}}' != 'None' && !correctPasswordEntered){
             var password;
             var pass1="{{seller.password}}";
             password=prompt('Enter Password','');
@@ -195,17 +197,22 @@
 <footer>
     <div id="background-footer">
 
+        <p class="made-by">
+            made with ♡ by
+            <img id="logo-footer-encomi" src="/media/logos/logo.png">
+        </p>
+
         <p class="social-media">
             <img id="instagram-logo" src="/media/icons/instagram-logo.png" alt="">
             <a href="https://www.instagram.com/encomi_co/">Follow us on Instagram</a>
         </p>
 
         <p class="links-footer">
-            <a href="/seller_policy/{{seller}}">Seller Policy</a>
-            <a href="/privacy_policy/{{seller}}">Privacy Policy</a>
-            <a href="/TOU/{{seller}}">Terms of Use</a>
-            <a href="/help/{{seller}}">FAQs</a>
-            <a href="/help/{{seller}}">Contact</a>
+            <a href="/seller_policy/encomi">Seller Policy</a>
+            <a href="/privacy_policy/encomi">Privacy Policy</a>
+            <a href="/TOU/encomi">Terms of Use</a>
+            <a href="/help/encomi">FAQs</a>
+            <a href="/help/encomi">Contact</a>
         </p>
     </div>
         <a href="/home/{{seller}}"><img id="logo-footer" src="{{seller.logo.url}}"></a>

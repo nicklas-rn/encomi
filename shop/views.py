@@ -14,7 +14,7 @@ from django.contrib.auth import authenticate, login, logout
 
 def base(request):
     # return redirect('become_seller')
-    return redirect('home/encomi')
+    return redirect('/become_seller/')
 
 
 def home(request, seller_name):
@@ -388,7 +388,7 @@ def scrape(request, seller_name):
 
     scrapeEtsy(seller)
 
-    return redirect(home)
+    return redirect(f'/dashboard/listings/{seller}')
 
 
 def become_seller(request):

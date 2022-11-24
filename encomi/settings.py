@@ -28,7 +28,9 @@ DEBUG = True
 ## Pythonanywhere:
 # DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '38817-3000.2.codesphere.com', 'encomi.co', 'nicklasrondot.com']
+
+CSRF_TRUSTED_ORIGINS=['https://38817-3000.2.codesphere.com', 'https://encomi.co', 'https://nicklasrondot.com']
 
 ## Pythonanywhere:
 # ALLOWED_HOSTS = ['encomi.co']
