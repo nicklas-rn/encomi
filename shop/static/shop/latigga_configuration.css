@@ -7,5 +7,9 @@
     --buttonBackgroundColor: black;
     --shopItemDisplay: repeat(auto-fit, minmax(260px, 280px));
     --shopRelativeImageHeight: 85%;
+
+    --menuBurgerSpacing1: -6px;
+    --menuBurgerSpacing2: -6px;
+    --menuBurgerSpacing3: -6px;
 }
 

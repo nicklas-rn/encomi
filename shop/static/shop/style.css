@@ -747,13 +747,13 @@ footer p, footer a, footer a:visited{
          transition-delay: 0.15s;
     }
      .nav-item:nth-child(1) {
-         letter-spacing: -4px;
+         letter-spacing: var(--menuBurgerSpacing1);
     }
      .nav-item:nth-child(2) {
-         letter-spacing: -6px;
+         letter-spacing: var(--menuBurgerSpacing2);
     }
      .nav-item:nth-child(3) {
-         letter-spacing: -6px;
+         letter-spacing: var(--menuBurgerSpacing3);
     }
 
      .nav-item:nth-child(n + 4) {
