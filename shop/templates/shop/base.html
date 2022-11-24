@@ -30,9 +30,9 @@
             if (password==pass1){
                 correctPasswordEntered = true
                 document.cookie ='correctPasswordEntered=' + JSON.stringify(correctPasswordEntered) + ";domain=;path=/"
-                alert('Correct Password. Click OK to Enter');
+                window.location.reload;
             }
-            else { window.location="encomi.co";
+            else { window.location.href = document.URL;
             }
         }
     </script>
