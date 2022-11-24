@@ -7,6 +7,7 @@ fill_words = ['the', 'or', 'and', 'plain', 'set']
 type_words = ['necklace', 'bracelet', 'ring', 'rings', 'earring', 'earrings', 'ear climbers']
 
 
+# Deprecated
 def sortItems(items):
     items = items.extra(order_by=['?'])
     return items
@@ -40,29 +41,29 @@ def getRecommendedItems(request, seller):
             for word in title:
                 query = query | Q(title__contains=word, status='In stock')
 
-            items = seller.item_set.filter(query)
+            items = seller.item_set.filter(query).extra(order_by=['?'])[:20]
 
         else:
             query = Q()
             for word in title:
                 query = query | Q(title_contains=word, status='In stock')
 
-            items = Item.objects.filter(query)
+            items = Item.objects.filter(query).extra(order_by=['?'])[:20]
 
     else:
         if seller != 'encomi':
-            items = seller.item_set.filter(status='In stock')
+            items = seller.item_set.filter(status='In stock').extra(order_by=['?'])[:20]
         else:
-            items = Item.objects.filter(status='In stock')
+            items = Item.objects.filter(status='In stock').extra(order_by=['?'])[:20]
 
     return items
 
 
 def getFocusedItems(seller):
     if seller != 'encomi':
-        items = seller.item_set.filter(status='In stock').order_by('sold_counter')
+        items = seller.item_set.filter(status='In stock').order_by('sold_counter').extra(order_by=['?'])[:20]
     else:
-        items = Item.objects.filter(status='In stock').order_by('sold_counter')
+        items = Item.objects.filter(status='In stock').order_by('sold_counter').extra(order_by=['?'])[:20]
     return items
 
 
@@ -79,14 +80,14 @@ def getSimilarItems(seller, item):
         for word in title:
             query = query | Q(title__contains=word, status='In stock')
 
-        items = seller.item_set.filter(query)
+        items = seller.item_set.filter(query).extra(order_by=['?'])[:20]
 
     else:
         query = Q()
         for word in title:
             query = query | Q(title_contains=word, status='In stock')
 
-        items = Item.objects.filter(query)
+        items = Item.objects.filter(query).extra(order_by=['?'])[:20]
 
     return items
 
@@ -109,14 +110,14 @@ def getComplementaryItems(seller, item):
         for word in title:
             if word.lower() in type_words:
                 exclude_query = exclude_query | Q(title__contains=word)
-        items = seller.item_set.filter(include_query).exclude(exclude_query)
+        items = seller.item_set.filter(include_query).exclude(exclude_query).extra(order_by=['?'])[:20]
 
     else:
         query = Q()
         for word in title:
             query = query | Q(title_contains=word, status='In stock')
 
-        items = Item.objects.filter(query)
+        items = Item.objects.filter(query).extra(order_by=['?'])[:20]
 
     return items
 
