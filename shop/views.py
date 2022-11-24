@@ -305,6 +305,7 @@ def cart_total(request, seller_name):
 
     context = {
         'seller': seller,
+        'cartItems': cart['items'],
         'cartSubTotal': cart['subtotal'],
         'cartTotal': cart['total'],
         'shipping': cart['shipping'],
