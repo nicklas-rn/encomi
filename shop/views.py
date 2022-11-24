@@ -361,7 +361,7 @@ def shop_items(request, seller_name):
             items = Item.objects.filter(status='In stock')
 
     if sort == 'Best':
-        items = items.order_by('id')
+        items = sortItems(items.order_by('id'))
     elif sort == 'Ascending':
         items = items.order_by('price')
     elif sort == 'Descending':
@@ -370,11 +370,9 @@ def shop_items(request, seller_name):
     if not keyword == 'all':
         items = items.filter(title__contains=keyword)
 
-    print(items.order_by('-price'))
-
     context = {
         'seller': seller,
-        'items': sortItems(items),
+        'items': items,
     }
 
     return render(request, 'shop/shop_items.html', context)
