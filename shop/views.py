@@ -11,6 +11,8 @@ from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 from django.contrib.auth import authenticate, login, logout
 
+from django.db import connection
+
 
 def base(request):
     # return redirect('become_seller')
@@ -20,24 +22,17 @@ def base(request):
 def home(request, seller_name):
 
     # Comment out for production:
-    for item in Item.objects.all():
-        item.status = 'In stock'
-        item.save()
-
+    #for item in Item.objects.all():
+    #    item.status = 'In stock'
+    #    item.save()
 
     cart = cookieCart(request, seller_name)
 
     seller = Seller.objects.get(name=seller_name)
-    print(seller)
-    if seller_name != 'encomi':
-        items = seller.item_set.filter(status='In stock')
-    else:
-        items = Item.objects.filter(status='In stock')
 
     categories = seller.category_set.all()
 
     pushed_sellers = Seller.objects.all()
-
 
     context = {
         'seller': seller,
@@ -51,6 +46,8 @@ def home(request, seller_name):
     }
 
     home_template = f"shop/{seller}_home.html"
+
+    print('Queries: ', connection.queries)
 
     return render(request, home_template, context)
 
@@ -86,7 +83,7 @@ def shop(request, seller_name):
             items = Item.objects.filter(status='In stock')
 
     if sort == 'Best':
-        items = items.order_by('id')
+        items = sortItems(items.order_by('id'))
     elif sort == 'Ascending':
         items = items.order_by('price')
     elif sort == 'Descending':
@@ -106,7 +103,7 @@ def shop(request, seller_name):
 
     context = {
         'seller': seller,
-        'items': sortItems(items),
+        'items': items,
         'categories': categories,
         'cartItems': cart['items'],
         'cartTotal': cart['total'],
