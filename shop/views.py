@@ -41,7 +41,7 @@ def home(request, seller_name):
 
     context = {
         'seller': seller,
-        'recommended_items': sortItems(getRecommendedItems(request, seller)),
+        'recommended_items': getRecommendedItems(request, seller),
         'focused_items': getFocusedItems(seller),
         'cartItems': cart['items'],
         'cartTotal': cart['total'],
@@ -137,8 +137,8 @@ def item(request, seller_name, id):
     context = {
         'seller': seller,
         'item': item,
-        'similarItems': sortItems(getSimilarItems(seller, item)),
-        'complementaryItems': sortItems(getComplementaryItems(seller, item)),
+        'similarItems': getSimilarItems(seller, item),
+        'complementaryItems': getComplementaryItems(seller, item),
         'cartItems': cart['items'],
         'cartTotal': cart['total'],
         'categories': categories,
