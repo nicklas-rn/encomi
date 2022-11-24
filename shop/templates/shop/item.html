@@ -176,7 +176,9 @@
                         <img class="recommended-item-image recommended-item-first-image" id="item-first-image-similar-{{item.id}}" src="{{item.image_set.first.image.url}}" onmouseenter="showSecondImage({{item.id}}, 'similar')" onmouseleave="showFirstImage({{item.id}}, 'similar')" width="250px" alt="">
                         <img class="recommended-item-image recommended-item-second-image" id="item-second-image-similar-{{item.id}}" src="{{item.image_set.last.image.url}}" onmouseenter="showSecondImage({{item.id}}, 'similar')" onmouseleave="showFirstImage({{item.id}}, 'similar')" width="250px" alt="">
 
+                        {% if item.seller == 'encomi' %}
                         <p class="recommended-item-seller">{{ item.seller }}</p>
+                        {% endif %}
                         <p class="recommended-item-title">{{ item.title|truncatechars:30 }}</p>
                         <p class="recommended-item-price"> {{ item.price|floatformat:2 }}€<p/>
                     </div>
@@ -198,7 +200,9 @@
                         <img class="recommended-item-image recommended-item-first-image" id="item-first-image-complete-{{item.id}}" src="{{item.image_set.first.image.url}}" onmouseenter="showSecondImage({{item.id}}, 'complete')" onmouseleave="showFirstImage({{item.id}}, 'complete')" width="250px" alt="">
                         <img class="recommended-item-image recommended-item-second-image" id="item-second-image-complete-{{item.id}}" src="{{item.image_set.last.image.url}}" onmouseenter="showSecondImage({{item.id}}, 'complete')" onmouseleave="showFirstImage({{item.id}}, 'complete')" width="250px" alt="">
 
+                        {% if item.seller == 'encomi' %}
                         <p class="recommended-item-seller">{{ item.seller }}</p>
+                        {% endif %}
                         <p class="recommended-item-title">{{ item.title|truncatechars:30 }}</p>
                         <p class="recommended-item-price"> {{ item.price|floatformat:2 }}€<p/>
                     </div>
