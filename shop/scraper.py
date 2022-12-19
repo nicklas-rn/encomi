@@ -60,12 +60,15 @@ def scrapeEtsy(seller):
             item_old_price = float(re.sub('[^\d\.]', '', item_old_price_str))
             item.old_price = item_old_price
 
-            item.details = ''
-            item_details_element = item_page.find('ul', {'class': 'jewelry-attributes'})
-            for item_detail_element in item_details_element.findChildren('div'):
-                print(item_detail_element.find('span'))
-                if not item_detail_element.find('span'):
-                    item.details += f'- {item_detail_element.decode_contents()}\n'
+            try:
+                item.details = ''
+                item_details_element = item_page.find('ul', {'class': 'jewelry-attributes'})
+                for item_detail_element in item_details_element.findChildren('div'):
+                    print(item_detail_element.find('span'))
+                    if not item_detail_element.find('span'):
+                        item.details += f'- {item_detail_element.decode_contents()}\n'
+            except:
+                print('This is not a jewelry item')
 
             item_description_element = item_page.find('p', {'data-product-details-description-text-content': True})
             item.description = item_description_element.decode_contents().replace('<br/>', '\n').strip()
@@ -102,7 +105,7 @@ def scrapeEtsy(seller):
                     style_group = StyleGroup.objects.create(type=item_style_group['type'])
                     style_group.item = item
                 else:
-                    style_group = item.stylegroup_set.get(type=item_style_group['type'])
+                    style_group = item.stylegroup_set.filter(type=item_style_group['type']).first()
 
                 style_group.save()
                 item_style_group['styles'] = []
