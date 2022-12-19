@@ -190,16 +190,17 @@ def checkout(request, seller_name):
 
 
 def create_order(request, seller_name):
-    data = request.POST
+    data = json.loads(request.body)
 
-    print(f"data: {request.body}")
-    print(f"order: {json.loads(request.POST['order'])}")
+    print(data)
+    print(f"data: {data}")
+    print(f"order: {data['order']}")
 
     seller = Seller.objects.get(name=seller_name)
 
-    order_dict = decodeOrder(json.loads(data['order']), seller)
+    order_dict = decodeOrder(data['order'], seller)
 
-    order_information = json.loads(data['order_information'])
+    order_information = data['order_information']
 
     parent_order = ParentOrder.objects.create(
         first_name=order_information['first_name'],

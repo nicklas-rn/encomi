@@ -338,11 +338,15 @@ def getSellerPayPalStatus(seller):
         'PayPal-Partner-Attribution-Id': 'encomi_SP_PPCP'
     }
 
-    seller_merchant_id = requests.get(
-        f'https://api-m.sandbox.paypal.com/v1/customer/partners/KDVNVWPCAS786/merchant-integrations?tracking_id={seller.pp_tracking_id}',
-        headers=headers
-    ).json()['merchant_id']
-    print('seller merchant id:', seller_merchant_id)
+    try:
+        seller_merchant_id = requests.get(
+            f'https://api-m.sandbox.paypal.com/v1/customer/partners/KDVNVWPCAS786/merchant-integrations?tracking_id={seller.pp_tracking_id}',
+            headers=headers
+        ).json()['merchant_id']
+        print('seller merchant id:', seller_merchant_id)
+
+    except:
+        return False
 
     seller_data = requests.get(
         f'https://api-m.sandbox.paypal.com/v1/customer/partners/KDVNVWPCAS786/merchant-integrations/{seller_merchant_id}',
